@@ -50,7 +50,7 @@ const MenuItem = ({
             className={clsx(
               "text-2xl group-hover:text-primary-500",
               icon.className,
-              (isActive || isChildActive) && "text-primary-500",
+              (isActive || isChildActive || isOpen) && "text-primary-500",
             )}
           />
         )}
@@ -58,18 +58,21 @@ const MenuItem = ({
         <span
           className={clsx(
             "text-m-semibold text-black-400 group-hover:text-primary-500",
-            (isActive || isChildActive) && "text-primary-500",
+            (isActive || isChildActive || isOpen) && "text-primary-500",
           )}
         >
           {label}
         </span>
       </div>
-      {hasChildren &&
-        (isOpen ? (
-          <FaCaretDown className={clsx("text-lg text-primary-500")} />
-        ) : (
-          <FaCaretUp className="text-lg text-gray-400 group-hover:text-primary-500" />
-        ))}
+      {hasChildren && (
+        <FaCaretUp
+          className={clsx(
+            "text-lg text-gray-400 transition-transform group-hover:text-primary-500",
+            isChildActive && "text-primary-500",
+            isOpen && "rotate-180 text-primary-500",
+          )}
+        />
+      )}
     </div>
   );
 };
