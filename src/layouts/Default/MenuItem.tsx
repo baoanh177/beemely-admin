@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { FaCaretUp } from "react-icons/fa";
 import { IoPieChartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
