@@ -17,10 +17,10 @@ jobs:
         uses: actions/checkout@v4
         
       - name: 🗂️ Install dependencies
-        run: bun i
+        run: npm i
 
       - name: 🏗 Run ESLint
-        run: bun lint
+        run: npm run lint
         
       - name: 🔨 Build
-        run: bun run build 
+        run: npm run build 
