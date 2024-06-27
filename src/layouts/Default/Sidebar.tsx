@@ -1,13 +1,13 @@
 import lodash from "lodash";
 import { PropsWithChildren, useState } from "react";
 import { IconType } from "react-icons";
-import { GoProject } from "react-icons/go";
-import { IoCartOutline, IoPieChartOutline, IoSettingsOutline } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import MenuItem from "./MenuItem";
 
 // Icons
+import { GoProject } from "react-icons/go";
+import { IoCartOutline, IoPieChartOutline, IoSettingsOutline } from "react-icons/io5";
 
 // Images
 import logo from "@/assets/images/logo.png";
@@ -27,6 +27,7 @@ export interface IMenuItem {
 const Sidebar = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
   const [activeMenuItemId, setActiveMenuItemId] = useState<string | null>();
+  const [openingMenuId, setOpeningMenuId] = useState<string | null>();
   const { pathname } = useLocation();
   const activePath = lodash.last(lodash.remove(pathname.split("/")));
   const menuItems: IMenuItem[] = [
@@ -98,12 +99,13 @@ const Sidebar = ({ children }: PropsWithChildren) => {
                   <MenuItem
                     onClick={() => {
                       setActiveMenuItemId(activeMenuItemId == item.id ? null : item.id);
+                      setOpeningMenuId(openingMenuId == item.id ? null : item.id)
                     }}
                     {...item}
-                    isOpen={true}
+                    isOpen={item.id == openingMenuId}
                     hasChildren={!!item.items?.length}
-                    isActive={item.path == activePath}
-                    isChildActive={item.items?.some((i) => i.path == activePath)}
+                    isActive={!!item.path && item.path == activePath}
+                    isChildActive={item.items?.some((i) => !!i.path && i.path == activePath)}
                   />
                   {activeMenuItemId == item.id && (
                     <div className="flex flex-col gap-2">
