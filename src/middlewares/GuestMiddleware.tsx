@@ -1,8 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom";
 
 const GuestMiddleware = () => {
-  const isLogin = true
-  return !isLogin ? <Outlet /> : <Navigate to="/" />
-}
+  const isLogin = true;
+  return !isLogin ? <Outlet /> : <Navigate to="/" />;
+};
 
-export default GuestMiddleware
+export default GuestMiddleware;

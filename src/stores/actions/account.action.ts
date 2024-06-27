@@ -1,6 +1,7 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 import { FetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState } from "@/shared/utils/shared-interfaces";
-import { createSlice } from "@reduxjs/toolkit";
 
 export interface IAccountInitialState extends IInitialState {}
 

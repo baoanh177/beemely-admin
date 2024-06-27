@@ -1,12 +1,10 @@
+import { TableColumnsType } from "antd";
+
 import Grid from "@/components/Grid";
 import { useArchive } from "@/hooks/useArchive";
 import { ButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import {
-  IAccountInitialState,
-  setFilter,
-} from "@/stores/actions/account.action";
-import { TableColumnsType } from "antd";
+import { IAccountInitialState, setFilter } from "@/stores/actions/account.action";
 
 interface DataType {
   key: React.Key;
@@ -56,10 +54,7 @@ const columns: TableColumnsType<DataType> = [
 
 const Accounts = () => {
   // Defines
-  const { dispatch, selector, state } =
-    useArchive<IAccountInitialState>("account");
-  // console.log(state.)
-
+  const { state } = useArchive<IAccountInitialState>("account");
   // States
 
   // Effects
@@ -75,35 +70,35 @@ const Accounts = () => {
     {
       type: ButtonTypes.VIEW,
       onClick(record) {
+        /* eslint-disable no-console */
         console.log(record);
       },
     },
     {
       type: ButtonTypes.UPDATE,
       onClick(record) {
+        /* eslint-disable no-console */
         console.log(record);
       },
     },
     {
       type: ButtonTypes.DELETE,
       onClick(record) {
+        /* eslint-disable no-console */
         console.log(record);
-      }
+      },
     },
   ];
 
-
   return (
-    <>
-      <Grid
-        buttons={buttons}
-        title="Accounts Management"
-        columns={columns}
-        data={fakeData}
-        state={state!}
-        setFilter={setFilter}
-      />
-    </>
+    <Grid
+      buttons={buttons}
+      title="Accounts Management"
+      columns={columns}
+      data={fakeData}
+      state={state!}
+      setFilter={setFilter}
+    />
   );
 };
 

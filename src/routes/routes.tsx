@@ -1,10 +1,10 @@
+import { ReactNode } from "react";
+import { Fragment } from "react/jsx-runtime";
+import { Route } from "react-router-dom";
+
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
-import Accounts from "@/pages/Accounts/Accounts";
-import { ReactNode } from "react";
-import { Route } from "react-router-dom";
-import { Fragment } from "react/jsx-runtime";
 
 interface IRoute {
   path: string;
@@ -18,12 +18,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
   return (
     <>
       {routes.map((route: IRoute, index) => {
-        const {
-          layout: Layout,
-          middleware: Middleware,
-          element: Component,
-          path,
-        } = route;
+        const { layout: Layout, middleware: Middleware, element: Component, path } = route;
 
         const completePath = (initPath + path).replaceAll("//", "/");
         return (

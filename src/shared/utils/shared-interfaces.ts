@@ -47,6 +47,4 @@ export interface IGridButton {
   permission?: Permission;
 }
 
-export interface ISearchContent {
-  
-}
+export interface ISearchContent {}

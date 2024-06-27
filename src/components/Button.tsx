@@ -28,34 +28,32 @@ const CustomButton = ({
   isLoading = false,
 }: ICustomButtonProps) => {
   return (
-    <>
-      <ConfigProvider
-        theme={{
-          components: {
-            Button: {
-              colorPrimary: "#000000",
-              colorPrimaryHover: "#000000cc",
-              colorPrimaryActive: "#000000cc",
-              colorPrimaryBorder: "#000000cc",
-            },
+    <ConfigProvider
+      theme={{
+        components: {
+          Button: {
+            colorPrimary: "#000000",
+            colorPrimaryHover: "#000000cc",
+            colorPrimaryActive: "#000000cc",
+            colorPrimaryBorder: "#000000cc",
           },
-        }}
+        },
+      }}
+    >
+      <Button
+        type={type}
+        size={size}
+        block={isBlock}
+        disabled={isDisabled}
+        loading={isLoading}
+        className="flex items-center justify-center gap-1"
+        onClick={() => onClick && onClick()}
       >
-        <Button
-          type={type}
-          size={size}
-          block={isBlock}
-          disabled={isDisabled}
-          loading={isLoading}
-          className="flex items-center justify-center gap-1"
-          onClick={() => onClick && onClick()}
-        >
-          <span>{startContent}</span>
-          <span>{text}</span>
-          <span>{endContent}</span>
-        </Button>
-      </ConfigProvider>
-    </>
+        <span>{startContent}</span>
+        <span>{text}</span>
+        <span>{endContent}</span>
+      </Button>
+    </ConfigProvider>
   );
 };
 

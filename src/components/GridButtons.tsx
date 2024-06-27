@@ -1,9 +1,10 @@
-import useModal from "@/hooks/useModal";
-import { ButtonTypes } from "@/shared/enums/button";
-import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { Tooltip } from "antd";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
+
+import useModal from "@/hooks/useModal";
+import { ButtonTypes } from "@/shared/enums/button";
+import { IGridButton } from "@/shared/utils/shared-interfaces";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
@@ -11,8 +12,8 @@ interface IGridButtonsProps {
 }
 
 const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
-  const { showModal } = useModal()
-  
+  const { showModal } = useModal();
+
   return (
     <div className="flex items-center justify-center gap-3">
       {buttons.map((button, index) => {
@@ -20,10 +21,7 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
           case ButtonTypes.VIEW:
             return (
               <Tooltip title="View" key={index}>
-                <IoEyeOutline
-                  className="cursor-pointer text-xl text-blue-500"
-                  onClick={() => button.onClick(record)}
-                />
+                <IoEyeOutline className="cursor-pointer text-xl text-blue-500" onClick={() => button.onClick(record)} />
               </Tooltip>
             );
           case ButtonTypes.UPDATE:

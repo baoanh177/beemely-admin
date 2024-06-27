@@ -21,9 +21,7 @@ const useModal = () => {
     onCancel,
   }: IModalProps) => {
     confirm({
-      icon: icon ?? (
-        <RiErrorWarningFill className="mt-[2px] text-xl text-yellow-500" />
-      ),
+      icon: icon ?? <RiErrorWarningFill className="mt-[2px] text-xl text-yellow-500" />,
       title,
       content,
       onOk() {

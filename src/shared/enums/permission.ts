@@ -1,3 +1,1 @@
-export enum Permission {
-  
-}
+export enum Permission {}

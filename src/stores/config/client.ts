@@ -3,21 +3,13 @@ import { IFetchOptions, IResponse, IThunkPayload, methodType } from "@/shared/ut
 export const client = {
   SERVER_URL: import.meta.env.VITE_API_URL,
   tokens: {
-    accessToken:
-      JSON.parse(localStorage.getItem("accessToken") as string) ?? "",
-    refreshToken:
-      JSON.parse(localStorage.getItem("refreshToken") as string) ?? "",
+    accessToken: JSON.parse(localStorage.getItem("accessToken") as string) ?? "",
+    refreshToken: JSON.parse(localStorage.getItem("refreshToken") as string) ?? "",
   },
-  async send(
-    path: string,
-    method: methodType = "GET",
-    payload: IThunkPayload = {}
-  ) {
+  async send(path: string, method: methodType = "GET", payload: IThunkPayload = {}) {
     const { headers = {}, body, query = {} } = payload;
 
-    let queryParams = new URLSearchParams(
-      query as Record<string, string>
-    ).toString();
+    let queryParams = new URLSearchParams(query as Record<string, string>).toString();
     if (queryParams) queryParams = `?${queryParams}`;
 
     const options: IFetchOptions = {
@@ -35,17 +27,12 @@ export const client = {
       headers,
     });
 
-    const response = await fetch(
-      `${this.SERVER_URL}${path}${queryParams}`,
-      options
-    );
+    const response = await fetch(`${this.SERVER_URL}${path}${queryParams}`, options);
     if (!response.ok) {
       if (response.status == 401) {
         // Refresh Token
-      }else if(response.status == 403) {
-
-      }else if(response.status == 500) {
-        
+      } else if (response.status == 403) {
+      } else if (response.status == 500) {
       }
     }
     const data: IResponse<unknown> = await response.json();
