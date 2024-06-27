@@ -23,6 +23,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/bun": "latest",
     "@types/lodash": "^4.17.5",
     "@types/node": "^20.12.13",
     "@types/react": "^18.2.43",
@@ -37,8 +38,10 @@
     "postcss": "^8.4.38",
     "prettier": "^3.3.1",
     "prettier-plugin-tailwindcss": "^0.6.2",
+    "sass": "^1.77.6",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
-  }
+  },
+  "module": "index.ts"
 }

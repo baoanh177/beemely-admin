@@ -1,0 +1,61 @@
+/* Fonts */
+@font-face {
+  font-family: ps-SemiBold;
+  src: url(../fonts/PublicSans-SemiBold.ttf);
+}
+@font-face {
+  font-family: ps-Regular;
+  src: url(../fonts/PublicSans-Regular.ttf);
+}
+@font-face {
+  font-family: ps-Medium;
+  src: url(../fonts/PublicSans-Medium.ttf);
+}
+@font-face {
+  font-family: ps-Bold;
+  src: url(../fonts/PublicSans-Bold.ttf);
+}
+
+// Ex1: text-s-regular: font-size: 12px; font-family: ps-SemiBold;
+// Ex2: display-s-bold: font-size: 20px; font-family: ps-Bold;
+[class*="display-"][class*="-regular"],
+[class*="text-"][class*="-regular"] {
+  font-family: ps-Regular;
+}
+[class*="display-"][class*="-medium"],
+[class*="text-"][class*="-medium"] {
+  font-family: ps-Medium;
+}
+[class*="display-"][class*="-semibold"],
+[class*="text-"][class*="-semibold"] {
+  font-family: ps-SemiBold;
+}
+[class*="display-"][class*="-bold"],
+[class*="text-"][class*="-bold"] {
+  font-family: ps-Bold;
+}
+
+[class*="text-s-"] {
+  font-size: 12px;
+}
+[class*="text-m-"] {
+  font-size: 14px;
+}
+[class*="text-l-"] {
+  font-size: 16px;
+}
+[class*="text-xl-"] {
+  font-size: 18px;
+}
+[class*="display-s-"] {
+  font-size: 20px;
+}
+[class*="display-m-"] {
+  font-size: 24px;
+}
+[class*="display-l-"] {
+  font-size: 28px;
+}
+[class*="display-xl-"] {
+  font-size: 31px;
+}

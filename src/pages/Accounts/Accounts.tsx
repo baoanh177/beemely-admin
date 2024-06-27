@@ -2,14 +2,11 @@ import Grid from "@/components/Grid";
 import { useArchive } from "@/hooks/useArchive";
 import { ButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import { RootStateType } from "@/stores/reducers";
 import {
   IAccountInitialState,
   setFilter,
 } from "@/stores/actions/account.action";
-import { TableColumnsType, Tooltip } from "antd";
-import { HiOutlinePencil } from "react-icons/hi2";
-import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
+import { TableColumnsType } from "antd";
 
 interface DataType {
   key: React.Key;
@@ -91,7 +88,7 @@ const Accounts = () => {
       type: ButtonTypes.DELETE,
       onClick(record) {
         console.log(record);
-      },
+      }
     },
   ];
 

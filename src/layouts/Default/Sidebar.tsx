@@ -1,94 +1,143 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, useState } from "react";
 import lodash from "lodash";
+import MenuItem from "./MenuItem";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Icons
-import { IoPieChartOutline } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
-import clsx from "clsx";
-import { LuUsers } from "react-icons/lu";
+import {
+  IoCartOutline,
+  IoPieChartOutline,
+  IoSettingsOutline,
+} from "react-icons/io5";
+import { IconType } from "react-icons";
 
-interface IMenuItem {
+// Images
+import logo from "@/assets/images/logo.png";
+import { GoProject } from "react-icons/go";
+
+export interface IMenuItem {
+  id: string;
   label: string;
   path?: string;
-  icon?: ReactNode;
+  icon?: {
+    component: IconType;
+    className?: string;
+  };
+  items?: Pick<IMenuItem, Exclude<keyof IMenuItem, "items" | "icon">>[];
   onClick?: () => void;
 }
 
 const Sidebar = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
+  const [activeMenuItemId, setActiveMenuItemId] = useState<string | null>();
   const { pathname } = useLocation();
   const activePath = lodash.last(lodash.remove(pathname.split("/")));
   const menuItems: IMenuItem[] = [
     {
+      id: "1",
       label: "Dashboard",
       path: "dashboard",
-      icon: <IoPieChartOutline className="text-2xl" />,
+      icon: { component: IoPieChartOutline },
     },
     {
-      label: "Accounts",
-      path: "accounts",
-      icon: <LuUsers className="text-2xl" />,
+      id: "2",
+      label: "E-Commerce",
+      icon: { component: IoCartOutline },
+      items: [
+        {
+          id: "2.1",
+          label: "Products",
+          path: "products",
+        },
+        {
+          id: "2.2",
+          label: "Categories",
+          path: "categories",
+        },
+        {
+          id: "2.3",
+          label: "Orders",
+          path: "orders",
+        },
+        {
+          id: "2.4",
+          label: "Customers",
+          path: "customers",
+        },
+      ],
     },
+    {
+      id: "3",
+      label: "Projects",
+      path: "projects",
+      icon: {
+        component: GoProject,
+      },
+    },
+    {
+      id: "4",
+      label: "Settings",
+      path: "settings",
+      icon: { component: IoSettingsOutline },
+    }
   ];
 
   return (
-    <div>
-      <button
-        data-drawer-target="default-sidebar"
-        data-drawer-toggle="default-sidebar"
-        aria-controls="default-sidebar"
-        type="button"
-        className="ms-3 mt-2 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 sm:hidden"
-      >
-        <span className="sr-only">Open sidebar</span>
-        <svg
-          className="h-6 w-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          />
-        </svg>
-      </button>
-      <aside
-        id="default-sidebar"
-        className="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full transition-transform sm:translate-x-0"
-        aria-label="Sidebar"
-      >
-        <div className="h-full overflow-y-auto bg-white px-3 py-4 dark:bg-gray-800">
-          <ul className="space-y-2 font-medium">
+    <>
+      {/* Page parent */}
+      <div className="flex h-dvh select-none bg-gray-100">
+        <aside className="fixed bottom-0 left-0 top-0 flex w-[264px] flex-col bg-white">
+          {/* Logo */}
+          <div
+            className="flex cursor-pointer items-center gap-3 px-5 py-6"
+            onClick={() => navigate("/")}
+          >
+            <img src={logo} alt="" className="h-[34px] w-[34px]" />
+            <div className="display-m-semibold">Pixlab</div>
+          </div>
+
+          {/* Navbar */}
+          <nav className="mb-2 flex grow flex-col gap-2 overflow-y-scroll no-scrollbar pt-4">
             {menuItems.map((item, index) => {
               return (
-                <li key={index}>
-                  <div
+                <div key={index} className="flex flex-col gap-2">
+                  <MenuItem
                     onClick={() => {
-                      if (item.path) {
-                        navigate(`/${item.path}`);
-                      } else {
-                        item.onClick && item.onClick();
-                      }
+                      setActiveMenuItemId(
+                        activeMenuItemId == item.id ? null : item.id,
+                      );
                     }}
-                    className={clsx(
-                      "group flex cursor-pointer items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700",
-                      activePath == item.path && "bg-gray-100 dark:bg-gray-700",
+                    {...item}
+                    isOpen={true}
+                    hasChildren={!!item.items?.length}
+                    isActive={item.path == activePath}
+                    isChildActive={item.items?.some(
+                      (i) => i.path == activePath,
                     )}
-                  >
-                    {item.icon}
-                    <span className="ms-3">{item.label}</span>
-                  </div>
-                </li>
+                  />
+                  {activeMenuItemId == item.id && (
+                    <div className="flex flex-col gap-2">
+                      {item.items?.map((child, index) => {
+                        return (
+                          <MenuItem
+                            key={index}
+                            {...child}
+                            isChild
+                            isActive={child.path == activePath}
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               );
             })}
-          </ul>
-        </div>
-      </aside>
-      <div className="h-screen bg-gray-50 p-6 sm:ml-64 overflow-y-scroll overflow-x-hidden">{children}</div>
-    </div>
+          </nav>
+        </aside>
+
+        <main className="ml-[264px] py-8 px-6">{children}</main>
+      </div>
+    </>
   );
 };
 

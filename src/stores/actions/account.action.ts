@@ -11,7 +11,7 @@ const initialState: IAccountInitialState = {
     page: 1,
     size: 10,
   },
-  totalRecords: 100,
+  totalRecords: 50,
 };
 
 const accountSlice = createSlice({
