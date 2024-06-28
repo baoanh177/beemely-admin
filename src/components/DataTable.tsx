@@ -1,6 +1,5 @@
 import { Table, TableColumnsType } from "antd";
 import { useMemo } from "react";
-import { FaPlus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
 import CustomButton from "./Button";
@@ -58,7 +57,6 @@ const DataTable = <S extends IInitialState>({
           <CustomButton
             text="Add new"
             type="primary"
-            startContent={<FaPlus />}
             key="add"
             onClick={() => buttons?.find((button) => button.type == ButtonTypes.ADD)?.onClick()}
           />
