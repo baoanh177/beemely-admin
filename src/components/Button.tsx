@@ -1,60 +1,45 @@
-import { Button, ConfigProvider } from "antd";
-import { SizeType } from "antd/es/config-provider/SizeContext";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+import clsx from 'clsx';
+import { FiLoader } from "react-icons/fi";
 
-type ButtonType = "primary" | "default" | "link";
-
-interface ICustomButtonProps {
-  type?: ButtonType;
-  size?: SizeType;
-  text: string;
-  startContent?: ReactNode;
-  endContent?: ReactNode;
-  isBlock?: boolean;
-  isDisabled?: boolean;
-  isLoading?: boolean;
-  onClick?: () => void;
+interface IButton2 {
+    type?: "primary" | "ghost" | "secondary"
+    text: string,
+    isDisabled?: boolean,
+    isLoading?: boolean,
+    icon?: ReactNode,
+    onClick?: () => void
 }
 
-const CustomButton = ({
-  type = "default",
-  size = "middle",
-  text,
-  startContent,
-  endContent,
-  onClick,
-  isBlock = false,
-  isDisabled = false,
-  isLoading = false,
-}: ICustomButtonProps) => {
-  return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Button: {
-            colorPrimary: "#000000",
-            colorPrimaryHover: "#000000cc",
-            colorPrimaryActive: "#000000cc",
-            colorPrimaryBorder: "#000000cc",
-          },
-        },
-      }}
-    >
-      <Button
-        type={type}
-        size={size}
-        block={isBlock}
-        disabled={isDisabled}
-        loading={isLoading}
-        className="flex items-center justify-center gap-1"
-        onClick={() => onClick && onClick()}
-      >
-        <span>{startContent}</span>
-        <span>{text}</span>
-        <span>{endContent}</span>
-      </Button>
-    </ConfigProvider>
-  );
+const Button = ({
+    type = "primary",
+    text,
+    isDisabled = false,
+    isLoading = false,
+    icon,
+    onClick
+}: IButton2) => {
+    const typeClass = {
+        primary: 'bg-primary-500 text-white',
+        ghost: ' text-primary-500 bg-primary-50',
+        secondary: 'text-gray-400 border border-gray-400',
+    };
+
+    return (
+        <button
+            onClick={() => {
+                if (onClick && !isDisabled) onClick()
+            }}
+            className={clsx(
+                'px-[14px] py-[10px] rounded-[8px] text-m-semibold hover:opacity-80 flex items-center justify-center gap-1',
+                typeClass[type],
+                { 'opacity-0.65 cursor-not-allowed': isDisabled }
+            )}
+        >
+            {isLoading ? <FiLoader /> : icon}
+            {text}
+        </button>
+    );
 };
 
-export default CustomButton;
+export default Button;
