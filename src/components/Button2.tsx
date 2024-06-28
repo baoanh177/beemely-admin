@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { FiLoader } from "react-icons/fi";
 
 interface IButton2 {
-    type?: "primary" | "ghost" | "secondary" | "default",
+    type?: "primary" | "ghost" | "secondary"
     text: string,
     isDisabled?: boolean,
     isLoading?: boolean,
@@ -22,21 +22,19 @@ const Button2 = ({
     const typeClass = {
         primary: 'bg-primary-500 text-white',
         ghost: ' text-primary-500 bg-primary-50',
-        secondary: 'bg-primary-500 opacity-65 text-white',
-        default: "text-gray-400 border border-gray-400"
+        secondary: 'text-gray-400 border border-gray-400',
     };
-    const loadingIcon = isLoading ? <span className="loader mr-2"><FiLoader /></span> : null;
 
     return (
         <button
             onClick={onClick}
             className={clsx(
-                'px-[14px] py-2 rounded-[8px] text-sm hover:opacity-80 font-semibold flex items-center justify-center',
+                'px-[14px] py-[10px] rounded-[8px] text-m-semibold hover:opacity-80 flex items-center justify-center gap-1',
                 typeClass[type],
-                { 'opacity-50 cursor-not-allowed': isDisabled }
+                { 'opacity-0.65 cursor-not-allowed': isDisabled }
             )}
         >
-            {isLoading ? loadingIcon : icon && <span className="mr-1">{icon}</span>}
+            {isLoading ? <FiLoader /> : icon}
             {text}
         </button>
     );
