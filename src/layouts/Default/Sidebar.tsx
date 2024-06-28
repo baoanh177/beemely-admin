@@ -83,8 +83,8 @@ const Sidebar = ({ children }: PropsWithChildren) => {
   return (
     <>
       {/* Page parent */}
-      <div className="flex h-dvh select-none bg-gray-100">
-        <aside className="fixed bottom-0 left-0 top-0 flex w-[264px] flex-col bg-white">
+      <div className="flex h-dvh select-none bg-gray-25">
+        <aside className="fixed bottom-0 left-0 top-0 z-40 flex w-[264px] flex-col bg-white">
           {/* Logo */}
           <div className="flex cursor-pointer items-center gap-3 px-5 py-6" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="h-[34px] w-[34px]" />
@@ -99,7 +99,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
                   <MenuItem
                     onClick={() => {
                       setActiveMenuItemId(activeMenuItemId == item.id ? null : item.id);
-                      setOpeningMenuId(openingMenuId == item.id ? null : item.id)
+                      setOpeningMenuId(openingMenuId == item.id ? null : item.id);
                     }}
                     {...item}
                     isOpen={item.id == openingMenuId}
@@ -120,7 +120,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className="ml-[264px] px-6 py-8">{children}</main>
+        <main className="ml-[264px] grow px-6 py-8">{children}</main>
       </div>
     </>
   );
