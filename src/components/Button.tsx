@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import { FiLoader } from "react-icons/fi";
 
 interface IButton2 {
     type?: "primary" | "ghost" | "secondary"
@@ -28,15 +27,21 @@ const Button = ({
     return (
         <button
             onClick={() => {
-                if (onClick && !isDisabled) onClick()
+                if (onClick && !isDisabled && !isLoading) onClick()
             }}
             className={clsx(
-                'px-[14px] py-[10px] rounded-[8px] text-m-semibold hover:opacity-80 flex items-center justify-center gap-1',
+                'px-[14px] py-[10px] rounded-[8px] text-m-semibold  flex items-center justify-center gap-1',
                 typeClass[type],
-                { 'opacity-0.65 cursor-not-allowed': isDisabled }
+                {
+                    'opacity-65 cursor-not-allowed': isDisabled || isLoading,
+                    'hover:opacity-80': !isDisabled && !isLoading
+                }
             )}
+            disabled={isDisabled || isLoading}
         >
-            {isLoading ? <FiLoader /> : icon}
+            {isLoading ?
+                <div className="border-gray-300 h-4 w-4 animate-spin rounded-full border-2 border-t-black-500" /> : icon
+            }
             {text}
         </button>
     );
