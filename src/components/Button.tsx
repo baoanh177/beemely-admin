@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import { FiLoader } from "react-icons/fi";
 
-interface IButton2 {
+interface IButton {
     type?: "primary" | "ghost" | "secondary"
     text: string,
     isDisabled?: boolean,
@@ -18,25 +17,37 @@ const Button = ({
     isLoading = false,
     icon,
     onClick
-}: IButton2) => {
+}: IButton) => {
     const typeClass = {
         primary: 'bg-primary-500 text-white',
         ghost: ' text-primary-500 bg-primary-50',
         secondary: 'text-gray-400 border border-gray-400',
     };
 
+    const typeLoading = {
+        primary: 'border-white border-t-primary-500',
+        ghost: 'border-primary-500 border-t-primary-50',
+        secondary: 'border-gray-400 border-t-white',
+    };
+
     return (
         <button
             onClick={() => {
-                if (onClick && !isDisabled) onClick()
+                if (onClick && !isDisabled && !isLoading) onClick()
             }}
             className={clsx(
-                'px-[14px] py-[10px] rounded-[8px] text-m-semibold hover:opacity-80 flex items-center justify-center gap-1',
+                'px-[14px] py-[10px] rounded-[8px] text-m-semibold transition-colors  flex items-center justify-center gap-1',
                 typeClass[type],
-                { 'opacity-0.65 cursor-not-allowed': isDisabled }
+                {
+                    'opacity-65 cursor-not-allowed': isDisabled,
+                    'opacity-65': isLoading,
+                    'hover:opacity-80': !isDisabled && !isLoading
+                }
             )}
         >
-            {isLoading ? <FiLoader /> : icon}
+            {isLoading ?
+                <div className={clsx(`${typeLoading[type]} h-4 w-4 animate-spin rounded-full border-2 `)} /> : icon
+            }
             {text}
         </button>
     );
