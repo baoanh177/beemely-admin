@@ -13,7 +13,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  ignorePatterns: ['dist/', 'node_modules/', 'src/ignored-folder/'],
+  ignorePatterns: ["dist/", "node_modules/", "src/ignored-folder/"],
   plugins: ["react", "@typescript-eslint", "jsx-a11y", "import"],
   rules: {
     "@typescript-eslint/no-unused-vars": "error",
@@ -21,7 +21,13 @@ module.exports = {
     "react/jsx-no-duplicate-props": "error",
     "no-console": "error",
     "no-debugger": "error",
-    "react/self-closing-comp": "error",
+    "react/self-closing-comp": [
+      "error",
+      {
+        component: true,
+        html: false,
+      },
+    ],
     "jsx-a11y/alt-text": "error",
     "prefer-const": "error",
     "no-var": "error",
