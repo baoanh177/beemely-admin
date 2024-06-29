@@ -7,8 +7,13 @@ export default {
       transitionProperty: {
         size: "width, height, padding, margin",
       },
+      borderRadius: {
+        circle: "50%"
+      }
     },
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
       primary: {
         50: "#F4ECFB",
         100: "#E7D8F5",
