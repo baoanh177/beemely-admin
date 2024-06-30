@@ -1,5 +1,4 @@
-import { ConfigProvider, Select } from "antd";
-import clsx from "clsx";
+import { Select } from "antd";
 interface ICustomSelect {
     label?: string;
     placeholder?: string;
@@ -17,20 +16,12 @@ const CustomSelect = ({
     isMultiple,
     onChange,
 }: ICustomSelect) => (
-    <ConfigProvider
-        theme={{
-            components: {
-                Select: {
-                    colorIconHover: "#883DCF",
-                    colorIcon: "#883DCF",
-                    multipleItemHeight: 33
-                },
-            },
-        }}
-    >
-        <div className="mb-1 text-black-300 text-sm font-medium">{label}</div>
+    <>
+        <div className="mb-1 text-black-300 ">{label}</div>
         <Select
-            className={clsx(isMultiple && "text-primary-400", "min-h-[40px] w-full")}
+            allowClear
+            maxTagCount={"responsive"}
+            className="w-full text-m-medium"
             mode={isMultiple ? "multiple" : undefined}
             defaultValue={defaultValue}
             onChange={onChange}
@@ -41,8 +32,7 @@ const CustomSelect = ({
                 (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())
             }
             options={options}
-        />
-    </ConfigProvider>
+        /></>
 );
 
 export default CustomSelect;
