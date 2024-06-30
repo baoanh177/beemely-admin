@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./fonts";
+@import "./overwrite/select-antd";
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
