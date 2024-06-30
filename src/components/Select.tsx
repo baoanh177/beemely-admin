@@ -3,9 +3,10 @@ import clsx from "clsx";
 interface ICustomSelect {
     label?: string;
     placeholder?: string;
-    options?: { value: string; label: string }[];
+    options: { value: string; label: string }[];
     defaultValue?: string | string[];
     isMultiple?: boolean;
+    width?: string;
     onChange?: (value: string | string[]) => void;
 }
 
@@ -15,6 +16,7 @@ const CustomSelect = ({
     options,
     defaultValue,
     isMultiple,
+    width = "w-[216px]",
     onChange,
 }: ICustomSelect) => (
     <ConfigProvider
@@ -31,11 +33,12 @@ const CustomSelect = ({
     >
         <div className="mb-1 text-black-300 text-sm font-medium">{label}</div>
         <Select
-            className={clsx(isMultiple && "text-primary-400", "min-h-[40px] w-[240px]")}
+            className={clsx(isMultiple && "text-primary-400", "min-h-[40px]", width)}
             mode={isMultiple ? "multiple" : undefined}
             defaultValue={defaultValue}
             onChange={onChange}
             showSearch
+
             placeholder={placeholder}
             optionFilterProp="label"
             filterSort={(optionA, optionB) =>
