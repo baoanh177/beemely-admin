@@ -5,6 +5,8 @@ import { Route } from "react-router-dom";
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
+import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
+import InputTextNumber from "@/pages/InputTextNumber/InputTextNumber";
 
 interface IRoute {
   path: string;
@@ -19,8 +21,9 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
     <>
       {routes.map((route: IRoute, index) => {
         const { layout: Layout, middleware: Middleware, element: Component, path } = route;
-
-        const completePath = (initPath + path).replaceAll("//", "/");
+        let convertedPath
+        if (!path.startsWith("/")) convertedPath = `/${path}`
+        const completePath = (initPath + convertedPath).replaceAll("//", "/");
         return (
           <Fragment key={index}>
             <Route path="*" element={<NotFound />} />
@@ -75,6 +78,24 @@ const routes: IRoute[] = [
       },
     ],
   },
+  {
+    path: "components",
+    pages: [
+      {
+        path: "checkbox-radio",
+        element: () => <CheckboxRadio />
+      }
+    ]
+  },
+  {
+    path: "components",
+    pages: [
+      {
+        path: "inputtextnumber",
+        element: () => <InputTextNumber />
+      }
+    ]
+  }
 ];
 
 export { routes, renderRoutes };
