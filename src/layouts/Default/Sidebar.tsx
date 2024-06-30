@@ -78,6 +78,12 @@ const Sidebar = ({ children }: PropsWithChildren) => {
       path: "settings",
       icon: { component: IoSettingsOutline },
     },
+    {
+      id: "5",
+      label: "Components",
+      path: "components",
+      icon: { component: IoSettingsOutline },
+    },
   ];
 
   return (

@@ -5,6 +5,8 @@ import { Route } from "react-router-dom";
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
+import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
+import Components from "@/pages/Components/Components";
 
 interface IRoute {
   path: string;
@@ -76,6 +78,19 @@ const routes: IRoute[] = [
       },
     ],
   },
+  {
+    path: "components",
+    pages: [
+      {
+        path: "checkbox-radio",
+        element: () => <CheckboxRadio />
+      }
+    ]
+  },
+  {
+    path: "components",
+    element: () => <Components />
+  }
 ];
 
 export { routes, renderRoutes };

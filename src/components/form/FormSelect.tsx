@@ -1,5 +1,5 @@
 import { Select } from "antd";
-interface ICustomSelect {
+interface IFormSelect {
     label?: string;
     placeholder?: string;
     options: { value: string; label: string }[];
@@ -8,14 +8,14 @@ interface ICustomSelect {
     onChange?: (value: string | string[]) => void;
 }
 
-const CustomSelect = ({
+const FormSelect = ({
     label,
     placeholder,
     options,
     defaultValue,
     isMultiple,
     onChange,
-}: ICustomSelect) => (
+}: IFormSelect) => (
     <>
         <div className="mb-1 text-black-300 ">{label}</div>
         <Select
@@ -35,4 +35,4 @@ const CustomSelect = ({
         /></>
 );
 
-export default CustomSelect;
+export default FormSelect;
