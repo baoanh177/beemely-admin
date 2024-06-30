@@ -81,18 +81,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
     {
       id: "5",
       label: "Components",
-      items: [
-        {
-          id: "5.1",
-          label: "Checkbox & Radio",
-          path: "components/checkbox-radio"
-        },
-        {
-          id: "5.2",
-          label: "InputText & Number",
-          path: "components/inputtextnumber"
-        }
-      ],
+      path: "components",
       icon: { component: IoSettingsOutline },
     },
   ];

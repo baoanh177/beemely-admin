@@ -35,7 +35,7 @@ const FormInput = ({
 
   return (
     <div className="mb-4 flex flex-col">
-      {label && <label className="mb-2 text-sm font-medium text-black-300">{label}</label>}
+      {label && <label className="mb-1 text-m-medium text-black-300">{label}</label>}
       <div className="flex items-center gap-1 rounded-[8px] border border-gray-100 bg-gray-25 px-[14px] py-[10px]">
         <input
           type={type}
@@ -46,7 +46,7 @@ const FormInput = ({
           disabled={isDisabled}
           readOnly={isReadonly}
           onBlur={onBlur}
-          className={clsx("text-m-regular flex-1 bg-gray-25 font-normal placeholder:text-m-regular text-gray-400 outline-none", {
+          className={clsx("text-m-medium flex-1 bg-gray-25 placeholder:text-m-medium text-gray-400 outline-none", {
             "border-red-500": error,
           })}
         />

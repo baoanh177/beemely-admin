@@ -6,7 +6,7 @@ import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
 import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
-import InputTextNumber from "@/pages/InputTextNumber/InputTextNumber";
+import Components from "@/pages/Components/Components";
 
 interface IRoute {
   path: string;
@@ -89,12 +89,7 @@ const routes: IRoute[] = [
   },
   {
     path: "components",
-    pages: [
-      {
-        path: "inputtextnumber",
-        element: () => <InputTextNumber />
-      }
-    ]
+    element: () => <Components />
   }
 ];
 
