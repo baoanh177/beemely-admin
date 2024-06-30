@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./fonts";
+@import "./overwrite/index.scss";
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
