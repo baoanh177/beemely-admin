@@ -21,9 +21,9 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
     <>
       {routes.map((route: IRoute, index) => {
         const { layout: Layout, middleware: Middleware, element: Component, path } = route;
-        let convertedPath
-        if (!path.startsWith("/")) convertedPath = `/${path}`
-        const completePath = (initPath + convertedPath).replaceAll("//", "/");
+
+        const completePath = (initPath + (path.startsWith("/") ? path : `/${path}`)).replaceAll("//", "/");
+
         return (
           <Fragment key={index}>
             <Route path="*" element={<NotFound />} />
