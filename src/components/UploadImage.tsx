@@ -4,7 +4,7 @@ import type { UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 
 const UpdateImage: React.FC = () => {
-  const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
 
   const handleImageClick = (uid: string) => {
