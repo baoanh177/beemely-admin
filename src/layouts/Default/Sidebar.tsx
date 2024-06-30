@@ -120,7 +120,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className="ml-[264px] grow px-6 py-8">{children}</main>
+        <main className="ml-[264px] flex grow flex-col gap-6 p-6">{children}</main>
       </div>
     </>
   );
