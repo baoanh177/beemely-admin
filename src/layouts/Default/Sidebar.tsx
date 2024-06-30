@@ -45,7 +45,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
         {
           id: "2.1",
           label: "Products",
-          path: "test/products",
+          path: "products",
         },
         {
           id: "2.2",

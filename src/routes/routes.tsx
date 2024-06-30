@@ -71,13 +71,8 @@ const routes: IRoute[] = [
         element: () => <Dashboard />,
       },
       {
-        path: "test",
-        pages: [
-          {
-            path: "products",
-            element: () => <Dashboard />,
-          },
-        ],
+        path: "products",
+        element: () => <Dashboard />,
       },
     ],
   },
