@@ -20,7 +20,8 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
       {routes.map((route: IRoute, index) => {
         const { layout: Layout, middleware: Middleware, element: Component, path } = route;
 
-        const completePath = (initPath + path).replaceAll("//", "/");
+        const completePath = (initPath + (path.startsWith("/") ? path : `/${path}`)).replaceAll("//", "/");
+
         return (
           <Fragment key={index}>
             <Route path="*" element={<NotFound />} />
@@ -70,8 +71,13 @@ const routes: IRoute[] = [
         element: () => <Dashboard />,
       },
       {
-        path: "products",
-        element: () => <Dashboard />,
+        path: "test",
+        pages: [
+          {
+            path: "products",
+            element: () => <Dashboard />,
+          },
+        ],
       },
     ],
   },
