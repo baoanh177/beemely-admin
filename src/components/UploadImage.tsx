@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import type { UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 
-const App: React.FC = () => {
+const UpdateImage: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
 
@@ -89,4 +89,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default UpdateImage;
