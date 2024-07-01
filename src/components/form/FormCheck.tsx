@@ -22,9 +22,8 @@ const FormCheck = ({ label, onChange, isDefaultChecked, isDisable }: FormCheckPr
         token: {
           colorPrimary: "#883DCF",
           colorTextDisabled: "#fff",
-          colorBgContainerDisabled: "#883DCF",
-          colorBorder: "unset"
-
+          colorBgContainerDisabled: "#fff",
+          colorBorder: "#883DCF",
         },
       }}
     >

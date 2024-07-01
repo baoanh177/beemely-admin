@@ -5,6 +5,7 @@ import FormSelect from "@/components/form/FormSelect"
 import { IoSaveOutline } from "react-icons/io5"
 
 const Components = () => {
+
     return (
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-5">
@@ -31,12 +32,27 @@ const Components = () => {
                     { value: "3", label: "Option 3" },
                     { value: "4", label: "Option 4" }]}
                     />
-                    <FormSelect placeholder="Đây là select multiple" options={[{ value: "1", label: "Option 1" },
+                    <FormSelect placeholder="Đây là select single" options={[{ value: "1", label: "Option 1" },
                     { value: "2", label: "Option 2" },
                     { value: "3", label: "Option 3" },
                     { value: "4", label: "Option 4" }]}
                     />
-                    <FormSelect placeholder="Đây là select multiple" defaultValue={"Option 4"} options={[{ value: "1", label: "Option 1" },
+                    <FormSelect
+                        placeholder="Đây là select single có default value"
+                        defaultValue={"Option 4"}
+                        options={[{ value: "1", label: "Option 1" },
+                        { value: "2", label: "Option 2" },
+                        { value: "3", label: "Option 3" },
+                        { value: "4", label: "Option 4" }]}
+                    />
+                    <FormSelect placeholder="Đây là select multiple có default value"
+                        isMultiple
+                        defaultValue={"Option 4"} options={[{ value: "1", label: "Option 1" },
+                        { value: "2", label: "Option 2" },
+                        { value: "3", label: "Option 3" },
+                        { value: "4", label: "Option 4" }]}
+                    />
+                    <FormSelect placeholder="Đây là select multiple có isDisabled" isDisabled options={[{ value: "1", label: "Option 1" },
                     { value: "2", label: "Option 2" },
                     { value: "3", label: "Option 3" },
                     { value: "4", label: "Option 4" }]}
