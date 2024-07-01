@@ -7,6 +7,7 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
+import Components from "@/pages/Components/Components";
 
 interface IRoute {
   path: string;
@@ -22,7 +23,8 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
       {routes.map((route: IRoute, index) => {
         const { layout: Layout, middleware: Middleware, element: Component, path } = route;
 
-        const completePath = (initPath + path).replaceAll("//", "/");
+        const completePath = (initPath + (path.startsWith("/") ? path : `/${path}`)).replaceAll("//", "/");
+
         return (
           <Fragment key={index}>
             <Route path="*" element={<NotFound />} />
@@ -69,7 +71,7 @@ const routes: IRoute[] = [
     pages: [
       {
         path: "/",
-        middleware: () => <NoPathMiddleware />
+        middleware: () => <NoPathMiddleware />,
       },
       {
         path: "dashboard",
@@ -78,6 +80,10 @@ const routes: IRoute[] = [
       {
         path: "products",
         element: () => <Products />,
+      },
+      {
+        path: "components",
+        element: () => <Components />,
       },
     ],
   },

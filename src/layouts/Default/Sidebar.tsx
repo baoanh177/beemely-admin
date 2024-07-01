@@ -78,6 +78,12 @@ const Sidebar = ({ children }: PropsWithChildren) => {
       path: "settings",
       icon: { component: IoSettingsOutline },
     },
+    {
+      id: "5",
+      label: "Components",
+      path: "components",
+      icon: { component: IoSettingsOutline },
+    },
   ];
 
   return (
@@ -120,7 +126,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className="ml-[264px] flex grow flex-col gap-6 p-6">{children}</main>
+        <main className="ml-[264px] flex grow flex-col gap-6 p-6 overflow-y-scroll">{children}</main>
       </div>
     </>
   );

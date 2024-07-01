@@ -26,14 +26,14 @@ const Breadcrumb = () => {
   return (
     <div className="flex items-center gap-2">
       <div
-          className={clsx("text-m-medium cursor-pointer text-primary-500")}
-          onClick={() => {
-            navigate("/dashboard");
-          }}
-        >
-          <GoHome className="text-[18px]" />
-        </div>
-        {!!arrayPath.length && <FaCaretRight className="text-m-medium text-primary-200" />}
+        className={clsx("text-m-medium cursor-pointer text-primary-500")}
+        onClick={() => {
+          navigate("/dashboard");
+        }}
+      >
+        <GoHome className="text-[18px]" />
+      </div>
+      {!!arrayPath.length && <FaCaretRight className="text-m-medium text-primary-200" />}
       {arrayPath.map((path, index) => {
         const isActive = index === arrayPath.length - 1;
         return (
@@ -47,7 +47,7 @@ const Breadcrumb = () => {
                 !isActive && navigate(arrayPath.slice(0, index + 1).join("/"));
               }}
             >
-              {PageNames[path as PageNameKeys]}
+              {PageNames[path as PageNameKeys] ?? path.at(0)?.toUpperCase() + path.slice(1)}
             </div>
             {!isActive && <FaCaretRight className="text-m-medium text-primary-200" />}
           </Fragment>
