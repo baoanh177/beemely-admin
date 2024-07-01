@@ -18,21 +18,11 @@ interface IDataTableProps<S> {
   buttons?: IGridButton[];
 }
 
-const DataTable = <S extends IInitialState>({
-  buttons,
-  columns,
-  data,
-  state,
-  setFilter,
-  hideComponents,
-}: IDataTableProps<S>) => {
+const DataTable = <S extends IInitialState>({ buttons, columns, data, state, setFilter, hideComponents }: IDataTableProps<S>) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const renderColumns = useMemo(() => {
-    return buttons?.some(
-      (button) =>
-        button.type == ButtonTypes.VIEW || button.type == ButtonTypes.UPDATE || button.type == ButtonTypes.DELETE,
-    )
+    return buttons?.some((button) => button.type === ButtonTypes.VIEW || button.type === ButtonTypes.UPDATE || button.type === ButtonTypes.DELETE)
       ? ([
           ...columns,
           {
@@ -52,13 +42,13 @@ const DataTable = <S extends IInitialState>({
 
   return (
     <div className="h-full rounded-xl bg-white p-4">
-      {buttons?.some((button) => button.type == ButtonTypes.ADD) && (
+      {buttons?.some((button) => button.type === ButtonTypes.ADD) && (
         <div className="mb-4 flex justify-end">
           <CustomButton
             text="Add new"
             type="primary"
             key="add"
-            onClick={() => buttons?.find((button) => button.type == ButtonTypes.ADD)?.onClick()}
+            onClick={() => buttons?.find((button) => button.type === ButtonTypes.ADD)?.onClick()}
           />
         </div>
       )}

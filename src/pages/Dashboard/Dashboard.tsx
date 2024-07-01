@@ -1,7 +1,7 @@
+import Heading from "@/layouts/Default/Heading";
+
 const Dashboard = () => {
-  return (
-    <h1 className="display-xl-semibold text-primary-500">Dự án tốt nghiệp</h1>
-  );
+  return <Heading title="Dashboard" hasBreadcrumb />;
 };
 
 export default Dashboard;

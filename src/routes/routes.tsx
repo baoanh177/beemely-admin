@@ -5,7 +5,8 @@ import { Route } from "react-router-dom";
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
-import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
+import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
+import Products from "@/pages/Products/Products";
 import Components from "@/pages/Components/Components";
 
 interface IRoute {
@@ -31,11 +32,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
               <Route path="/" element={<Layout />}>
                 {Middleware ? (
                   <Route path="/" element={<Middleware />}>
-                    {Component ? (
-                      <Route path={completePath} element={<Component />} />
-                    ) : (
-                      renderRoutes(route.pages ?? [], completePath)
-                    )}
+                    {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
                   </Route>
                 ) : Component ? (
                   <Route path={completePath} element={<Component />} />
@@ -45,11 +42,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
               </Route>
             ) : Middleware ? (
               <Route path="/" element={<Middleware />}>
-                {Component ? (
-                  <Route path={completePath} element={<Component />} />
-                ) : (
-                  renderRoutes(route.pages ?? [], completePath)
-                )}
+                {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
               </Route>
             ) : Component ? (
               <Route path={completePath} element={<Component />} />
@@ -69,28 +62,23 @@ const routes: IRoute[] = [
     layout: () => <DefaultLayout />,
     pages: [
       {
+        path: "/",
+        middleware: () => <NoPathMiddleware />,
+      },
+      {
         path: "dashboard",
         element: () => <Dashboard />,
       },
       {
         path: "products",
-        element: () => <Dashboard />,
+        element: () => <Products />,
+      },
+      {
+        path: "components",
+        element: () => <Components />,
       },
     ],
   },
-  {
-    path: "components",
-    pages: [
-      {
-        path: "checkbox-radio",
-        element: () => <CheckboxRadio />
-      }
-    ]
-  },
-  {
-    path: "components",
-    element: () => <Components />
-  }
 ];
 
 export { routes, renderRoutes };
