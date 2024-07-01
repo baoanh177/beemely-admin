@@ -1,7 +1,6 @@
 import React from "react";
 import { DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
-import { ConfigProvider } from "antd";
 import type { Dayjs } from "dayjs";
 import clsx from "clsx";
 
