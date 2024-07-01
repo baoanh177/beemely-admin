@@ -29,10 +29,10 @@ export const client = {
 
     const response = await fetch(`${this.SERVER_URL}${path}${queryParams}`, options);
     if (!response.ok) {
-      if (response.status == 401) {
+      if (response.status === 401) {
         // Refresh Token
-      } else if (response.status == 403) {
-      } else if (response.status == 500) {
+      } else if (response.status === 403) {
+      } else if (response.status === 500) {
       }
     }
     const data: IResponse<unknown> = await response.json();

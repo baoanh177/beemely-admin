@@ -8,7 +8,7 @@ const Heading = () => {
     <div className="flex items-end gap-6 justify-between">
       <div className="flex flex-col gap-2">
         <h3 className="display-m-semibold text-black-500">Products</h3>
-        <Breadcrumb pages={[{ path: "dashboard"}, { path: "products", isActive: true}]} />
+        <Breadcrumb />
       </div>
 
       <div className="flex gap-4">

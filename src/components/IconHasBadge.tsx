@@ -6,7 +6,7 @@ const IconHasBadge = ({ icon, badge }: { icon: ReactNode; badge: number }) => {
     <div className="flex h-8 w-8 items-center justify-center">
       <div className="relative cursor-pointer">
         {icon}
-        {badge != 0 && <Badge number={badge} className="absolute -right-2 -top-2" />}
+        {badge !== 0 && <Badge number={badge} className="absolute -right-2 -top-2" />}
       </div>
     </div>
   );

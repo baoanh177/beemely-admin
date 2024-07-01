@@ -4,4 +4,6 @@ export enum PageNames {
   categories = "Categories",
   orders = "Orders",
   customers = "Customers",
+  edit = "Edit",
+  detail = "Detail"
 }
