@@ -1,4 +1,7 @@
-import { Button, Upload } from "antd";
+import { Upload } from "antd";
+import Button from "@/components/Button";
+import "@/assets/scss/overwrite/index.scss";
+
 import React, { useState } from "react";
 import type { UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
@@ -30,19 +33,11 @@ const UpdateImage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center rounded-lg border border-dashed border-gray-100 bg-gray-25 px-24 py-12">
-      <div className="flex-col items-center">
+    <div className="custom-upload flex h-[240px] items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
+      <div className="flex-col items-center gap-4">
         <div className="flex justify-center">
           {fileList.map((file) => (
-            <div
-              key={file.uid}
-              style={{
-                display: "inline-block",
-                margin: 10,
-                position: "relative",
-                textAlign: "center",
-              }}
-            >
+            <div key={file.uid} className="relative mx-2 inline-block text-center">
               <img
                 src={file.thumbUrl || file.url}
                 alt={file.name}
@@ -55,14 +50,14 @@ const UpdateImage: React.FC = () => {
           ))}
         </div>
         {fileList.length === 0 && (
-          <p className="text-m-regular mt-3 text-center text-sm text-gray-400">
+          <div className="text-m-regular mt-3 text-center text-gray-400">
             Drag and drop image here, or click add image
-          </p>
+          </div>
         )}
 
-        <div className="flex justify-center">
+        <div className="mt-4 flex justify-center">
           <Upload {...props} fileList={fileList}>
-            <Button className="m-auto mt-3 border-none bg-primary-50 text-primary-500">Add Image</Button>
+            <Button type="ghost" text="Add image" />
           </Upload>
         </div>
       </div>

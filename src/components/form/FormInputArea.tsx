@@ -1,6 +1,7 @@
 import React from "react";
-import { Input } from "antd";
+import { ConfigProvider, Input } from "antd";
 const { TextArea } = Input;
+import "@/assets/scss/overwrite/index.scss";
 
 interface FormInputAreaProps {
   label?: string;
@@ -28,7 +29,6 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({
   };
   return (
     <>
-      <br />
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
       <TextArea
         placeholder={placeholder}
@@ -36,8 +36,8 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({
         onChange={handleChange}
         readOnly={isReadonly}
         defaultValue={defaultValue}
-        rows={4}
-        className="bg-gray-25"
+        rows={5}
+        className="text-m-regular min-h-[500px] bg-gray-25 px-2 py-3"
       />
       {error && <p className="text-red-500">{error}</p>}
     </>
