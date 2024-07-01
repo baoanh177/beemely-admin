@@ -126,7 +126,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className="ml-[264px] flex grow flex-col gap-6 p-6 overflow-y-scroll">{children}</main>
+        <main className="ml-[264px] flex grow flex-col gap-6 overflow-y-scroll p-6">{children}</main>
       </div>
     </>
   );

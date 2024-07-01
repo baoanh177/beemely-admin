@@ -13,10 +13,10 @@ const TopBar = () => {
         </div>
         <input
           type="text"
-          className="peer placeholder:text-m-medium text-m-medium h-full w-full bg-transparent py-2 placeholder-gray-400 outline-none"
+          className="placeholder:text-m-medium text-m-medium peer h-full w-full bg-transparent py-2 placeholder-gray-400 outline-none"
           placeholder="Search"
         />
-        <div className="absolute left-0 bottom-0 right-0 w-0 peer-focus:w-full h-[1px] bg-primary-400 transition-size duration-300"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div>
       </div>
 
       {/* Actions */}

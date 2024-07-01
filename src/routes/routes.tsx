@@ -32,11 +32,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
               <Route path="/" element={<Layout />}>
                 {Middleware ? (
                   <Route path="/" element={<Middleware />}>
-                    {Component ? (
-                      <Route path={completePath} element={<Component />} />
-                    ) : (
-                      renderRoutes(route.pages ?? [], completePath)
-                    )}
+                    {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
                   </Route>
                 ) : Component ? (
                   <Route path={completePath} element={<Component />} />
@@ -46,11 +42,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
               </Route>
             ) : Middleware ? (
               <Route path="/" element={<Middleware />}>
-                {Component ? (
-                  <Route path={completePath} element={<Component />} />
-                ) : (
-                  renderRoutes(route.pages ?? [], completePath)
-                )}
+                {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
               </Route>
             ) : Component ? (
               <Route path={completePath} element={<Component />} />

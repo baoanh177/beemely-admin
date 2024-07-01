@@ -39,10 +39,7 @@ const Breadcrumb = () => {
         return (
           <Fragment key={index}>
             <div
-              className={clsx(
-                "text-m-medium cursor-pointer text-primary-500",
-                isActive && "cursor-default !text-gray-500",
-              )}
+              className={clsx("text-m-medium cursor-pointer text-primary-500", isActive && "cursor-default !text-gray-500")}
               onClick={() => {
                 !isActive && navigate(arrayPath.slice(0, index + 1).join("/"));
               }}

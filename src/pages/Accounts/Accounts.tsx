@@ -90,16 +90,7 @@ const Accounts = () => {
     },
   ];
 
-  return (
-    <Grid
-      buttons={buttons}
-      title="Accounts Management"
-      columns={columns}
-      data={fakeData}
-      state={state!}
-      setFilter={setFilter}
-    />
-  );
+  return <Grid buttons={buttons} title="Accounts Management" columns={columns} data={fakeData} state={state!} setFilter={setFilter} />;
 };
 
 export default Accounts;

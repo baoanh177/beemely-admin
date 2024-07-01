@@ -1,7 +1,7 @@
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
 
 const NoPathMiddleware = () => {
-  return <Navigate to="/dashboard" />
-}
+  return <Navigate to="/dashboard" />;
+};
 
-export default NoPathMiddleware
+export default NoPathMiddleware;
