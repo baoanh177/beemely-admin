@@ -1,5 +1,25 @@
-const Products = () => {
-  return <h1 className="display-xl-semibold text-primary-500">Products</h1>;
-}
+import Heading from "@/layouts/Default/Heading";
+import { GoDownload } from "react-icons/go";
+import { FaPlus } from "react-icons/fa6";
 
-export default Products
+const Products = () => {
+  return (
+    <Heading
+      title="Products"
+      hasBreadcrumb
+      buttons={[
+        {
+          text: "Export",
+          type: "ghost",
+          icon: <GoDownload className="text-[18px]" />,
+        },
+        {
+          text: "Add Product",
+          icon: <FaPlus className="text-[18px]" />,
+        },
+      ]}
+    />
+  );
+};
+
+export default Products;
