@@ -8,9 +8,11 @@ interface FormDateProps {
   label?: string;
   onChange?: (date: Dayjs | null, dateString: string) => void;
   defaultValue?: Dayjs | null;
+  value?: Dayjs | null;
+  disabled?: boolean;
 }
 
-const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue }: FormDateProps) => {
+const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue, value, disabled }: FormDateProps) => {
   const handleChange: DatePickerProps<Dayjs>["onChange"] = (date, dateString) => {
     if (onChange) {
       onChange(date, dateString as string);
@@ -20,7 +22,13 @@ const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue }: Fo
   return (
     <div className={clsx("mb-4 flex items-center gap-2")}>
       {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
-      <DatePicker onChange={handleChange} defaultValue={defaultValue} className="rounded-md bg-gray-25" />
+      <DatePicker
+        onChange={handleChange}
+        defaultValue={defaultValue}
+        value={value}
+        disabled={disabled}
+        className="rounded-md bg-gray-25"
+      />
     </div>
   );
 };

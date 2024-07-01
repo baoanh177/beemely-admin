@@ -93,6 +93,7 @@ const Components = () => {
       <div className="mb-5">
         <h1 className="display-m-medium mb-2">Inputdate</h1>
         <FormDate />
+        <FormDate disabled={true} />
         <h1 className="display-m-medium mb-2">Input Textarea</h1>
         <FormInputArea label="Description" />
         <FormInputArea label="Description" defaultValue="Example text" />
