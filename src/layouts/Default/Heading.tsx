@@ -15,7 +15,7 @@ const Heading = ({ title, hasBreadcrumb, buttons = [] }: IHeadingProps) => {
         {hasBreadcrumb && <Breadcrumb />}
       </div>
 
-      <div className="flex gap-4">{buttons?.map((btn) => <Button {...btn} />)}</div>
+      <div className="flex gap-4">{buttons?.map((btn, index) => <Button key={index} {...btn} />)}</div>
     </div>
   );
 };
