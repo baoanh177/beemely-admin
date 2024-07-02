@@ -9,11 +9,6 @@ import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
-<<<<<<< HEAD
-=======
-import Components from "@/pages/Components/Components";
-import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
->>>>>>> 40c41aa (.)
 
 interface IRoute {
   path: string;
@@ -90,8 +85,6 @@ const routes: IRoute[] = [
       },
     ],
   },
-<<<<<<< HEAD
-=======
 
   {
     path: "components",
@@ -102,7 +95,6 @@ const routes: IRoute[] = [
       },
     ],
   },
->>>>>>> 40c41aa (.)
   {
     path: "components",
     element: () => <Components />,

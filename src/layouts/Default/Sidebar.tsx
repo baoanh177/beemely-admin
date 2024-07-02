@@ -126,11 +126,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-<<<<<<< HEAD
-        <main className="ml-[264px] flex grow flex-col gap-6 p-6">{children}</main>
-=======
         <main className="ml-[264px] flex grow flex-col gap-6 overflow-y-scroll p-6">{children}</main>
->>>>>>> 3d5c7c6 (format code)
       </div>
     </>
   );
