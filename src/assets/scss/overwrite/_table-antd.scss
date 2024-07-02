@@ -1,0 +1,57 @@
+.ant-table-wrapper {
+  .ant-table-content {
+    font-family: ps-Bold;
+    font-size: 14px;
+    font-weight: 500;
+    .ant-checkbox {
+      &-checked {
+        .ant-checkbox-inner {
+          background-color: #883dcf;
+
+          &:hover {
+            background-color: #883dcf;
+          }
+        }
+        &:not(.ant-checkbox-disabled):hover {
+          .ant-checkbox-inner {
+            background-color: #883dcf;
+          }
+        }
+      }
+    }
+    .ant-table-thead {
+      .ant-checkbox-inner {
+        border: 1px solid #883dcf;
+      }
+      .ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-inner {
+        border: 1px solid #883dcf;
+      }
+      .ant-checkbox-indeterminate .ant-checkbox-inner:after {
+        background-color: #883dcf;
+      }
+      > tr {
+        > th {
+          background-color: #ffffff;
+        }
+      }
+    }
+    .ant-table-tbody {
+      .ant-checkbox-inner {
+        border: 1px solid #883dcf;
+      }
+      tr {
+        td {
+          &:not(:nth-child(2)) {
+            color: #667085;
+          }
+          &:nth-child(2) {
+            color: #1d1f2c;
+          }
+        }
+      }
+      .ant-table-row.ant-table-row-selected > .ant-table-cell {
+        background-color: #f9f9fc;
+      }
+    }
+  }
+}
