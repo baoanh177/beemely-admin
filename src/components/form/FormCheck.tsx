@@ -6,9 +6,9 @@ interface FormCheckProps {
   label?: string;
   onChange?: (isDefaultChecked: boolean) => void;
   isDefaultChecked?: boolean;
-  isDisable?: boolean
+  isDisable?: boolean;
 }
-false
+false;
 const FormCheck = ({ label, onChange, isDefaultChecked, isDisable }: FormCheckProps) => {
   const handleChange = (e: CheckboxChangeEvent) => {
     if (onChange) {
@@ -33,10 +33,11 @@ const FormCheck = ({ label, onChange, isDefaultChecked, isDisable }: FormCheckPr
           disabled={isDisable}
           type="checkbox"
           onChange={(e) => !isDisable && handleChange(e)}
-          className="rounded-md" />
+          className="rounded-md"
+        />
         {label && <label className="text-m-semibold text-primary-500">{label}</label>}
       </div>
-    </ConfigProvider >
+    </ConfigProvider>
   );
 };
 

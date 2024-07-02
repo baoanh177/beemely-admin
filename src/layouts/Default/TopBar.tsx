@@ -1,7 +1,7 @@
-import { IoCalendar, IoMail, IoSearchOutline } from "react-icons/io5";
+import { IoCalendarClearOutline, IoMailOutline, IoSearchOutline } from "react-icons/io5";
 import UserSettings from "./UserSettings";
 import IconHasBadge from "@/components/IconHasBadge";
-import { FaBell } from "react-icons/fa";
+import { PiBell } from "react-icons/pi";
 
 const TopBar = () => {
   return (
@@ -13,17 +13,17 @@ const TopBar = () => {
         </div>
         <input
           type="text"
-          className="peer placeholder:text-m-medium text-m-medium h-full w-full bg-transparent py-2 placeholder-gray-400 outline-none"
+          className="placeholder:text-m-medium text-m-medium peer h-full w-full bg-transparent py-2 placeholder-gray-400 outline-none"
           placeholder="Search"
         />
-        <div className="absolute left-0 bottom-0 right-0 w-0 peer-focus:w-full h-[1px] bg-primary-400 transition-size duration-300"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div>
       </div>
 
       {/* Actions */}
       <div className="flex h-full items-center gap-4">
-        <IconHasBadge icon={<IoCalendar className="text-[18px] text-gray-400" />} badge={0} />
-        <IconHasBadge icon={<FaBell className="text-[18px] text-gray-400" />} badge={2} />
-        <IconHasBadge icon={<IoMail className="text-[18px] text-gray-400" />} badge={2} />
+        <IconHasBadge icon={<IoCalendarClearOutline className="text-[18px] text-gray-400" />} badge={0} />
+        <IconHasBadge icon={<PiBell className="text-[18px] text-gray-400" />} badge={2} />
+        <IconHasBadge icon={<IoMailOutline className="text-[18px] text-gray-400" />} badge={2} />
         <div className="h-full border border-gray-50"></div>
         <UserSettings />
       </div>

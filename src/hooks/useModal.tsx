@@ -13,13 +13,7 @@ interface IModalProps {
 }
 
 const useModal = () => {
-  const showModal = ({
-    icon,
-    title = "Confirm",
-    content = "Are you sure you want to perform this action",
-    onConfirm,
-    onCancel,
-  }: IModalProps) => {
+  const showModal = ({ icon, title = "Confirm", content = "Are you sure you want to perform this action", onConfirm, onCancel }: IModalProps) => {
     confirm({
       icon: icon ?? <RiErrorWarningFill className="mt-[2px] text-xl text-yellow-500" />,
       title,

@@ -104,19 +104,19 @@ const Sidebar = ({ children }: PropsWithChildren) => {
                 <div key={index} className="flex flex-col gap-2">
                   <MenuItem
                     onClick={() => {
-                      setActiveMenuItemId(activeMenuItemId == item.id ? null : item.id);
-                      setOpeningMenuId(openingMenuId == item.id ? null : item.id);
+                      setActiveMenuItemId(activeMenuItemId === item.id ? null : item.id);
+                      setOpeningMenuId(openingMenuId === item.id ? null : item.id);
                     }}
                     {...item}
-                    isOpen={item.id == openingMenuId}
+                    isOpen={item.id === openingMenuId}
                     hasChildren={!!item.items?.length}
-                    isActive={!!item.path && item.path == activePath}
-                    isChildActive={item.items?.some((i) => !!i.path && i.path == activePath)}
+                    isActive={!!item.path && item.path === activePath}
+                    isChildActive={item.items?.some((i) => !!i.path && i.path === activePath)}
                   />
-                  {activeMenuItemId == item.id && (
+                  {activeMenuItemId === item.id && (
                     <div className="flex flex-col gap-2">
                       {item.items?.map((child, index) => {
-                        return <MenuItem key={index} {...child} isChild isActive={child.path == activePath} />;
+                        return <MenuItem key={index} {...child} isChild isActive={child.path === activePath} />;
                       })}
                     </div>
                   )}
@@ -126,7 +126,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className="ml-[264px] grow px-6 py-8">{children}</main>
+        <main className="ml-[264px] flex grow flex-col gap-6 overflow-y-scroll p-6">{children}</main>
       </div>
     </>
   );
