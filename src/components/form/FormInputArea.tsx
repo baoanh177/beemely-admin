@@ -1,7 +1,6 @@
 import React from "react";
 import { Input } from "antd";
 const { TextArea } = Input;
-import "@/assets/scss/overwrite/index.scss";
 
 interface FormInputAreaProps {
   label?: string;
