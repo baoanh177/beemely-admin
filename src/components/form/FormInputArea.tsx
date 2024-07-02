@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "antd";
+import { ConfigProvider, Input } from "antd";
 const { TextArea } = Input;
 import "@/assets/scss/overwrite/index.scss";
 
