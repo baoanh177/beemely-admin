@@ -38,22 +38,14 @@ const UpdateImage: React.FC = () => {
         <div className="flex justify-center">
           {fileList.map((file) => (
             <div key={file.uid} className="relative mx-2 inline-block text-center">
-              <img
-                src={file.thumbUrl || file.url}
-                alt={file.name}
-                className="h-[100px] w-[100px] rounded-lg object-cover"
-              />
+              <img src={file.thumbUrl || file.url} alt={file.name} className="h-[100px] w-[100px] rounded-lg object-cover" />
               <button onClick={() => handleDeleteImage(file.uid)}>
                 <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
               </button>
             </div>
           ))}
         </div>
-        {fileList.length === 0 && (
-          <div className="text-m-regular mt-3 text-center text-gray-400">
-            Drag and drop image here, or click add image
-          </div>
-        )}
+        {fileList.length === 0 && <div className="text-m-regular mt-3 text-center text-gray-400">Drag and drop image here, or click add image</div>}
 
         <div className="mt-4 flex justify-center">
           <Upload {...props} fileList={fileList}>

@@ -4,7 +4,11 @@ import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
+
 import Heading from "@/layouts/Default/Heading";
+
+import UpdateImage from "@/components/form/FormUpload";
+
 import { IoSaveOutline } from "react-icons/io5";
 
 const Components = () => {
@@ -115,12 +119,18 @@ const Components = () => {
         </div>
       </div>
       <div className="mb-5">
-        <div>Inputdate</div>
+        <h1 className="display-m-medium mb-2">Inputdate</h1>
         <FormDate />
+        <h1 className="display-m-medium mb-2">Input Textarea</h1>
         <FormInputArea label="Description" />
         <FormInputArea label="Description" defaultValue="Example text" />
         <FormInputArea error="error" label="Description err" />
         <FormInputArea isReadonly label="Description Readonly" />
+      </div>
+      <div>
+        <h1 className="display-m-medium mb-2">File Upload</h1>
+
+        <UpdateImage />
       </div>
     </>
   );
