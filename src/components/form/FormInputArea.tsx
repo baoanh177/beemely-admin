@@ -12,15 +12,7 @@ interface FormInputAreaProps {
   onChange?: (value: string) => void;
   error?: string;
 }
-const FormInputArea: React.FC<FormInputAreaProps> = ({
-  label,
-  placeholder,
-  value,
-  isReadonly,
-  defaultValue,
-  onChange,
-  error,
-}) => {
+const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value, isReadonly, defaultValue, onChange, error }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
     if (onChange) {
