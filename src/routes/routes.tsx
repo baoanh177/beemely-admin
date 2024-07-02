@@ -83,14 +83,14 @@ const routes: IRoute[] = [
     pages: [
       {
         path: "checkbox-radio",
-        element: () => <CheckboxRadio />
-      }
-    ]
+        element: () => <CheckboxRadio />,
+      },
+    ],
   },
   {
     path: "components",
-    element: () => <Components />
-  }
+    element: () => <Components />,
+  },
 ];
 
 export { routes, renderRoutes };
