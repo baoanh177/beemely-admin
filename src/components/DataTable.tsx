@@ -31,7 +31,7 @@ const DataTable = <S extends IInitialState>({
   const renderColumns = useMemo(() => {
     return buttons?.some(
       (button) =>
-        button.type == ButtonTypes.VIEW || button.type == ButtonTypes.UPDATE || button.type == ButtonTypes.DELETE,
+        button.type === ButtonTypes.VIEW || button.type === ButtonTypes.UPDATE || button.type === ButtonTypes.DELETE,
     )
       ? ([
           ...columns,
@@ -52,13 +52,13 @@ const DataTable = <S extends IInitialState>({
 
   return (
     <div className="h-full rounded-xl bg-white p-4">
-      {buttons?.some((button) => button.type == ButtonTypes.ADD) && (
+      {buttons?.some((button) => button.type === ButtonTypes.ADD) && (
         <div className="mb-4 flex justify-end">
           <CustomButton
             text="Add new"
             type="primary"
             key="add"
-            onClick={() => buttons?.find((button) => button.type == ButtonTypes.ADD)?.onClick()}
+            onClick={() => buttons?.find((button) => button.type === ButtonTypes.ADD)?.onClick()}
           />
         </div>
       )}

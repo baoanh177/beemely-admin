@@ -35,6 +35,7 @@ module.exports = {
     "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
     "react/jsx-no-useless-fragment": "error",
     "react/react-in-jsx-scope": "off",
+    "eqeqeq": "error"
   },
   settings: {
     react: {

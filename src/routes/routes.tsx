@@ -7,6 +7,8 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
 import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
 import Components from "@/pages/Components/Components";
+import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
+import Products from "@/pages/Products/Products";
 
 interface IRoute {
   path: string;
@@ -69,12 +71,16 @@ const routes: IRoute[] = [
     layout: () => <DefaultLayout />,
     pages: [
       {
+        path: "/",
+        middleware: () => <NoPathMiddleware />,
+      },
+      {
         path: "dashboard",
         element: () => <Dashboard />,
       },
       {
         path: "products",
-        element: () => <Dashboard />,
+        element: () => <Products />,
       },
     ],
   },
