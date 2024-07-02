@@ -29,7 +29,7 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value
         readOnly={isReadonly}
         defaultValue={defaultValue}
         rows={5}
-        className="text-m-regular min-h-[500px] bg-gray-25 px-2 py-3"
+        className="text-m-regular custom-textarea min-h-[500px] bg-gray-25 px-2 py-3"
       />
       {error && <p className="text-red-500">{error}</p>}
     </>

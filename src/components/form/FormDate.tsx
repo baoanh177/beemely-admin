@@ -32,7 +32,7 @@ const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue, valu
         defaultValue={defaultValue}
         value={value}
         disabled={disabled}
-        className="w-full rounded-md bg-gray-25 py-2"
+        className="custom-datepicker w-full rounded-md bg-gray-25 py-2"
       />
     </div>
   );
