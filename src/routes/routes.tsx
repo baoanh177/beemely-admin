@@ -5,10 +5,11 @@ import { Route } from "react-router-dom";
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
-import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
+
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
+import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
 
 interface IRoute {
   path: string;
