@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import clsx from "clsx";
 
-interface IButton {
+export interface IButtonProps {
   type?: "primary" | "ghost" | "secondary";
   text: string;
   isDisabled?: boolean;
@@ -10,7 +10,7 @@ interface IButton {
   onClick?: () => void;
 }
 
-const Button = ({ type = "primary", text, isDisabled = false, isLoading = false, icon, onClick }: IButton) => {
+const Button = ({ type = "primary", text, isDisabled = false, isLoading = false, icon, onClick }: IButtonProps) => {
   const typeClass = {
     primary: "bg-primary-500 text-white",
     ghost: " text-primary-500 bg-primary-50",
