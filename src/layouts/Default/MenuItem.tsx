@@ -47,19 +47,12 @@ const MenuItem = ({
       <div className="flex items-center gap-2">
         {IconComponent && (
           <IconComponent
-            className={clsx(
-              "text-2xl group-hover:text-primary-500",
-              icon.className,
-              (isActive || isChildActive || isOpen) && "text-primary-500",
-            )}
+            className={clsx("text-2xl group-hover:text-primary-500", icon.className, (isActive || isChildActive || isOpen) && "text-primary-500")}
           />
         )}
         {isChild && <IoPieChartOutline className="invisible text-2xl" />}
         <span
-          className={clsx(
-            "text-m-semibold text-black-400 group-hover:text-primary-500",
-            (isActive || isChildActive || isOpen) && "text-primary-500",
-          )}
+          className={clsx("text-m-semibold text-black-400 group-hover:text-primary-500", (isActive || isChildActive || isOpen) && "text-primary-500")}
         >
           {label}
         </span>

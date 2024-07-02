@@ -5,5 +5,5 @@ export enum PageNames {
   orders = "Orders",
   customers = "Customers",
   edit = "Edit",
-  detail = "Detail"
+  detail = "Detail",
 }

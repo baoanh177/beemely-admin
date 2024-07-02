@@ -27,10 +27,7 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
           case ButtonTypes.UPDATE:
             return (
               <Tooltip title="Edit" key={index}>
-                <HiOutlinePencil
-                  className="cursor-pointer text-xl text-yellow-500"
-                  onClick={() => button.onClick(record)}
-                />
+                <HiOutlinePencil className="cursor-pointer text-xl text-yellow-500" onClick={() => button.onClick(record)} />
               </Tooltip>
             );
           case ButtonTypes.DELETE:

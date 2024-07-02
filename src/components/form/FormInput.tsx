@@ -13,18 +13,7 @@ interface FormInputProps {
   onChange?: (value: string | number) => void;
 }
 
-const FormInput = ({
-  label,
-  type,
-  placeholder,
-  value,
-  defaultValue,
-  isDisabled,
-  isReadonly,
-  onBlur,
-  error,
-  onChange,
-}: FormInputProps) => {
+const FormInput = ({ label, type, placeholder, value, defaultValue, isDisabled, isReadonly, onBlur, error, onChange }: FormInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     if (onChange) {

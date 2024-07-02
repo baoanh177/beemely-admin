@@ -31,9 +31,7 @@ const FormSelect = ({ label, isDisabled, placeholder, options, defaultValue, isM
         showSearch
         placeholder={placeholder}
         optionFilterProp="label"
-        filterSort={(optionA, optionB) =>
-          (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())
-        }
+        filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
         options={options}
       />
     </>

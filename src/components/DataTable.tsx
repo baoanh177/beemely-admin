@@ -18,21 +18,11 @@ interface IDataTableProps<S> {
   buttons?: IGridButton[];
 }
 
-const DataTable = <S extends IInitialState>({
-  buttons,
-  columns,
-  data,
-  state,
-  setFilter,
-  hideComponents,
-}: IDataTableProps<S>) => {
+const DataTable = <S extends IInitialState>({ buttons, columns, data, state, setFilter, hideComponents }: IDataTableProps<S>) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const renderColumns = useMemo(() => {
-    return buttons?.some(
-      (button) =>
-        button.type === ButtonTypes.VIEW || button.type === ButtonTypes.UPDATE || button.type === ButtonTypes.DELETE,
-    )
+    return buttons?.some((button) => button.type === ButtonTypes.VIEW || button.type === ButtonTypes.UPDATE || button.type === ButtonTypes.DELETE)
       ? ([
           ...columns,
           {
