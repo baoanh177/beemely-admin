@@ -2,18 +2,18 @@
   height: 40px;
   outline: none;
   .ant-select-selector {
-    background-color: #F9F9FC !important;
+    background-color: #f9f9fc !important;
     height: 100%;
-    border-color: #E0E2E7 !important;
+    border-color: #e0e2e7 !important;
     box-shadow: none !important;
-    .ant-select-selection-placeholder{
-        color: #858D9D;
+    .ant-select-selection-placeholder {
+      color: #858d9d;
     }
   }
 
   &:hover {
     .ant-select-selector {
-      border-color: #E0E2E7 !important;
+      border-color: #e0e2e7 !important;
     }
   }
 
@@ -29,7 +29,6 @@
 
   .ant-select-selection-item {
     .ant-select-selection-item-content {
-
       font-weight: 400;
     }
 

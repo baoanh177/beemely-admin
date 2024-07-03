@@ -5,9 +5,10 @@ import { Route } from "react-router-dom";
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import NotFound from "@/pages/Errors/NotFound";
+
+import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
-import Components from "@/pages/Components/Components";
 
 interface IRoute {
   path: string;
