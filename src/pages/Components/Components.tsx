@@ -19,6 +19,7 @@ const Components = () => {
             <FormInput error="error!!!" placeholder="Đây là input text bị lỗi" type="text" />
             <FormInput placeholder="Đây là input text bị readonly" isReadonly type="text" />
             <FormInput placeholder="Đây là input text có label" label="This is label" type="text" />
+            <FormInput placeholder="Đây là input password" label="This is label" type="password" />
           </div>
         </div>
         <div className="flex flex-col gap-5">
