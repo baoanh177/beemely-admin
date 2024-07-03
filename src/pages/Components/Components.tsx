@@ -12,6 +12,7 @@ import UpdateImage from "@/components/form/FormUpload";
 
 import { IoSaveOutline } from "react-icons/io5";
 import { Table } from "antd";
+import ImageTable from "@/components/table/ImageTable";
 
 const Components = () => {
   return (
@@ -142,6 +143,11 @@ const Components = () => {
             dataSource={tableData}
             pagination={false}
           />
+        </div>
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Table</h1>
+          <ImageTable imageSrc="https://picsum.photos/200/300" title="Handmade Pouch" description="+3 other products" />
+          <ImageTable imageSrc="https://picsum.photos/200/300sdfrg" title="Smartwatch E2" description="+1 other products" />
         </div>
       </div>
     </>
