@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Card, Avatar, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 const { Text } = Typography;
 
 interface ImageTableProps {
-  imageSrc?: string;
+  imageSrc: string;
   title: string;
-  description: string;
+  description?: string;
 }
-
+const defaultImageSrc = "https://t3.ftcdn.net/jpg/02/97/73/42/360_F_297734214_IbEci8CMShXg0L71F9YRYhJclm7E7LFG.jpg";
 const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description }) => {
   const [imgError, setImgError] = useState(false);
 
@@ -28,10 +27,10 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
       <Meta
         className="custom-meta"
         avatar={
-          !imgError && imageSrc ? (
-            <Avatar src={imageSrc} onError={handleImageError} className="custom-avatar" />
+          imgError || !imageSrc ? (
+            <Avatar src={defaultImageSrc} className="custom-avatar" />
           ) : (
-            <Avatar icon={<UserOutlined />} className="custom-avatar" />
+            <Avatar src={imageSrc} onError={handleImageError} className="custom-avatar" />
           )
         }
         title={<Text className="custom-description">{title}</Text>}
