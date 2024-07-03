@@ -1,5 +1,5 @@
 import type { TableColumnsType } from "antd";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { PiNotePencilLight } from "react-icons/pi";
 const { confirm } = Modal;
@@ -14,14 +14,6 @@ interface DataType {
   status: string;
   added: string;
 }
-
-const ActionButtons: React.FC = () => (
-  <div className="flex gap-3">
-    <IoEyeOutline className="text-[18px] text-blue-500" />
-    <PiNotePencilLight className="text-[18px] text-yellow-600" />
-    <IoTrashBinOutline className="text-[18px] text-red-500" onClick={showDeleteConfirm} />
-  </div>
-);
 const showDeleteConfirm = () => {
   confirm({
     title: "Are you sure you want to delete this item?",
@@ -31,6 +23,40 @@ const showDeleteConfirm = () => {
     cancelText: "No",
   });
 };
+const actionButtonsConfig = [
+  {
+    icon: <IoEyeOutline className="text-[18px] text-blue-500" />,
+    tooltip: "View",
+    onClick: (record: DataType) => {
+      record;
+    },
+  },
+  {
+    icon: <PiNotePencilLight className="text-[18px] text-yellow-600" />,
+    tooltip: "Edit",
+    onClick: (record: DataType) => {
+      record;
+    },
+  },
+  {
+    icon: <IoTrashBinOutline className="text-[18px] text-red-500" />,
+    tooltip: "Delete",
+    onClick: (record: DataType) => {
+      showDeleteConfirm();
+      record;
+    },
+  },
+];
+
+const ActionButtons: React.FC<{ record: DataType }> = ({ record }) => (
+  <div className="flex gap-3 hover:cursor-pointer">
+    {actionButtonsConfig.map((button, index) => (
+      <Tooltip key={index} title={button.tooltip}>
+        <span onClick={() => button.onClick(record)}>{button.icon}</span>
+      </Tooltip>
+    ))}
+  </div>
+);
 
 export const tableColumns: TableColumnsType<DataType> = [
   {
@@ -70,7 +96,7 @@ export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Action",
     dataIndex: "action",
-    render: () => <ActionButtons />,
+    render: (record) => <ActionButtons record={record} />,
   },
 ];
 
