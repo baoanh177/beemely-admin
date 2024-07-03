@@ -16,45 +16,43 @@ interface DataType {
 }
 const showDeleteConfirm = () => {
   confirm({
-    title: 'Are you sure you want to delete this item?',
-    content: 'This action cannot be undone.',
-    okText: 'Yes',
-    okType: 'danger',
-    cancelText: 'No',
+    title: "Are you sure you want to delete this item?",
+    content: "This action cannot be undone.",
+    okText: "Yes",
+    okType: "danger",
+    cancelText: "No",
   });
 };
 const actionButtonsConfig = [
   {
-    icon: <IoEyeOutline className='text-[18px] text-blue-500' />,
-    tooltip: 'View',
+    icon: <IoEyeOutline className="text-[18px] text-blue-500" />,
+    tooltip: "View",
     onClick: (record: DataType) => {
-      record
+      record;
     },
   },
   {
-    icon: <PiNotePencilLight className='text-[18px] text-yellow-600' />,
-    tooltip: 'Edit',
+    icon: <PiNotePencilLight className="text-[18px] text-yellow-600" />,
+    tooltip: "Edit",
     onClick: (record: DataType) => {
-      record
+      record;
     },
   },
   {
-    icon: <IoTrashBinOutline className='text-[18px] text-red-500' />,
-    tooltip: 'Delete',
+    icon: <IoTrashBinOutline className="text-[18px] text-red-500" />,
+    tooltip: "Delete",
     onClick: (record: DataType) => {
       showDeleteConfirm();
-      record
+      record;
     },
   },
 ];
 
 const ActionButtons: React.FC<{ record: DataType }> = ({ record }) => (
-  <div className='flex gap-3 hover:cursor-pointer'>
+  <div className="flex gap-3 hover:cursor-pointer">
     {actionButtonsConfig.map((button, index) => (
       <Tooltip key={index} title={button.tooltip}>
-        <span onClick={() => button.onClick(record)}>
-          {button.icon}
-        </span>
+        <span onClick={() => button.onClick(record)}>{button.icon}</span>
       </Tooltip>
     ))}
   </div>

@@ -35,7 +35,7 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, isDisabled, 
           disabled={isDisabled}
           readOnly={isReadonly}
           onBlur={onBlur}
-          className={clsx("text-m-regular  placeholder:text-m-medium flex-1 bg-gray-25 text-black-500 outline-none", {
+          className={clsx("text-m-regular placeholder:text-m-medium flex-1 bg-gray-25 text-black-500 outline-none", {
             "border-red-500": error,
           })}
         />
