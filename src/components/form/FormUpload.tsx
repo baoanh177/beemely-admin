@@ -9,7 +9,6 @@ import { IoIosCloseCircle } from "react-icons/io";
 const UpdateImage: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const handleDeleteImage = (uid: string) => {
     const updatedFileList = fileList.filter((file) => file.uid !== uid);
@@ -29,12 +28,7 @@ const UpdateImage: React.FC = () => {
 
       if (file.name === "error.jpg") {
         file.status = "error";
-      }
-      if (file.status === "error") {
-        setError("Error uploading file, please try again.");
         message.error("Error uploading file, please try again.");
-      } else {
-        setError(null);
       }
       setFileList(updatedFileList);
     },
