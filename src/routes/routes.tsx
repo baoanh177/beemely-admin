@@ -9,7 +9,6 @@ import NotFound from "@/pages/Errors/NotFound";
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
-import CheckboxRadio from "@/pages/Checkbox-radio/CheckboxRadio";
 
 interface IRoute {
   path: string;
@@ -75,30 +74,11 @@ const routes: IRoute[] = [
         path: "products",
         element: () => <Products />,
       },
-    ],
-  },
-  {
-    path: "components",
-    pages: [
       {
-        path: "checkbox-radio",
-        element: () => <CheckboxRadio />,
+        path: "components",
+        element: () => <Components />,
       },
     ],
-  },
-
-  {
-    path: "components",
-    pages: [
-      {
-        path: "checkbox-radio",
-        element: () => <CheckboxRadio />,
-      },
-    ],
-  },
-  {
-    path: "components",
-    element: () => <Components />,
   },
 ];
 
