@@ -1,4 +1,4 @@
-import { Upload } from "antd";
+import { Upload, message } from "antd";
 import Button from "@/components/Button";
 import "@/assets/scss/overwrite/index.scss";
 
@@ -9,6 +9,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 const UpdateImage: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDeleteImage = (uid: string) => {
     const updatedFileList = fileList.filter((file) => file.uid !== uid);
@@ -18,13 +19,23 @@ const UpdateImage: React.FC = () => {
 
   const props: UploadProps = {
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange: ({ fileList: newFileList }) => {
+    onChange: ({ file, fileList: newFileList }) => {
       const updatedFileList = newFileList.map((file) => {
         if (file.originFileObj) {
           file.thumbUrl = URL.createObjectURL(file.originFileObj);
         }
         return file;
       });
+
+      if (file.name === "error.jpg") {
+        file.status = "error";
+      }
+      if (file.status === "error") {
+        setError("Error uploading file, please try again.");
+        message.error("Error uploading file, please try again.");
+      } else {
+        setError(null);
+      }
       setFileList(updatedFileList);
     },
     showUploadList: false,
