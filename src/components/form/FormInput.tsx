@@ -3,7 +3,7 @@ import clsx from "clsx";
 interface FormInputProps {
   label?: string;
   placeholder?: string;
-  type: "text" | "number";
+  type: "text" | "number" | "password";
   value?: string | number;
   defaultValue?: string | number;
   isDisabled?: boolean;
@@ -35,7 +35,7 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, isDisabled, 
           disabled={isDisabled}
           readOnly={isReadonly}
           onBlur={onBlur}
-          className={clsx("text-m-medium placeholder:text-m-medium flex-1 bg-gray-25 text-gray-400 outline-none", {
+          className={clsx("text-m-regular  placeholder:text-m-medium flex-1 bg-gray-25 text-black-500 outline-none", {
             "border-red-500": error,
           })}
         />
