@@ -34,7 +34,7 @@ const Button = ({ type = "primary", text, isDisabled = false, isLoading = false,
         {
           "cursor-not-allowed opacity-65": isDisabled,
           "opacity-65": isLoading,
-          "hover:opacity-95 cursor-pointer": !isDisabled && !isLoading,
+          "cursor-pointer hover:opacity-95": !isDisabled && !isLoading,
         },
       )}
     >
