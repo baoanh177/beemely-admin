@@ -9,6 +9,9 @@ import NotFound from "@/pages/Errors/NotFound";
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
+import Login from "@/pages/Login/Login";
+import GuestMiddleware from "@/middlewares/GuestMiddleware";
+import AuthMiddleware from "@/middlewares/AuthMiddleware";
 
 interface IRoute {
   path: string;
@@ -60,6 +63,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
 const routes: IRoute[] = [
   {
     path: "/",
+    middleware: () => <AuthMiddleware />,
     layout: () => <DefaultLayout />,
     pages: [
       {
@@ -80,6 +84,16 @@ const routes: IRoute[] = [
       },
     ],
   },
+  {
+    path: "auth",
+    middleware: () => <GuestMiddleware />,
+    pages: [
+      {
+        path: "login",
+        element: () => <Login />
+      }
+    ]
+  }
 ];
 
 export { routes, renderRoutes };
