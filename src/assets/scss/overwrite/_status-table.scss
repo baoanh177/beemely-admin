@@ -1,0 +1,32 @@
+.custom-processing {
+  width: 94px;
+  height: 28px;
+  background-color: #fff0ea;
+  color: #f86624;
+}
+
+.custom-shipped {
+  width: 67px;
+  height: 28px;
+  background-color: #eaf8ff;
+  color: #2bb2fe;
+}
+
+.custom-delivered {
+  width: 84px;
+  height: 28px;
+  background-color: #e9faf7;
+  color: #1a9882;
+}
+.custom-processing,
+.custom-shipped,
+.custom-delivered {
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-family: ps-SemiBold;
+}
