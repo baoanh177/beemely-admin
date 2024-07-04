@@ -10,26 +10,26 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color }) => {
 
   switch (color) {
     case "orange":
-      className = " bg-orange-50 text-orange-500";
+      className = "bg-orange-50 text-orange-500";
       break;
     case "blue":
-      className = " bg-cyan-50 text-cyan-500";
+      className = "bg-cyan-50 text-cyan-500";
       break;
     case "green":
-      className = " bg-green-50 text-green-600";
+      className = "bg-green-50 text-green-600";
       break;
     case "gray":
-      className = " bg-gray-50 text-gray-500";
+      className = "bg-gray-50 text-gray-500";
       break;
     case "red":
-      className = " bg-red-50 text-red-500";
+      className = "bg-red-50 text-red-500";
       break;
     default:
       className = "";
       break;
   }
 
-  return <div className={clsx(className, "text-m-semibold inline-block items-center justify-center rounded-lg border-none px-2 py-1")}>{text}</div>;
+  return <div className={clsx(className, "text-m-semibold inline-block rounded-lg border-none px-[10px] py-1 text-center")}>{text}</div>;
 };
 
 export default StatusBadge;
