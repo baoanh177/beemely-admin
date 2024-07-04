@@ -7,7 +7,6 @@ import { login } from "@/stores/reducers/auth.reducer";
 import { Formik } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { FaClock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 
