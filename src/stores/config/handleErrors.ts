@@ -1,18 +1,19 @@
-import { ClientType } from "./client"
+import { ClientType } from "./client";
 
 export const handleErrors = (client: ClientType, response: Response) => {
-  switch(response.status) {
+  client;
+  switch (response.status) {
     case 400:
       // Bad Request
-      break
+      break;
     case 401:
       // Unauthorized
-      break
+      break;
     case 403:
       // Access Denied
-      break
+      break;
     case 500:
       // Server Error
-      break
+      break;
   }
-}
+};

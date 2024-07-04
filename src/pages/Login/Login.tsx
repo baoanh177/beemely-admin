@@ -17,7 +17,7 @@ interface ILoginFormData {
 
 const Login = () => {
   const { state, dispatch } = useArchive<IAuthInitialState>("auth");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = (data: ILoginFormData) => {
     dispatch(
@@ -28,84 +28,82 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if(state?.status !== FetchStatus.IDLE) {
-      if(state?.status == FetchStatus.FULFILLED) {
-        toast.success("Logged in successfully")
-        navigate("/dashboard")
-      }else if(state?.status == FetchStatus.REJECTED) {
-        toast.error(state?.message as string)
+    if (state?.status !== FetchStatus.IDLE) {
+      if (state?.status === FetchStatus.FULFILLED) {
+        toast.success("Logged in successfully");
+        navigate("/dashboard");
+      } else if (state?.status === FetchStatus.REJECTED) {
+        toast.error(state?.message as string);
       }
-      dispatch(resetStatus())
+      dispatch(resetStatus());
     }
-  }, [state?.status])
+  }, [state?.status]);
 
   const loginFormInitialValues: ILoginFormData = { email: "", password: "" };
 
   const validateSchema = object().shape({
     email: string().email("Invalid email!").required("Please enter your email!"),
-    password: string().required("Please enter your password")
-  })
+    password: string().required("Please enter your password"),
+  });
 
   return (
-    <>
-      <section className="bg-gray-50">
-        <div className="mx-auto flex h-screen flex-col items-center justify-center px-6 py-8 lg:py-0">
-          <a href="#" className="text-gray-900 display-m-semibold mb-6 flex items-center text-2xl">
-            <img className="mr-2 h-8 w-8" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-            Beemely
-          </a>
-          <div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
-            <div className="flex flex-col gap-5 p-8">
-              <h1 className="text-gray-900 display-m-bold md:text-xl-semibold">Login to your account</h1>
-              <Formik
-                validationSchema={validateSchema}
-                initialValues={loginFormInitialValues}
-                validateOnBlur
-                onSubmit={(data) => {
-                  handleLogin(data);
-                }}
-              >
-                {({ handleSubmit, values, setFieldValue, errors }) => {
-                  return (
-                    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-                      <FormInput
-                        type="text"
-                        name="email"
-                        value={values.email}
-                        error={errors.email}
-                        isDisabled={state?.status == FetchStatus.PENDING}
-                        onChange={(value) => {
-                          setFieldValue("email", value);
-                        }}
-                        placeholder="Enter your email..."
-                      />
-                      <FormInput
-                        type="password"
-                        name="password"
-                        value={values.password}
-                        error={errors.password}
-                        isDisabled={state?.status == FetchStatus.PENDING}
-                        onChange={(value) => {
-                          setFieldValue("password", value);
-                        }}
-                        placeholder="Enter your password..."
-                      />
-                      <Button text="Login" isLoading={state?.status == FetchStatus.PENDING}/>
-                      <Link
-                        to="/forgot-password"
-                        className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"
-                      >
-                        Forgot password?
-                      </Link>
-                    </form>
-                  );
-                }}
-              </Formik>
-            </div>
+    <section className="bg-gray-50">
+      <div className="mx-auto flex h-screen flex-col items-center justify-center px-6 py-8 lg:py-0">
+        <a href="#" className="text-gray-900 display-m-semibold mb-6 flex items-center text-2xl">
+          <img className="mr-2 h-8 w-8" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+          Beemely
+        </a>
+        <div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
+          <div className="flex flex-col gap-5 p-8">
+            <h1 className="text-gray-900 display-m-bold md:text-xl-semibold">Login to your account</h1>
+            <Formik
+              validationSchema={validateSchema}
+              initialValues={loginFormInitialValues}
+              validateOnBlur
+              onSubmit={(data) => {
+                handleLogin(data);
+              }}
+            >
+              {({ handleSubmit, values, setFieldValue, errors }) => {
+                return (
+                  <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+                    <FormInput
+                      type="text"
+                      name="email"
+                      value={values.email}
+                      error={errors.email}
+                      isDisabled={state?.status === FetchStatus.PENDING}
+                      onChange={(value) => {
+                        setFieldValue("email", value);
+                      }}
+                      placeholder="Enter your email..."
+                    />
+                    <FormInput
+                      type="password"
+                      name="password"
+                      value={values.password}
+                      error={errors.password}
+                      isDisabled={state?.status === FetchStatus.PENDING}
+                      onChange={(value) => {
+                        setFieldValue("password", value);
+                      }}
+                      placeholder="Enter your password..."
+                    />
+                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} />
+                    <Link
+                      to="/forgot-password"
+                      className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"
+                    >
+                      Forgot password?
+                    </Link>
+                  </form>
+                );
+              }}
+            </Formik>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

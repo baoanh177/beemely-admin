@@ -90,10 +90,10 @@ const routes: IRoute[] = [
     pages: [
       {
         path: "login",
-        element: () => <Login />
-      }
-    ]
-  }
+        element: () => <Login />,
+      },
+    ],
+  },
 ];
 
 export { routes, renderRoutes };

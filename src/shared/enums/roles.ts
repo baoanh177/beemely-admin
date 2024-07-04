@@ -1,3 +1,3 @@
 export enum Roles {
-  ADD_USER = "add-user"
+  ADD_USER = "add-user",
 }

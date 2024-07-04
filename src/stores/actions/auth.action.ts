@@ -26,28 +26,28 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     resetStatus(state) {
-      state.status = FetchStatus.IDLE
-      state.message = ""
-    }
+      state.status = FetchStatus.IDLE;
+      state.message = "";
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(login.pending, (state) => {
-        state.action = AuthActions.LOGIN
-        state.status = FetchStatus.PENDING
+        state.action = AuthActions.LOGIN;
+        state.status = FetchStatus.PENDING;
       })
       .addCase(login.fulfilled, (state, { payload }: PayloadAction<IResponse<ILoginResponseData>>) => {
-        localStorage.setItem("accessToken", JSON.stringify(payload.metaData?.accessToken))
-        localStorage.setItem("refreshToken", JSON.stringify(payload.metaData?.refreshToken))
-        state.user = payload.metaData?.userData
-        state.status = FetchStatus.FULFILLED
+        localStorage.setItem("accessToken", JSON.stringify(payload.metaData?.accessToken));
+        localStorage.setItem("refreshToken", JSON.stringify(payload.metaData?.refreshToken));
+        state.user = payload.metaData?.userData;
+        state.status = FetchStatus.FULFILLED;
       })
       .addCase(login.rejected, (state, { payload }: PayloadAction<any>) => {
-        state.message = payload.message
-        state.status = FetchStatus.REJECTED
-      })
+        state.message = payload.message;
+        state.status = FetchStatus.REJECTED;
+      });
   },
 });
 
-export const { resetStatus } = authSlice.actions
+export const { resetStatus } = authSlice.actions;
 export { authSlice };

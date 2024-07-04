@@ -26,7 +26,7 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, name, isDisa
   return (
     <div className="mb-4 flex flex-col">
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
-      <div className="flex items-center gap-1 rounded-[8px] border border-gray-100 bg-gray-25 overflow-hidden">
+      <div className="flex items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25">
         <input
           type={type}
           placeholder={placeholder}
@@ -37,7 +37,7 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, name, isDisa
           name={name}
           readOnly={isReadonly}
           onBlur={onBlur}
-          className={clsx("text-m-regular placeholder:text-m-medium flex-1 bg-gray-25 text-black-500 outline-none px-[14px] py-[10px]", {
+          className={clsx("text-m-regular placeholder:text-m-medium flex-1 bg-gray-25 px-[14px] py-[10px] text-black-500 outline-none", {
             "border-red-500": error,
           })}
         />
