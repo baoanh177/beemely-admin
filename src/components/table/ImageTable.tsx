@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Avatar, Typography } from "antd";
 import imageError from "@/assets/images/imgError-table.jpg";
-
-const { Meta } = Card;
-const { Text } = Typography;
 
 interface ImageTableProps {
   imageSrc: string;
@@ -12,35 +8,27 @@ interface ImageTableProps {
 }
 
 const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description }) => {
-  const [imgError, setImgError] = useState(false);
+  const [imgSrc, setImgSrc] = useState(imageSrc);
 
   useEffect(() => {
-    setImgError(false);
+    if (!imageSrc) {
+      setImgSrc(imageError);
+    } else {
+      setImgSrc(imageSrc);
+    }
   }, [imageSrc]);
 
-  const handleImageError = () => {
-    setImgError(true);
-    return true;
+  const handleError = () => {
+    setImgSrc(imageError);
   };
 
   return (
-    <div className="flex items-center p-4">
-      <Meta
-        className="flex items-center gap-[8px]"
-        avatar={
-          imgError || !imageSrc || imageSrc.trim() === "" ? (
-            <Avatar src={imageError} className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-lg" />
-          ) : (
-            <Avatar src={imageSrc} onError={handleImageError} className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-lg" />
-          )
-        }
-        title={<Text className="text-m-medium">{title}</Text>}
-        description={
-          <Text className="text-s-regular text-gray-500" type="secondary">
-            {description}
-          </Text>
-        }
-      />
+    <div className="flex items-center gap-2">
+      <img src={imgSrc} onError={handleError} className="h-11 w-11 rounded-lg bg-gray-50 object-cover" alt="" />
+      <div className="flex flex-col gap-1">
+        <div className="text-m-medium text-black-500">{title}</div>
+        <div className="text-m-medium text-gray-500">{description}</div>
+      </div>
     </div>
   );
 };
