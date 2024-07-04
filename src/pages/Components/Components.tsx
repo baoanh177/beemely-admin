@@ -4,14 +4,14 @@ import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
-import { tableData, tableColumns, onSelectChange } from "./table-data";
 
 import Heading from "@/layouts/Default/Heading";
 
 import UpdateImage from "@/components/form/FormUpload";
 
 import { IoSaveOutline } from "react-icons/io5";
-import { Table } from "antd";
+import PrimaryTable from "@/components/table/PrimaryTable";
+import { tableColumns, tableData } from "./table-data";
 
 const Components = () => {
   return (
@@ -134,14 +134,8 @@ const Components = () => {
         </div>
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
-          <Table
-            rowSelection={{
-              onChange: onSelectChange,
-            }}
-            columns={tableColumns}
-            dataSource={tableData}
-            pagination={false}
-          />
+
+          <PrimaryTable search={false} columns={tableColumns} data={tableData} />
         </div>
       </div>
     </>
