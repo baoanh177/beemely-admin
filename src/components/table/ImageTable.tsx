@@ -25,12 +25,12 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
 
   return (
     <div className="flex items-center gap-2">
-      {typeof imgSrc !== "undefined" ? (
-        <img src={imgSrc} onError={handleError} className="h-11 w-11 rounded-lg bg-gray-50 object-cover" alt="" />
-      ) : (
+      {!imgSrc ? (
         <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50">
           <span className="text-m-medium text-gray-400">{title[0]}</span>
         </div>
+      ) : (
+        <img src={imgSrc} onError={handleError} className="h-11 w-11 rounded-lg bg-gray-50 object-cover" alt="" />
       )}
       <div className="flex flex-col gap-1">
         <div className="text-m-medium text-black-500">{title}</div>
