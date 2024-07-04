@@ -148,9 +148,9 @@ const Components = () => {
 
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Status-table</h1>
-          <StatusTable text="Processing" type="processing" />
-          <StatusTable text="Shiped" type="shipped" />
-          <StatusTable text="Delivered" type="delivered" />
+          <StatusTable text="Processing" color="orange" />
+          <StatusTable text="Shiped" color="blue" />
+          <StatusTable text="Delivered" color="green" />
         </div>
       </div>
     </>

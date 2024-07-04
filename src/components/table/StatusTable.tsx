@@ -2,20 +2,20 @@ import React from "react";
 
 interface StatusTableProps {
   text: string;
-  type: "processing" | "shipped" | "delivered";
+  color: "blue" | "green" | "orange";
 }
 
-const StatusTable: React.FC<StatusTableProps> = ({ text, type }) => {
+const StatusTable: React.FC<StatusTableProps> = ({ text, color }) => {
   let className = "";
 
-  switch (type) {
-    case "processing":
+  switch (color) {
+    case "orange":
       className = "w-[94px] h-[28px] bg-orange-50 text-orange-500";
       break;
-    case "shipped":
+    case "blue":
       className = "w-[67px] h-[28px] bg-cyan-50 text-cyan-500";
       break;
-    case "delivered":
+    case "green":
       className = "w-[84px] h-[28px] bg-green-50 text-green-600";
       break;
     default:
