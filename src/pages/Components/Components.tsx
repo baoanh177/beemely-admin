@@ -14,6 +14,7 @@ import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 
 import StatusBadge from "@/components/table/StatusBadge";
+import TableTransaction from "@/components/table/TableTransaction";
 
 const Components = () => {
   return (
@@ -147,6 +148,10 @@ const Components = () => {
           <StatusBadge text="Delivered" color="green" />
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
+        </div>
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Table-transaction</h1>
+          <TableTransaction />
         </div>
       </div>
     </>
