@@ -24,9 +24,9 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
   };
 
   return (
-    <Card className="flex h-20 items-center p-4">
+    <div className="flex items-center p-4">
       <Meta
-        className="flex h-8 items-center"
+        className="flex items-center gap-[8px]"
         avatar={
           imgError || !imageSrc ? (
             <Avatar src={imageError} className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-lg" />
@@ -34,14 +34,14 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
             <Avatar src={imageSrc} onError={handleImageError} className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-lg" />
           )
         }
-        title={<Text className="text-base">{title}</Text>}
+        title={<Text className="text-m-regular">{title}</Text>}
         description={
-          <Text className="text-sm text-gray-500" type="secondary">
+          <Text className="text-s-regular text-gray-500" type="secondary">
             {description}
           </Text>
         }
       />
-    </Card>
+    </div>
   );
 };
 
