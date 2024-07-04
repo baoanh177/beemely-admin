@@ -19,7 +19,7 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value
     }
   };
   return (
-    <>
+    <div>
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
       <TextArea
         placeholder={placeholder}
@@ -31,7 +31,7 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value
         className="text-m-regular custom-textarea min-h-[500px] bg-gray-25 px-2 py-3"
       />
       {error && <p className="text-red-500">{error}</p>}
-    </>
+    </div>
   );
 };
 export default FormInputArea;
