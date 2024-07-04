@@ -13,6 +13,8 @@ import UpdateImage from "@/components/form/FormUpload";
 import { IoSaveOutline } from "react-icons/io5";
 import { Table } from "antd";
 
+import StatusBadge from "@/components/table/StatusBadge";
+
 const Components = () => {
   return (
     <>
@@ -142,6 +144,15 @@ const Components = () => {
             dataSource={tableData}
             pagination={false}
           />
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Status-table</h1>
+          <StatusBadge text="Processing" color="orange" />
+          <StatusBadge text="Shiped" color="blue" />
+          <StatusBadge text="Delivered" color="green" />
+          <StatusBadge text="Draft" color="gray" />
+          <StatusBadge text="Out of Stock" color="red" />
         </div>
       </div>
     </>
