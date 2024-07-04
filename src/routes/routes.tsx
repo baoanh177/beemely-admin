@@ -9,6 +9,7 @@ import NotFound from "@/pages/Errors/NotFound";
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Products/Products";
+import Accounts from "@/pages/Accounts/Accounts";
 
 interface IRoute {
   path: string;
@@ -77,6 +78,10 @@ const routes: IRoute[] = [
       {
         path: "components",
         element: () => <Components />,
+      },
+      {
+        path: "accounts",
+        element: () => <Accounts />,
       },
     ],
   },

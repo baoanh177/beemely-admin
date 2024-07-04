@@ -10,6 +10,8 @@ import Heading from "@/layouts/Default/Heading";
 import UpdateImage from "@/components/form/FormUpload";
 
 import { IoSaveOutline } from "react-icons/io5";
+
+import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 
@@ -30,6 +32,7 @@ const Components = () => {
             <FormInput error="error!!!" placeholder="Đây là input text bị lỗi" type="text" />
             <FormInput placeholder="Đây là input text bị readonly" isReadonly type="text" />
             <FormInput placeholder="Đây là input text có label" label="This is label" type="text" />
+            <FormInput placeholder="Đây là input password" label="This is label" type="password" />
           </div>
         </div>
         <div className="flex flex-col gap-5">
@@ -138,9 +141,19 @@ const Components = () => {
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
 
-          <PrimaryTable search={false} columns={tableColumns} pagination={{ current: 1, pageSize: 5, total: tableData.length }} data={tableData} />
+          <PrimaryTable
+            search={{ status: [{ value: "lnog", label: "123" }] }}
+            columns={tableColumns}
+            pagination={{ current: 1, pageSize: 5, total: tableData.length }}
+            data={tableData}
+          />
         </div>
-
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Image-table</h1>
+          <ImageTable imageSrc="https://picsum.photos/200/300" title="Handmade Pouch" description="+3 other products" />
+          <ImageTable imageSrc="https://picsum.photos/200/300sdfrg" title="Smartwatch E2" description="+1 other products" />
+          <ImageTable imageSrc="" title="No Image" description="No image" />
+        </div>
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Status-table</h1>
           <StatusBadge text="Processing" color="orange" />
