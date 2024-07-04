@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
 import { ConfigProvider, Segmented } from 'antd';
 
-const StartComponent: React.FC = () => <div>1 Component</div>;
-const CenterComponent: React.FC = () => <div>2 Component</div>;
-const EndComponent: React.FC = () => <div>3 Component</div>;
-const LeftComponent: React.FC = () => <div>4 Component</div>;
-
 interface Option {
     label: string;
-    value: React.FC;
+    value: string;
 }
 
 const options: Option[] = [
-    { label: 'Product All', value: StartComponent },
-    { label: 'Published', value: CenterComponent },
-    { label: 'Low Stock', value: EndComponent },
-    { label: 'Draft', value: LeftComponent },
+    { label: 'Product All', value: "123" },
+    { label: 'Published', value: "234" },
+    { label: 'Low Stock', value: "123" },
+    { label: 'Draft', value: "123" },
 ];
-const StatusFilter: React.FC = () => {
+const SearchDataTable: React.FC = () => {
     const [selectedValue, setSelectedValue] = useState<string>('Product All');
-
     const handleChange = (value: string) => {
         setSelectedValue(value);
+        selectedValue
     };
-
     return (
         <div>
             <ConfigProvider
@@ -40,10 +34,9 @@ const StatusFilter: React.FC = () => {
                     onChange={handleChange}
                     options={options.map(option => option.label)}
                 />
-                {options.find(option => option.label === selectedValue)?.value("")}
             </ConfigProvider>
         </div>
     );
 };
 
-export default StatusFilter;
+export default SearchDataTable;

@@ -1,9 +1,19 @@
 import Button from "@/components/Button";
 import FormCheck from "@/components/form/FormCheck";
+import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
+import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
+
 import Heading from "@/layouts/Default/Heading";
+
+import UpdateImage from "@/components/form/FormUpload";
+
 import { IoSaveOutline } from "react-icons/io5";
+import PrimaryTable from "@/components/table/PrimaryTable";
+import { tableColumns, tableData } from "./table-data";
+
+import StatusBadge from "@/components/table/StatusBadge";
 
 const Components = () => {
   return (
@@ -11,7 +21,7 @@ const Components = () => {
       <Heading title="Components" hasBreadcrumb />
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
-          <div className="display-m-medium">FormInput: Form input text and number</div>
+          <div className="display-s-regular">FormInput: Form input text and number</div>
           <div className="flex flex-col gap-2">
             <FormInput placeholder="Đây là input number" type="number" />
             <FormInput placeholder="Đây là input number bị disabled" isDisabled type="number" />
@@ -23,7 +33,7 @@ const Components = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <div className="display-m-medium">FormSelect: Select single and multiple</div>
+          <div className="display-s-regular">FormSelect: Select single and multiple</div>
           <div className="flex flex-col gap-2">
             <FormSelect
               placeholder="Đây là select single có label"
@@ -88,7 +98,7 @@ const Components = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <div className="display-m-medium">FormCheck: Check box</div>
+          <div className="display-s-regular">FormCheck: Check box</div>
           <div className="flex flex-col gap-2">
             <FormCheck label="Đây là check box thường" />
             <FormCheck isDefaultChecked label="Đây là check box có isDefauultChecked" />
@@ -96,7 +106,7 @@ const Components = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <div className="display-m-medium">Button: Button</div>
+          <div className="display-s-regular">Button: Button</div>
           <div className="flex flex-col gap-2">
             <Button text="Đây là button primary" />
             <Button isLoading text="Đây là button primary có isLoading" />
@@ -111,6 +121,37 @@ const Components = () => {
             <Button type="ghost" isDisabled text="Đây là button ghost có isDisabled" />
             <Button type="ghost" icon={<IoSaveOutline />} text="Đây là button ghost có icon" />
           </div>
+        </div>
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">FormDate</h1>
+          <FormDate />
+          <h1 className="display-s-regular mb-2">FormInputArea</h1>
+          <FormInputArea label="Description" />
+          <FormInputArea label="Description" defaultValue="Example text" />
+          <FormInputArea error="error" label="Description err" />
+          <FormInputArea isReadonly label="Description Readonly" />
+        </div>
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">FormUpload</h1>
+          <UpdateImage />
+        </div>
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Table</h1>
+
+          <PrimaryTable
+            search={{ status: [{ value: "lnog", label: "123" }] }}
+            columns={tableColumns}
+            pagination={{ current: 1, pageSize: 5, total: tableData.length }}
+            data={tableData} />
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Status-table</h1>
+          <StatusBadge text="Processing" color="orange" />
+          <StatusBadge text="Shiped" color="blue" />
+          <StatusBadge text="Delivered" color="green" />
+          <StatusBadge text="Draft" color="gray" />
+          <StatusBadge text="Out of Stock" color="red" />
         </div>
       </div>
     </>

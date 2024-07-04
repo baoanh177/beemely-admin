@@ -1,0 +1,20 @@
+.custom-textarea {
+  height: 140px !important;
+  background-color: #f9f9fc !important;
+  border-color: #e0e2e7 !important;
+  box-shadow: none !important;
+  outline: none;
+
+  &::placeholder {
+    color: #858d9d !important;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #f9f9fc !important;
+    border-color: #e0e2e7 !important;
+    box-shadow: none !important;
+    outline: none;
+  }
+}

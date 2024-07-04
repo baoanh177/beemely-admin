@@ -54,4 +54,28 @@
       }
     }
   }
+  .ant-pagination {
+    font-weight: 500;
+    .ant-pagination-item-link {
+      color: #883dcf;
+      background-color: #f4ecfb;
+    }
+
+    .ant-pagination-item {
+      background-color: #f4ecfb;
+    }
+
+    .ant-pagination-item a {
+      color: #883dcf;
+    }
+
+    .ant-pagination-item-active {
+      border: 1px solid #883dcf;
+      background-color: #883dcf;
+
+      a {
+        color: #ffffff;
+      }
+    }
+  }
 }
