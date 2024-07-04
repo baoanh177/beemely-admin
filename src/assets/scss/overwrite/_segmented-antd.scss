@@ -1,0 +1,21 @@
+.ant-segmented {
+  padding: 5px;
+  font-family: ps-Medium;
+  background-color: #ffffff;
+  border: 1px solid #e0e2e7;
+  color: #667085;
+  .ant-segmented-item.ant-segmented-item:active:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
+    color: #883dcf;
+  }
+  .ant-segmented-item:active:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled)::after {
+    background-color: #f4ecfb;
+  }
+  .ant-segmented-item:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
+    color: #667085;
+  }
+  .ant-segmented-item-selected {
+    color: #883dcf;
+    background-color: #f4ecfb;
+    font-family: ps-Semibold;
+  }
+}

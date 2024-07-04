@@ -1,7 +1,9 @@
 import clsx from "clsx";
+import { IconType } from "react-icons";
 
 interface FormInputProps {
   label?: string;
+  icon?: IconType;
   placeholder?: string;
   name?: string;
   type: "text" | "number" | "password";
@@ -14,7 +16,20 @@ interface FormInputProps {
   onChange?: (value: string | number) => void;
 }
 
-const FormInput = ({ label, type, placeholder, value, defaultValue, name, isDisabled, isReadonly, onBlur, error, onChange }: FormInputProps) => {
+const FormInput = ({
+  label,
+  type,
+  placeholder,
+  value,
+  defaultValue,
+  name,
+  icon: Icon,
+  isDisabled,
+  isReadonly,
+  onBlur,
+  error,
+  onChange,
+}: FormInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     if (onChange) {
@@ -24,9 +39,10 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, name, isDisa
   };
 
   return (
-    <div className="mb-4 flex flex-col">
+    <div>
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
-      <div className="flex items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25">
+      <div className="flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25 px-3">
+        {Icon && <Icon className="text-gray-400" />}
         <input
           type={type}
           placeholder={placeholder}
@@ -37,7 +53,7 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, name, isDisa
           name={name}
           readOnly={isReadonly}
           onBlur={onBlur}
-          className={clsx("text-m-regular placeholder:text-m-medium flex-1 bg-gray-25 px-[14px] py-[10px] text-black-500 outline-none", {
+          className={clsx("text-m-regular placeholder:text-m-medium h-full flex-1 grow bg-gray-25 py-[10px] text-black-500 outline-none", {
             "border-red-500": error,
           })}
         />

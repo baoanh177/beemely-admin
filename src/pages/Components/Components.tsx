@@ -4,14 +4,16 @@ import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
-import { tableData, tableColumns, onSelectChange } from "./table-data";
 
 import Heading from "@/layouts/Default/Heading";
 
 import UpdateImage from "@/components/form/FormUpload";
 
 import { IoSaveOutline } from "react-icons/io5";
-import { Table } from "antd";
+import PrimaryTable from "@/components/table/PrimaryTable";
+import { tableColumns, tableData } from "./table-data";
+
+import StatusBadge from "@/components/table/StatusBadge";
 
 const Components = () => {
   return (
@@ -27,6 +29,7 @@ const Components = () => {
             <FormInput error="error!!!" placeholder="Đây là input text bị lỗi" type="text" />
             <FormInput placeholder="Đây là input text bị readonly" isReadonly type="text" />
             <FormInput placeholder="Đây là input text có label" label="This is label" type="text" />
+            <FormInput placeholder="Đây là input password" label="This is label" type="password" />
           </div>
         </div>
         <div className="flex flex-col gap-5">
@@ -134,14 +137,22 @@ const Components = () => {
         </div>
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
-          <Table
-            rowSelection={{
-              onChange: onSelectChange,
-            }}
+
+          <PrimaryTable
+            search={{ status: [{ value: "lnog", label: "123" }] }}
             columns={tableColumns}
-            dataSource={tableData}
-            pagination={false}
+            pagination={{ current: 1, pageSize: 5, total: tableData.length }}
+            data={tableData}
           />
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Status-table</h1>
+          <StatusBadge text="Processing" color="orange" />
+          <StatusBadge text="Shiped" color="blue" />
+          <StatusBadge text="Delivered" color="green" />
+          <StatusBadge text="Draft" color="gray" />
+          <StatusBadge text="Out of Stock" color="red" />
         </div>
       </div>
     </>

@@ -1,73 +1,32 @@
+import { DataType } from "@/components/table/PrimaryTable";
 import type { TableColumnsType } from "antd";
-import { Modal, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { PiNotePencilLight } from "react-icons/pi";
-const { confirm } = Modal;
 
-interface DataType {
-  key: React.Key;
-  product: string;
-  sku: number;
-  category: string;
-  stock: number;
-  price: number;
-  status: string;
-  added: string;
-}
-const showDeleteConfirm = () => {
-  confirm({
-    title: "Are you sure you want to delete this item?",
-    content: "This action cannot be undone.",
-    okText: "Yes",
-    okType: "danger",
-    cancelText: "No",
-  });
-};
-const actionButtonsConfig = [
-  {
-    icon: <IoEyeOutline className="text-[18px] text-blue-500" />,
-    tooltip: "View",
-    onClick: (record: DataType) => {
-      record;
-    },
-  },
-  {
-    icon: <PiNotePencilLight className="text-[18px] text-yellow-600" />,
-    tooltip: "Edit",
-    onClick: (record: DataType) => {
-      record;
-    },
-  },
-  {
-    icon: <IoTrashBinOutline className="text-[18px] text-red-500" />,
-    tooltip: "Delete",
-    onClick: (record: DataType) => {
-      showDeleteConfirm();
-      record;
-    },
-  },
-];
-
-const ActionButtons: React.FC<{ record: DataType }> = ({ record }) => (
-  <div className="flex gap-3 hover:cursor-pointer">
-    {actionButtonsConfig.map((button, index) => (
-      <Tooltip key={index} title={button.tooltip}>
-        <span onClick={() => button.onClick(record)}>{button.icon}</span>
-      </Tooltip>
-    ))}
+const ActionButtons: React.FC<{ record: DataType }> = () => (
+  <div className="flex cursor-pointer gap-3">
+    <Tooltip title="View">
+      <IoEyeOutline className="text-[18px] text-blue-500" />
+    </Tooltip>
+    <Tooltip title="Edit">
+      <PiNotePencilLight className="text-[18px] text-yellow-600" />
+    </Tooltip>
+    <Tooltip title="Delete">
+      <IoTrashBinOutline className="text-[18px] text-red-500" />
+    </Tooltip>
   </div>
 );
-
 export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Product",
     dataIndex: "product",
-    sorter: (a, b) => a.product.localeCompare(b.product),
+    sorter: (a, b) => String(a.product).localeCompare(String(b.product)),
   },
   {
     title: "SKU",
     dataIndex: "sku",
-    sorter: (a, b) => a.sku - b.sku,
+    sorter: (a, b) => Number(a.sku) - Number(b.sku),
   },
   {
     title: "Category",
@@ -76,22 +35,22 @@ export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Stock",
     dataIndex: "stock",
-    sorter: (a, b) => a.stock - b.stock,
+    sorter: (a, b) => Number(a.stock) - Number(b.stock),
   },
   {
     title: "Price",
     dataIndex: "price",
-    sorter: (a, b) => a.sku - b.sku,
+    sorter: (a, b) => Number(a.price) - Number(b.price),
   },
   {
     title: "Status",
     dataIndex: "status",
-    sorter: (a, b) => a.product.localeCompare(b.product),
+    sorter: (a, b) => String(a.status).localeCompare(String(b.status)),
   },
   {
     title: "Added",
     dataIndex: "added",
-    sorter: (a, b) => a.added.localeCompare(b.added),
+    sorter: (a, b) => String(a.added).localeCompare(String(b.added)),
   },
   {
     title: "Action",
@@ -137,6 +96,156 @@ export const tableData: DataType[] = [
   },
   {
     key: 4,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 5,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 6,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 7,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 24,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 134,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 12324,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 1231234,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 421312,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 421312,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 4323,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 4,
+    product: "zzzz",
+    sku: 1,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 213123124,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 4213123123,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 432321,
+    product: "zzzz",
+    sku: 4,
+    category: "Watch",
+    stock: 10,
+    price: 100,
+    status: "Success",
+    added: "2024-02-01",
+  },
+  {
+    key: 1232114,
     product: "zzzz",
     sku: 4,
     category: "Watch",

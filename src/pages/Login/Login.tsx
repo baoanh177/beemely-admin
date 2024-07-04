@@ -7,6 +7,7 @@ import { login } from "@/stores/reducers/auth.reducer";
 import { Formik } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { FaClock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 
@@ -89,7 +90,7 @@ const Login = () => {
                       }}
                       placeholder="Enter your password..."
                     />
-                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} />
+                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} className="mt-3"/>
                     <Link
                       to="/forgot-password"
                       className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"

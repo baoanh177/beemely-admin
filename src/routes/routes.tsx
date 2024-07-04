@@ -12,6 +12,7 @@ import Products from "@/pages/Products/Products";
 import Login from "@/pages/Login/Login";
 import GuestMiddleware from "@/middlewares/GuestMiddleware";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
+import Accounts from "@/pages/Accounts/Accounts";
 
 interface IRoute {
   path: string;
@@ -81,6 +82,10 @@ const routes: IRoute[] = [
       {
         path: "components",
         element: () => <Components />,
+      },
+      {
+        path: "accounts",
+        element: () => <Accounts />,
       },
     ],
   },
