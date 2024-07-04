@@ -135,7 +135,7 @@ const Components = () => {
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
 
-          <PrimaryTable search={false} columns={tableColumns} data={tableData} />
+          <PrimaryTable search={false} columns={tableColumns} pagination={{ current: 1, pageSize: 5, total: tableData.length }} data={tableData} />
         </div>
       </div>
     </>

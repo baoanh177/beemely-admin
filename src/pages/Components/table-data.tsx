@@ -5,7 +5,7 @@ import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { PiNotePencilLight } from "react-icons/pi";
 
 const ActionButtons: React.FC<{ record: DataType }> = () => (
-  <div className="flex gap-3 hover:cursor-pointer">
+  <div className="flex gap-3 cursor-pointer">
     <Tooltip title="View">
       <IoEyeOutline className="text-[18px] text-blue-500" />
     </Tooltip>
@@ -17,17 +17,16 @@ const ActionButtons: React.FC<{ record: DataType }> = () => (
     </Tooltip>
   </div>
 );
-
 export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Product",
     dataIndex: "product",
-    sorter: (a, b) => ((a.product as string)).localeCompare((b.product as string)),
+    sorter: (a, b) => String(a.product).localeCompare(String(b.product))
   },
   {
     title: "SKU",
     dataIndex: "sku",
-    sorter: (a, b) => ((a.sku as number)) - ((b.sku as number)),
+    sorter: (a, b) => Number(a.sku) - Number(b.sku),
   },
   {
     title: "Category",
@@ -36,22 +35,22 @@ export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Stock",
     dataIndex: "stock",
-    sorter: (a, b) => ((a.stock as number)) - ((b.stock as number)),
+    sorter: (a, b) => Number(a.stock) - Number(b.stock),
   },
   {
     title: "Price",
     dataIndex: "price",
-    sorter: (a, b) => ((a.price as number)) - ((b.price as number)),
+    sorter: (a, b) => Number(a.price) - Number(b.price),
   },
   {
     title: "Status",
     dataIndex: "status",
-    sorter: (a, b) => ((a.status as string)).localeCompare((b.status as string)),
+    sorter: (a, b) => String(a.status).localeCompare(String(b.status))
   },
   {
     title: "Added",
     dataIndex: "added",
-    sorter: (a, b) => ((a.added as string)).localeCompare((b.added as string)),
+    sorter: (a, b) => String(a.added).localeCompare(String(b.added))
   },
   {
     title: "Action",

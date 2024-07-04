@@ -4,19 +4,22 @@ import type { ColumnsType } from 'antd/es/table';
 
 export interface DataType {
     key: React.Key;
-    product: string;
     [key: string]: unknown;
 }
+
 interface IPrimaryTableProps {
-    search: false | { status: { value: string, label: string }[] }
+    search: false | { status: { value: string, label: string }[] };
     columns: ColumnsType<DataType>;
     data: DataType[];
+    pagination?: { pageSize: number, current: number, total: number }
 }
+
 const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-    selectedRowKeys
-    selectedRows
+    selectedRowKeys;
+    selectedRows;
 };
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data }) => {
+
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination }) => {
     return (
         <>
             {search && (
@@ -26,8 +29,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data }) =
                 rowSelection={{ onChange: onSelectChange }}
                 columns={columns}
                 dataSource={data}
-                pagination={{ pageSize: 6 }} />
+                pagination={pagination && pagination}
+            />
         </>
     );
 };
+
 export default PrimaryTable;
