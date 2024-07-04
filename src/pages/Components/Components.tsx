@@ -13,7 +13,7 @@ import UpdateImage from "@/components/form/FormUpload";
 import { IoSaveOutline } from "react-icons/io5";
 import { Table } from "antd";
 
-import StatusTable from "@/components/table/StatusTable";
+import StatusBadge from "@/components/table/StatusBadge";
 
 const Components = () => {
   return (
@@ -148,9 +148,11 @@ const Components = () => {
 
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Status-table</h1>
-          <StatusTable text="Processing" color="orange" />
-          <StatusTable text="Shiped" color="blue" />
-          <StatusTable text="Delivered" color="green" />
+          <StatusBadge text="Processing" color="orange" />
+          <StatusBadge text="Shiped" color="blue" />
+          <StatusBadge text="Delivered" color="green" />
+          <StatusBadge text="Draft" color="gray" />
+          <StatusBadge text="Out of Stock" color="red" />
         </div>
       </div>
     </>
