@@ -1,7 +1,9 @@
 import clsx from "clsx";
+import { IconType } from "react-icons";
 
 interface FormInputProps {
   label?: string;
+  icon?: IconType;
   placeholder?: string;
   type: "text" | "number" | "password";
   value?: string | number;
@@ -13,7 +15,19 @@ interface FormInputProps {
   onChange?: (value: string | number) => void;
 }
 
-const FormInput = ({ label, type, placeholder, value, defaultValue, isDisabled, isReadonly, onBlur, error, onChange }: FormInputProps) => {
+const FormInput = ({
+  label,
+  type,
+  placeholder,
+  icon: Icon,
+  value,
+  defaultValue,
+  isDisabled,
+  isReadonly,
+  onBlur,
+  error,
+  onChange,
+}: FormInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     if (onChange) {
@@ -23,9 +37,10 @@ const FormInput = ({ label, type, placeholder, value, defaultValue, isDisabled, 
   };
 
   return (
-    <div className="mb-4 flex flex-col">
+    <div>
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
       <div className="flex items-center gap-1 rounded-[8px] border border-gray-100 bg-gray-25 px-[14px] py-[10px]">
+        {Icon && <Icon className="text-gray-400" />}
         <input
           type={type}
           placeholder={placeholder}
