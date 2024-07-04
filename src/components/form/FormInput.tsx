@@ -16,7 +16,17 @@ interface FormInputProps {
 }
 
 const FormInput = ({
-  label, type, placeholder, icon: Icon, value, defaultValue, isDisabled, isReadonly, onBlur, error, onChange
+  label,
+  type,
+  placeholder,
+  icon: Icon,
+  value,
+  defaultValue,
+  isDisabled,
+  isReadonly,
+  onBlur,
+  error,
+  onChange,
 }: FormInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;

@@ -142,7 +142,8 @@ const Components = () => {
             search={{ status: [{ value: "lnog", label: "123" }] }}
             columns={tableColumns}
             pagination={{ current: 1, pageSize: 5, total: tableData.length }}
-            data={tableData} />
+            data={tableData}
+          />
         </div>
 
         <div className="flex flex-col gap-5">

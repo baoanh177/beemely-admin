@@ -1,10 +1,10 @@
-import React from 'react';
-import { Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import SearchDataTable from '../SearchDataTable';
-import FormInput from '../form/FormInput';
-import FormDate from '../form/FormDate';
-import { IoSearchOutline } from 'react-icons/io5';
+import React from "react";
+import { Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import SearchDataTable from "../SearchDataTable";
+import FormInput from "../form/FormInput";
+import FormDate from "../form/FormDate";
+import { IoSearchOutline } from "react-icons/io5";
 
 export interface DataType {
   key: React.Key;
@@ -24,25 +24,20 @@ const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: DataType[]) 
 };
 
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination }) => {
-    return (
-        <div className='flex flex-col gap-6'>
-            {search && (
-                <div className='flex justify-between'>
-                    <SearchDataTable />
-                    <div className='flex gap-4'>
-                        <FormInput icon={IoSearchOutline} placeholder='Search product. . .' type='text' />
-                        <FormDate />
-                    </div>
-                </div>
-            )}
-            <Table
-                rowSelection={{ onChange: onSelectChange }}
-                columns={columns}
-                dataSource={data}
-                pagination={pagination && pagination}
-            />
+  return (
+    <div className="flex flex-col gap-6">
+      {search && (
+        <div className="flex justify-between">
+          <SearchDataTable />
+          <div className="flex gap-4">
+            <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
+            <FormDate />
+          </div>
         </div>
-    );
+      )}
+      <Table rowSelection={{ onChange: onSelectChange }} columns={columns} dataSource={data} pagination={pagination && pagination} />
+    </div>
+  );
 };
 
 export default PrimaryTable;
