@@ -28,7 +28,7 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
       <Meta
         className="flex items-center gap-[8px]"
         avatar={
-          imgError || !imageSrc ? (
+          imgError || !imageSrc || imageSrc.trim() === "" ? (
             <Avatar src={imageError} className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-lg" />
           ) : (
             <Avatar src={imageSrc} onError={handleImageError} className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-lg" />
