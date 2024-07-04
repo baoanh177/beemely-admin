@@ -13,6 +13,8 @@ import UpdateImage from "@/components/form/FormUpload";
 import { IoSaveOutline } from "react-icons/io5";
 import { Table } from "antd";
 
+import StatusTable from "@/components/table/StatusTable";
+
 const Components = () => {
   return (
     <>
@@ -142,6 +144,13 @@ const Components = () => {
             dataSource={tableData}
             pagination={false}
           />
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <h1 className="display-s-regular mb-2">Status-table</h1>
+          <StatusTable text="Processing" type="processing" />
+          <StatusTable text="Shiped" type="shipped" />
+          <StatusTable text="Delivered" type="delivered" />
         </div>
       </div>
     </>
