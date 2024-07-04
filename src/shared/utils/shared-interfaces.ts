@@ -27,7 +27,7 @@ export interface ISearchParams {
 }
 
 export interface IResponse<T> {
-  status: number;
+  statusCode: number;
   message: string;
   errors?: unknown;
   metaData?: T;

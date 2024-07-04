@@ -1,12 +1,25 @@
 import { IFetchOptions, IResponse, IThunkPayload, methodType } from "@/shared/utils/shared-interfaces";
+import { handleErrors } from "./handleErrors";
 
 export const client = {
   SERVER_URL: import.meta.env.VITE_API_URL,
   tokens: {
-    accessToken: JSON.parse(localStorage.getItem("accessToken") as string) ?? "",
-    refreshToken: JSON.parse(localStorage.getItem("refreshToken") as string) ?? "",
+    accessToken: () => {
+      try {
+        return JSON.parse(localStorage.getItem("accessToken") as string);
+      } catch (e) {
+        return "";
+      }
+    },
+    refreshToken: () => {
+      try {
+        return JSON.parse(localStorage.getItem("refreshToken") as string);
+      } catch (e) {
+        return "";
+      }
+    },
   },
-  async send(path: string, method: methodType = "GET", payload: IThunkPayload = {}) {
+  async send<T>(path: string, method: methodType = "GET", payload: IThunkPayload = {}) {
     const { headers = {}, body, query = {} } = payload;
 
     let queryParams = new URLSearchParams(query as Record<string, string>).toString();
@@ -15,8 +28,8 @@ export const client = {
     const options: IFetchOptions = {
       method,
     };
-    if (this.tokens.accessToken) {
-      headers.Authorization = `Bearer ${this.tokens.accessToken}`;
+    if (this.tokens.accessToken()) {
+      headers.Authorization = `Bearer ${this.tokens.accessToken()}`;
     }
 
     if (body) {
@@ -29,28 +42,26 @@ export const client = {
 
     const response = await fetch(`${this.SERVER_URL}${path}${queryParams}`, options);
     if (!response.ok) {
-      if (response.status === 401) {
-        // Refresh Token
-      } else if (response.status === 403) {
-      } else if (response.status === 500) {
-      }
+      handleErrors(client, response);
     }
-    const data: IResponse<unknown> = await response.json();
+    const data: IResponse<T> = await response.json();
     return { response, data };
   },
-  get(path: string, payload: IThunkPayload = {}) {
-    return this.send(path, "GET", payload);
+  get<T>(path: string, payload: IThunkPayload = {}) {
+    return this.send<T>(path, "GET", payload);
   },
-  post(path: string, payload: IThunkPayload = {}) {
-    return this.send(path, "POST", payload);
+  post<T>(path: string, payload: IThunkPayload = {}) {
+    return this.send<T>(path, "POST", payload);
   },
-  put(path: string, payload: IThunkPayload = {}) {
-    return this.send(path, "PUT", payload);
+  put<T>(path: string, payload: IThunkPayload = {}) {
+    return this.send<T>(path, "PUT", payload);
   },
-  patch(path: string, payload: IThunkPayload = {}) {
-    return this.send(path, "PATCH", payload);
+  patch<T>(path: string, payload: IThunkPayload = {}) {
+    return this.send<T>(path, "PATCH", payload);
   },
-  delete(path: string, payload: IThunkPayload = {}) {
-    return this.send(path, "DELETE", payload);
+  delete<T>(path: string, payload: IThunkPayload = {}) {
+    return this.send<T>(path, "DELETE", payload);
   },
 };
+
+export type ClientType = typeof client;

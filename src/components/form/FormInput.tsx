@@ -5,6 +5,7 @@ interface FormInputProps {
   label?: string;
   icon?: IconType;
   placeholder?: string;
+  name?: string;
   type: "text" | "number" | "password";
   value?: string | number;
   defaultValue?: string | number;
@@ -19,9 +20,10 @@ const FormInput = ({
   label,
   type,
   placeholder,
-  icon: Icon,
   value,
   defaultValue,
+  name,
+  icon: Icon,
   isDisabled,
   isReadonly,
   onBlur,
@@ -39,7 +41,7 @@ const FormInput = ({
   return (
     <div>
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
-      <div className="flex items-center gap-1 rounded-[8px] border border-gray-100 bg-gray-25 px-[14px] py-[10px]">
+      <div className="flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25 px-3">
         {Icon && <Icon className="text-gray-400" />}
         <input
           type={type}
@@ -48,9 +50,10 @@ const FormInput = ({
           onChange={handleChange}
           defaultValue={defaultValue as string}
           disabled={isDisabled}
+          name={name}
           readOnly={isReadonly}
           onBlur={onBlur}
-          className={clsx("text-m-regular placeholder:text-m-medium flex-1 bg-gray-25 text-black-500 outline-none", {
+          className={clsx("text-m-regular placeholder:text-m-medium h-full flex-1 grow bg-gray-25 py-[10px] text-black-500 outline-none", {
             "border-red-500": error,
           })}
         />
