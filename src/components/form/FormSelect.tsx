@@ -18,7 +18,7 @@ const FormSelect = ({ label, isDisabled, placeholder, options, defaultValue, isM
   };
 
   return (
-    <>
+    <div>
       <div className="mb-1 text-black-300">{label}</div>
       <Select
         allowClear
@@ -34,7 +34,7 @@ const FormSelect = ({ label, isDisabled, placeholder, options, defaultValue, isM
         filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
         options={options}
       />
-    </>
+    </div>
   );
 };
 
