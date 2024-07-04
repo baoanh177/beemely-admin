@@ -5,7 +5,7 @@ import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { PiNotePencilLight } from "react-icons/pi";
 
 const ActionButtons: React.FC<{ record: DataType }> = () => (
-  <div className="flex gap-3 cursor-pointer">
+  <div className="flex cursor-pointer gap-3">
     <Tooltip title="View">
       <IoEyeOutline className="text-[18px] text-blue-500" />
     </Tooltip>
@@ -21,7 +21,7 @@ export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Product",
     dataIndex: "product",
-    sorter: (a, b) => String(a.product).localeCompare(String(b.product))
+    sorter: (a, b) => String(a.product).localeCompare(String(b.product)),
   },
   {
     title: "SKU",
@@ -45,12 +45,12 @@ export const tableColumns: TableColumnsType<DataType> = [
   {
     title: "Status",
     dataIndex: "status",
-    sorter: (a, b) => String(a.status).localeCompare(String(b.status))
+    sorter: (a, b) => String(a.status).localeCompare(String(b.status)),
   },
   {
     title: "Added",
     dataIndex: "added",
-    sorter: (a, b) => String(a.added).localeCompare(String(b.added))
+    sorter: (a, b) => String(a.added).localeCompare(String(b.added)),
   },
   {
     title: "Action",
