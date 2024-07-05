@@ -122,8 +122,8 @@ const Components = () => {
             <Button type="ghost" isLoading text="Đây là button ghost có isLoading" />
             <Button type="ghost" isDisabled text="Đây là button ghost có isDisabled" />
             <Button type="ghost" icon={<IoSaveOutline />} text="Đây là button ghost có icon" />
-            <Button size="full" text="Đây là button có w-full"></Button>
-            <Button text="Đây là button có w-auto"></Button>
+            <Button size="full" text="Đây là button có w-full" />
+            <Button text="Đây là button có w-auto" />
           </div>
         </div>
         <div className="flex flex-col gap-5 items-start">
