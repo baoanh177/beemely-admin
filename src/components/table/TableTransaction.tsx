@@ -1,88 +1,100 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
-import type { TableProps } from "antd";
-
+import { Space, Table } from "antd";
+import StatusBadge from "./StatusBadge";
+import ImageTable from "./ImageTable";
+import FormInput from "../form/FormInput";
+import FormDate from "../form/FormDate";
+import { IoSearchOutline } from "react-icons/io5";
 interface DataType {
   key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  total: number;
+  date: string;
+  status: { text: string; color: "blue" | "green" | "orange" | "gray" | "red" };
+  productImageSrc?: string;
+  productTitle: string;
+  productDescription?: string;
 }
 
-const columns: TableProps<DataType>["columns"] = [
+interface TableTransactionProps {
+  hideComponents?: string[];
+}
+const columns = [
   {
     title: "Order ID",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
+    dataIndex: "key",
+    key: "key",
+    render: (text: string) => <a className="text-m-semibold text-primary-500">{text}</a>,
   },
   {
     title: "Product",
-    dataIndex: "age",
-    key: "age",
+    dataIndex: "productImageSrc",
+    key: "productImageSrc",
+    render: (productImageSrc: string, record: DataType) => (
+      <ImageTable imageSrc={productImageSrc} title={record.productTitle} description={record.productDescription} />
+    ),
   },
   {
     title: "Total",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "total",
+    key: "total",
+    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    render: (total: number) => <span className="text-m-medium text-gray-500">${total.toFixed(2)}</span>,
   },
   {
     title: "Status",
-    key: "tags",
-    dataIndex: "Status",
-    render: (_, record) => (
-      <>
-        {record.tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
+    dataIndex: "status",
+    key: "status",
+    sorter: (a: DataType, b: DataType) => a.status.text.localeCompare(b.status.text),
+    render: (status: { text: string; color: "blue" | "green" | "orange" | "gray" | "red" }) => (
+      <StatusBadge text={status.text} color={status.color} />
     ),
   },
   {
     title: "Date",
-    key: "action",
-    render: (_, record) => (
+    key: "date",
+    render: (record: DataType) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <span className="text-m-medium text-gray-500">{record.date}</span>
       </Space>
     ),
   },
 ];
-
 const data: DataType[] = [
   {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
+    key: "302002",
+    total: 590.0,
+    date: "12 Dec 2023",
+    status: { text: "Delivered", color: "green" },
+    productImageSrc: "https://picsum.photos/200/300",
+    productTitle: "Product Title",
+    productDescription: "Product Description",
   },
   {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
+    key: "302003",
+    total: 590.0,
+    date: "12 Dec 2023",
+    status: { text: "Cancelled", color: "red" },
+    productImageSrc: "",
+    productTitle: "Product Title",
+    productDescription: "Product Description",
   },
 ];
 
-const TableTransaction: React.FC = () => <Table columns={columns} dataSource={data} />;
+const TableTransaction: React.FC<TableTransactionProps> = ({ hideComponents }) => {
+  return (
+    <div>
+      {!hideComponents?.includes("transactionHeader") && (
+        <div className="flex items-center justify-between gap-3 px-6 py-[18px]">
+          <div className="display-s-semibold text-black-500">Transaction History</div>
+          <div className="flex gap-3">
+            <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
+            <FormDate />
+          </div>
+        </div>
+      )}
+      <Table columns={columns} dataSource={data} pagination={!hideComponents?.includes("pagination") && { pageSize: 10 }} />
+    </div>
+  );
+};
 
 export default TableTransaction;

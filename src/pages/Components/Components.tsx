@@ -162,8 +162,7 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
-        <div className="flex flex-col gap-5">
-          <h1 className="display-s-regular mb-2">Table-transaction</h1>
+        <div className="flex flex-col">
           <TableTransaction />
         </div>
       </div>
