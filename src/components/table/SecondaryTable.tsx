@@ -5,20 +5,26 @@ import ImageTable from "./ImageTable";
 import FormInput from "../form/FormInput";
 import FormDate from "../form/FormDate";
 import { IoSearchOutline } from "react-icons/io5";
+import { ColumnsType } from "antd/es/table";
+interface StatusType {
+  text: string;
+  color: "blue" | "green" | "orange" | "gray" | "red";
+}
 interface DataType {
   key: string;
   total: number;
   date: string;
-  status: { text: string; color: "blue" | "green" | "orange" | "gray" | "red" };
+  status: StatusType;
   productImageSrc?: string;
   productTitle: string;
   productDescription?: string;
 }
 
-interface TableTransactionProps {
+interface SecondaryTableProps {
+  data: DataType[];
   hideComponents?: string[];
 }
-const columns = [
+const columns: ColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "key",
@@ -59,7 +65,7 @@ const columns = [
     ),
   },
 ];
-const data: DataType[] = [
+export const data: DataType[] = [
   {
     key: "302002",
     total: 590.0,
@@ -80,7 +86,7 @@ const data: DataType[] = [
   },
 ];
 
-const TableTransaction: React.FC<TableTransactionProps> = ({ hideComponents }) => {
+const SecondaryTable: React.FC<SecondaryTableProps> = ({ data, hideComponents }) => {
   return (
     <div>
       {!hideComponents?.includes("transactionHeader") && (
@@ -97,4 +103,4 @@ const TableTransaction: React.FC<TableTransactionProps> = ({ hideComponents }) =
   );
 };
 
-export default TableTransaction;
+export default SecondaryTable;

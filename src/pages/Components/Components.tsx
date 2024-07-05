@@ -4,20 +4,14 @@ import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
-
 import Heading from "@/layouts/Default/Heading";
-
 import UpdateImage from "@/components/form/FormUpload";
-
 import { IoSaveOutline } from "react-icons/io5";
-
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
-
+import SecondaryTable, { data } from "@/components/table/SecondaryTable";
 import StatusBadge from "@/components/table/StatusBadge";
-import TableTransaction from "@/components/table/SecondaryTable";
-
 const Components = () => {
   return (
     <>
@@ -163,7 +157,7 @@ const Components = () => {
           <StatusBadge text="Out of Stock" color="red" />
         </div>
         <div className="flex flex-col">
-          <TableTransaction />
+          <SecondaryTable data={data} />
         </div>
       </div>
     </>
