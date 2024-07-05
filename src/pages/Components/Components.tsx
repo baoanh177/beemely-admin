@@ -16,7 +16,7 @@ import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 
 import StatusBadge from "@/components/table/StatusBadge";
-import TableTransaction from "@/components/table/TableTransaction";
+import TableTransaction from "@/components/table/SecondaryTable";
 
 const Components = () => {
   return (
