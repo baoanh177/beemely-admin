@@ -21,10 +21,17 @@ interface DataType {
 }
 
 interface SecondaryTableProps {
+  title: string;
   data: DataType[];
+  columns: ColumnsType<DataType>;
   hideComponents?: string[];
+  paginationConfig?: {
+    pageSize: number;
+    current?: number;
+    total?: number;
+  };
 }
-const columns: ColumnsType<DataType> = [
+export const columns: ColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "key",
@@ -86,19 +93,19 @@ export const data: DataType[] = [
   },
 ];
 
-const SecondaryTable: React.FC<SecondaryTableProps> = ({ data, hideComponents }) => {
+const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideComponents, paginationConfig, columns }) => {
   return (
     <div>
       {!hideComponents?.includes("transactionHeader") && (
         <div className="flex items-center justify-between gap-3 px-6 py-[18px]">
-          <div className="display-s-semibold text-black-500">Transaction History</div>
+          <div className="display-s-semibold text-black-500">{title}</div>
           <div className="flex gap-3">
             <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
             <FormDate />
           </div>
         </div>
       )}
-      <Table columns={columns} dataSource={data} pagination={!hideComponents?.includes("pagination") && { pageSize: 10 }} />
+      <Table columns={columns} dataSource={data} pagination={!hideComponents?.includes("pagination") ? paginationConfig : false} />
     </div>
   );
 };

@@ -10,8 +10,8 @@ import { IoSaveOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
-import SecondaryTable, { data } from "@/components/table/SecondaryTable";
 import StatusBadge from "@/components/table/StatusBadge";
+import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 const Components = () => {
   return (
     <>
@@ -156,6 +156,7 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
+        <SecondaryTable columns={columns} title="SeconderyTable" data={data} />
       </div>
     </>
   );
