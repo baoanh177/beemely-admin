@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "antd";
+import clsx from "clsx";
 const { TextArea } = Input;
 
 interface FormInputAreaProps {
@@ -28,7 +29,7 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value
         readOnly={isReadonly}
         defaultValue={defaultValue}
         rows={5}
-        className="text-m-regular custom-textarea min-h-[500px] bg-gray-25 px-2 py-3"
+        className={clsx("text-m-regular custom-textarea min-h-[500px] bg-gray-25 px-2 py-3", { readonly: isReadonly })}
       />
       {error && <p className="text-red-500">{error}</p>}
     </div>

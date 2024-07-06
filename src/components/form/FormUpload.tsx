@@ -45,7 +45,7 @@ const UpdateImage: React.FC = () => {
   };
 
   return (
-    <div className="custom-upload flex h-[240px] items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
+    <div className="custom-upload flex h-[240px] items-center justify-center rounded-lg border bg-gray-25 px-3 py-6">
       <div className="flex-col items-center gap-4">
         <div className="flex justify-center">
           {fileList.map((file) => (
