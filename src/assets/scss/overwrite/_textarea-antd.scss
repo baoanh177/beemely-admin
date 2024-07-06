@@ -8,10 +8,22 @@
   &::placeholder {
     color: #858d9d !important;
   }
-
-  &:hover,
   &:focus,
-  &:active {
+  &:focus-within {
+    background-color: #fff !important;
+    border-color: #e0e2e7 !important;
+    box-shadow: none !important;
+    outline: none;
+  }
+
+  &.readonly {
+    background-color: #f9f9fc !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &.readonly:focus,
+  &.readonly:focus-within {
     background-color: #f9f9fc !important;
     border-color: #e0e2e7 !important;
     box-shadow: none !important;
