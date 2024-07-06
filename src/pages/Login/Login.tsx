@@ -89,7 +89,7 @@ const Login = () => {
                       }}
                       placeholder="Enter your password..."
                     />
-                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} className="mt-3"/>
+                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} className="mt-3" />
                     <Link
                       to="/forgot-password"
                       className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"

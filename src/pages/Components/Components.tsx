@@ -22,7 +22,7 @@ const Components = () => {
     <>
       <Heading title="Components" hasBreadcrumb />
       <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <div className="display-s-regular">FormInput: Form input text and number</div>
           <div className="flex flex-col gap-2">
             <FormInput placeholder="Đây là input number" type="number" />
@@ -34,7 +34,7 @@ const Components = () => {
             <FormInput placeholder="Đây là input password" label="This is label" type="password" />
           </div>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <div className="display-s-regular">FormSelect: Select single and multiple</div>
           <div className="flex flex-col gap-2">
             <FormSelect
@@ -99,7 +99,7 @@ const Components = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <div className="display-s-regular">FormCheck: Check box</div>
           <div className="flex flex-col gap-2">
             <FormCheck label="Đây là check box thường" />
@@ -107,7 +107,7 @@ const Components = () => {
             <FormCheck isDisable label="Đây là check box có isDiable" />
           </div>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <div className="display-s-regular">Button: Button</div>
           <div className="flex flex-col gap-2">
             <Button text="Đây là button primary" />
@@ -122,9 +122,10 @@ const Components = () => {
             <Button type="ghost" isLoading text="Đây là button ghost có isLoading" />
             <Button type="ghost" isDisabled text="Đây là button ghost có isDisabled" />
             <Button type="ghost" icon={<IoSaveOutline />} text="Đây là button ghost có icon" />
+            <Button size="full" text="Đây là button có w-full" />
           </div>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">FormDate</h1>
           <FormDate />
           <h1 className="display-s-regular mb-2">FormInputArea</h1>
@@ -133,11 +134,11 @@ const Components = () => {
           <FormInputArea error="error" label="Description err" />
           <FormInputArea isReadonly label="Description Readonly" />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">FormUpload</h1>
           <UpdateImage />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
 
           <PrimaryTable
@@ -147,13 +148,13 @@ const Components = () => {
             data={tableData}
           />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Image-table</h1>
           <ImageTable imageSrc="https://picsum.photos/200/300" title="Handmade Pouch" description="+3 other products" />
           <ImageTable imageSrc="https://picsum.photos/200/300sdfrg" title="Smartwatch E2" description="+1 other products" />
           <ImageTable imageSrc="" title="No Image" description="No image" />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Status-table</h1>
           <StatusBadge text="Processing" color="orange" />
           <StatusBadge text="Shiped" color="blue" />
