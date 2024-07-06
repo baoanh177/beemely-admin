@@ -134,7 +134,6 @@ const Components = () => {
         </div>
         <div className="flex flex-col gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
-
           <PrimaryTable
             search={{ status: [{ value: "lnog", label: "123" }] }}
             columns={tableColumns}
@@ -155,9 +154,6 @@ const Components = () => {
           <StatusBadge text="Delivered" color="green" />
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
-        </div>
-        <div className="flex flex-col">
-          <SecondaryTable data={data} />
         </div>
       </div>
     </>
