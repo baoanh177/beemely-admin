@@ -39,7 +39,7 @@ const Button = ({ type = "primary", text, isDisabled = false, isLoading = false,
           "opacity-65": isLoading,
           "cursor-pointer hover:opacity-95": !isDisabled && !isLoading,
         },
-        size && "w-full",
+        size === "full" && "w-full",
       )}
     >
       {isLoading ? <div className={clsx(`${typeLoading[type]} h-4 w-4 animate-spin rounded-full border-2`)} /> : icon}

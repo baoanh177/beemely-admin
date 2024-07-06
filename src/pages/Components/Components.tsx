@@ -123,7 +123,6 @@ const Components = () => {
             <Button type="ghost" isDisabled text="Đây là button ghost có isDisabled" />
             <Button type="ghost" icon={<IoSaveOutline />} text="Đây là button ghost có icon" />
             <Button size="full" text="Đây là button có w-full" />
-            <Button text="Đây là button có w-auto" />
           </div>
         </div>
         <div className="flex flex-col items-start gap-5">
@@ -164,7 +163,6 @@ const Components = () => {
           <StatusBadge text="Out of Stock" color="red" />
         </div>
       </div>
-      <Button text="123" />
     </>
   );
 };
