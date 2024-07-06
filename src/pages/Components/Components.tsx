@@ -4,19 +4,14 @@ import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
-
 import Heading from "@/layouts/Default/Heading";
-
 import UpdateImage from "@/components/form/FormUpload";
-
 import { IoSaveOutline } from "react-icons/io5";
-
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
-
 import StatusBadge from "@/components/table/StatusBadge";
-
+import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 const Components = () => {
   return (
     <>
@@ -140,7 +135,6 @@ const Components = () => {
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
-
           <PrimaryTable
             search={{ status: [{ value: "lnog", label: "123" }] }}
             columns={tableColumns}
@@ -162,6 +156,7 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
+        <SecondaryTable columns={columns} title="SeconderyTable" data={data} />
       </div>
     </>
   );
