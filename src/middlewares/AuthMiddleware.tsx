@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const AuthMiddleware = () => {
-  const isLogin = true;
-  return isLogin ? <Outlet /> : <Navigate to="/login" />;
+  const isLogin = !!localStorage.getItem("accessToken");
+  return isLogin ? <Outlet /> : <Navigate to="/auth/login" />;
 };
 
 export default AuthMiddleware;
