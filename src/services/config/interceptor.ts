@@ -28,7 +28,7 @@ export const interceptor = async <MetaDataType>({
     case 401: {
       // Unauthorized
       if (client.tokens.refreshToken()) {
-        if (await refreshToken(client.SERVER_URL)) {
+        if (await refreshToken(client)) {
           return await client.send(sendOptions.path, sendOptions.method, sendOptions.payload);
         } else {
           toast.error("Your login session has expired, please log in again");
