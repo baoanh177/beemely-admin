@@ -22,3 +22,6 @@ jobs:
         
       - name: 🔨 Build
         run: npm run build 
+
+      - name: 🚀 Format Code
+        run: npm run prettier:fix 
