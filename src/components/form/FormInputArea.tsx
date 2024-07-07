@@ -4,6 +4,7 @@ import clsx from "clsx";
 const { TextArea } = Input;
 
 interface FormInputAreaProps {
+  name?: string;
   label?: string;
   placeholder?: string;
   value?: string;
@@ -12,7 +13,7 @@ interface FormInputAreaProps {
   onChange?: (value: string) => void;
   error?: string;
 }
-const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value, isReadonly, defaultValue, onChange, error }) => {
+const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, name, value, isReadonly, defaultValue, onChange, error }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
     if (onChange) {
@@ -23,6 +24,7 @@ const FormInputArea: React.FC<FormInputAreaProps> = ({ label, placeholder, value
     <div>
       {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
       <TextArea
+        name={name}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
