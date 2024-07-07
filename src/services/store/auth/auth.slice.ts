@@ -1,24 +1,21 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { AuthActions } from "@/shared/enums/authActions";
 import { FetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
-import { login } from "../reducers/auth.reducer";
-import { ILoginResponseData } from "@/shared/models/auth.model";
-
-const accessToken = localStorage.getItem("accessToken");
+import { getProfile, login, logout } from "./auth.thunk";
+import { ILoginResponseData, IUserProfile } from "./auth.model";
 
 export interface IAuthInitialState extends Partial<IInitialState> {
   isLogin: boolean;
-  user: unknown;
-  action: AuthActions;
+  profile: IUserProfile | null;
+  loginTime: number;
 }
 
 const initialState: IAuthInitialState = {
-  isLogin: !!accessToken,
-  user: null,
+  isLogin: false,
+  profile: null,
+  loginTime: 0,
   status: FetchStatus.IDLE,
   message: "",
-  action: AuthActions.UNSET,
 };
 
 const authSlice = createSlice({
@@ -30,19 +27,45 @@ const authSlice = createSlice({
       state.message = "";
     },
   },
+
   extraReducers(builder) {
     builder
+      .addCase(getProfile.pending, (state) => {
+        state.status = FetchStatus.PENDING;
+      })
+      .addCase(getProfile.fulfilled, (state, { payload }: PayloadAction<IResponse<IUserProfile>>) => {
+        state.profile = payload.metaData;
+        state.isLogin = true;
+        state.status = FetchStatus.FULFILLED;
+      })
+      .addCase(getProfile.rejected, (state) => {
+        state.status = FetchStatus.REJECTED;
+      });
+    builder
       .addCase(login.pending, (state) => {
-        state.action = AuthActions.LOGIN;
         state.status = FetchStatus.PENDING;
       })
       .addCase(login.fulfilled, (state, { payload }: PayloadAction<IResponse<ILoginResponseData>>) => {
         localStorage.setItem("accessToken", JSON.stringify(payload.metaData?.accessToken));
         localStorage.setItem("refreshToken", JSON.stringify(payload.metaData?.refreshToken));
-        state.user = payload.metaData?.userData;
+        state.loginTime = new Date().getTime() / 1000;
         state.status = FetchStatus.FULFILLED;
       })
       .addCase(login.rejected, (state, { payload }: PayloadAction<any>) => {
+        state.message = payload.message;
+        state.status = FetchStatus.REJECTED;
+      });
+    builder
+      .addCase(logout.pending, (state) => {
+        state.status = FetchStatus.PENDING;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        state.isLogin = false;
+        state.status = FetchStatus.FULFILLED;
+      })
+      .addCase(logout.rejected, (state, { payload }: PayloadAction<any>) => {
         state.message = payload.message;
         state.status = FetchStatus.REJECTED;
       });

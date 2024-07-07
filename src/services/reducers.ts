@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import { accountSlice } from "./actions/account.action";
-import { appSlice } from "./actions/app.action";
-import { authSlice } from "./actions/auth.action";
+import { accountSlice } from "./store/account/account.slice";
+import { appSlice } from "./store/app/app.slice";
+import { authSlice } from "./store/auth/auth.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,

@@ -12,7 +12,7 @@ import Products from "@/pages/Products/Products";
 import Login from "@/pages/Login/Login";
 import GuestMiddleware from "@/middlewares/GuestMiddleware";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
-import Accounts from "@/pages/Accounts/Accounts";
+import GlobalMiddleware from "@/middlewares/GlobalMiddleware";
 
 interface IRoute {
   path: string;
@@ -33,10 +33,10 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
         return (
           <Fragment key={index}>
             <Route path="*" element={<NotFound />} />
-            {Layout ? (
-              <Route path="/" element={<Layout />}>
-                {Middleware ? (
-                  <Route path="/" element={<Middleware />}>
+            {Middleware ? (
+              <Route path="/" element={<Middleware />}>
+                {Layout ? (
+                  <Route path="/" element={<Layout />}>
                     {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
                   </Route>
                 ) : Component ? (
@@ -45,8 +45,8 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
                   renderRoutes(route.pages ?? [], completePath)
                 )}
               </Route>
-            ) : Middleware ? (
-              <Route path="/" element={<Middleware />}>
+            ) : Layout ? (
+              <Route path="/" element={<Layout />}>
                 {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
               </Route>
             ) : Component ? (
@@ -64,38 +64,40 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
 const routes: IRoute[] = [
   {
     path: "/",
-    middleware: () => <AuthMiddleware />,
-    layout: () => <DefaultLayout />,
+    middleware: () => <GlobalMiddleware />,
     pages: [
       {
         path: "/",
-        middleware: () => <NoPathMiddleware />,
+        middleware: () => <AuthMiddleware />,
+        layout: () => <DefaultLayout />,
+        pages: [
+          {
+            path: "/",
+            middleware: () => <NoPathMiddleware />,
+          },
+          {
+            path: "dashboard",
+            element: () => <Dashboard />,
+          },
+          {
+            path: "products",
+            element: () => <Products />,
+          },
+          {
+            path: "components",
+            element: () => <Components />,
+          },
+        ],
       },
       {
-        path: "dashboard",
-        element: () => <Dashboard />,
-      },
-      {
-        path: "products",
-        element: () => <Products />,
-      },
-      {
-        path: "components",
-        element: () => <Components />,
-      },
-      {
-        path: "accounts",
-        element: () => <Accounts />,
-      },
-    ],
-  },
-  {
-    path: "auth",
-    middleware: () => <GuestMiddleware />,
-    pages: [
-      {
-        path: "login",
-        element: () => <Login />,
+        path: "auth",
+        middleware: () => <GuestMiddleware />,
+        pages: [
+          {
+            path: "login",
+            element: () => <Login />,
+          },
+        ],
       },
     ],
   },
