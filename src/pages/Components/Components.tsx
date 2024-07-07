@@ -12,6 +12,7 @@ import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
+import CustomerCard, { customerData } from "@/components/CardCustomer";
 const Components = () => {
   return (
     <>
@@ -158,6 +159,17 @@ const Components = () => {
         </div>
         <SecondaryTable columns={columns} title="SeconderyTable" data={data} />
       </div>
+
+      {customerData.map((customer, index) => (
+        <CustomerCard
+          key={index}
+          image={customer.image}
+          title={customer.title}
+          status={customer.status}
+          orders={customer.orders}
+          balance={customer.balance}
+        />
+      ))}
     </>
   );
 };
