@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { FetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState } from "@/shared/utils/shared-interfaces";
+import { commonStaticReducers } from "@/services/shared";
 
 export interface IAccountInitialState extends IInitialState {}
 
@@ -16,12 +17,10 @@ const initialState: IAccountInitialState = {
 };
 
 const accountSlice = createSlice({
-  name: "app",
+  name: "account",
   initialState,
   reducers: {
-    setFilter: (state, { payload }) => {
-      state.filter = payload;
-    },
+    ...commonStaticReducers<IAccountInitialState>(),
   },
 });
 export const { setFilter } = accountSlice.actions;

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootStateType } from "@/stores/reducers";
-import { AppDispatch } from "@/stores/stores";
+import { RootStateType } from "@/services/reducers";
+import { AppDispatch } from "@/services/store";
 const useArchive = <T,>(key?: keyof RootStateType) => {
   const dispatch = useDispatch<AppDispatch>();
 

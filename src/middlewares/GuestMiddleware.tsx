@@ -1,7 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useOutletContext } from "react-router-dom";
+import { IGlobalMiddlewareContext } from "./GlobalMiddleware";
 
 const GuestMiddleware = () => {
-  const isLogin = !!localStorage.getItem("accessToken");
+  const { isLogin } = useOutletContext<IGlobalMiddlewareContext>()
   return !isLogin ? <Outlet /> : <Navigate to="/" />;
 };
 

@@ -2,13 +2,13 @@ import Button from "@/components/Button";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
 import { FetchStatus } from "@/shared/enums/fetchStatus";
-import { IAuthInitialState, resetStatus } from "@/stores/actions/auth.action";
-import { login } from "@/stores/reducers/auth.reducer";
+import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
 import { Formik } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
+import { login } from "@/services/store/auth/auth.thunk";
 
 interface ILoginFormData {
   email: string;
@@ -64,32 +64,34 @@ const Login = () => {
                 handleLogin(data);
               }}
             >
-              {({ handleSubmit, values, setFieldValue, errors }) => {
+              {({ handleSubmit, values, setFieldValue, errors, touched, handleBlur }) => {
                 return (
                   <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
                     <FormInput
                       type="text"
-                      name="email"
                       value={values.email}
-                      error={errors.email}
+                      error={touched.email ? errors.email : ""}
                       isDisabled={state?.status === FetchStatus.PENDING}
+                      name="email"
                       onChange={(value) => {
                         setFieldValue("email", value);
                       }}
+                      onBlur={handleBlur}
                       placeholder="Enter your email..."
                     />
                     <FormInput
                       type="password"
                       name="password"
                       value={values.password}
-                      error={errors.password}
+                      error={touched.password ? errors.password : ""}
                       isDisabled={state?.status === FetchStatus.PENDING}
+                      onBlur={handleBlur}
                       onChange={(value) => {
                         setFieldValue("password", value);
                       }}
                       placeholder="Enter your password..."
                     />
-                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} className="mt-3"/>
+                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} className="mt-3" />
                     <Link
                       to="/forgot-password"
                       className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"
