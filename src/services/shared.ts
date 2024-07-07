@@ -11,5 +11,5 @@ export const commonStaticReducers = <StateType extends IInitialState>() => {
     setFilter: (state: StateType, { payload }: PayloadAction<any>) => {
       state.filter = payload;
     },
-  }
-}
+  };
+};

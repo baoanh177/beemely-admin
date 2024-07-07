@@ -8,11 +8,11 @@ import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
 type ActionType =
-    | Function
+  | Function
   | {
       navigate?: string;
       message?: string;
-    }
+    };
 
 interface IUseFetchStatusProps {
   module: keyof RootStateType;
@@ -28,29 +28,29 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
   const navigate = useNavigate();
 
   const handleStatus = (type: "success" | "error") => {
-    if(type == "success" && actions?.success) {
-      if(typeof actions.success === "function") {
-        actions.success()
-      }else {
-        actions.success?.message && toast.success(actions.success?.message)
-        actions.success?.navigate && navigate(actions.success?.navigate)
+    if (type == "success" && actions?.success) {
+      if (typeof actions.success === "function") {
+        actions.success();
+      } else {
+        actions.success?.message && toast.success(actions.success?.message);
+        actions.success?.navigate && navigate(actions.success?.navigate);
       }
-    }else if(type == "error" && actions?.error) {
-      if(typeof actions.error === "function") {
-        actions.error()
-      }else {
-        actions.error?.message && toast.error(actions.error?.message)
-        actions.error?.navigate && navigate(actions.error?.navigate)
+    } else if (type == "error" && actions?.error) {
+      if (typeof actions.error === "function") {
+        actions.error();
+      } else {
+        actions.error?.message && toast.error(actions.error?.message);
+        actions.error?.navigate && navigate(actions.error?.navigate);
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (state?.status !== FetchStatus.IDLE) {
       if (state?.status === FetchStatus.FULFILLED) {
-        handleStatus("success")
+        handleStatus("success");
       } else if (state?.status === FetchStatus.REJECTED) {
-        handleStatus("error")
+        handleStatus("error");
       }
       dispatch(reset());
     }

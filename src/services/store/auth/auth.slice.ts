@@ -7,7 +7,7 @@ import { ILoginResponseData, IUserProfile } from "./auth.model";
 export interface IAuthInitialState extends Partial<IInitialState> {
   isLogin: boolean;
   profile: IUserProfile | null;
-  loginTime: number
+  loginTime: number;
 }
 
 const initialState: IAuthInitialState = {
@@ -31,16 +31,16 @@ const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getProfile.pending, (state) => {
-        state.status = FetchStatus.PENDING
+        state.status = FetchStatus.PENDING;
       })
       .addCase(getProfile.fulfilled, (state, { payload }: PayloadAction<IResponse<IUserProfile>>) => {
-        state.profile = payload.metaData
-        state.isLogin = true
-        state.status = FetchStatus.FULFILLED
+        state.profile = payload.metaData;
+        state.isLogin = true;
+        state.status = FetchStatus.FULFILLED;
       })
       .addCase(getProfile.rejected, (state) => {
-        state.status = FetchStatus.REJECTED
-      })
+        state.status = FetchStatus.REJECTED;
+      });
     builder
       .addCase(login.pending, (state) => {
         state.status = FetchStatus.PENDING;
@@ -48,7 +48,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, { payload }: PayloadAction<IResponse<ILoginResponseData>>) => {
         localStorage.setItem("accessToken", JSON.stringify(payload.metaData?.accessToken));
         localStorage.setItem("refreshToken", JSON.stringify(payload.metaData?.refreshToken));
-        state.loginTime = new Date().getTime() / 1000
+        state.loginTime = new Date().getTime() / 1000;
         state.status = FetchStatus.FULFILLED;
       })
       .addCase(login.rejected, (state, { payload }: PayloadAction<any>) => {
@@ -62,7 +62,7 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        state.isLogin = false
+        state.isLogin = false;
         state.status = FetchStatus.FULFILLED;
       })
       .addCase(logout.rejected, (state, { payload }: PayloadAction<any>) => {

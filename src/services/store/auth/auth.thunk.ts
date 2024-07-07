@@ -9,12 +9,12 @@ const prefix = "/api/auth";
 
 export const getProfile = createAsyncThunk("auth/get-profile", async (_, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IUserProfile>(`${prefix}/profile`)
-    return response.status >= 400 ? rejectWithValue(data) : data
-  }catch(error: any) {
-    return rejectWithValue(error.response.data)
+    const { response, data } = await client.get<IUserProfile>(`${prefix}/profile`);
+    return response.status >= 400 ? rejectWithValue(data) : data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
   }
-})
+});
 
 export const login = createAsyncThunk("auth/login", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {

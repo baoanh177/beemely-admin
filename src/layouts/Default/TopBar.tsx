@@ -4,7 +4,6 @@ import IconHasBadge from "@/components/IconHasBadge";
 import { PiBell } from "react-icons/pi";
 
 const TopBar = () => {
-
   return (
     <div className="flex h-10 items-center justify-between">
       {/* Search */}
@@ -26,7 +25,7 @@ const TopBar = () => {
         <IconHasBadge icon={<PiBell className="text-[18px] text-gray-400" />} badge={2} />
         <IconHasBadge icon={<IoMailOutline className="text-[18px] text-gray-400" />} badge={2} />
         <div className="h-full border border-gray-50"></div>
-          <UserSettings />
+        <UserSettings />
       </div>
     </div>
   );

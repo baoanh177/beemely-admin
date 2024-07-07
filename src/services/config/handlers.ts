@@ -4,18 +4,18 @@ export const refreshToken = async (url: string) => {
     const response = await fetch(`${url}/api/auth/refresh-token`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         refreshToken: localStorage.getItem("refreshToken"),
       }),
     });
-    const data = await response.json()
-    
+    const data = await response.json();
+
     if (response.ok) {
       localStorage.setItem("accessToken", JSON.stringify(data.metaData.accessToken));
       localStorage.setItem("refreshToken", JSON.stringify(data.metaData.refreshToken));
-    } else throw new Error()
+    } else throw new Error();
     return response.ok;
   } catch (e) {
     localStorage.removeItem("accessToken");

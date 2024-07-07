@@ -11,16 +11,16 @@ export interface IUserData {
 }
 
 export interface IUserProfile {
-  id: string
-  userName: string
-  email: string
-  listNamePermission: Permissions[],
-  listNameRole: string[]
-  roles: IRole[]
+  id: string;
+  userName: string;
+  email: string;
+  listNamePermission: Permissions[];
+  listNameRole: string[];
+  roles: IRole[];
 }
 
 export interface ILoginResponseData {
-  userData: IUserData
+  userData: IUserData;
   accessToken: string;
   refreshToken: string;
 }

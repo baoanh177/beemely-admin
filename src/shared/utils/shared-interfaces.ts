@@ -29,12 +29,12 @@ export interface ISearchParams {
 export interface IResponse<MetaDataType> {
   statusCode: number;
   message: string;
-  metaData: MetaDataType
+  metaData: MetaDataType;
 }
 
 export interface ClientReturnType<ReturnDataType> {
-  response: Response
-  data: ReturnDataType
+  response: Response;
+  data: ReturnDataType;
 }
 
 export interface IInitialState {
