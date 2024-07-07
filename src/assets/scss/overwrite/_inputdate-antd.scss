@@ -1,5 +1,5 @@
 .custom-datepicker {
-  height: 43px;
+  height: 40px;
   background-color: #f9f9fc !important;
   border-color: #e0e2e7 !important;
   box-shadow: none !important;
@@ -16,9 +16,21 @@
       color: #858d9d;
     }
   }
-
-  &:hover,
+  &:hover .ant-picker-input > input {
+    border-color: #e0e2e7 !important;
+  }
   &:focus,
+  &:focus-within {
+    background-color: #fff !important;
+    border-color: #e0e2e7 !important;
+    box-shadow: none !important;
+    outline: none;
+
+    .ant-picker-input > input {
+      background-color: #ffffff !important;
+    }
+  }
+
   &:active {
     background-color: #f9f9fc !important;
     border-color: #e0e2e7 !important;

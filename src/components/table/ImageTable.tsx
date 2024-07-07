@@ -34,7 +34,7 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
       )}
       <div className="flex flex-col gap-1">
         <div className="text-m-medium text-black-500">{title}</div>
-        <div className="text-m-medium text-gray-500">{description}</div>
+        <div className="text-s-regular text-gray-500">{description}</div>
       </div>
     </div>
   );

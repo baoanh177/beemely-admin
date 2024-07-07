@@ -7,9 +7,10 @@ interface FormCheckProps {
   onChange?: (isDefaultChecked: boolean) => void;
   isDefaultChecked?: boolean;
   isDisable?: boolean;
+  name?: string;
 }
 false;
-const FormCheck = ({ label, onChange, isDefaultChecked, isDisable }: FormCheckProps) => {
+const FormCheck = ({ label, onChange, isDefaultChecked, name, isDisable }: FormCheckProps) => {
   const handleChange = (e: CheckboxChangeEvent) => {
     if (onChange) {
       onChange(e.target.checked);
@@ -29,6 +30,7 @@ const FormCheck = ({ label, onChange, isDefaultChecked, isDisable }: FormCheckPr
     >
       <div className={clsx("mb-4 flex items-center gap-2", isDisable && "opacity-65")}>
         <Checkbox
+          name={name}
           defaultChecked={isDefaultChecked}
           disabled={isDisable}
           type="checkbox"
