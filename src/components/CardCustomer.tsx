@@ -1,30 +1,42 @@
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import StatusBadge from "./table/StatusBadge";
-interface StatusType {
-  text: string;
-  color: "green" | "red";
-}
+import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
+import CustomImage from "./CustomImage";
+
 interface CustomerCardProps {
   image: string;
   title: string;
-  status: StatusType;
+  status: StatusBadgeProps;
   orders: number;
   balance: number;
 }
 
-export const customerData = [
+export const customerData: CustomerCardProps[] = [
   {
     image: "https://picsum.photos/200/300",
     title: "Laura Prichet",
-    status: { text: "Blocked", color: "red" as "red" | "green" },
+    status: { text: "Blocked", color: "red" },
     orders: 23434,
     balance: 23434,
   },
   {
     image: "https://picsum.photos/200/300",
     title: "John Doe",
-    status: { text: "Active", color: "green" as "red" | "green" },
+    status: { text: "Active", color: "green" },
+    orders: 10000,
+    balance: 5000,
+  },
+  {
+    image: "https://picsum.photos/200/300defrgfds",
+    title: "John Doe",
+    status: { text: "Blocked", color: "red" },
+    orders: 10000,
+    balance: 5000,
+  },
+  {
+    image: "",
+    title: "John Doe",
+    status: { text: "Active", color: "green" },
     orders: 10000,
     balance: 5000,
   },
@@ -35,7 +47,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ image, title, status, order
       <div className="flex flex-1 flex-col items-center gap-4">
         <div className="relative flex w-full items-center justify-center">
           <div>
-            <img src={image} className="h-20 w-20 rounded-circle object-cover" alt={title} />
+            <CustomImage src={image} alt={title} className="h-20 w-20 rounded-circle object-cover" />
           </div>
           <div className="absolute right-0 top-0 text-gray-400">
             <BsThreeDotsVertical />

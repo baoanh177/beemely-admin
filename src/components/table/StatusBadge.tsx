@@ -1,8 +1,9 @@
 import React from "react";
 import clsx from "clsx";
-interface StatusBadgeProps {
+export type StatusBadgeColors = "blue" | "green" | "orange" | "gray" | "red";
+export interface StatusBadgeProps {
   text: string;
-  color: "blue" | "green" | "orange" | "gray" | "red";
+  color: StatusBadgeColors;
 }
 
 const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color }) => {
