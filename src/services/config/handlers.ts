@@ -1,13 +1,15 @@
-export const refreshToken = async (url: string) => {
+import { ClientType } from "./client";
+
+export const refreshToken = async (client: ClientType) => {
   try {
-    if (!localStorage.getItem("refreshToken")) return;
-    const response = await fetch(`${url}/api/auth/refresh-token`, {
+    if (!client.tokens.refreshToken()) return;
+    const response = await fetch(`${client.SERVER_URL}/api/auth/refresh-token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        refreshToken: localStorage.getItem("refreshToken"),
+        refreshToken: client.tokens.refreshToken(),
       }),
     });
     const data = await response.json();
