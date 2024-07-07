@@ -1,4 +1,4 @@
-import { ClientReturnType, IFetchOptions, IResponse, IThunkPayload, MethodType } from "@/shared/utils/shared-interfaces";
+import { ClientReturnType, IResponse, IThunkPayload, MethodType } from "@/shared/utils/shared-interfaces";
 import { refreshToken } from "./handlers";
 import { ClientType } from "./client";
 import toast from "react-hot-toast";

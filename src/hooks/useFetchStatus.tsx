@@ -28,12 +28,19 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
   const navigate = useNavigate();
 
   const handleStatus = (type: "success" | "error") => {
-    if(actions?.[type]) {
-      if(typeof actions?.[type] === "function") {
-        actions[type]()
+    if(type == "success" && actions?.success) {
+      if(typeof actions.success === "function") {
+        actions.success()
       }else {
-        actions[type].message && toast[type](actions[type].message)
-        actions[type].navigate && navigate(actions[type].navigate)
+        actions.success?.message && toast.success(actions.success?.message)
+        actions.success?.navigate && navigate(actions.success?.navigate)
+      }
+    }else if(type == "error" && actions?.error) {
+      if(typeof actions.error === "function") {
+        actions.error()
+      }else {
+        actions.error?.message && toast.error(actions.error?.message)
+        actions.error?.navigate && navigate(actions.error?.navigate)
       }
     }
   }
