@@ -14,7 +14,6 @@ import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/CardCustomer";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
-import StatCards from "@/components/StatCard";
 
 const Components = () => {
   return (
@@ -176,9 +175,6 @@ const Components = () => {
 
       <div className="flex flex-col items-start gap-5">
         <OrderInForCard title={"Shipping"} icon={IoBagOutline} status={{ color: "orange", text: "Processing" }} items={dataItemsOrderInforCard} />
-      </div>
-      <div>
-        <StatCards />
       </div>
     </>
   );
