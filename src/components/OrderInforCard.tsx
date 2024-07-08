@@ -4,12 +4,11 @@ import { IconType } from "react-icons";
 import { IoBagOutline } from "react-icons/io5";
 import { CiCalendarDate } from "react-icons/ci";
 import { LiaShippingFastSolid } from "react-icons/lia";
-import { PiNotePencilLight } from "react-icons/pi";
 import InfoCardWithIcon from "./InfoCardWithIcon";
 
 export interface IItemsOderInfoCard {
   label?: string;
-  value: string;
+  value?: string;
   icon: IconType;
   title: string;
 }
@@ -19,28 +18,21 @@ interface IOrderInforCardProps {
   status?: StatusBadgeProps;
   items: IItemsOderInfoCard[];
 }
-export const dataOrderInforCard: IOrderInforCardProps[] = [
+export const dataItemsOrderInforCard: IItemsOderInfoCard[] = [
   {
-    title: "Order #302011",
-    icon: PiNotePencilLight,
-    status: { color: "orange", text: "Processing" },
-    items: [
-      {
-        icon: IoBagOutline,
-        title: "Added",
-        value: "12 Dec 2022",
-      },
-      {
-        icon: CiCalendarDate,
-        title: "Payment Method",
-        value: "Visa",
-      },
-      {
-        icon: LiaShippingFastSolid,
-        title: "Shipping Method",
-        value: "Flat Shipping",
-      },
-    ],
+    icon: IoBagOutline,
+    title: "Added",
+    value: "12 Dec 2022",
+  },
+  {
+    icon: CiCalendarDate,
+    title: "Payment Method",
+    value: "Visa",
+  },
+  {
+    icon: LiaShippingFastSolid,
+    title: "Shipping Method",
+    value: "Flat Shipping",
   },
 ];
 
@@ -57,7 +49,7 @@ const OrderInforCard: React.FC<IOrderInforCardProps> = ({ title, icon: TitleIcon
         <div className="cursor-pointer text-gray-400">{TitleIcon && <TitleIcon />}</div>
       </div>
       {items.map((item, index) => (
-        <InfoCardWithIcon key={index} item={item} />
+        <InfoCardWithIcon key={index} {...item} />
       ))}
     </div>
   );
