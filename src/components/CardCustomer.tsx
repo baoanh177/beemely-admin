@@ -49,7 +49,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ image, title, status, order
           <div>
             <CustomImage src={image} alt={title} className="h-20 w-20 rounded-circle object-cover" />
           </div>
-          <div className="absolute right-0 top-0 text-gray-400">
+          <div className="absolute right-0 top-0 cursor-pointer text-gray-400 hover:text-black-500">
             <BsThreeDotsVertical />
           </div>
         </div>
