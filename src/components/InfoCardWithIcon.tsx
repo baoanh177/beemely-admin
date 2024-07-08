@@ -15,12 +15,12 @@ const InfoCardWithIcon: React.FC<InfoCardWithIconProps> = ({ icon: ItemIcon, lab
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50">
           <div className="text-xl text-gray-500">{ItemIcon && <ItemIcon />}</div>
         </div>
-        <div className="text-base">
+        <div className="text-m-medium">
           <div className="text-gray-500">{label}</div>
           {title && <div>{title}</div>}
         </div>
       </div>
-      <div className="text-base">{value}</div>
+      <div className="text-m-medium">{value}</div>
     </div>
   );
 };
