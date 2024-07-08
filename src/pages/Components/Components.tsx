@@ -6,13 +6,14 @@ import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
 import Heading from "@/layouts/Default/Heading";
 import UpdateImage from "@/components/form/FormUpload";
-import { IoSaveOutline } from "react-icons/io5";
+import { IoBagOutline, IoSaveOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/CardCustomer";
+import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
 const Components = () => {
   return (
     <>
@@ -170,6 +171,10 @@ const Components = () => {
           balance={customer.balance}
         />
       ))}
+
+      <div className="flex flex-col items-start gap-5">
+        <OrderInForCard title={"Shipping"} icon={IoBagOutline} status={{ color: "orange", text: "Processing" }} items={dataItemsOrderInforCard} />
+      </div>
     </>
   );
 };
