@@ -64,7 +64,7 @@ const renderRoutes = (routes: IRoute[], initPath = "/") => {
 const routes: IRoute[] = [
   {
     path: "/",
-    // middleware: () => <AuthMiddleware />,
+    middleware: () => <AuthMiddleware />,
     layout: () => <DefaultLayout />,
     pages: [
       {
