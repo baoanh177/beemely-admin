@@ -14,6 +14,7 @@ import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/CardCustomer";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
+
 const Components = () => {
   return (
     <>

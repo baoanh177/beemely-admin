@@ -95,7 +95,7 @@ export const data: DataType[] = [
 
 const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideComponents, paginationConfig, columns }) => {
   return (
-    <div>
+    <div className="secondary-table">
       {!hideComponents?.includes("transactionHeader") && (
         <div className="flex items-center justify-between gap-3 px-6 py-[18px]">
           <div className="display-s-semibold text-black-500">{title}</div>
