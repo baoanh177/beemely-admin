@@ -13,7 +13,7 @@ import { tableColumns, tableData } from "./table-data";
 import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/CardCustomer";
-import OrderInForCard, { dataOderInforCard } from "@/components/OrderInforCard";
+import OrderInForCard, { dataOrderInforCard } from "@/components/OrderInforCard";
 const Components = () => {
   return (
     <>
@@ -173,8 +173,8 @@ const Components = () => {
       ))}
 
       <div className="flex flex-col items-start gap-5">
-        {dataOderInforCard.map((order, index) => (
-          <OrderInForCard key={index} title={order.title} items={order.items} />
+        {dataOrderInforCard.map((order, index) => (
+          <OrderInForCard key={index} title="Order" icon={order.icon} status={order.status} items={order.items} />
         ))}
       </div>
     </>
