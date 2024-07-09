@@ -14,7 +14,7 @@ import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/CardCustomer";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
-import DateRangePicker from "@/components/form/InputRangePicker";
+import DateRangePicker from "@/components/form/FormDateRangePicker";
 import RoundedIcon from "@/components/RoundedIcon";
 import { FaShoppingCart, FaTrophy, FaMoneyBill } from "react-icons/fa";
 import StatCard from "@/components/StatCards";
