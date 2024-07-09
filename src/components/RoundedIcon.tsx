@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { IconType } from "react-icons";
 
-interface IRoundIcon {
+export interface IRoundIcon {
     icon: IconType;
     color?: "orange" | "primary" | "green" | "gray" | "red";
     size: "large" | "medium";

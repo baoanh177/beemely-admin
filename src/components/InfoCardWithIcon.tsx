@@ -2,7 +2,7 @@ import React from "react";
 import { IconType } from "react-icons";
 import RoundedIcon from "./RoundedIcon";
 
-interface InfoCardWithIconProps {
+export interface InfoCardWithIconProps {
   icon: IconType;
   label?: string;
   title: string;
