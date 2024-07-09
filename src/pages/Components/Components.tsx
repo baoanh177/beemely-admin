@@ -15,6 +15,7 @@ import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable
 import CustomerCard, { customerData } from "@/components/CardCustomer";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
 import RoundedIcon from "@/components/RoundedIcon";
+import StatCards from "@/components/StatCards";
 const Components = () => {
   return (
     <>
@@ -178,6 +179,9 @@ const Components = () => {
       </div>
       <div className="flex flex-col items-start gap-5">
         <RoundedIcon icon={IoBagOutline} color="red" shape="square" size="large" />
+      </div>
+      <div>
+        <StatCards />
       </div>
     </>
   );
