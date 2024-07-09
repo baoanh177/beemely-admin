@@ -1,6 +1,7 @@
-import CustomImage from "./CustomImage";
+import CustomerAvatar from "./CustomerAvatar";
 import InfoCardWithIcon, { InfoCardWithIconProps } from "./InfoCardWithIcon";
 import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
+import DeafaultBgDeatailCard from "@/assets/images/deafaultBgDeatailCard.png";
 
 interface ICustomerDetailCard {
     background?: string;
@@ -11,25 +12,26 @@ interface ICustomerDetailCard {
 }
 
 const CustomerDetailCard = ({ background, avatar, status, items, name }: ICustomerDetailCard) => {
-    const defaultBackground = background || "src/assets/images/Background.png";
+    const isImageValid = (path: string | undefined): boolean => {
+        if (!path) return false;
+        const image = new Image();
+        image.src = path;
+        return image.complete && image.naturalWidth !== 0;
+    };
+
+    const defaultBackground = background && isImageValid(background) ? background : DeafaultBgDeatailCard;
     return (
         <div className="w-full bg-white rounded-xl p-2">
             <div className="relative">
-                <CustomImage className="w-full h-[148px] object-cover rounded" alt={`background with ${name}`} src={defaultBackground} />
-                {avatar ? (
-                    <CustomImage
-                        className="w-[148px] h-[148px] rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2"
-                        alt={`avatar with ${name}`}
-                        src={avatar}
-                    />
-                ) : (
-                    <div
-                        className="w-[148px] h-[148px] rounded-full absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-gray-300"
-                    >
-                    </div>
-                )}
+                <img className="w-full h-[148px] object-cover rounded" alt={`background with ${name}`} src={defaultBackground} />
+                <CustomerAvatar
+                    className="w-[148px] h-[148px] rounded-full absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2"
+                    alt={`avatar with ${name}`}
+                    size="large"
+                    src={avatar}
+                />
             </div>
-            <div className="flex flex-col gap-2 items-center border-b mx-5 border-gray-10 pb-6 mt-[80px]">
+            <div className="flex flex-col gap-2 items-center border-b border-gray-100 pb-6 mt-[80px]">
                 <div className="text-l-semibold">{name}</div>
                 <StatusBadge color={status.color} text={status.text} />
             </div>

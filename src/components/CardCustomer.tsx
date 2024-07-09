@@ -1,7 +1,7 @@
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
-import CustomImage from "./CustomImage";
+import CustomerAvatar from "./CustomerAvatar";
 
 interface CustomerCardProps {
   image: string;
@@ -47,7 +47,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ image, title, status, order
       <div className="flex flex-1 flex-col items-center gap-4">
         <div className="relative flex w-full items-center justify-center">
           <div>
-            <CustomImage src={image} alt={title} className="h-20 w-20 rounded-circle object-cover" />
+            <CustomerAvatar size="medium" src={image} alt={title} />
           </div>
           <div className="absolute right-0 top-0 cursor-pointer text-gray-400 hover:text-black-500">
             <BsThreeDotsVertical />
