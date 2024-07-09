@@ -79,3 +79,8 @@
     }
   }
 }
+.secondary-table {
+  .ant-table-thead > tr > th {
+    background-color: #f9f9fc !important;
+  }
+}
