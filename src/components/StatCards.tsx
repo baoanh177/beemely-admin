@@ -17,7 +17,7 @@ const StatCard: React.FC<IStatsCardProps> = ({ title, value, percentageChange, c
         <div className="flex gap-4">
           <div className="flex w-[140px] flex-col gap-2">
             <h4 className="text-l-medium text-black-300">{title}</h4>
-            <div className="display-m-seibold h-8">{value}</div>
+            <div className="display-m-seibold h-8 text-black-500">{value}</div>
           </div>
           <span>{icon}</span>
         </div>
