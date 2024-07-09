@@ -14,6 +14,7 @@ import StatusBadge from "@/components/table/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/CardCustomer";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
+import DateRangePicker from "@/components/form/InputRangePicker";
 import RoundedIcon from "@/components/RoundedIcon";
 import { FaShoppingCart, FaTrophy, FaMoneyBill } from "react-icons/fa";
 import StatCard from "@/components/StatCards";
@@ -128,6 +129,8 @@ const Components = () => {
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">FormDate</h1>
           <FormDate />
+          <label>{"FormDate RangePicker"}</label>
+          <DateRangePicker />
           <h1 className="display-s-regular mb-2">FormInputArea</h1>
           <FormInputArea label="Description" />
           <FormInputArea label="Description" defaultValue="Example text" />
