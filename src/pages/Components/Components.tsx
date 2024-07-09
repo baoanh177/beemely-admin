@@ -15,7 +15,8 @@ import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable
 import CustomerCard, { customerData } from "@/components/CardCustomer";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
 import RoundedIcon from "@/components/RoundedIcon";
-import StatCards from "@/components/StatCards";
+import { FaShoppingCart, FaTrophy, FaMoneyBill } from "react-icons/fa";
+import StatCard from "@/components/StatCards";
 const Components = () => {
   return (
     <>
@@ -180,8 +181,28 @@ const Components = () => {
       <div className="flex flex-col items-start gap-5">
         <RoundedIcon icon={IoBagOutline} color="red" shape="square" size="large" />
       </div>
-      <div>
-        <StatCards />
+      <div className="flex items-start gap-4">
+        <StatCard
+          title="Total Orders"
+          value={2400}
+          percentageChange={1}
+          changeValue="+24 this month"
+          icon={<RoundedIcon icon={FaShoppingCart} color="orange" size="large" shape="square" />}
+        />
+        <StatCard
+          title="Total Balance"
+          value="$100.00"
+          percentageChange={10}
+          changeValue="+$10 today"
+          icon={<RoundedIcon icon={FaMoneyBill} color="primary" size="large" shape="square" />}
+        />
+        <StatCard
+          title="Reward Points"
+          value={1200}
+          percentageChange={-5}
+          changeValue="-60 today"
+          icon={<RoundedIcon icon={FaTrophy} color="green" size="large" shape="square" />}
+        />
       </div>
     </>
   );
