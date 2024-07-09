@@ -22,7 +22,7 @@ const StatCard: React.FC<IStatsCardProps> = ({ title, value, percentageChange, c
           <span>{icon}</span>
         </div>
         <div className="flex gap-1">
-          <div className={clsx("flex items-center", isPositive ? "text-green-600" : "text-red-600")}>
+          <div className={clsx("text-m-bold flex items-center", isPositive ? "text-green-600" : "text-red-600")}>
             {percentageChange}% {isPositive ? <GoTriangleUp /> : <GoTriangleDown />}
           </div>
           <div className="text-m-medium text-gray-400">{changeValue}</div>
