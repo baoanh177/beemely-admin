@@ -181,11 +181,7 @@ const Components = () => {
         <RoundedIcon icon={IoBagOutline} color="red" shape="square" size="large" />
       </div>
       <div className="flex flex-col items-start gap-5">
-        <CustomerDetailCard
-          items={dataItemsOrderInforCard}
-          name="Linda Blair"
-          status={{ color: "green", text: "Active" }}
-        />
+        <CustomerDetailCard items={dataItemsOrderInforCard} name="Linda Blair" status={{ color: "green", text: "Active" }} />
       </div>
     </>
   );
