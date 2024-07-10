@@ -15,11 +15,11 @@ const StatCard: React.FC<IStatsCardProps> = ({ title, value, percentageChange, c
     <div className="flex gap-4">
       <div className="flex flex-col gap-4 rounded-xl bg-[#fff] p-5">
         <div className="flex gap-4">
-          <div className="flex w-full flex-col gap-2">
+          <div className="flex w-[140px] flex-col gap-2">
             <h4 className="text-l-medium text-black-300">{title}</h4>
-            <div className="display-m-seibold text-black-500">{value}</div>
+            <div className="display-m-seibold h-8">{value}</div>
           </div>
-          {icon}
+          <span>{icon}</span>
         </div>
         <div className="flex gap-1">
           <div className={clsx("text-m-bold flex items-center", isPositive ? "text-green-600" : "text-red-600")}>
