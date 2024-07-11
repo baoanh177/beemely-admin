@@ -1,4 +1,12 @@
 .ant-table-wrapper {
+  background-color: white;
+  border-radius: 12px;
+  .ant-table-column-sorter-down.active{
+    color: #883dcf;
+  }
+  .ant-table-column-sorter-up.active{
+    color: #883dcf;
+  }
   .ant-table-content {
     font-family: ps-Bold;
     font-size: 14px;
@@ -83,4 +91,14 @@
   .ant-table-thead > tr > th {
     background-color: #f9f9fc !important;
   }
+}
+.ant-pagination-total-text{
+  font-family: ps-semiBold;
+  color: gray;
+  position: absolute;
+  left: 0;
+  padding-left: 10px;
+}
+.ant-pagination{
+  padding: 0 10px;
 }
