@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePicker } from "antd";
+import { ConfigProvider, DatePicker } from "antd";
 import { Dayjs } from "dayjs";
 
 interface DateRangePickerProps {
@@ -19,17 +19,27 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ label, onChange, defa
   };
 
   return (
-    <div>
-      {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
-      <DatePicker.RangePicker
-        className="custom-datepicker w-full rounded-md bg-gray-25 py-2"
-        onChange={handleChange}
-        defaultValue={defaultValue}
-        value={value}
-        name={name}
-        disabled={disabled}
-      />
-    </div>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#883DCF",
+          colorPrimaryHover: "#883DCF",
+          colorPrimaryActive: "#883DCF",
+        },
+      }}
+    >
+      <div>
+        {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
+        <DatePicker.RangePicker
+          className="custom-datepicker w-full rounded-md bg-gray-25 py-2"
+          onChange={handleChange}
+          defaultValue={defaultValue}
+          value={value}
+          name={name}
+          disabled={disabled}
+        />
+      </div>
+    </ConfigProvider>
   );
 };
 
