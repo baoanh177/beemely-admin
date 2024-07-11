@@ -4,7 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import FilterTableStatus from "./FilterTableStatus";
 import FormInput from "../form/FormInput";
 import { IoSearchOutline } from "react-icons/io5";
-import DateRangePicker from "../form/InputRangePicker";
+import DateRangePicker from "../form/FormDateRangePicker";
 
 export interface ITableData {
   key: React.Key;
@@ -21,11 +21,21 @@ interface IPrimaryTableProps {
   pagination?: { pageSize: number; current: number; total: number };
 }
 
+const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: ITableData[]) => {
+  selectedRowKeys;
+  selectedRows;
+};
+
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination }) => {
-  const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: ITableData[]) => {
-    selectedRowKeys;
-    selectedRows;
+  const getShowingText = (total: number, range: [number, number]) => {
+    return `Showing ${range[0]}-${range[1]} from ${total}`;
   };
+  const paginationConfig = pagination
+    ? {
+        ...pagination,
+        showTotal: getShowingText,
+      }
+    : false;
 
   return (
     <div className="flex flex-col gap-6">
@@ -38,7 +48,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
           </div>
         </div>
       )}
-      <Table rowSelection={{ onChange: onSelectChange }} columns={columns} dataSource={data} pagination={pagination && pagination} />
+      <Table rowSelection={{ onChange: onSelectChange }} columns={columns} dataSource={data} pagination={paginationConfig} />
     </div>
   );
 };

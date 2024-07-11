@@ -12,6 +12,7 @@
     height: 100%;
     border-color: #e0e2e7 !important;
     box-shadow: none !important;
+
     .ant-select-selection-placeholder {
       line-height: unset;
       height: 20px;
@@ -44,7 +45,6 @@
     }
     .ant-select-selection-item-remove {
       color: #883dcf;
-
       &:hover {
         color: #883dcf;
       }
