@@ -10,17 +10,30 @@ export interface DataType {
   key: React.Key;
   [key: string]: unknown;
 }
+
 interface IPrimaryTableProps {
   search: false | { status: { value: string; label: string }[] };
   columns: ColumnsType<DataType>;
   data: DataType[];
   pagination?: { pageSize: number; current: number; total: number };
 }
+
 const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
   selectedRowKeys;
   selectedRows;
 };
+
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination }) => {
+  const getShowingText = (total: number, range: [number, number]) => {
+    return `Showing ${range[0]}-${range[1]} from ${total}`;
+  };
+  const paginationConfig = pagination
+    ? {
+        ...pagination,
+        showTotal: getShowingText,
+      }
+    : false;
+
   return (
     <div className="flex flex-col gap-6">
       {search && (
@@ -39,7 +52,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
           </div>
         </div>
       )}
-      <Table rowSelection={{ onChange: onSelectChange }} columns={columns} dataSource={data} pagination={pagination && pagination} />
+      <Table rowSelection={{ onChange: onSelectChange }} columns={columns} dataSource={data} pagination={paginationConfig} />
     </div>
   );
 };

@@ -12,6 +12,7 @@
     height: 100%;
     border-color: #e0e2e7 !important;
     box-shadow: none !important;
+
     .ant-select-selection-placeholder {
       line-height: unset;
       height: 20px;
@@ -48,6 +49,14 @@
       &:hover {
         color: #883dcf;
       }
+    }
+  }
+}
+.ant-select-dropdown {
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: #f4ecfb;
+    .ant-select-item-option-state {
+      color: #883dcf;
     }
   }
 }

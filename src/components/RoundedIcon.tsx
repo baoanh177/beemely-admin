@@ -30,7 +30,7 @@ const RoundedIcon = ({ icon: ItemIcon, color, size, shape }: IRoundIcon) => {
   return (
     <div
       className={clsx(
-        "flex items-center justify-center text-lg",
+        "flex shrink-0 items-center justify-center text-lg",
         {
           "rounded-full": shape === "circle",
           "rounded-lg": shape === "square",
