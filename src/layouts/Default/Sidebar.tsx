@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import MenuItem from "./MenuItem";
 
 // Icons
-import { GoProject } from "react-icons/go";
 import { IoCartOutline, IoPieChartOutline, IoSettingsOutline } from "react-icons/io5";
 
 // Images

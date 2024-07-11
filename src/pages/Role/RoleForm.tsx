@@ -14,8 +14,8 @@ import { IRoleFormInitialValues } from "./CreateRole/CreateRole";
 import { createRole } from "@/services/store/role/role.thunk";
 
 interface IRoleFormProps {
-  formikRef: RefObject<FormikProps<IRoleFormInitialValues>>
-  type: "view" | "create" | "update"
+  formikRef: RefObject<FormikProps<IRoleFormInitialValues>>;
+  type: "view" | "create" | "update";
 }
 
 const RoleForm = ({ formikRef, type }: IRoleFormProps) => {
@@ -42,71 +42,65 @@ const RoleForm = ({ formikRef, type }: IRoleFormProps) => {
   }, []);
 
   return (
-    <>
-      <Formik
-        innerRef={formikRef}
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(data) => {
-          const sendData = {
-            ...data,
-            permissions: data.permissions.filter((p) => !p.startsWith("parent-")),
-          };
-          if(type == "create") {
-            dispatch(createRole({ body: sendData }))
-          }
-        }}
-      >
-        {({ values, errors, touched, handleBlur, setFieldValue }) => {
-          return (
-            <UpdateGrid
-              colNumber="2"
-              rate="1-3"
-              groups={{
-                colLeft: (
-                  <>
-                    <FormGroup title="Permissions">
-                      <TreeData
-                        expanded={["parent-all"]}
-                        treeData={[
-                          {
-                            key: "parent-all",
-                            title: "All",
-                            children: treePermissions,
-                          },
-                        ]}
-                        checkedKeys={values.permissions}
-                        onCheck={(checkedKeys) => {
-                          setFieldValue("permissions", checkedKeys);
-                        }}
-                      />
-                    </FormGroup>
-                  </>
-                ),
-                colRight: (
-                  <>
-                    <FormGroup title="General Information">
-                      <FormInput
-                        type="text"
-                        label="Role name"
-                        value={values.name}
-                        name="name"
-                        error={touched.name ? errors.name : ""}
-                        placeholder="Type role name here..."
-                        onChange={(value) => {
-                          setFieldValue("name", value);
-                        }}
-                        onBlur={handleBlur}
-                      />
-                    </FormGroup>
-                  </>
-                ),
-              }}
-            />
-          );
-        }}
-      </Formik>
-    </>
+    <Formik
+      innerRef={formikRef}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(data) => {
+        const sendData = {
+          ...data,
+          permissions: data.permissions.filter((p) => !p.startsWith("parent-")),
+        };
+        if (type === "create") {
+          dispatch(createRole({ body: sendData }));
+        }
+      }}
+    >
+      {({ values, errors, touched, handleBlur, setFieldValue }) => {
+        return (
+          <UpdateGrid
+            colNumber="2"
+            rate="1-3"
+            groups={{
+              colLeft: (
+                <FormGroup title="Permissions">
+                  <TreeData
+                    expanded={["parent-all"]}
+                    treeData={[
+                      {
+                        key: "parent-all",
+                        title: "All",
+                        children: treePermissions,
+                      },
+                    ]}
+                    checkedKeys={values.permissions}
+                    onCheck={(checkedKeys) => {
+                      setFieldValue("permissions", checkedKeys);
+                    }}
+                  />
+                </FormGroup>
+              ),
+              colRight: (
+                <FormGroup title="General Information">
+                  <FormInput
+                    type="text"
+                    label="Role name"
+                    value={values.name}
+                    name="name"
+                    error={touched.name ? errors.name : ""}
+                    placeholder="Type role name here..."
+                    onChange={(value) => {
+                      setFieldValue("name", value);
+                    }}
+                    onBlur={handleBlur}
+                  />
+                </FormGroup>
+              ),
+            }}
+          />
+        );
+      }}
+    </Formik>
   );
 };
 

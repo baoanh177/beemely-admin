@@ -30,7 +30,8 @@ const Orders = () => {
         <ImageTable
           title="Handmade Pouch"
           description="+3 Products"
-          imageSrc="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/163d9f52-ede6-483a-acff-558b40d89cac/alphafly-3-blueprint-road-racing-shoes-QrjGRL.png"
+          imageSrc="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/163d9f52-ede6-483a-acff-558b40d89cac/
+          alphafly-3-blueprint-road-racing-shoes-QrjGRL.png"
         />
       ),
       date: "29 Dec 2022",
@@ -82,24 +83,23 @@ const Orders = () => {
   const buttons: IGridButton[] = [
     {
       type: ButtonTypes.CREATE,
-      onClick(record) {},
+      onClick() {},
       permission: Permissions.CREATE_ORDER,
     },
     {
       type: ButtonTypes.VIEW,
-      onClick(record) {},
+      onClick() {},
       permission: Permissions.READ_ORDER,
     },
     {
       type: ButtonTypes.UPDATE,
-      onClick(record) {
-        console.log("OK", record)
+      onClick() {
       },
       permission: Permissions.UPDATE_ORDER,
     },
     {
       type: ButtonTypes.DELETE,
-      onClick(record) {},
+      onClick() {},
       permission: Permissions.DELETE_ORDER,
     },
   ];

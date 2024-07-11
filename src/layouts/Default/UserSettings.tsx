@@ -5,8 +5,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { IoLogOutOutline, IoWarning } from "react-icons/io5";
 import { useArchive } from "@/hooks/useArchive";
 import { logout } from "@/services/store/auth/auth.thunk";
-import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
-import useFetchStatus from "@/hooks/useFetchStatus";
+import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 
 const { confirm } = Modal;
 

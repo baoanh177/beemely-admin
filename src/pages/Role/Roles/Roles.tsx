@@ -2,7 +2,6 @@ import ManagementGrid from "@/components/grid/ManagementGrid";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import Heading from "@/layouts/Default/Heading";
-import { RootStateType } from "@/services/reducers";
 import { IRoleInitialState } from "@/services/store/role/role.slice";
 import { getAllRoles } from "@/services/store/role/role.thunk";
 import { ButtonTypes } from "@/shared/enums/button";
@@ -11,7 +10,6 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Roles = () => {
