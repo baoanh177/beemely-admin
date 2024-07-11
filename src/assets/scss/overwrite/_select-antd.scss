@@ -45,18 +45,9 @@
     }
     .ant-select-selection-item-remove {
       color: #883dcf;
-
       &:hover {
         color: #883dcf;
       }
-    }
-  }
-}
-.ant-select-dropdown {
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    background-color: #f4ecfb;
-    .ant-select-item-option-state {
-      color: #883dcf;
     }
   }
 }
