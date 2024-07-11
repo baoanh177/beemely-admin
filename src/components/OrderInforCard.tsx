@@ -1,5 +1,5 @@
 import React from "react";
-import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
+import StatusBadge, { StatusBadgeProps } from "./StatusBadge";
 import { IconType } from "react-icons";
 import { IoBagOutline } from "react-icons/io5";
 import { CiCalendarDate } from "react-icons/ci";

@@ -48,7 +48,7 @@ export interface IInitialState {
 export interface IGridButton {
   type: ButtonTypes;
   onClick: (record?: { [key: string]: unknown }) => unknown;
-  permissions?: Permissions;
+  permission?: Permissions;
 }
 
 export interface ISearchContent {}

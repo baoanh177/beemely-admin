@@ -60,7 +60,7 @@ const UpdateImage: React.FC = () => {
         {fileList.length === 0 && <div className="text-m-regular mt-3 text-center text-gray-400">Drag and drop image here, or click add image</div>}
 
         <div className="mt-4 flex justify-center">
-          <Upload {...props} fileList={fileList}>
+          <Upload {...props} fileList={fileList} accept="">
             <Button type="ghost" text="Add image" />
           </Upload>
         </div>

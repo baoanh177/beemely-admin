@@ -5,7 +5,7 @@ import { PiBell } from "react-icons/pi";
 
 const TopBar = () => {
   return (
-    <div className="flex h-10 items-center justify-between">
+    <div className="flex h-12 items-center justify-between rounded-lg bg-white shadow-sm p-2">
       {/* Search */}
       <div className="relative flex w-full max-w-[658px] items-center gap-2 px-2">
         <div className="flex h-6 w-6 items-center justify-center py-2">

@@ -11,6 +11,7 @@ import { IoCartOutline, IoPieChartOutline, IoSettingsOutline } from "react-icons
 
 // Images
 import logo from "@/assets/images/logo.png";
+import { RxComponent1 } from "react-icons/rx";
 
 export interface IMenuItem {
   id: string;
@@ -43,46 +44,34 @@ const Sidebar = ({ children }: PropsWithChildren) => {
       icon: { component: IoCartOutline },
       items: [
         {
-          id: "2.1",
-          label: "Products",
-          path: "products",
-        },
-        {
-          id: "2.2",
-          label: "Categories",
-          path: "categories",
-        },
-        {
           id: "2.3",
           label: "Orders",
           path: "orders",
         },
         {
-          id: "2.4",
-          label: "Customers",
-          path: "customers",
+          id: "2.1",
+          label: "Products",
+          path: "products",
         },
       ],
     },
     {
       id: "3",
-      label: "Projects",
-      path: "projects",
-      icon: {
-        component: GoProject,
-      },
-    },
-    {
-      id: "4",
-      label: "Settings",
-      path: "settings",
+      label: "System",
       icon: { component: IoSettingsOutline },
+      items: [
+        {
+          id: "3.1",
+          label: "Roles",
+          path: "roles"
+        }
+      ]
     },
     {
       id: "5",
       label: "Components",
       path: "components",
-      icon: { component: IoSettingsOutline },
+      icon: { component: RxComponent1 },
     },
   ];
 

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import { login } from "@/services/store/auth/auth.thunk";
+import useFetchStatus from "@/hooks/useFetchStatus";
 
 interface ILoginFormData {
   email: string;
@@ -17,7 +18,6 @@ interface ILoginFormData {
 
 const Login = () => {
   const { state, dispatch } = useArchive<IAuthInitialState>("auth");
-  const navigate = useNavigate();
 
   const handleLogin = (data: ILoginFormData) => {
     dispatch(
@@ -26,18 +26,20 @@ const Login = () => {
       }),
     );
   };
-
-  useEffect(() => {
-    if (state?.status !== FetchStatus.IDLE) {
-      if (state?.status === FetchStatus.FULFILLED) {
-        toast.success("Logged in successfully");
-        navigate("/dashboard");
-      } else if (state?.status === FetchStatus.REJECTED) {
-        toast.error(state?.message as string);
-      }
-      dispatch(resetStatus());
-    }
-  }, [state?.status]);
+  
+  useFetchStatus({
+    module: "auth",
+    reset: resetStatus,
+    actions: {
+      success: {
+        message: "Logged in successfully",
+        navigate: "/dashboard",
+      },
+      error: {
+        message: state.message,
+      },
+    },
+  });
 
   const loginFormInitialValues: ILoginFormData = { email: "", password: "" };
 
@@ -71,7 +73,7 @@ const Login = () => {
                       type="text"
                       value={values.email}
                       error={touched.email ? errors.email : ""}
-                      isDisabled={state?.status === FetchStatus.PENDING}
+                      isDisabled={state.status === FetchStatus.PENDING}
                       name="email"
                       onChange={(value) => {
                         setFieldValue("email", value);
@@ -84,14 +86,14 @@ const Login = () => {
                       name="password"
                       value={values.password}
                       error={touched.password ? errors.password : ""}
-                      isDisabled={state?.status === FetchStatus.PENDING}
+                      isDisabled={state.status === FetchStatus.PENDING}
                       onBlur={handleBlur}
                       onChange={(value) => {
                         setFieldValue("password", value);
                       }}
                       placeholder="Enter your password..."
                     />
-                    <Button text="Login" isLoading={state?.status === FetchStatus.PENDING} className="mt-3" />
+                    <Button text="Login" isLoading={state.status === FetchStatus.PENDING} className="mt-3" />
                     <Link
                       to="/forgot-password"
                       className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"

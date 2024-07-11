@@ -1,5 +1,5 @@
 export enum ButtonTypes {
-  ADD = "add",
+  CREATE = "create",
   UPDATE = "update",
   VIEW = "view",
   DELETE = "delete",

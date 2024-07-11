@@ -28,4 +28,6 @@ dist-ssr
 *.sln
 *.sw?
 
+note.md
+
 .vercel

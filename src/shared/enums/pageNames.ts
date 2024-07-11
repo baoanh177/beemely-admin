@@ -1,3 +1,4 @@
+// ? [key: path]: name
 export enum PageNames {
   dashboard = "Dashboard",
   products = "Products",

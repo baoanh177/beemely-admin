@@ -8,11 +8,14 @@ import NotFound from "@/pages/Errors/NotFound";
 
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
-import Products from "@/pages/Products/Products";
+import Products from "@/pages/Product/Products/Products";
 import Login from "@/pages/Login/Login";
 import GuestMiddleware from "@/middlewares/GuestMiddleware";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import GlobalMiddleware from "@/middlewares/GlobalMiddleware";
+import Orders from "@/pages/Order/Orders/Orders";
+import Roles from "@/pages/Role/Roles/Roles";
+import CreateRole from "@/pages/Role/CreateRole/CreateRole";
 
 interface IRoute {
   path: string;
@@ -84,8 +87,25 @@ const routes: IRoute[] = [
             element: () => <Products />,
           },
           {
+            path: "orders",
+            element: () => <Orders />,
+          },
+          {
             path: "components",
             element: () => <Components />,
+          },
+          {
+            path: "roles",
+            pages: [
+              {
+                path: "/",
+                element: () => <Roles />,
+              },
+              {
+                path: "/create",
+                element: () => <CreateRole />
+              }
+            ],
           },
         ],
       },

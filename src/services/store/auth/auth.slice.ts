@@ -29,6 +29,7 @@ const authSlice = createSlice({
   },
 
   extraReducers(builder) {
+    // ? Get Profile
     builder
       .addCase(getProfile.pending, (state) => {
         state.status = FetchStatus.PENDING;
@@ -41,6 +42,7 @@ const authSlice = createSlice({
       .addCase(getProfile.rejected, (state) => {
         state.status = FetchStatus.REJECTED;
       });
+    // ? Login
     builder
       .addCase(login.pending, (state) => {
         state.status = FetchStatus.PENDING;
@@ -52,9 +54,10 @@ const authSlice = createSlice({
         state.status = FetchStatus.FULFILLED;
       })
       .addCase(login.rejected, (state, { payload }: PayloadAction<any>) => {
-        state.message = payload.message;
+        state.message = payload?.message;
         state.status = FetchStatus.REJECTED;
       });
+    // ? Logout
     builder
       .addCase(logout.pending, (state) => {
         state.status = FetchStatus.PENDING;
@@ -66,7 +69,7 @@ const authSlice = createSlice({
         state.status = FetchStatus.FULFILLED;
       })
       .addCase(logout.rejected, (state, { payload }: PayloadAction<any>) => {
-        state.message = payload.message;
+        state.message = payload?.message;
         state.status = FetchStatus.REJECTED;
       });
   },

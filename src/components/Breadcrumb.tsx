@@ -41,7 +41,7 @@ const Breadcrumb = () => {
             <div
               className={clsx("text-m-medium cursor-pointer text-primary-500", isActive && "cursor-default !text-gray-500")}
               onClick={() => {
-                !isActive && navigate(arrayPath.slice(0, index + 1).join("/"));
+                !isActive && navigate(`/${arrayPath.slice(0, index + 1).join("/")}`);
               }}
             >
               {PageNames[path as PageNameKeys] ?? path.at(0)?.toUpperCase() + path.slice(1)}
