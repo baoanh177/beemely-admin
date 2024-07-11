@@ -1,3 +1,8 @@
+// ! Cân nhắc trước khi sử dụng SCSS (tạp nham, khó bảo trì)
+// ! => Sử dụng ConfigProvider nếu có thể nếu không thì đống code này sẽ trở thành rác
+// * Nên sử dụng khi căn chỉnh 'chi tiết' kích thước
+// * Không nên sử dụng khi thay đổi màu sắc
+
 @import "./select-antd";
 @import "./inputdate-antd";
 @import "./textarea-antd";
