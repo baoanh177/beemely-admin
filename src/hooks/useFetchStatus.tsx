@@ -20,6 +20,7 @@ interface IUseFetchStatusProps {
   actions?: {
     success?: ActionType;
     error?: ActionType;
+    pending?: ActionType;
   };
 }
 
@@ -27,7 +28,7 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
   const { state, dispatch } = useArchive<S>(module);
   const navigate = useNavigate();
 
-  const handleStatus = (type: "success" | "error") => {
+  const handleStatus = (type: "success" | "error" | "pending") => {
     if (type === "success" && actions?.success) {
       if (typeof actions.success === "function") {
         actions.success();
@@ -42,19 +43,29 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
         actions.error?.message && toast.error(actions.error?.message);
         actions.error?.navigate && navigate(actions.error?.navigate);
       }
+    } else if (type === "pending" && actions?.pending) {
+      if (typeof actions.pending === "function") {
+        actions.pending();
+      } else {
+        actions.pending?.message && toast.loading(actions.pending?.message);
+        actions.pending?.navigate && navigate(actions.pending?.navigate);
+      }
     }
   };
 
   useEffect(() => {
-    if (state?.status !== FetchStatus.IDLE) {
-      if (state?.status === FetchStatus.FULFILLED) {
+    if (state.status !== FetchStatus.IDLE) {
+      if (state.status === FetchStatus.FULFILLED) {
         handleStatus("success");
-      } else if (state?.status === FetchStatus.REJECTED) {
+        dispatch(reset());
+      } else if (state.status === FetchStatus.REJECTED) {
         handleStatus("error");
+        dispatch(reset());
+      } else if (state.status === FetchStatus.PENDING) {
+        handleStatus("pending");
       }
-      dispatch(reset());
     }
-  }, [state?.status]);
+  }, [state.status]);
 };
 
 export default useFetchStatus;

@@ -1,10 +1,10 @@
 import React from "react";
-import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
+import StatusBadge, { StatusBadgeProps } from "../common/StatusBadge";
 import { IconType } from "react-icons";
 import { IoBagOutline } from "react-icons/io5";
 import { CiCalendarDate } from "react-icons/ci";
 import { LiaShippingFastSolid } from "react-icons/lia";
-import InfoCardWithIcon from "./InfoCardWithIcon";
+import InfoCardWithIcon from "../common/InfoCardWithIcon";
 
 export interface IItemsOderInfoCard {
   label?: string;

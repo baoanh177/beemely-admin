@@ -1,6 +1,6 @@
 import React from "react";
 import { Steps } from "antd";
-import RoundedIcon, { IRoundIcon } from "./RoundedIcon";
+import RoundedIcon, { IRoundIcon } from "../common/RoundedIcon";
 import { BsCartCheck, BsClockHistory } from "react-icons/bs";
 import { IoBagAddOutline } from "react-icons/io5";
 import { LiaShippingFastSolid } from "react-icons/lia";

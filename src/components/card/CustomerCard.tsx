@@ -1,7 +1,7 @@
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
-import CustomerAvatar from "./CustomerAvatar";
+import StatusBadge, { StatusBadgeProps } from "../common/StatusBadge";
+import CustomerAvatar from "../common/CustomerAvatar";
 
 interface CustomerCardProps {
   image: string;

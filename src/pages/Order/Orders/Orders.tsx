@@ -1,25 +1,28 @@
-import Heading from "@/layouts/Default/Heading";
+import Heading from "@/components/layout/Heading";
 import { GoDownload } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
+import { Permissions } from "@/shared/enums/permissions";
 
-const Products = () => {
+const Orders = () => {
   return (
     <Heading
-      title="Products"
+      title="Orders"
       hasBreadcrumb
       buttons={[
         {
           text: "Export",
           type: "ghost",
           icon: <GoDownload className="text-[18px]" />,
+          permission: Permissions.READ_ORDER,
         },
         {
-          text: "Add Product",
+          text: "Add Order",
           icon: <FaPlus className="text-[18px]" />,
+          permission: Permissions.CREATE_ORDER,
         },
       ]}
     />
   );
 };
 
-export default Products;
+export default Orders;

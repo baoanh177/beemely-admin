@@ -6,12 +6,13 @@ const useArchive = <T,>(key?: keyof RootStateType) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const selector: typeof useSelector = useSelector;
+  let state: T = {} as T;
   if (key) {
     //@ts-ignore
-    const state: T = useSelector((state: RootStateType) => state[key]);
+    state = useSelector((state: RootStateType) => state[key]);
     return { dispatch, selector, state };
   }
-  return { dispatch, selector };
+  return { dispatch, selector, state };
 };
 
 export { useArchive };

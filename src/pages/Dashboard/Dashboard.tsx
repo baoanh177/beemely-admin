@@ -1,5 +1,5 @@
 import React from "react";
-import Heading from "@/layouts/Default/Heading";
+import Heading from "@/components/layout/Heading";
 
 const Dashboard: React.FC = () => {
   return <Heading title="Dashboard" hasBreadcrumb />;

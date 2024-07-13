@@ -21,16 +21,16 @@ const GlobalMiddleware = () => {
     dispatch(getProfile()).then(() => {
       setMounted(true);
     });
-  }, [state?.loginTime]);
+  }, [state.loginTime]);
 
   useEffect(() => {
-    if (state?.status !== FetchStatus.IDLE) {
+    if (state.status !== FetchStatus.IDLE && state.status !== FetchStatus.PENDING) {
       dispatch(resetStatus());
     }
-  }, [state?.status]);
+  }, [state.status]);
   if (!mounted) return <Loading />;
 
-  return <Outlet context={{ profile: state?.profile, isLogin: state?.isLogin } as IGlobalMiddlewareContext} />;
+  return <Outlet context={{ profile: state.profile, isLogin: state.isLogin } as IGlobalMiddlewareContext} />;
 };
 
 export default GlobalMiddleware;

@@ -1,10 +1,10 @@
-import { DataType } from "@/components/table/PrimaryTable";
+import { ITableData } from "@/components/table/PrimaryTable";
 import type { TableColumnsType } from "antd";
 import { Tooltip } from "antd";
 import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { PiNotePencilLight } from "react-icons/pi";
 
-const ActionButtons: React.FC<{ record: DataType }> = () => (
+const ActionButtons: React.FC<{ record: ITableData }> = () => (
   <div className="flex cursor-pointer gap-3">
     <Tooltip title="View">
       <IoEyeOutline className="text-[18px] text-blue-500" />
@@ -17,7 +17,7 @@ const ActionButtons: React.FC<{ record: DataType }> = () => (
     </Tooltip>
   </div>
 );
-export const tableColumns: TableColumnsType<DataType> = [
+export const tableColumns: TableColumnsType<ITableData> = [
   {
     title: "Product",
     dataIndex: "product",
@@ -63,7 +63,7 @@ export const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
   newSelectedRowKeys;
 };
 
-export const tableData: DataType[] = [
+export const tableData: ITableData[] = [
   {
     key: 1,
     product: "abc",

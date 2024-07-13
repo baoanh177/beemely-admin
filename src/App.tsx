@@ -1,6 +1,7 @@
 import { Routes } from "react-router-dom";
+import { routes } from "./routes/routes";
+import { renderRoutes } from "./routes/renderRoutes";
 
-import { routes, renderRoutes } from "./routes/routes";
 const App = () => {
   return <Routes>{renderRoutes(routes)}</Routes>;
 };

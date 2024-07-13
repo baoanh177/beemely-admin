@@ -1,58 +1,68 @@
 import React from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import SearchDataTable from "../SearchDataTable";
+import FilterTableStatus from "./FilterTableStatus";
 import FormInput from "../form/FormInput";
-import FormDate from "../form/FormDate";
 import { IoSearchOutline } from "react-icons/io5";
+import DateRangePicker from "../form/FormDateRangePicker";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ISearchParams } from "@/shared/utils/shared-interfaces";
+import { useDispatch } from "react-redux";
 
-export interface DataType {
+export interface ITableData {
   key: React.Key;
   [key: string]: unknown;
 }
 
+export interface ISearchTable {
+  status: { value: string; label: string }[];
+}
 interface IPrimaryTableProps {
-  search: false | { status: { value: string; label: string }[] };
-  columns: ColumnsType<DataType>;
-  data: DataType[];
+  search?: ISearchTable | false;
+  columns: ColumnsType;
+  data: ITableData[];
+  setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number };
 }
 
-const onSelectChange = (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-  selectedRowKeys;
-  selectedRows;
-};
-
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination }) => {
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, setFilter }) => {
+  const dispatch = useDispatch();
   const getShowingText = (total: number, range: [number, number]) => {
     return `Showing ${range[0]}-${range[1]} from ${total}`;
   };
-  const paginationConfig = pagination
-    ? {
-        ...pagination,
-        showTotal: getShowingText,
-      }
-    : false;
 
   return (
     <div className="flex flex-col gap-6">
       {search && (
         <div className="flex justify-between">
-          <SearchDataTable
-            options={[
-              { value: "1", label: "All Product" },
-              { value: "2", label: "Published" },
-              { value: "3", label: "Draft" },
-              { value: "4", label: "Low Stock" },
-            ]}
-          />
+          <FilterTableStatus options={search.status} />
           <div className="flex gap-4">
             <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
-            <FormDate />
+            <DateRangePicker />
           </div>
         </div>
       )}
-      <Table rowSelection={{ onChange: onSelectChange }} columns={columns} dataSource={data} pagination={paginationConfig} />
+      <Table
+        onChange={(newPagination) => {
+          dispatch(
+            setFilter({
+              page: newPagination.current,
+              size: newPagination.pageSize,
+            }),
+          );
+        }}
+        columns={columns}
+        dataSource={data}
+        pagination={
+          pagination
+            ? {
+                ...pagination,
+                showTotal: getShowingText,
+              }
+            : false
+        }
+        className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
+      />
     </div>
   );
 };

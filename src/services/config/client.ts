@@ -1,5 +1,6 @@
-import { ClientReturnType, IFetchOptions, IResponse, IThunkPayload, MethodType } from "@/shared/utils/shared-interfaces";
+import { ClientReturnType, IFetchOptions, IResponse, IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { interceptor } from "./interceptor";
+import { MethodType } from "@/shared/utils/shared-types";
 
 export const client = {
   SERVER_URL: import.meta.env.VITE_API_URL,

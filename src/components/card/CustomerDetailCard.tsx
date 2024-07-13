@@ -1,7 +1,7 @@
-import CustomerAvatar from "./CustomerAvatar";
-import InfoCardWithIcon, { InfoCardWithIconProps } from "./InfoCardWithIcon";
-import StatusBadge, { StatusBadgeProps } from "./table/StatusBadge";
-import DeafaultBgDeatailCard from "@/assets/images/customerDefaultCoverImage.png";
+import CustomerAvatar from "../common/CustomerAvatar";
+import InfoCardWithIcon, { InfoCardWithIconProps } from "../common/InfoCardWithIcon";
+import StatusBadge, { StatusBadgeProps } from "../common/StatusBadge";
+import DefaultBgDetailCard from "@/assets/images/customerDefaultCoverImage.png";
 
 interface ICustomerDetailCard {
   background?: string;
@@ -19,7 +19,7 @@ const CustomerDetailCard = ({ background, avatar, status, items, name }: ICustom
     return image.complete && image.naturalWidth !== 0;
   };
 
-  const defaultBackground = background && isImageValid(background) ? background : DeafaultBgDeatailCard;
+  const defaultBackground = background && isImageValid(background) ? background : DefaultBgDetailCard;
   return (
     <div className="w-full rounded-xl bg-white p-2">
       <div className="relative">

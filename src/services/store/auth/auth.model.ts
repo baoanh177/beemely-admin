@@ -1,5 +1,5 @@
 import { Permissions } from "@/shared/enums/permissions";
-import { IRole } from "@/shared/models/role.model";
+import { IRole } from "../role/role.model";
 
 export interface IUserData {
   id: string;
