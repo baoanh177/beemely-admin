@@ -1,10 +1,10 @@
 .ant-table-wrapper {
   background-color: white;
   border-radius: 12px;
-  .ant-table-column-sorter-down.active{
+  .ant-table-column-sorter-down.active {
     color: #883dcf;
   }
-  .ant-table-column-sorter-up.active{
+  .ant-table-column-sorter-up.active {
     color: #883dcf;
   }
   .ant-table-content {
@@ -63,13 +63,43 @@
     }
   }
   .ant-pagination {
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
     font-weight: 500;
+
+    .ant-select {
+      .ant-select-selector {
+        cursor: pointer;
+      }
+      .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+        background-color: #f4ecfb;
+      }
+    }
+    .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+      color: #883dcf;
+    }
+    .ant-pagination-options {
+      display: flex;
+      align-items: center;
+      .ant-select-selection-item {
+        font-family: ps-medium;
+      }
+    }
     .ant-pagination-item-link {
       color: #883dcf;
       background-color: #f4ecfb;
     }
-
+    .ant-pagination-next:active .ant-pagination-item-link {
+      background-color: #f4ecfb;
+    }
+    .ant-pagination-prev:active .ant-pagination-item-link {
+      background-color: #f4ecfb;
+    }
     .ant-pagination-item {
+      &:active {
+        background-color: #f4ecfb;
+      }
       background-color: #f4ecfb;
     }
 
@@ -87,18 +117,20 @@
     }
   }
 }
+.primary-table{
+  .ant-table-wrapper{
+    padding: 2px 6px;
+  }
+}
 .secondary-table {
   .ant-table-thead > tr > th {
     background-color: #f9f9fc !important;
   }
 }
-.ant-pagination-total-text{
+.ant-pagination-total-text {
   font-family: ps-semiBold;
   color: gray;
   position: absolute;
   left: 0;
-  padding-left: 10px;
-}
-.ant-pagination{
-  padding: 0 10px;
+  padding-left: 24px;
 }
