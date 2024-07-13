@@ -22,7 +22,7 @@ interface IPrimaryTableProps {
   columns: ColumnsType;
   data: ITableData[];
   setFilter: ActionCreatorWithPayload<ISearchParams>;
-  pagination?: { pageSize: number; current: number; total: number };
+  pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
 }
 
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, setFilter }) => {
@@ -32,7 +32,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="primary-table flex w-full flex-col gap-6">
       {search && (
         <div className="flex justify-between">
           <FilterTableStatus options={search.status} />
@@ -58,6 +58,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
             ? {
                 ...pagination,
                 showTotal: getShowingText,
+                showSizeChanger: pagination.showSideChanger ?? false,
               }
             : false
         }
