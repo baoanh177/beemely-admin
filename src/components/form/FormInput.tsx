@@ -7,7 +7,7 @@ interface FormInputProps {
   icon?: IconType;
   placeholder?: string;
   name?: string;
-  type: "text" | "number" | "password";
+  type?: "text" | "number" | "password";
   value?: string | number;
   defaultValue?: string | number;
   isDisabled?: boolean;
@@ -19,7 +19,7 @@ interface FormInputProps {
 
 const FormInput = ({
   label,
-  type,
+  type = "text",
   placeholder,
   value,
   defaultValue,
@@ -85,6 +85,7 @@ const FormInput = ({
             "px-3": !Icon,
             "pl-0": Icon,
             "border-red-500": error,
+            "select-none !bg-gray-50 !text-black-300": isDisabled,
           })}
         />
       </div>
