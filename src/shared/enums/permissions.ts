@@ -14,5 +14,5 @@ export enum Permissions {
   DELETE_ROLE = "Delete_Role",
 
   // ? Product
-  READ_PRODUCT = "Read_Product"
+  READ_PRODUCT = "Read_Product",
 }

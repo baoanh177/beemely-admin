@@ -62,9 +62,9 @@ const Sidebar = ({ children }: PropsWithChildren) => {
         {
           id: "3.1",
           label: "Roles",
-          path: "roles"
-        }
-      ]
+          path: "roles",
+        },
+      ],
     },
     {
       id: "5",

@@ -6,8 +6,8 @@ import { FetchStatus } from "@/shared/enums/fetchStatus";
 import { IPermission } from "./permission.model";
 
 export interface IPermissionInitialState extends IInitialState {
-  permissions: IPermission[],
-  modules: string[]
+  permissions: IPermission[];
+  modules: string[];
 }
 
 const initialState: IPermissionInitialState = {
@@ -15,38 +15,38 @@ const initialState: IPermissionInitialState = {
   message: "",
   filter: {
     page: 1,
-    size: 10
+    size: 10,
   },
   totalRecords: 0,
   permissions: [],
-  modules: []
-}
+  modules: [],
+};
 
 const permissionSlice = createSlice({
   name: "permission",
   initialState,
   reducers: {
-    ...commonStaticReducers<IPermissionInitialState>()
+    ...commonStaticReducers<IPermissionInitialState>(),
   },
   extraReducers(builder) {
     builder
       .addCase(getAllPermissions.fulfilled, (state, { payload }: PayloadAction<IResponse<IPermission[]>>) => {
-        state.permissions = payload.metaData
+        state.permissions = payload.metaData;
       })
       .addCase(getAllPermissions.rejected, (state) => {
-        state.status = FetchStatus.REJECTED
-        state.message = "Something went wrong, please try again later"
-      })
+        state.status = FetchStatus.REJECTED;
+        state.message = "Something went wrong, please try again later";
+      });
     builder
       .addCase(getAllModules.fulfilled, (state, { payload }: PayloadAction<IResponse<string[]>>) => {
-        state.modules = payload.metaData
+        state.modules = payload.metaData;
       })
       .addCase(getAllModules.rejected, (state) => {
-        state.status = FetchStatus.REJECTED
-        state.message = "Something went wrong, please try again later"
-      })
+        state.status = FetchStatus.REJECTED;
+        state.message = "Something went wrong, please try again later";
+      });
   },
-})
+});
 
 export const { resetStatus } = permissionSlice.actions;
 export { permissionSlice };

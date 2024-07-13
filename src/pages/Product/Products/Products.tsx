@@ -1,4 +1,4 @@
-import Heading from "@/layouts/Default/Heading";
+import Heading from "@/components/layout/Heading";
 import { GoDownload } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
 

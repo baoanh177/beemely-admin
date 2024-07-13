@@ -1,7 +1,8 @@
-import { ClientReturnType, IResponse, IThunkPayload, MethodType } from "@/shared/utils/shared-interfaces";
+import { ClientReturnType, IResponse, IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { refreshToken } from "./handlers";
 import { ClientType } from "./client";
 import toast from "react-hot-toast";
+import { MethodType } from "@/shared/utils/shared-types";
 
 interface IInterceptorProps<T> {
   client: ClientType;
@@ -32,6 +33,7 @@ export const interceptor = async <MetaDataType>({
           return await client.send(sendOptions.path, sendOptions.method, sendOptions.payload);
         } else {
           toast.error("Your login session has expired, please log in again");
+          window.location.pathname = "/auth/login";
         }
       }
       data.message = "";

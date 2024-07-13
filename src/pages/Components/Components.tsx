@@ -1,25 +1,26 @@
-import Button from "@/components/Button";
+import Button from "@/components/common/Button";
 import FormCheck from "@/components/form/FormCheck";
 import FormDate from "@/components/form/FormDate";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
-import Heading from "@/layouts/Default/Heading";
+import Heading from "@/components/layout/Heading";
 import UpdateImage from "@/components/form/FormUpload";
 import { IoBagOutline, IoSaveOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
-import StatusBadge from "@/components/StatusBadge";
+import StatusBadge from "@/components/common/StatusBadge";
 import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
-import CustomerCard, { customerData } from "@/components/CardCustomer";
-import OrderInForCard, { dataItemsOrderInforCard } from "@/components/OrderInforCard";
+import CustomerCard, { customerData } from "@/components/card/CustomerCard";
+import OrderInForCard, { dataItemsOrderInforCard } from "@/components/card/OrderInforCard";
 import DateRangePicker from "@/components/form/FormDateRangePicker";
-import RoundedIcon from "@/components/RoundedIcon";
-import CustomerDetailCard from "@/components/CustomerDetailCard";
+import RoundedIcon from "@/components/common/RoundedIcon";
+import CustomerDetailCard from "@/components/card/CustomerDetailCard";
 import { FaShoppingCart, FaTrophy, FaMoneyBill } from "react-icons/fa";
-import StatCard from "@/components/StatCards";
-import OrderStatusCard, { stepsData } from "@/components/OrderStatusCard";
+import StatCard from "@/components/card/StatCards";
+import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
+import { setFilter } from "@/services/store/account/account.slice";
 const Components = () => {
   return (
     <>
@@ -150,6 +151,7 @@ const Components = () => {
             columns={tableColumns}
             pagination={{ current: 1, pageSize: 5, total: tableData.length }}
             data={tableData}
+            setFilter={setFilter}
           />
         </div>
         <div className="flex flex-col items-start gap-5">

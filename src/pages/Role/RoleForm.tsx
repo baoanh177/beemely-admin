@@ -2,24 +2,37 @@ import { useArchive } from "@/hooks/useArchive";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import UpdateGrid from "@/components/grid/UpdateGrid";
-import { Formik, FormikProps } from "formik";
+import { Formik } from "formik";
 import TreeData from "@/components/TreeData";
 import { object, string } from "yup";
 import { getTreePermissions } from "./helpers/getTreePermissions";
 import { DataNode } from "antd/es/tree";
 import { IPermissionInitialState } from "@/services/store/permission/permission.slice";
 import { getAllModules, getAllPermissions } from "@/services/store/permission/permission.thunk";
-import { RefObject, useEffect, useState } from "react";
-import { IRoleFormInitialValues } from "./CreateRole/CreateRole";
-import { createRole } from "@/services/store/role/role.thunk";
+import { useEffect, useState } from "react";
+import { createRole, updateRole } from "@/services/store/role/role.thunk";
+import { FormikRefType } from "@/shared/utils/shared-types";
+import { IRole } from "@/services/store/role/role.model";
+import lodash from "lodash";
 
-interface IRoleFormProps {
-  formikRef: RefObject<FormikProps<IRoleFormInitialValues>>;
-  type: "view" | "create" | "update";
+interface IActiveRole extends Omit<IRole, "permissions"> {
+  permissions: string[];
 }
 
-const RoleForm = ({ formikRef, type }: IRoleFormProps) => {
+interface IRoleFormProps {
+  formikRef?: FormikRefType<IRoleFormInitialValues>;
+  type: "create" | "view" | "update";
+  role?: IActiveRole;
+}
+
+export interface IRoleFormInitialValues {
+  name: string;
+  permissions: string[];
+}
+
+const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
   const [treePermissions, setTreePermissions] = useState<DataNode[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const { dispatch, state } = useArchive<IPermissionInitialState>("permission");
 
@@ -37,22 +50,27 @@ const RoleForm = ({ formikRef, type }: IRoleFormProps) => {
   }, [JSON.stringify(state.permissions), JSON.stringify(state.modules)]);
 
   useEffect(() => {
-    dispatch(getAllPermissions());
-    dispatch(getAllModules());
+    (async () => {
+      await dispatch(getAllPermissions());
+      await dispatch(getAllModules());
+      setLoading(false);
+    })();
   }, []);
 
   return (
     <Formik
       innerRef={formikRef}
-      initialValues={initialValues}
+      initialValues={role ?? initialValues}
       validationSchema={validationSchema}
       onSubmit={(data) => {
-        const sendData = {
-          ...data,
+        const body = {
+          ...lodash.omit(data, "id"),
           permissions: data.permissions.filter((p) => !p.startsWith("parent-")),
         };
         if (type === "create") {
-          dispatch(createRole({ body: sendData }));
+          dispatch(createRole({ body }));
+        } else if (type === "update") {
+          dispatch(updateRole({ body, param: role?.id }));
         }
       }}
     >
@@ -61,10 +79,12 @@ const RoleForm = ({ formikRef, type }: IRoleFormProps) => {
           <UpdateGrid
             colNumber="2"
             rate="1-3"
+            isLoading={loading}
             groups={{
               colLeft: (
                 <FormGroup title="Permissions">
                   <TreeData
+                    isDisable={type === "view"}
                     expanded={["parent-all"]}
                     treeData={[
                       {
@@ -84,6 +104,7 @@ const RoleForm = ({ formikRef, type }: IRoleFormProps) => {
                 <FormGroup title="General Information">
                   <FormInput
                     type="text"
+                    isDisabled={type === "view"}
                     label="Role name"
                     value={values.name}
                     name="name"

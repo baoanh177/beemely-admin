@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import Button from "@/components/common/Button";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
 import { FetchStatus } from "@/shared/enums/fetchStatus";
@@ -24,7 +24,7 @@ const Login = () => {
       }),
     );
   };
-  
+
   useFetchStatus({
     module: "auth",
     reset: resetStatus,

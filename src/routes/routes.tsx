@@ -1,11 +1,6 @@
 import { ReactNode } from "react";
-import { Fragment } from "react/jsx-runtime";
-import { Route } from "react-router-dom";
-
 import DefaultLayout from "@/layouts/Default";
 import Dashboard from "@/pages/Dashboard/Dashboard";
-import NotFound from "@/pages/Errors/NotFound";
-
 import Components from "@/pages/Components/Components";
 import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import Products from "@/pages/Product/Products/Products";
@@ -16,8 +11,10 @@ import GlobalMiddleware from "@/middlewares/GlobalMiddleware";
 import Orders from "@/pages/Order/Orders/Orders";
 import Roles from "@/pages/Role/Roles/Roles";
 import CreateRole from "@/pages/Role/CreateRole/CreateRole";
+import UpdateRole from "@/pages/Role/UpdateRole/UpdateRole";
+import DetailRole from "@/pages/Role/DetailRole/DetailRole";
 
-interface IRoute {
+export interface IRoute {
   path: string;
   layout?: () => ReactNode;
   middleware?: () => ReactNode;
@@ -25,46 +22,7 @@ interface IRoute {
   pages?: IRoute[];
 }
 
-const renderRoutes = (routes: IRoute[], initPath = "/") => {
-  return (
-    <>
-      {routes.map((route: IRoute, index) => {
-        const { layout: Layout, middleware: Middleware, element: Component, path } = route;
-
-        const completePath = (initPath + (path.startsWith("/") ? path : `/${path}`)).replaceAll("//", "/");
-
-        return (
-          <Fragment key={index}>
-            <Route path="*" element={<NotFound />} />
-            {Middleware ? (
-              <Route path="/" element={<Middleware />}>
-                {Layout ? (
-                  <Route path="/" element={<Layout />}>
-                    {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
-                  </Route>
-                ) : Component ? (
-                  <Route path={completePath} element={<Component />} />
-                ) : (
-                  renderRoutes(route.pages ?? [], completePath)
-                )}
-              </Route>
-            ) : Layout ? (
-              <Route path="/" element={<Layout />}>
-                {Component ? <Route path={completePath} element={<Component />} /> : renderRoutes(route.pages ?? [], completePath)}
-              </Route>
-            ) : Component ? (
-              <Route path={completePath} element={<Component />} />
-            ) : (
-              renderRoutes(route.pages ?? [], completePath)
-            )}
-          </Fragment>
-        );
-      })}
-    </>
-  );
-};
-
-const routes: IRoute[] = [
+export const routes: IRoute[] = [
   {
     path: "/",
     middleware: () => <GlobalMiddleware />,
@@ -103,8 +61,16 @@ const routes: IRoute[] = [
               },
               {
                 path: "/create",
-                element: () => <CreateRole />
-              }
+                element: () => <CreateRole />,
+              },
+              {
+                path: "/update/:id",
+                element: () => <UpdateRole />,
+              },
+              {
+                path: "/detail/:id",
+                element: () => <DetailRole />,
+              },
             ],
           },
         ],
@@ -122,5 +88,3 @@ const routes: IRoute[] = [
     ],
   },
 ];
-
-export { routes, renderRoutes };

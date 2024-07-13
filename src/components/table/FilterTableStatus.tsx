@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 
 export interface IFilterTableStatusOption {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 interface IFilterTableStatusProps {

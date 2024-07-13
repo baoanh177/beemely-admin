@@ -1,11 +1,11 @@
 import { IoCalendarClearOutline, IoMailOutline, IoSearchOutline } from "react-icons/io5";
 import UserSettings from "./UserSettings";
-import IconHasBadge from "@/components/IconHasBadge";
+import IconHasBadge from "@/components/common/IconHasBadge";
 import { PiBell } from "react-icons/pi";
 
 const TopBar = () => {
   return (
-    <div className="flex h-12 items-center justify-between rounded-lg bg-white shadow-sm p-2">
+    <div className="flex h-12 items-center justify-between rounded-lg bg-white p-2 shadow-sm">
       {/* Search */}
       <div className="relative flex w-full max-w-[658px] items-center gap-2 px-2">
         <div className="flex h-6 w-6 items-center justify-center py-2">

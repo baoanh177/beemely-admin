@@ -6,7 +6,7 @@ const useArchive = <T,>(key?: keyof RootStateType) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const selector: typeof useSelector = useSelector;
-  let state: T = {} as T
+  let state: T = {} as T;
   if (key) {
     //@ts-ignore
     state = useSelector((state: RootStateType) => state[key]);

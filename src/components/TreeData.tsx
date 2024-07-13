@@ -3,11 +3,11 @@ import { DataNode } from "antd/es/tree";
 import { useState } from "react";
 
 export interface ITreeDataProps {
-  treeData: DataNode[]
-  expanded?: React.Key[]
-  isDisable?: boolean
-  checkedKeys: React.Key[]
-  onCheck: TreeProps["onCheck"]
+  treeData: DataNode[];
+  expanded?: React.Key[];
+  isDisable?: boolean;
+  checkedKeys: React.Key[];
+  onCheck: TreeProps["onCheck"];
 }
 
 const TreeData = ({ treeData, expanded = [], isDisable, checkedKeys, onCheck }: ITreeDataProps) => {
@@ -24,9 +24,9 @@ const TreeData = ({ treeData, expanded = [], isDisable, checkedKeys, onCheck }: 
           Tree: {
             colorPrimary: "#883DCF",
             nodeSelectedBg: "#F4ECFB",
-            colorPrimaryHover: "#883DCF"
-          }
-        }
+            colorPrimaryHover: "#883DCF",
+          },
+        },
       }}
     >
       <Tree

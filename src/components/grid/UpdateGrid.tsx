@@ -7,9 +7,10 @@ export interface IUpdateGridProps {
     colLeft?: ReactNode;
     colRight?: ReactNode;
   };
+  isLoading?: boolean;
 }
 
-const UpdateGrid = ({ colNumber = "1", rate = "1", groups }: IUpdateGridProps) => {
+const UpdateGrid = ({ colNumber = "1", rate = "1", groups, isLoading }: IUpdateGridProps) => {
   const [colLeftWidth, colRightWidth] = useMemo(() => {
     const widthRate = rate.split("-");
     if (widthRate.length > 1) {
@@ -17,6 +18,16 @@ const UpdateGrid = ({ colNumber = "1", rate = "1", groups }: IUpdateGridProps) =
     }
     return ["100%", ""];
   }, [rate]);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-full gap-6">
+        <div className="flex animate-pulse flex-col gap-6 rounded-lg bg-gray-50" style={{ width: colLeftWidth }}></div>
+        {colNumber === "2" && <div className="flex animate-pulse flex-col gap-6 rounded-lg bg-gray-50" style={{ width: colRightWidth }}></div>}
+      </div>
+    );
+  }
+
   return (
     <div className="flex gap-6">
       <div className="flex flex-col gap-6" style={{ width: colLeftWidth }}>

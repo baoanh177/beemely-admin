@@ -1,6 +1,6 @@
 import React from "react";
 import { Space, Table } from "antd";
-import StatusBadge from "../StatusBadge";
+import StatusBadge from "../common/StatusBadge";
 import ImageTable from "./ImageTable";
 import FormInput from "../form/FormInput";
 import FormDate from "../form/FormDate";

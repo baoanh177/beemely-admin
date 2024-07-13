@@ -1,5 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumb";
-import Button, { IButtonProps } from "@/components/Button";
+import Button, { IButtonProps } from "@/components/common/Button";
 import { useArchive } from "@/hooks/useArchive";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 import { Permissions } from "@/shared/enums/permissions";
@@ -26,9 +26,9 @@ const Heading = ({ title, hasBreadcrumb, buttons = [] }: IHeadingProps) => {
       <div className="flex shrink-0 gap-4">
         {buttons?.map((btn, index) => {
           if (btn.permission) {
-            const userPermissions = state.profile?.listNamePermission
-            const canAccess = userPermissions?.includes(btn.permission) || userPermissions?.includes(Permissions.ALL)
-            return canAccess && <Button key={index} {...btn} />
+            const userPermissions = state.profile?.listNamePermission;
+            const canAccess = userPermissions?.includes(btn.permission) || userPermissions?.includes(Permissions.ALL);
+            return canAccess && <Button key={index} {...btn} />;
           }
           return <Button key={index} {...btn} />;
         })}

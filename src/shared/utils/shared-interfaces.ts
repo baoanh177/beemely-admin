@@ -1,8 +1,7 @@
 import { ButtonTypes } from "../enums/button";
 import { FetchStatus } from "../enums/fetchStatus";
 import { Permissions } from "../enums/permissions";
-
-export type MethodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+import { MethodType } from "./shared-types";
 
 interface IFetchHeaders {
   "Content-Type"?: string;
@@ -16,13 +15,14 @@ export interface IFetchOptions extends IFetchHeaders {
 
 export interface IThunkPayload {
   body?: unknown;
-  query?: object;
+  query?: ISearchParams;
+  param?: string;
   headers?: IFetchHeaders;
 }
 
 export interface ISearchParams {
-  page: number;
-  size: number;
+  page?: number;
+  size?: number;
   [key: string]: unknown;
 }
 
@@ -47,8 +47,6 @@ export interface IInitialState {
 
 export interface IGridButton {
   type: ButtonTypes;
-  onClick: (record?: { [key: string]: unknown }) => unknown;
+  onClick: (record: { key: string; [key: string]: any }) => unknown;
   permission?: Permissions;
 }
-
-export interface ISearchContent {}

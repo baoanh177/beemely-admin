@@ -10,7 +10,7 @@ import { Permissions } from "@/shared/enums/permissions";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
-  record: { [key: string]: unknown };
+  record: { key: string; [key: string]: any };
 }
 
 const { confirm } = Modal;

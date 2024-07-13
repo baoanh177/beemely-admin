@@ -1,9 +1,10 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
-import Heading from "@/layouts/Default/Heading";
-import { IRoleInitialState } from "@/services/store/role/role.slice";
-import { getAllRoles } from "@/services/store/role/role.thunk";
+import useFetchStatus from "@/hooks/useFetchStatus";
+import Heading from "@/components/layout/Heading";
+import { IRoleInitialState, resetStatus, setFilter } from "@/services/store/role/role.slice";
+import { deleteRole, getAllRoles } from "@/services/store/role/role.thunk";
 import { ButtonTypes } from "@/shared/enums/button";
 import { Permissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
@@ -19,17 +20,23 @@ const Roles = () => {
   const buttons: IGridButton[] = [
     {
       type: ButtonTypes.VIEW,
-      onClick() {},
+      onClick(record) {
+        navigate(`/roles/detail/${record?.key}`);
+      },
       permission: Permissions.READ_ROLE,
     },
     {
       type: ButtonTypes.UPDATE,
-      onClick() {},
+      onClick(record) {
+        navigate(`/roles/update/${record?.key}`);
+      },
       permission: Permissions.UPDATE_ROLE,
     },
     {
       type: ButtonTypes.DELETE,
-      onClick() {},
+      onClick(record) {
+        dispatch(deleteRole(record?.key));
+      },
       permission: Permissions.DELETE_ROLE,
     },
   ];
@@ -51,9 +58,18 @@ const Roles = () => {
     return [];
   }, [JSON.stringify(state.roles)]);
 
+  useFetchStatus({
+    module: "role",
+    reset: resetStatus,
+    actions: {
+      success: { message: state.message },
+      error: { message: state.message },
+    },
+  });
+
   useEffect(() => {
-    dispatch(getAllRoles());
-  }, []);
+    dispatch(getAllRoles({ query: state.filter }));
+  }, [JSON.stringify(state.filter)]);
 
   return (
     <>
@@ -69,7 +85,18 @@ const Roles = () => {
           },
         ]}
       />
-      <ManagementGrid columns={columns} data={data} search={false} buttons={buttons} />
+      <ManagementGrid
+        columns={columns}
+        data={data}
+        search={{ status: [] }}
+        buttons={buttons}
+        pagination={{
+          current: state.filter.page ?? 1,
+          pageSize: state.filter.size ?? 10,
+          total: 100,
+        }}
+        setFilter={setFilter}
+      />
     </>
   );
 };

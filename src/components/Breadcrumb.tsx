@@ -17,8 +17,8 @@ const Breadcrumb = () => {
     const arr = lodash.remove(pathname.split("/"));
     if (arr.includes("detail")) {
       return arr.slice(0, arr.indexOf("detail") + 1);
-    } else if (arr.includes("edit")) {
-      return arr.slice(0, arr.indexOf("edit") + 1);
+    } else if (arr.includes("update")) {
+      return arr.slice(0, arr.indexOf("update") + 1);
     }
     return arr;
   }, [pathname]);
