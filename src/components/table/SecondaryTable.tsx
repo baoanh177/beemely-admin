@@ -97,7 +97,7 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideCompon
   return (
     <div className="secondary-table">
       {!hideComponents?.includes("transactionHeader") && (
-        <div className="flex items-center justify-between gap-3 px-6 py-[18px]">
+        <div className="flex items-center justify-between gap-3 rounded-lg bg-white px-6 py-[18px]">
           <div className="display-s-semibold text-black-500">{title}</div>
           <div className="flex gap-3">
             <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
