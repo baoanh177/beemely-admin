@@ -30,7 +30,7 @@ const Components = () => {
           <div className="display-s-regular">FormInput: Form input text and number</div>
           <div className="flex flex-col gap-2">
             <FormInput placeholder="Đây là input number" type="number" />
-            <FormInput placeholder="Đây là input number bị disabled" isDisabled type="number" />
+            <FormInput placeholder="Đây là input number bị disabled" isDisabled value={"Long"} />
             <FormInput placeholder="Đây là input text" type="text" />
             <FormInput error="error!!!" placeholder="Đây là input text bị lỗi" type="text" />
             <FormInput placeholder="Đây là input text bị readonly" isReadonly type="text" />
