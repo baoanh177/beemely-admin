@@ -1,4 +1,4 @@
-export enum ButtonTypes {
+export enum EButtonTypes {
   CREATE = "create",
   UPDATE = "update",
   VIEW = "view",

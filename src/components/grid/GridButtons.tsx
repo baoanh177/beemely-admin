@@ -2,11 +2,11 @@ import { Modal, Tooltip } from "antd";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 
-import { ButtonTypes } from "@/shared/enums/button";
+import { EButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { useArchive } from "@/hooks/useArchive";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
-import { Permissions } from "@/shared/enums/permissions";
+import { checkPermission } from "@/helpers/checkPermission";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
@@ -22,11 +22,10 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
       {buttons.map((button, index) => {
         let canAccess = true;
         if (button.permission) {
-          const userPermissions = state.profile?.listNamePermission;
-          canAccess = userPermissions?.includes(button.permission) || userPermissions?.includes(Permissions.ALL) || false;
+          canAccess = checkPermission(state.profile?.listNamePermission, button.permission);
         }
         switch (button.type) {
-          case ButtonTypes.VIEW:
+          case EButtonTypes.VIEW:
             return (
               canAccess && (
                 <Tooltip title="View" key={index}>
@@ -34,7 +33,7 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
                 </Tooltip>
               )
             );
-          case ButtonTypes.UPDATE:
+          case EButtonTypes.UPDATE:
             return (
               canAccess && (
                 <Tooltip title="Edit" key={index}>
@@ -42,7 +41,7 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
                 </Tooltip>
               )
             );
-          case ButtonTypes.DELETE:
+          case EButtonTypes.DELETE:
             return (
               canAccess && (
                 <Tooltip title="Delete" key={index}>

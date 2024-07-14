@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState } from "@/shared/utils/shared-interfaces";
 import { commonStaticReducers } from "@/services/shared";
 
 export interface IAccountInitialState extends IInitialState {}
 
 const initialState: IAccountInitialState = {
-  status: FetchStatus.IDLE,
+  status: EFetchStatus.IDLE,
   message: "",
   filter: {
     page: 1,

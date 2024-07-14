@@ -1,4 +1,4 @@
-export enum FetchStatus {
+export enum EFetchStatus {
   IDLE = "idle",
   PENDING = "pending",
   FULFILLED = "fulfilled",

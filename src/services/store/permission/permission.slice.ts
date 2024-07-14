@@ -2,7 +2,7 @@ import { commonStaticReducers } from "@/services/shared";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getAllModules, getAllPermissions } from "./permission.thunk";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IPermission } from "./permission.model";
 
 export interface IPermissionInitialState extends IInitialState {
@@ -11,7 +11,7 @@ export interface IPermissionInitialState extends IInitialState {
 }
 
 const initialState: IPermissionInitialState = {
-  status: FetchStatus.IDLE,
+  status: EFetchStatus.IDLE,
   message: "",
   filter: {
     page: 1,
@@ -34,7 +34,7 @@ const permissionSlice = createSlice({
         state.permissions = payload.metaData;
       })
       .addCase(getAllPermissions.rejected, (state) => {
-        state.status = FetchStatus.REJECTED;
+        state.status = EFetchStatus.REJECTED;
         state.message = "Something went wrong, please try again later";
       });
     builder
@@ -42,11 +42,11 @@ const permissionSlice = createSlice({
         state.modules = payload.metaData;
       })
       .addCase(getAllModules.rejected, (state) => {
-        state.status = FetchStatus.REJECTED;
+        state.status = EFetchStatus.REJECTED;
         state.message = "Something went wrong, please try again later";
       });
   },
 });
 
-export const { resetStatus } = permissionSlice.actions;
+export const { resetStatus, setFilter } = permissionSlice.actions;
 export { permissionSlice };

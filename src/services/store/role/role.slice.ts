@@ -1,5 +1,5 @@
 import { commonStaticReducers } from "@/services/shared";
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createRole, deleteRole, getAllRoles, getRoleById, updateRole } from "./role.thunk";
@@ -11,7 +11,7 @@ export interface IRoleInitialState extends IInitialState {
 }
 
 const initialState: IRoleInitialState = {
-  status: FetchStatus.IDLE,
+  status: EFetchStatus.IDLE,
   message: "",
   roles: [],
   activeRole: undefined,
@@ -40,39 +40,39 @@ const roleSlice = createSlice({
     // ? Create role
     builder
       .addCase(createRole.pending, (state) => {
-        state.status = FetchStatus.PENDING;
+        state.status = EFetchStatus.PENDING;
       })
       .addCase(createRole.fulfilled, (state) => {
-        state.status = FetchStatus.FULFILLED;
+        state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
       .addCase(createRole.rejected, (state) => {
-        state.status = FetchStatus.REJECTED;
+        state.status = EFetchStatus.REJECTED;
       });
     // ? Update role
     builder
       .addCase(updateRole.pending, (state) => {
-        state.status = FetchStatus.PENDING;
+        state.status = EFetchStatus.PENDING;
       })
       .addCase(updateRole.fulfilled, (state) => {
-        state.status = FetchStatus.FULFILLED;
+        state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
       .addCase(updateRole.rejected, (state) => {
-        state.status = FetchStatus.REJECTED;
+        state.status = EFetchStatus.REJECTED;
       });
     // ? Delete role
     builder
       .addCase(deleteRole.pending, (state) => {
-        state.status = FetchStatus.PENDING;
+        state.status = EFetchStatus.PENDING;
       })
       .addCase(deleteRole.fulfilled, (state, { payload }) => {
-        state.status = FetchStatus.FULFILLED;
+        state.status = EFetchStatus.FULFILLED;
         state.message = "Deleted successfully";
         state.roles = state.roles.filter((role) => role.id !== payload);
       })
       .addCase(deleteRole.rejected, (state) => {
-        state.status = FetchStatus.REJECTED;
+        state.status = EFetchStatus.REJECTED;
       });
   },
 });

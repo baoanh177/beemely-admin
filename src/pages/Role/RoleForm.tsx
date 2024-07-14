@@ -51,7 +51,13 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(getAllPermissions());
+      await dispatch(
+        getAllPermissions({
+          query: {
+            pagination: false,
+          },
+        }),
+      );
       await dispatch(getAllModules());
       setLoading(false);
     })();

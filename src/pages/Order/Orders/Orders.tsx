@@ -1,7 +1,7 @@
 import Heading from "@/components/layout/Heading";
 import { GoDownload } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
-import { Permissions } from "@/shared/enums/permissions";
+import { EPermissions } from "@/shared/enums/permissions";
 
 const Orders = () => {
   return (
@@ -13,12 +13,12 @@ const Orders = () => {
           text: "Export",
           type: "ghost",
           icon: <GoDownload className="text-[18px]" />,
-          permission: Permissions.READ_ORDER,
+          permission: EPermissions.READ_ORDER,
         },
         {
           text: "Add Order",
           icon: <FaPlus className="text-[18px]" />,
-          permission: Permissions.CREATE_ORDER,
+          permission: EPermissions.CREATE_ORDER,
         },
       ]}
     />

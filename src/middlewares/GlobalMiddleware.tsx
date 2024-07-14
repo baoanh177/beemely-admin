@@ -3,7 +3,7 @@ import Loading from "@/pages/Loading/Loading";
 import { IUserProfile } from "@/services/store/auth/auth.model";
 import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
 import { getProfile } from "@/services/store/auth/auth.thunk";
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
@@ -24,7 +24,7 @@ const GlobalMiddleware = () => {
   }, [state.loginTime]);
 
   useEffect(() => {
-    if (state.status !== FetchStatus.IDLE && state.status !== FetchStatus.PENDING) {
+    if (state.status !== EFetchStatus.IDLE && state.status !== EFetchStatus.PENDING) {
       dispatch(resetStatus());
     }
   }, [state.status]);

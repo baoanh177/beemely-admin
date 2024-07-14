@@ -1,7 +1,7 @@
 import Button from "@/components/common/Button";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
@@ -71,7 +71,7 @@ const Login = () => {
                       type="text"
                       value={values.email}
                       error={touched.email ? errors.email : ""}
-                      isDisabled={state.status === FetchStatus.PENDING}
+                      isDisabled={state.status === EFetchStatus.PENDING}
                       name="email"
                       onChange={(value) => {
                         setFieldValue("email", value);
@@ -84,14 +84,14 @@ const Login = () => {
                       name="password"
                       value={values.password}
                       error={touched.password ? errors.password : ""}
-                      isDisabled={state.status === FetchStatus.PENDING}
+                      isDisabled={state.status === EFetchStatus.PENDING}
                       onBlur={handleBlur}
                       onChange={(value) => {
                         setFieldValue("password", value);
                       }}
                       placeholder="Enter your password..."
                     />
-                    <Button text="Login" isLoading={state.status === FetchStatus.PENDING} className="mt-3" />
+                    <Button text="Login" isLoading={state.status === EFetchStatus.PENDING} className="mt-3" />
                     <Link
                       to="/forgot-password"
                       className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"

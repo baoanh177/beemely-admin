@@ -1,4 +1,4 @@
-import { PageNames } from "@/shared/enums/pageNames";
+import { EPageNames } from "@/shared/enums/pageNames";
 import clsx from "clsx";
 import { FaCaretRight } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import lodash from "lodash";
 import { useMemo } from "react";
 import { GoHome } from "react-icons/go";
 
-type PageNameKeys = keyof typeof PageNames;
+type PageNameKeys = keyof typeof EPageNames;
 
 const Breadcrumb = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const Breadcrumb = () => {
                 !isActive && navigate(`/${arrayPath.slice(0, index + 1).join("/")}`);
               }}
             >
-              {PageNames[path as PageNameKeys] ?? path.at(0)?.toUpperCase() + path.slice(1)}
+              {EPageNames[path as PageNameKeys] ?? path.at(0)?.toUpperCase() + path.slice(1)}
             </div>
             {!isActive && <FaCaretRight className="text-m-medium text-primary-200" />}
           </Fragment>

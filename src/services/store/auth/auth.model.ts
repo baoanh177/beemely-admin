@@ -1,4 +1,4 @@
-import { Permissions } from "@/shared/enums/permissions";
+import { EPermissions } from "@/shared/enums/permissions";
 import { IRole } from "../role/role.model";
 
 export interface IUserData {
@@ -6,7 +6,7 @@ export interface IUserData {
   userName: string;
   email: string;
   roles: string[];
-  permissions: Permissions[];
+  permissions: EPermissions[];
   addressList: string[];
 }
 
@@ -14,7 +14,7 @@ export interface IUserProfile {
   id: string;
   userName: string;
   email: string;
-  listNamePermission: Permissions[];
+  listNamePermission: EPermissions[];
   listNameRole: string[];
   roles: IRole[];
 }
