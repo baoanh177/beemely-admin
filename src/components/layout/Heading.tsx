@@ -2,10 +2,10 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Button, { IButtonProps } from "@/components/common/Button";
 import { useArchive } from "@/hooks/useArchive";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
-import { Permissions } from "@/shared/enums/permissions";
+import { EPermissions } from "@/shared/enums/permissions";
 
 interface IHeadingButton extends IButtonProps {
-  permission?: Permissions;
+  permission?: EPermissions;
 }
 
 interface IHeadingProps {
@@ -27,7 +27,7 @@ const Heading = ({ title, hasBreadcrumb, buttons = [] }: IHeadingProps) => {
         {buttons?.map((btn, index) => {
           if (btn.permission) {
             const userPermissions = state.profile?.listNamePermission;
-            const canAccess = userPermissions?.includes(btn.permission) || userPermissions?.includes(Permissions.ALL);
+            const canAccess = userPermissions?.includes(btn.permission);
             return canAccess && <Button key={index} {...btn} />;
           }
           return <Button key={index} {...btn} />;

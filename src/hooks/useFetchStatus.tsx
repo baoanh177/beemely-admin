@@ -2,7 +2,7 @@ import { RootStateType } from "@/services/reducers";
 import { IInitialState } from "@/shared/utils/shared-interfaces";
 import { useArchive } from "./useArchive";
 import { useEffect } from "react";
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { useNavigate } from "react-router-dom";
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
@@ -54,14 +54,14 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
   };
 
   useEffect(() => {
-    if (state.status !== FetchStatus.IDLE) {
-      if (state.status === FetchStatus.FULFILLED) {
+    if (state.status !== EFetchStatus.IDLE) {
+      if (state.status === EFetchStatus.FULFILLED) {
         handleStatus("success");
         dispatch(reset());
-      } else if (state.status === FetchStatus.REJECTED) {
+      } else if (state.status === EFetchStatus.REJECTED) {
         handleStatus("error");
         dispatch(reset());
-      } else if (state.status === FetchStatus.PENDING) {
+      } else if (state.status === EFetchStatus.PENDING) {
         handleStatus("pending");
       }
     }

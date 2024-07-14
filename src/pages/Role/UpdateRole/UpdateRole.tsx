@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RoleForm, { IRoleFormInitialValues } from "../RoleForm";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
-import { FetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { convertRolePermissions } from "../helpers/convertRolePermissions";
@@ -51,7 +51,7 @@ const UpdateRole = () => {
             },
           },
           {
-            isLoading: state.status === FetchStatus.PENDING,
+            isLoading: state.status === EFetchStatus.PENDING,
             text: "Save Change",
             icon: <IoSaveOutline className="text-[18px]" />,
             onClick: () => {

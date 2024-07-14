@@ -1,6 +1,6 @@
-import { ButtonTypes } from "../enums/button";
-import { FetchStatus } from "../enums/fetchStatus";
-import { Permissions } from "../enums/permissions";
+import { EButtonTypes } from "../enums/button";
+import { EFetchStatus } from "../enums/fetchStatus";
+import { EPermissions } from "../enums/permissions";
 import { MethodType } from "./shared-types";
 
 interface IFetchHeaders {
@@ -38,7 +38,7 @@ export interface ClientReturnType<ReturnDataType> {
 }
 
 export interface IInitialState {
-  status: FetchStatus;
+  status: EFetchStatus;
   message: string;
   filter: ISearchParams;
   totalRecords: number;
@@ -46,7 +46,7 @@ export interface IInitialState {
 }
 
 export interface IGridButton {
-  type: ButtonTypes;
+  type: EButtonTypes;
   onClick: (record: { key: string; [key: string]: any }) => unknown;
-  permission?: Permissions;
+  permission?: EPermissions;
 }

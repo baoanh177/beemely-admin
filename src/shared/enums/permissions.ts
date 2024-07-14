@@ -1,6 +1,4 @@
-export enum Permissions {
-  ALL = "All_Permissions",
-
+export enum EPermissions {
   // ? Order
   READ_ORDER = "Read_Order",
   CREATE_ORDER = "Create_Order",
@@ -12,6 +10,12 @@ export enum Permissions {
   CREATE_ROLE = "Create_Role",
   UPDATE_ROLE = "Update_Role",
   DELETE_ROLE = "Delete_Role",
+
+  // ? Permission
+  READ_PERMISSION = "Read_Permission",
+  CREATE_PERMISSION = "Create_Permission",
+  UPDATE_PERMISSION = "Update_Permission",
+  DELETE_PERMISSION = "Delete_Permission",
 
   // ? Product
   READ_PRODUCT = "Read_Product",

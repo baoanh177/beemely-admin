@@ -5,8 +5,8 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import Heading from "@/components/layout/Heading";
 import { IRoleInitialState, resetStatus, setFilter } from "@/services/store/role/role.slice";
 import { deleteRole, getAllRoles } from "@/services/store/role/role.thunk";
-import { ButtonTypes } from "@/shared/enums/button";
-import { Permissions } from "@/shared/enums/permissions";
+import { EButtonTypes } from "@/shared/enums/button";
+import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useMemo } from "react";
@@ -19,25 +19,25 @@ const Roles = () => {
 
   const buttons: IGridButton[] = [
     {
-      type: ButtonTypes.VIEW,
+      type: EButtonTypes.VIEW,
       onClick(record) {
         navigate(`/roles/detail/${record?.key}`);
       },
-      permission: Permissions.READ_ROLE,
+      permission: EPermissions.READ_ROLE,
     },
     {
-      type: ButtonTypes.UPDATE,
+      type: EButtonTypes.UPDATE,
       onClick(record) {
         navigate(`/roles/update/${record?.key}`);
       },
-      permission: Permissions.UPDATE_ROLE,
+      permission: EPermissions.UPDATE_ROLE,
     },
     {
-      type: ButtonTypes.DELETE,
+      type: EButtonTypes.DELETE,
       onClick(record) {
         dispatch(deleteRole(record?.key));
       },
-      permission: Permissions.DELETE_ROLE,
+      permission: EPermissions.DELETE_ROLE,
     },
   ];
 
@@ -79,7 +79,7 @@ const Roles = () => {
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: Permissions.CREATE_ROLE,
+            permission: EPermissions.CREATE_ROLE,
             text: "Create Role",
             onClick: () => navigate("/roles/create"),
           },

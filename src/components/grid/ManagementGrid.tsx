@@ -2,7 +2,7 @@ import { ColumnsType } from "antd/es/table";
 import PrimaryTable, { ISearchTable, ITableData } from "../table/PrimaryTable";
 import { IGridButton, ISearchParams } from "@/shared/utils/shared-interfaces";
 import { useMemo } from "react";
-import { ButtonTypes } from "@/shared/enums/button";
+import { EButtonTypes } from "@/shared/enums/button";
 import GridButtons from "./GridButtons";
 import { TableColumnsType } from "antd";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
@@ -22,7 +22,7 @@ export interface IGridProps {
 
 const ManagementGrid = ({ columns, data, search, buttons, pagination, setFilter }: IGridProps) => {
   const renderColumns = useMemo(() => {
-    return buttons?.some((button) => button.type === ButtonTypes.VIEW || button.type === ButtonTypes.UPDATE || button.type === ButtonTypes.DELETE)
+    return buttons?.some((button) => button.type === EButtonTypes.VIEW || button.type === EButtonTypes.UPDATE || button.type === EButtonTypes.DELETE)
       ? ([
           ...columns,
           {

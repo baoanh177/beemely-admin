@@ -11,6 +11,10 @@ import { IoCartOutline, IoPieChartOutline, IoSettingsOutline } from "react-icons
 // Images
 import logo from "@/assets/images/logo.png";
 import { RxComponent1 } from "react-icons/rx";
+import { EPermissions } from "@/shared/enums/permissions";
+import { useArchive } from "@/hooks/useArchive";
+import { authSlice, IAuthInitialState } from "@/services/store/auth/auth.slice";
+import { checkPermission } from "@/helpers/checkPermission";
 
 export interface IMenuItem {
   id: string;
@@ -22,10 +26,14 @@ export interface IMenuItem {
   };
   items?: Pick<IMenuItem, Exclude<keyof IMenuItem, "items" | "icon">>[];
   onClick?: () => void;
+  permissions?: EPermissions[] | EPermissions;
 }
 
 const Sidebar = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
+
+  const { state } = useArchive<IAuthInitialState>("auth");
+
   const [activeMenuItemId, setActiveMenuItemId] = useState<string | null>();
   const [openingMenuId, setOpeningMenuId] = useState<string | null>();
   const { pathname } = useLocation();
@@ -46,11 +54,13 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           id: "2.3",
           label: "Orders",
           path: "orders",
+          permissions: EPermissions.READ_ORDER,
         },
         {
           id: "2.1",
           label: "Products",
           path: "products",
+          permissions: EPermissions.READ_PRODUCT,
         },
       ],
     },
@@ -63,6 +73,13 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           id: "3.1",
           label: "Roles",
           path: "roles",
+          permissions: EPermissions.READ_ROLE,
+        },
+        {
+          id: "3.2",
+          label: "Permissions",
+          path: "permissions",
+          permissions: EPermissions.READ_PERMISSION,
         },
       ],
     },
@@ -82,7 +99,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           {/* Logo */}
           <div className="flex cursor-pointer items-center gap-3 px-5 py-6" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="h-[34px] w-[34px]" />
-            <div className="display-m-semibold">Pixlab</div>
+            <div className="display-m-semibold">Beemely</div>
           </div>
 
           {/* Navbar */}
@@ -90,24 +107,33 @@ const Sidebar = ({ children }: PropsWithChildren) => {
             {menuItems.map((item, index) => {
               return (
                 <div key={index} className="flex flex-col gap-2">
-                  <MenuItem
-                    onClick={() => {
-                      setActiveMenuItemId(activeMenuItemId === item.id ? null : item.id);
-                      setOpeningMenuId(openingMenuId === item.id ? null : item.id);
-                    }}
-                    {...item}
-                    isOpen={item.id === openingMenuId}
-                    hasChildren={!!item.items?.length}
-                    isActive={!!item.path && item.path === activePath}
-                    isChildActive={item.items?.some((i) => !!i.path && i.path === activePath)}
-                  />
-                  {activeMenuItemId === item.id && (
-                    <div className="flex flex-col gap-2">
-                      {item.items?.map((child, index) => {
-                        return <MenuItem key={index} {...child} isChild isActive={child.path === activePath} />;
-                      })}
-                    </div>
+                  {/* Parent Item */}
+                  {checkPermission(state.profile?.listNamePermission, item.permissions) && (
+                    <MenuItem
+                      onClick={() => {
+                        setActiveMenuItemId(activeMenuItemId === item.id ? null : item.id);
+                        setOpeningMenuId(openingMenuId === item.id ? null : item.id);
+                      }}
+                      {...item}
+                      isOpen={item.id === openingMenuId}
+                      hasChildren={!!item.items?.length}
+                      isActive={!!item.path && item.path === activePath}
+                      isChildActive={item.items?.some((i) => !!i.path && i.path === activePath)}
+                    />
                   )}
+                  {/* Child Item */}
+                  {activeMenuItemId === item.id &&
+                    item.items?.some((child) => checkPermission(state.profile?.listNamePermission, child.permissions)) && (
+                      <div className="flex flex-col gap-2">
+                        {item.items?.map((child, index) => {
+                          return (
+                            checkPermission(state.profile?.listNamePermission, child.permissions) && (
+                              <MenuItem key={index} {...child} isChild isActive={child.path === activePath} />
+                            )
+                          );
+                        })}
+                      </div>
+                    )}
                 </div>
               );
             })}

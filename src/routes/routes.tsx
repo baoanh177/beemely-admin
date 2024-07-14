@@ -13,6 +13,9 @@ import Roles from "@/pages/Role/Roles/Roles";
 import CreateRole from "@/pages/Role/CreateRole/CreateRole";
 import UpdateRole from "@/pages/Role/UpdateRole/UpdateRole";
 import DetailRole from "@/pages/Role/DetailRole/DetailRole";
+import Permissions from "@/pages/Permission/Permissions/Permissions";
+import PermissionMiddleware from "@/middlewares/PermissionMiddleware";
+import { EPermissions } from "@/shared/enums/permissions";
 
 export interface IRoute {
   path: string;
@@ -70,6 +73,17 @@ export const routes: IRoute[] = [
               {
                 path: "/detail/:id",
                 element: () => <DetailRole />,
+              },
+            ],
+          },
+          {
+            path: "permissions",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
+            pages: [
+              {
+                path: "/",
+                element: () => <Permissions />,
+                middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
               },
             ],
           },

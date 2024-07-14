@@ -1,5 +1,5 @@
 // ? [key: path]: name
-export enum PageNames {
+export enum EPageNames {
   dashboard = "Dashboard",
   products = "Products",
   categories = "Categories",
