@@ -1,8 +1,8 @@
-import { Permissions } from "@/shared/enums/permissions";
+import { EPermissions } from "@/shared/enums/permissions";
 
 export interface IPermission {
   id: string;
-  name: Permissions;
+  name: EPermissions;
   module: string;
   label: string;
 }

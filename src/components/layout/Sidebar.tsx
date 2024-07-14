@@ -13,7 +13,7 @@ import logo from "@/assets/images/logo.png";
 import { RxComponent1 } from "react-icons/rx";
 import { EPermissions } from "@/shared/enums/permissions";
 import { useArchive } from "@/hooks/useArchive";
-import { authSlice, IAuthInitialState } from "@/services/store/auth/auth.slice";
+import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 import { checkPermission } from "@/helpers/checkPermission";
 
 export interface IMenuItem {

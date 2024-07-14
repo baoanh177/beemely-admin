@@ -8,8 +8,8 @@ import { Outlet } from "react-router-dom";
 const PermissionMiddleware = ({ requiredPermissions }: { requiredPermissions: EPermissions[] }) => {
   const { state } = useArchive<IAuthInitialState>("auth");
 
-  const canAccess = checkPermission(state.profile?.listNamePermission, requiredPermissions)
-  return canAccess ? <Outlet /> : <AccessDenied />
+  const canAccess = checkPermission(state.profile?.listNamePermission, requiredPermissions);
+  return canAccess ? <Outlet /> : <AccessDenied />;
 };
 
 export default PermissionMiddleware;

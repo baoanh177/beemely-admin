@@ -22,7 +22,7 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
       {buttons.map((button, index) => {
         let canAccess = true;
         if (button.permission) {
-          canAccess = checkPermission(state.profile?.listNamePermission, button.permission)
+          canAccess = checkPermission(state.profile?.listNamePermission, button.permission);
         }
         switch (button.type) {
           case EButtonTypes.VIEW:

@@ -13,7 +13,7 @@ import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 const Permissions = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
 
   const columns: ColumnsType = [

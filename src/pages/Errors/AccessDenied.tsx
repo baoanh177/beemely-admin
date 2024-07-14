@@ -1,5 +1,5 @@
 const AccessDenied = () => {
-  return <h1>Access Denied</h1>
-}
+  return <h1>Access Denied</h1>;
+};
 
-export default AccessDenied
+export default AccessDenied;
