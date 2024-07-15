@@ -19,4 +19,10 @@ export enum EPermissions {
 
   // ? Product
   READ_PRODUCT = "Read_Product",
+
+  // ? Tag
+  READ_TAG = "Read_Tag",
+  CREATE_TAG = "Create_Tag",
+  UPDATE_TAG = "Update_Tag",
+  DELETE_TAG = "Delete_Tag",
 }
