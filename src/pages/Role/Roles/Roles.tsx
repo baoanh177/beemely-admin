@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 const Roles = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
-
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.VIEW,
