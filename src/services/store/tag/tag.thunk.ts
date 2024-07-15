@@ -43,7 +43,7 @@ export const updateTag = createAsyncThunk("tag/update-tag", async (payload: IThu
 
 export const deleteTag = createAsyncThunk("tag/delete-tag", async (id: string, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete<Itag[]>(`${prefix}/${id}`);
+    const { response, data } = await client.delete(`${prefix}/${id}`);
     return response.status >= 400 ? rejectWithValue(data) : id;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

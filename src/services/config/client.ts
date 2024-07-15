@@ -3,7 +3,7 @@ import { interceptor } from "./interceptor";
 import { MethodType } from "@/shared/utils/shared-types";
 
 export const client = {
-  SERVER_URL: "http://localhost:8080",
+  SERVER_URL: import.meta.env.VITE_API_URL,
   tokens: {
     accessToken: () => {
       try {
