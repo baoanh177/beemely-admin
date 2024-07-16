@@ -25,4 +25,10 @@ export enum EPermissions {
   CREATE_TAG = "Create_Tag",
   UPDATE_TAG = "Update_Tag",
   DELETE_TAG = "Delete_Tag",
+
+  // ? Gender
+  READ_Gender = "Read_Gender",
+  CREATE_Gender = "Create_Gender",
+  UPDATE_Gender = "Update_Gender",
+  DELETE_Gender = "Delete_Gender",
 }

@@ -19,6 +19,9 @@ import { EPermissions } from "@/shared/enums/permissions";
 import Tags from "@/pages/Tag/Tags/Tags";
 import CreateTag from "@/pages/Tag/CreateTag/CreateTag";
 import UpdateTag from "@/pages/Tag/UpdateTag/UpdateTag";
+import Gender from "@/pages/Gender/Gender.tsx/Gender";
+import CreateRender from "@/pages/Gender/CreateRender.tsx/CreateRender";
+import UpdateRender from "@/pages/Gender/UpdateRender/UpdateRender";
 
 export interface IRoute {
   path: string;
@@ -76,6 +79,23 @@ export const routes: IRoute[] = [
               {
                 path: "/detail/:id",
                 element: () => <DetailRole />,
+              },
+            ],
+          },
+          {
+            path: "genders",
+            pages: [
+              {
+                path: "/",
+                element: () => <Gender />,
+              },
+              {
+                path: "/create",
+                element: () => <CreateRender />,
+              },
+              {
+                path: "/update/:id",
+                element: () => <UpdateRender />,
               },
             ],
           },
