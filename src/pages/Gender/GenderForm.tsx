@@ -1,4 +1,4 @@
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import { object, string } from "yup";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
@@ -6,11 +6,13 @@ import { useArchive } from "@/hooks/useArchive";
 import { IGenderInitialState } from "@/services/store/gender/gender.slice";
 import { createGender, updateGender } from "@/services/store/gender/gender.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
+import UpdateGrid from "@/components/grid/UpdateGrid";
 
 interface IGenderFormProps {
   formikRef?: FormikRefType<IGenderFormInitialValues>;
   type: "create" | "update";
   gender?: IGenderFormInitialValues;
+  isLoading?: boolean;
 }
 
 export interface IGenderFormInitialValues {
@@ -18,9 +20,8 @@ export interface IGenderFormInitialValues {
   name: string;
 }
 
-const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
+const GenderForm = ({ formikRef, type, gender, isLoading }: IGenderFormProps) => {
   const { dispatch } = useArchive<IGenderInitialState>("gender");
-
   const initialValues: IGenderFormInitialValues = {
     name: gender?.name || "",
   };
@@ -43,19 +44,26 @@ const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <Form>
-          <FormGroup title="General information">
-            <FormInput
-              label="Gender name"
-              placeholder="Type name gender here..."
-              name="name"
-              value={values.name}
-              error={touched.name ? errors.name : ""}
-              onChange={(e) => setFieldValue("name", e)}
-              onBlur={handleBlur}
-            />
-          </FormGroup>
-        </Form>
+        <UpdateGrid
+          colNumber="1"
+          rate="1"
+          isLoading={isLoading}
+          groups={{
+            colLeft: (
+              <FormGroup title="General information">
+                <FormInput
+                  label="Gender name"
+                  placeholder="Type name gender here..."
+                  name="name"
+                  value={values.name}
+                  error={touched.name ? errors.name : ""}
+                  onChange={(e) => setFieldValue("name", e)}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+            ),
+          }}
+        />
       )}
     </Formik>
   );

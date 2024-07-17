@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ColumnsType } from "antd/es/table";
@@ -16,7 +16,7 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 const Genders = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
-
+  const [loading, setLoading] = useState(true);
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
@@ -27,7 +27,9 @@ const Genders = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllGenders({ query: state.filter }));
+    dispatch(getAllGenders({ query: state.filter })).then(() => {
+      setLoading(false);
+    });
   }, [JSON.stringify(state.filter)]);
 
   const columns: ColumnsType<ITableData> = [
@@ -78,7 +80,7 @@ const Genders = () => {
           },
         ]}
       />
-      <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />
+      <ManagementGrid isLoading={loading} columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />
     </>
   );
 };

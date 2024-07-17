@@ -86,7 +86,7 @@ const Tags = () => {
           },
         ]}
       />
-      {!loading && <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />}
+      {<ManagementGrid isLoading={loading} columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />}
     </>
   );
 };

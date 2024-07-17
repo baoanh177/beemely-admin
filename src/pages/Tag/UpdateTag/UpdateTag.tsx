@@ -30,12 +30,13 @@ const UpdateTag = () => {
       },
     },
   });
-
   useEffect(() => {
+    setLoading(true);
     if (id) {
-      dispatch(getTagById(id)).then(() => {
+      (async () => {
+        await dispatch(getTagById(id));
         setLoading(false);
-      });
+      })();
     }
   }, [id]);
 
@@ -75,7 +76,7 @@ const UpdateTag = () => {
           },
         ]}
       />
-      {!loading && state.activeTag && <TagForm type="update" formikRef={formikRef} tag={state.activeTag} />}
+      {state.activeTag && <TagForm isloading={loading} type="update" formikRef={formikRef} tag={state.activeTag} />}
     </>
   );
 };
