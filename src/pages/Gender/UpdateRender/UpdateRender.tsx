@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
@@ -15,7 +15,7 @@ const UpdateGender = () => {
   const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
-
+  const [loading, setLoading] = useState(true);
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
@@ -32,7 +32,10 @@ const UpdateGender = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(getGenderById(id));
+      (async () => {
+        await dispatch(getGenderById(id));
+        setLoading(false);
+      })();
     }
   }, [id]);
 
@@ -72,7 +75,7 @@ const UpdateGender = () => {
           },
         ]}
       />
-      {state.activeGender && <GenderForm type="update" formikRef={formikRef} gender={state.activeGender} />}
+      {state.activeGender && <GenderForm isLoading={loading} type="update" formikRef={formikRef} gender={state.activeGender} />}
     </>
   );
 };

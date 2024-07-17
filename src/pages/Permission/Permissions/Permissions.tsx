@@ -7,7 +7,7 @@ import { getAllPermissions } from "@/services/store/permission/permission.thunk"
 import { EButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { EPermissions } from "@/shared/enums/permissions";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 const Permissions = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
-
+  const [loading, setLoading] = useState(true);
   const columns: ColumnsType = [
     {
       dataIndex: "label",
@@ -62,7 +62,9 @@ const Permissions = () => {
       getAllPermissions({
         query: state.filter,
       }),
-    );
+    ).then(() => {
+      setLoading(false);
+    });
   }, [state.filter]);
 
   return (
@@ -79,7 +81,7 @@ const Permissions = () => {
           },
         ]}
       />
-      <ManagementGrid columns={columns} data={data} search={{ status: [] }} setFilter={setFilter} buttons={buttons} />
+      <ManagementGrid isLoading={loading} columns={columns} data={data} search={{ status: [] }} setFilter={setFilter} buttons={buttons} />
     </>
   );
 };
