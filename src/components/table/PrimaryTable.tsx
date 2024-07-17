@@ -20,13 +20,12 @@ export interface ISearchTable {
 interface IPrimaryTableProps {
   search?: ISearchTable | false;
   columns: ColumnsType;
-  isLoading?: boolean;
   data: ITableData[];
   setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
 }
 
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, isLoading, pagination, setFilter }) => {
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, setFilter }) => {
   const dispatch = useDispatch();
   const getShowingText = (total: number, range: [number, number]) => {
     return `Showing ${range[0]}-${range[1]} from ${total}`;
@@ -42,34 +41,28 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, isL
           </div>
         </div>
       )}
-
-      {isLoading ? (
-        <div className="h-[500px] animate-pulse rounded-lg bg-gray-50 shadow-md"></div>
-      ) : (
-        <Table
-          loading={isLoading}
-          onChange={(newPagination) => {
-            dispatch(
-              setFilter({
-                page: newPagination.current,
-                size: newPagination.pageSize,
-              }),
-            );
-          }}
-          columns={columns}
-          dataSource={data}
-          pagination={
-            pagination
-              ? {
-                  ...pagination,
-                  showTotal: getShowingText,
-                  showSizeChanger: pagination.showSideChanger ?? false,
-                }
-              : false
-          }
-          className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
-        />
-      )}
+      <Table
+        onChange={(newPagination) => {
+          dispatch(
+            setFilter({
+              page: newPagination.current,
+              size: newPagination.pageSize,
+            }),
+          );
+        }}
+        columns={columns}
+        dataSource={data}
+        pagination={
+          pagination
+            ? {
+              ...pagination,
+              showTotal: getShowingText,
+              showSizeChanger: pagination.showSideChanger ?? false,
+            }
+            : false
+        }
+        className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
+      />
     </div>
   );
 };

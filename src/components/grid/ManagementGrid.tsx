@@ -12,7 +12,6 @@ export interface IGridProps {
   data: ITableData[];
   search: ISearchTable | false;
   buttons?: IGridButton[];
-  isLoading?: boolean;
   pagination?: {
     pageSize: number;
     current: number;
@@ -21,7 +20,7 @@ export interface IGridProps {
   setFilter: ActionCreatorWithPayload<ISearchParams>;
 }
 
-const ManagementGrid = ({ columns, data, search, buttons, isLoading, pagination, setFilter }: IGridProps) => {
+const ManagementGrid = ({ columns, data, search, buttons, pagination, setFilter }: IGridProps) => {
   const renderColumns = useMemo(() => {
     return buttons?.some((button) => button.type === EButtonTypes.VIEW || button.type === EButtonTypes.UPDATE || button.type === EButtonTypes.DELETE)
       ? ([
@@ -40,7 +39,7 @@ const ManagementGrid = ({ columns, data, search, buttons, isLoading, pagination,
         ] as TableColumnsType)
       : columns;
   }, [JSON.stringify(buttons)]);
-  return <PrimaryTable isLoading={isLoading} search={search} columns={renderColumns} data={data} pagination={pagination} setFilter={setFilter} />;
+  return <PrimaryTable  search={search} columns={renderColumns} data={data} pagination={pagination} setFilter={setFilter} />;
 };
 
 export default ManagementGrid;
