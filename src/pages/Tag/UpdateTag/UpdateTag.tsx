@@ -31,7 +31,6 @@ const UpdateTag = () => {
     },
   });
   useEffect(() => {
-    setLoading(true);
     if (id) {
       (async () => {
         await dispatch(getTagById(id));

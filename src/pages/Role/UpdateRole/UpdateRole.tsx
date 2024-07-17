@@ -33,7 +33,6 @@ const UpdateRole = () => {
   });
 
   useEffect(() => {
-    setLoading(true);
     if (id) {
       (async () => {
         await dispatch(getRoleById(id));

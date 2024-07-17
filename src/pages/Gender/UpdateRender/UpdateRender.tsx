@@ -31,7 +31,6 @@ const UpdateGender = () => {
   });
 
   useEffect(() => {
-    setLoading(true);
     if (id) {
       (async () => {
         await dispatch(getGenderById(id));
