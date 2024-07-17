@@ -23,7 +23,7 @@ interface IRoleFormProps {
   formikRef?: FormikRefType<IRoleFormInitialValues>;
   type: "create" | "view" | "update";
   role?: IActiveRole;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export interface IRoleFormInitialValues {
@@ -47,24 +47,17 @@ const RoleForm = ({ formikRef, type, role, isLoading }: IRoleFormProps) => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await dispatch(
-          getAllPermissions({
-            query: {
-              pagination: false,
-            },
-          }),
-        );
-        await dispatch(getAllModules());
-        setLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch permissions and modules:", error);
-        setLoading(false); // Ensure loading state is updated even on error
-      }
-    };
-
-    fetchData();
+    (async () => {
+      await dispatch(
+        getAllPermissions({
+          query: {
+            pagination: false,
+          },
+        }),
+      );
+      await dispatch(getAllModules());
+      setLoading(false);
+    })();
   }, []);
 
   useEffect(() => {

@@ -41,7 +41,7 @@ const UpdateRole = () => {
       })();
     }
   }, [id]);
-  
+
   useEffect(() => {
     if (state.activeRole && formikRef.current) {
       formikRef.current.setValues(convertRolePermissions(state.activeRole));

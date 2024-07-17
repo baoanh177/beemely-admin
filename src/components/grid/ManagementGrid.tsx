@@ -12,7 +12,7 @@ export interface IGridProps {
   data: ITableData[];
   search: ISearchTable | false;
   buttons?: IGridButton[];
-  isLoading?: boolean
+  isLoading?: boolean;
   pagination?: {
     pageSize: number;
     current: number;
@@ -25,19 +25,19 @@ const ManagementGrid = ({ columns, data, search, buttons, isLoading, pagination,
   const renderColumns = useMemo(() => {
     return buttons?.some((button) => button.type === EButtonTypes.VIEW || button.type === EButtonTypes.UPDATE || button.type === EButtonTypes.DELETE)
       ? ([
-        ...columns,
-        {
-          title: "Actions",
-          width: "150px",
-          dataIndex: "actions",
-          key: "actions",
-          fixed: "right",
-          align: "center",
-          render(_, record) {
-            return <GridButtons buttons={buttons} record={record} />;
+          ...columns,
+          {
+            title: "Actions",
+            width: "150px",
+            dataIndex: "actions",
+            key: "actions",
+            fixed: "right",
+            align: "center",
+            render(_, record) {
+              return <GridButtons buttons={buttons} record={record} />;
+            },
           },
-        },
-      ] as TableColumnsType)
+        ] as TableColumnsType)
       : columns;
   }, [JSON.stringify(buttons)]);
   return <PrimaryTable isLoading={isLoading} search={search} columns={renderColumns} data={data} pagination={pagination} setFilter={setFilter} />;
