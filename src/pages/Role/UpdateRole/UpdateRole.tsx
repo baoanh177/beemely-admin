@@ -2,7 +2,7 @@ import { useArchive } from "@/hooks/useArchive";
 import Heading from "@/components/layout/Heading";
 import { IRoleInitialState, resetStatus } from "@/services/store/role/role.slice";
 import { getRoleById } from "@/services/store/role/role.thunk";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RoleForm, { IRoleFormInitialValues } from "../RoleForm";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
@@ -15,7 +15,7 @@ const UpdateRole = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
-
+  const [loading, setLoading] = useState(true);
   const formikRef = useRef<FormikProps<IRoleFormInitialValues>>(null);
 
   useFetchStatus({
@@ -33,8 +33,20 @@ const UpdateRole = () => {
   });
 
   useEffect(() => {
-    if (id) dispatch(getRoleById(id));
+    setLoading(true);
+    if (id) {
+      (async () => {
+        await dispatch(getRoleById(id));
+        setLoading(false);
+      })();
+    }
   }, [id]);
+  
+  useEffect(() => {
+    if (state.activeRole && formikRef.current) {
+      formikRef.current.setValues(convertRolePermissions(state.activeRole));
+    }
+  }, [state.activeRole]);
 
   return (
     <>
@@ -60,7 +72,7 @@ const UpdateRole = () => {
           },
         ]}
       />
-      {state.activeRole && <RoleForm type="update" formikRef={formikRef} role={convertRolePermissions(state.activeRole)} />}
+      {state.activeRole && <RoleForm isLoading={loading} type="update" formikRef={formikRef} role={convertRolePermissions(state.activeRole)} />}
     </>
   );
 };
