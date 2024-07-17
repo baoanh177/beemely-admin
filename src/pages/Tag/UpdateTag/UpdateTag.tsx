@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import TagForm, { ITagFormInitialValues } from "../TagForm";
@@ -15,7 +15,6 @@ const UpdateTag = () => {
   const formikRef = useRef<FormikProps<ITagFormInitialValues>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<ITagInitialState>("tag");
-  const [loading, setLoading] = useState(true);
 
   useFetchStatus({
     module: "tag",
@@ -34,7 +33,6 @@ const UpdateTag = () => {
     if (id) {
       (async () => {
         await dispatch(getTagById(id));
-        setLoading(false);
       })();
     }
   }, [id]);
@@ -75,7 +73,7 @@ const UpdateTag = () => {
           },
         ]}
       />
-      {state.activeTag && <TagForm isloading={loading} type="update" formikRef={formikRef} tag={state.activeTag} />}
+      {state.activeTag && <TagForm type="update" formikRef={formikRef} tag={state.activeTag} />}
     </>
   );
 };
