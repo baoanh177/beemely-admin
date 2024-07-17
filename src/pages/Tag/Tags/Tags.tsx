@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
@@ -9,13 +10,14 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Tags = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ITagInitialState>("tag");
+  const [loading, setLoading] = useState(true);
+
   useFetchStatus({
     module: "tag",
     reset: resetStatus,
@@ -26,7 +28,9 @@ const Tags = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllTags({ query: state.filter }));
+    dispatch(getAllTags({ query: state.filter })).then(() => {
+      setLoading(false);
+    });
   }, [JSON.stringify(state.filter)]);
 
   const columns: ColumnsType = [
@@ -39,6 +43,7 @@ const Tags = () => {
       title: "Description",
     },
   ];
+
   const data: ITableData[] = useMemo(() => {
     if (state.tags && state.tags.length > 0) {
       return state.tags.map((tag) => ({
@@ -48,7 +53,7 @@ const Tags = () => {
       }));
     }
     return [];
-  }, [JSON.stringify(state.tags)]);
+  }, [state.tags]);
 
   const buttons: IGridButton[] = [
     {
@@ -66,6 +71,7 @@ const Tags = () => {
       permission: EPermissions.UPDATE_TAG,
     },
   ];
+
   return (
     <>
       <Heading
@@ -80,7 +86,7 @@ const Tags = () => {
           },
         ]}
       />
-      <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />
+      {!loading && <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />}
     </>
   );
 };

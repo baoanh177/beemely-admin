@@ -23,6 +23,7 @@ interface IRoleFormProps {
   formikRef?: FormikRefType<IRoleFormInitialValues>;
   type: "create" | "view" | "update";
   role?: IActiveRole;
+  isLoading?: boolean;
 }
 
 export interface IRoleFormInitialValues {
@@ -30,7 +31,7 @@ export interface IRoleFormInitialValues {
   permissions: string[];
 }
 
-const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
+const RoleForm = ({ formikRef, type, role, isLoading }: IRoleFormProps) => {
   const [treePermissions, setTreePermissions] = useState<DataNode[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,10 +47,6 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
   });
 
   useEffect(() => {
-    setTreePermissions(getTreePermissions(state.permissions, state.modules));
-  }, [JSON.stringify(state.permissions), JSON.stringify(state.modules)]);
-
-  useEffect(() => {
     (async () => {
       await dispatch(
         getAllPermissions({
@@ -62,6 +59,12 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
       setLoading(false);
     })();
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      setTreePermissions(getTreePermissions(state.permissions, state.modules));
+    }
+  }, [loading, state.permissions, state.modules]);
 
   return (
     <Formik
@@ -80,53 +83,51 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
         }
       }}
     >
-      {({ values, errors, touched, handleBlur, setFieldValue }) => {
-        return (
-          <UpdateGrid
-            colNumber="2"
-            rate="1-3"
-            isLoading={loading}
-            groups={{
-              colLeft: (
-                <FormGroup title="Permissions">
-                  <TreeData
-                    isDisable={type === "view"}
-                    expanded={["parent-all"]}
-                    treeData={[
-                      {
-                        key: "parent-all",
-                        title: "All",
-                        children: treePermissions,
-                      },
-                    ]}
-                    checkedKeys={values.permissions}
-                    onCheck={(checkedKeys) => {
-                      setFieldValue("permissions", checkedKeys);
-                    }}
-                  />
-                </FormGroup>
-              ),
-              colRight: (
-                <FormGroup title="General Information">
-                  <FormInput
-                    type="text"
-                    isDisabled={type === "view"}
-                    label="Role name"
-                    value={values.name}
-                    name="name"
-                    error={touched.name ? errors.name : ""}
-                    placeholder="Type role name here..."
-                    onChange={(value) => {
-                      setFieldValue("name", value);
-                    }}
-                    onBlur={handleBlur}
-                  />
-                </FormGroup>
-              ),
-            }}
-          />
-        );
-      }}
+      {({ values, errors, touched, handleBlur, setFieldValue }) => (
+        <UpdateGrid
+          colNumber="2"
+          rate="1-3"
+          isLoading={isLoading || loading}
+          groups={{
+            colLeft: (
+              <FormGroup title="Permissions">
+                <TreeData
+                  isDisable={type === "view"}
+                  expanded={["parent-all"]}
+                  treeData={[
+                    {
+                      key: "parent-all",
+                      title: "All",
+                      children: treePermissions,
+                    },
+                  ]}
+                  checkedKeys={values.permissions}
+                  onCheck={(checkedKeys) => {
+                    setFieldValue("permissions", checkedKeys);
+                  }}
+                />
+              </FormGroup>
+            ),
+            colRight: (
+              <FormGroup title="General Information">
+                <FormInput
+                  type="text"
+                  isDisabled={type === "view"}
+                  label="Role name"
+                  value={values.name}
+                  name="name"
+                  error={touched.name ? errors.name : ""}
+                  placeholder="Type role name here..."
+                  onChange={(value) => {
+                    setFieldValue("name", value);
+                  }}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+            ),
+          }}
+        />
+      )}
     </Formik>
   );
 };
