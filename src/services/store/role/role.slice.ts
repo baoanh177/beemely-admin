@@ -46,8 +46,9 @@ const roleSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
-      .addCase(createRole.rejected, (state) => {
+      .addCase(createRole.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message
       });
     // ? Update role
     builder
@@ -59,8 +60,9 @@ const roleSlice = createSlice({
         state.activeRole = payload.metaData
         state.message = "Updated successfully";
       })
-      .addCase(updateRole.rejected, (state) => {
+      .addCase(updateRole.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message
       });
     // ? Delete role
     builder

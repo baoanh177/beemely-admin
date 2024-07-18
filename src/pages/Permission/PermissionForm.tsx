@@ -4,12 +4,12 @@ import FormSelect from "@/components/form/FormSelect";
 import FormSwitch from "@/components/form/FormSwitch";
 import UpdateGrid from "@/components/grid/UpdateGrid";
 import { useArchive } from "@/hooks/useArchive";
+import { IPermission } from "@/services/store/permission/permission.model";
 import { IPermissionInitialState } from "@/services/store/permission/permission.slice";
-import { createPermission, getAllModules, getPermissionById, updatePermission } from "@/services/store/permission/permission.thunk";
+import { createPermission, getAllModules, updatePermission } from "@/services/store/permission/permission.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 export interface IPermissionFormInitialValues {
   label: string;
@@ -20,12 +20,12 @@ export interface IPermissionFormInitialValues {
 interface IPermissionFormProps {
   formikRef?: FormikRefType<IPermissionFormInitialValues>;
   type: "create" | "view" | "update";
+  permission?: IPermission
 }
 
-const PermissionForm = ({ formikRef, type }: IPermissionFormProps) => {
-  const { id } = useParams();
-  const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
+const PermissionForm = ({ formikRef, type,permission }: IPermissionFormProps) => {
   const [newModule, setNewModule] = useState(false);
+  const { state, dispatch } = useArchive<IPermissionInitialState>("permission")
 
   const initialValues: IPermissionFormInitialValues = {
     label: "",
@@ -36,14 +36,13 @@ const PermissionForm = ({ formikRef, type }: IPermissionFormProps) => {
 
   useEffect(() => {
     dispatch(getAllModules());
-    if (type !== "create") dispatch(getPermissionById(id as string));
   }, []);
 
   return (
     <Formik
       enableReinitialize
       innerRef={formikRef}
-      initialValues={state.activePermission ? { ...state.activePermission, availableModule: state.activePermission?.module } : initialValues}
+      initialValues={permission ? { ...permission, availableModule: permission?.module } : initialValues}
       onSubmit={(data) => {
         const body = {
           label: data.label,
@@ -53,7 +52,7 @@ const PermissionForm = ({ formikRef, type }: IPermissionFormProps) => {
         if (type === "create") {
           dispatch(createPermission({ body }));
         } else if (type === "update") {
-          dispatch(updatePermission({ body, param: state.activePermission?.id }));
+          dispatch(updatePermission({ body, param: permission?.id }));
         }
       }}
     >
