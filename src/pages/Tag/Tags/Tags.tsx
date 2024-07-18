@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 const Tags = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ITagInitialState>("tag");
-  const [loading, setLoading] = useState(true);
 
   useFetchStatus({
     module: "tag",
@@ -28,9 +27,7 @@ const Tags = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllTags({ query: state.filter })).then(() => {
-      setLoading(false);
-    });
+    dispatch(getAllTags({ query: state.filter })).then(() => {});
   }, [JSON.stringify(state.filter)]);
 
   const columns: ColumnsType = [
@@ -86,7 +83,7 @@ const Tags = () => {
           },
         ]}
       />
-      {<ManagementGrid isLoading={loading} columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />}
+      {<ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />}
     </>
   );
 };
