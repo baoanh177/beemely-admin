@@ -15,7 +15,6 @@ const UpdateRole = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
-
   const formikRef = useRef<FormikProps<IRoleFormInitialValues>>(null);
 
   useFetchStatus({
@@ -33,8 +32,18 @@ const UpdateRole = () => {
   });
 
   useEffect(() => {
-    if (id) dispatch(getRoleById(id));
+    if (id) {
+      (async () => {
+        await dispatch(getRoleById(id));
+      })();
+    }
   }, [id]);
+
+  useEffect(() => {
+    if (state.activeRole && formikRef.current) {
+      formikRef.current.setValues(convertRolePermissions(state.activeRole));
+    }
+  }, [state.activeRole]);
 
   return (
     <>

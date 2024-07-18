@@ -30,7 +30,6 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
   const getShowingText = (total: number, range: [number, number]) => {
     return `Showing ${range[0]}-${range[1]} from ${total}`;
   };
-
   return (
     <div className="primary-table flex w-full flex-col gap-6">
       {search && (
@@ -56,10 +55,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
         pagination={
           pagination
             ? {
-                ...pagination,
-                showTotal: getShowingText,
-                showSizeChanger: pagination.showSideChanger ?? false,
-              }
+              ...pagination,
+              showTotal: getShowingText,
+              showSizeChanger: pagination.showSideChanger ?? false,
+            }
             : false
         }
         className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"

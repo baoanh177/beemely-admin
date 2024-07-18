@@ -16,7 +16,6 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 const Permissions = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
-
   const columns: ColumnsType = [
     {
       dataIndex: "label",

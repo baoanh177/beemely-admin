@@ -6,6 +6,7 @@ import { authSlice } from "./store/auth/auth.slice";
 import { roleSlice } from "./store/role/role.slice";
 import { permissionSlice } from "./store/permission/permission.slice";
 import { tagSlice } from "./store/tag/tag.slice";
+import { genderSlice } from "./store/gender/gender.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -14,6 +15,7 @@ export const reducers = combineReducers({
   role: roleSlice.reducer,
   permission: permissionSlice.reducer,
   tag: tagSlice.reducer,
+  gender: genderSlice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;

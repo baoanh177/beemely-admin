@@ -67,7 +67,9 @@ const Roles = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllRoles({ query: state.filter }));
+    (async () => {
+      await dispatch(getAllRoles({ query: state.filter }));
+    })();
   }, [JSON.stringify(state.filter)]);
 
   return (
