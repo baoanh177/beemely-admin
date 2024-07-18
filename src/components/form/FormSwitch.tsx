@@ -22,7 +22,7 @@ const FormSwitch = ({ checkedText, uncheckedText, idDisabled, label, onChange }:
       }}
     >
       <div className="flex flex-col items-start">
-        {label && <div className="text-m-medium text-black-300 mb-1">{label}</div>}
+        {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
         <Switch unCheckedChildren={uncheckedText} checkedChildren={checkedText} disabled={idDisabled} onChange={onChange} />
       </div>
     </ConfigProvider>

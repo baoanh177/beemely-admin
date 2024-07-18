@@ -13,19 +13,23 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 const CreatePermission = () => {
   const formikRef = useRef<FormikProps<IPermissionFormInitialValues>>(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { state } = useArchive<IPermissionInitialState>("permission")
+  const { state } = useArchive<IPermissionInitialState>("permission");
 
-  useFetchStatus({ module: "permission", reset: resetStatus, actions: {
-    success: {
-      message: "Created successfully",
-      navigate: "/permissions"
+  useFetchStatus({
+    module: "permission",
+    reset: resetStatus,
+    actions: {
+      success: {
+        message: "Created successfully",
+        navigate: "/permissions",
+      },
+      error: {
+        message: state.message,
+      },
     },
-    error: {
-      message: state.message
-    }
-  }})
+  });
 
   return (
     <>
@@ -51,7 +55,7 @@ const CreatePermission = () => {
           },
         ]}
       />
-      <PermissionForm type="create" formikRef={formikRef}/>
+      <PermissionForm type="create" formikRef={formikRef} />
     </>
   );
 };

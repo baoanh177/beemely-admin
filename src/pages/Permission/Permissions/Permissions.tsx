@@ -36,7 +36,7 @@ const Permissions = () => {
       type: EButtonTypes.UPDATE,
       permission: EPermissions.UPDATE_PERMISSION,
       onClick(record) {
-        navigate(`/permissions/update/${record.key}`)
+        navigate(`/permissions/update/${record.key}`);
       },
     },
     {

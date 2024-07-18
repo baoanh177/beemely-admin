@@ -39,7 +39,7 @@ const ManagementGrid = ({ columns, data, search, buttons, pagination, setFilter 
         ] as TableColumnsType)
       : columns;
   }, [JSON.stringify(buttons)]);
-  return <PrimaryTable  search={search} columns={renderColumns} data={data} pagination={pagination} setFilter={setFilter} />;
+  return <PrimaryTable search={search} columns={renderColumns} data={data} pagination={pagination} setFilter={setFilter} />;
 };
 
 export default ManagementGrid;

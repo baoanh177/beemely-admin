@@ -21,7 +21,7 @@ const UpdatePermission = () => {
     actions: {
       success: {
         message: state.message,
-        navigate: "/permissions"
+        navigate: "/permissions",
       },
       error: {
         message: state.message,
@@ -53,7 +53,7 @@ const UpdatePermission = () => {
           },
         ]}
       />
-      <PermissionForm formikRef={formikRef} type="update"/>
+      <PermissionForm formikRef={formikRef} type="update" />
     </>
   );
 };
