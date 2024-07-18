@@ -4,14 +4,12 @@ import FormSelect from "@/components/form/FormSelect";
 import FormSwitch from "@/components/form/FormSwitch";
 import UpdateGrid from "@/components/grid/UpdateGrid";
 import { useArchive } from "@/hooks/useArchive";
-import { AppDispatch } from "@/services/store";
 import { IPermission } from "@/services/store/permission/permission.model";
 import { IPermissionInitialState } from "@/services/store/permission/permission.slice";
 import { createPermission, getAllModules, updatePermission } from "@/services/store/permission/permission.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 export interface IPermissionFormInitialValues {
   label: string;
