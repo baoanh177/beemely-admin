@@ -19,6 +19,8 @@ import { EPermissions } from "@/shared/enums/permissions";
 import Tags from "@/pages/Tag/Tags/Tags";
 import CreateTag from "@/pages/Tag/CreateTag/CreateTag";
 import UpdateTag from "@/pages/Tag/UpdateTag/UpdateTag";
+import CreatePermission from "@/pages/Permission/CreatePermission/CreatePermission";
+import UpdatePermission from "@/pages/Permission/UpdatePermission/UpdatePermission";
 import Gender from "@/pages/Gender/Gender.tsx/Gender";
 import CreateRender from "@/pages/Gender/CreateRender.tsx/CreateRender";
 import UpdateRender from "@/pages/Gender/UpdateRender/UpdateRender";
@@ -124,6 +126,16 @@ export const routes: IRoute[] = [
                 path: "/",
                 element: () => <Permissions />,
                 middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
+              },
+              {
+                path: "/create",
+                element: () => <CreatePermission />,
+                middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.CREATE_PERMISSION]} />,
+              },
+              {
+                path: "/update/:id",
+                element: () => <UpdatePermission />,
+                middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.UPDATE_PERMISSION]} />,
               },
             ],
           },

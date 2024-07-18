@@ -7,10 +7,11 @@ interface IFormSelect {
   defaultValue?: string | string[];
   isMultiple?: boolean;
   isDisabled?: boolean;
+  value?: string | string[] | undefined;
   onChange?: (value: string | string[]) => void;
 }
 
-const FormSelect = ({ label, isDisabled, placeholder, options, defaultValue, isMultiple, onChange }: IFormSelect) => {
+const FormSelect = ({ label, value, isDisabled, placeholder, options, defaultValue, isMultiple, onChange }: IFormSelect) => {
   const handleChange = (value: string | string[]) => {
     if (onChange) {
       onChange(value);
@@ -19,7 +20,6 @@ const FormSelect = ({ label, isDisabled, placeholder, options, defaultValue, isM
 
   return (
     <div>
-      <div className="text-m-medium mb-1 text-black-300">{label}</div>
       <ConfigProvider
         theme={{
           components: {
@@ -30,20 +30,24 @@ const FormSelect = ({ label, isDisabled, placeholder, options, defaultValue, isM
           },
         }}
       >
-        <Select
-          allowClear
-          maxTagCount={"responsive"}
-          disabled={isDisabled}
-          className={clsx("text-m-medium w-full", isDisabled && "opacity-65")}
-          mode={isMultiple ? "multiple" : undefined}
-          defaultValue={defaultValue}
-          onChange={(value) => !isDisabled && handleChange(value)}
-          showSearch
-          placeholder={placeholder}
-          optionFilterProp="label"
-          filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
-          options={options}
-        />
+        <div className="flex flex-col gap-1">
+          <div className="text-m-medium text-black-300">{label}</div>
+          <Select
+            allowClear
+            maxTagCount={"responsive"}
+            value={value}
+            disabled={isDisabled}
+            className={clsx("text-m-medium w-full", isDisabled && "opacity-65")}
+            mode={isMultiple ? "multiple" : undefined}
+            defaultValue={defaultValue}
+            onChange={(value) => !isDisabled && handleChange(value)}
+            showSearch
+            placeholder={placeholder}
+            optionFilterProp="label"
+            filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+            options={options}
+          />
+        </div>
       </ConfigProvider>
     </div>
   );

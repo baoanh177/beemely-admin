@@ -49,7 +49,7 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
       await dispatch(
         getAllPermissions({
           query: {
-            pagination: false,
+            _pagination: false,
           },
         }),
       );
