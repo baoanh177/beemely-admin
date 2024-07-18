@@ -25,7 +25,7 @@ export const getRoleById = createAsyncThunk("role/get-role-by-id", async (id: st
 
 export const createRole = createAsyncThunk("role/create-role", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.post<IRole[]>(prefix, payload);
+    const { response, data } = await client.post(prefix, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -33,8 +33,9 @@ export const createRole = createAsyncThunk("role/create-role", async (payload: I
 });
 
 export const updateRole = createAsyncThunk("role/update-role", async (payload: IThunkPayload, { rejectWithValue }) => {
+  console.log("🦎 ~ updateRole ~ payload:", payload)
   try {
-    const { response, data } = await client.patch<IRole[]>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch(`${prefix}/${payload.param}`, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -43,7 +44,7 @@ export const updateRole = createAsyncThunk("role/update-role", async (payload: I
 
 export const deleteRole = createAsyncThunk("role/delete-role", async (id: string, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete<IRole[]>(`${prefix}/${id}`);
+    const { response, data } = await client.delete(`${prefix}/${id}`);
     return response.status >= 400 ? rejectWithValue(data) : id;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

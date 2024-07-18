@@ -46,8 +46,8 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
         onChange={(newPagination) => {
           dispatch(
             setFilter({
-              page: newPagination.current,
-              size: newPagination.pageSize,
+              _page: newPagination.current,
+              _size: newPagination.pageSize,
             }),
           );
         }}

@@ -21,8 +21,8 @@ export interface IThunkPayload {
 }
 
 export interface ISearchParams {
-  page?: number;
-  size?: number;
+  _page?: number;
+  _size?: number;
   [key: string]: unknown;
 }
 
@@ -30,6 +30,10 @@ export interface IResponse<MetaDataType> {
   statusCode: number;
   message: string;
   metaData: MetaDataType;
+  limit?: number;
+  page?: number;
+  totalDocs?: number;
+  totalPages?: number;
 }
 
 export interface ClientReturnType<ReturnDataType> {
