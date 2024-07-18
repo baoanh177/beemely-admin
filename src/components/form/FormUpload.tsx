@@ -57,9 +57,9 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ isMultiple = false, title, te
     try {
       const formData = new FormData();
       formData.append("file", image);
-      formData.append("upload_preset", "demo-upload");
-      formData.append("folder", "Demo-upload");
-      const response = await fetch("https://api.cloudinary.com/v1_1/dpc58j5gw/image/upload", {
+      formData.append("upload_preset", "beemely");
+      formData.append("folder", "Beemely");
+      const response = await fetch("https://api.cloudinary.com/v1_1/dbju2ugir/image/upload", {
         method: "POST",
         body: formData,
       });
@@ -83,7 +83,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ isMultiple = false, title, te
           alt="Uploaded Image"
           className="h-[100px] w-[100px] rounded-lg object-cover"
           onError={(e) => {
-            e.currentTarget.src = imageError; // Handle error case if needed
+            e.currentTarget.src = imageError;
           }}
         />
       );
