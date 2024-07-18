@@ -54,8 +54,9 @@ const roleSlice = createSlice({
       .addCase(updateRole.pending, (state) => {
         state.status = EFetchStatus.PENDING;
       })
-      .addCase(updateRole.fulfilled, (state) => {
+      .addCase(updateRole.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
+        state.activeRole = payload.metaData
         state.message = "Updated successfully";
       })
       .addCase(updateRole.rejected, (state) => {
