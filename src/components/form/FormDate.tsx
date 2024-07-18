@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePicker } from "antd";
+import { ConfigProvider, DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
 
 import type { Dayjs } from "dayjs";
@@ -22,17 +22,27 @@ const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue, valu
   };
 
   return (
-    <div className={clsx("flex items-center gap-2")}>
-      {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#883DCF",
+          colorPrimaryHover: "#883DCF",
+          colorPrimaryActive: "#883DCF",
+        },
+      }}
+    >
+      <div className={clsx("flex items-center gap-2")}>
+        {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
 
-      <DatePicker
-        onChange={handleChange}
-        defaultValue={defaultValue}
-        value={value}
-        disabled={disabled}
-        className="custom-datepicker w-full rounded-md bg-gray-25 py-2"
-      />
-    </div>
+        <DatePicker
+          onChange={handleChange}
+          defaultValue={defaultValue}
+          value={value}
+          disabled={disabled}
+          className="custom-datepicker w-full rounded-md bg-gray-25 py-2"
+        />
+      </div>
+    </ConfigProvider>
   );
 };
 
