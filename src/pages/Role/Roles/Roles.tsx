@@ -90,8 +90,8 @@ const Roles = () => {
         search={{ status: [] }}
         buttons={buttons}
         pagination={{
-          current: state.filter.page ?? 1,
-          pageSize: state.filter.size ?? 10,
+          current: state.filter._page ?? 1,
+          pageSize: state.filter._size ?? 10,
           total: state.totalRecords,
         }}
         setFilter={setFilter}

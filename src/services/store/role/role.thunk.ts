@@ -33,7 +33,6 @@ export const createRole = createAsyncThunk("role/create-role", async (payload: I
 });
 
 export const updateRole = createAsyncThunk("role/update-role", async (payload: IThunkPayload, { rejectWithValue }) => {
-  console.log("🦎 ~ updateRole ~ payload:", payload)
   try {
     const { response, data } = await client.patch(`${prefix}/${payload.param}`, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
