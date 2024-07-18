@@ -136,13 +136,13 @@ const Components = () => {
           <DateRangePicker />
           <h1 className="display-s-regular mb-2">FormInputArea</h1>
           <FormInputArea label="Description" />
-          <FormInputArea label="Description" defaultValue="Example text" />
+          <FormInputArea label="Description" placeholder="Example text" />
           <FormInputArea error="error" label="Description err" />
           <FormInputArea isReadonly label="Description Readonly" />
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">FormUpload</h1>
-          <UpdateImage />
+          <UpdateImage lable="Add Image" isMultiple title="Media" text="Photo" />
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>

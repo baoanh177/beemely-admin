@@ -1,27 +1,30 @@
-import { ReactNode } from "react";
 import DefaultLayout from "@/layouts/Default";
-import Dashboard from "@/pages/Dashboard/Dashboard";
-import Components from "@/pages/Components/Components";
-import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
-import Products from "@/pages/Product/Products/Products";
-import Login from "@/pages/Login/Login";
-import GuestMiddleware from "@/middlewares/GuestMiddleware";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import GlobalMiddleware from "@/middlewares/GlobalMiddleware";
-import Orders from "@/pages/Order/Orders/Orders";
-import Roles from "@/pages/Role/Roles/Roles";
-import CreateRole from "@/pages/Role/CreateRole/CreateRole";
-import UpdateRole from "@/pages/Role/UpdateRole/UpdateRole";
-import DetailRole from "@/pages/Role/DetailRole/DetailRole";
-import Permissions from "@/pages/Permission/Permissions/Permissions";
+import GuestMiddleware from "@/middlewares/GuestMiddleware";
+import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import PermissionMiddleware from "@/middlewares/PermissionMiddleware";
-import { EPermissions } from "@/shared/enums/permissions";
-import Tags from "@/pages/Tag/Tags/Tags";
-import CreateTag from "@/pages/Tag/CreateTag/CreateTag";
-import UpdateTag from "@/pages/Tag/UpdateTag/UpdateTag";
-import Gender from "@/pages/Gender/Gender.tsx/Gender";
+import Brands from "@/pages/Brand/Brands/Brands";
+import CreateBrand from "@/pages/Brand/CreateBrand/CreateBrand";
+import UpdateBrand from "@/pages/Brand/UpdateBrand/UpdateBrand";
+import Components from "@/pages/Components/Components";
+import Dashboard from "@/pages/Dashboard/Dashboard";
 import CreateRender from "@/pages/Gender/CreateRender.tsx/CreateRender";
+import Gender from "@/pages/Gender/Gender.tsx/Gender";
 import UpdateRender from "@/pages/Gender/UpdateRender/UpdateRender";
+import Login from "@/pages/Login/Login";
+import Orders from "@/pages/Order/Orders/Orders";
+import Permissions from "@/pages/Permission/Permissions/Permissions";
+import Products from "@/pages/Product/Products/Products";
+import CreateRole from "@/pages/Role/CreateRole/CreateRole";
+import DetailRole from "@/pages/Role/DetailRole/DetailRole";
+import Roles from "@/pages/Role/Roles/Roles";
+import UpdateRole from "@/pages/Role/UpdateRole/UpdateRole";
+import CreateTag from "@/pages/Tag/CreateTag/CreateTag";
+import Tags from "@/pages/Tag/Tags/Tags";
+import UpdateTag from "@/pages/Tag/UpdateTag/UpdateTag";
+import { EPermissions } from "@/shared/enums/permissions";
+import { ReactNode } from "react";
 
 export interface IRoute {
   path: string;
@@ -113,6 +116,23 @@ export const routes: IRoute[] = [
               {
                 path: "/update/:id",
                 element: () => <UpdateTag />,
+              },
+            ],
+          },
+          {
+            path: "brands",
+            pages: [
+              {
+                path: "/",
+                element: () => <Brands />,
+              },
+              {
+                path: "/create",
+                element: () => <CreateBrand />,
+              },
+              {
+                path: "/update/:id",
+                element: () => <UpdateBrand />,
               },
             ],
           },
