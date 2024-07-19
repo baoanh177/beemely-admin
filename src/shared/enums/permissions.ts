@@ -31,4 +31,10 @@ export enum EPermissions {
   CREATE_Gender = "Create_Gender",
   UPDATE_Gender = "Update_Gender",
   DELETE_Gender = "Delete_Gender",
+
+  // ? Label
+  READ_LABEL = "Read_Label",
+  CREATE_LABEL = "Create_Label",
+  UPDATE_LABEL = "Update_Label",
+  DELETE_LABEL = "Delete_Label",
 }

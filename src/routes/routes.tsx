@@ -15,6 +15,7 @@ import { roleRoutes } from "./role.route";
 import { genderRoutes } from "./gender.route";
 import { tagRoutes } from "./tag.route";
 import { permissionRoutes } from "./permission.route";
+import { labelRoutes } from "./label.router";
 
 export interface IRoute {
   path: string;
@@ -65,6 +66,10 @@ export const routes: IRoute[] = [
           {
             path: "tags",
             pages: tagRoutes,
+          },
+          {
+            path: "labels",
+            pages: labelRoutes,
           },
           {
             path: "permissions",
