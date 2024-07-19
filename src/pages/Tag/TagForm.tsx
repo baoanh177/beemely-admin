@@ -18,7 +18,7 @@ interface ITagFormProps {
 export interface ITagFormInitialValues {
   id?: string;
   name: string;
-  description: string;
+  description?: string;
 }
 
 const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
@@ -31,7 +31,6 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
 
   const tagSchema = object().shape({
     name: string().required("Please enter name"),
-    description: string().required("Please enter description"),
   });
   return (
     <Formik
