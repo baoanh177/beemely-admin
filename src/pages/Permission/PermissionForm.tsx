@@ -20,12 +20,12 @@ export interface IPermissionFormInitialValues {
 interface IPermissionFormProps {
   formikRef?: FormikRefType<IPermissionFormInitialValues>;
   type: "create" | "view" | "update";
-  permission?: IPermission
+  permission?: IPermission;
 }
 
-const PermissionForm = ({ formikRef, type,permission }: IPermissionFormProps) => {
+const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) => {
   const [newModule, setNewModule] = useState(false);
-  const { state, dispatch } = useArchive<IPermissionInitialState>("permission")
+  const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
 
   const initialValues: IPermissionFormInitialValues = {
     label: "",

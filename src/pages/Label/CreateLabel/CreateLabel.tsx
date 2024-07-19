@@ -1,7 +1,7 @@
 import Heading from "@/components/layout/Heading";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IlabelInitialState, resetStatus } from "@/services/store/label/label.slice";
+import { ILabelInitialState, resetStatus } from "@/services/store/label/label.slice";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { FormikProps } from "formik";
 import { useRef } from "react";
@@ -14,7 +14,7 @@ const CreateLabel = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<ILabelFormInitialValues>>(null);
 
-  const { state } = useArchive<IlabelInitialState>("label");
+  const { state } = useArchive<ILabelInitialState>("label");
 
   useFetchStatus({
     module: "label",

@@ -1,13 +1,13 @@
 import { client } from "@/services/config/client";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IThunkPayload } from "@/shared/utils/shared-interfaces";
-import { Ilabel } from "./label.model";
+import { ILabel } from "./label.model";
 
 const prefix = "/api/labels";
 
-export const getAlllabels = createAsyncThunk("label/get-all-labels", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const getAllLabels = createAsyncThunk("label/get-all-labels", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<Ilabel[]>(prefix, payload);
+    const { response, data } = await client.get<ILabel[]>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -16,7 +16,7 @@ export const getAlllabels = createAsyncThunk("label/get-all-labels", async (payl
 
 export const getLabelById = createAsyncThunk("label/get-label-by-id", async (id: string, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<Ilabel>(prefix + `/${id}`);
+    const { response, data } = await client.get<ILabel>(prefix + `/${id}`);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -25,7 +25,7 @@ export const getLabelById = createAsyncThunk("label/get-label-by-id", async (id:
 
 export const createLabel = createAsyncThunk("label/create-label", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.post<Ilabel[]>(prefix, payload);
+    const { response, data } = await client.post<ILabel>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -34,7 +34,7 @@ export const createLabel = createAsyncThunk("label/create-label", async (payload
 
 export const updateLabel = createAsyncThunk("label/update-label", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<Ilabel[]>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<ILabel>(`${prefix}/${payload.param}`, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

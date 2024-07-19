@@ -3,7 +3,7 @@ import { FormikProps } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import LabelForm, { ILabelFormInitialValues } from "../LabelForm";
 import { useEffect, useRef } from "react";
-import { IlabelInitialState, resetStatus } from "@/services/store/label/label.slice";
+import { ILabelInitialState, resetStatus } from "@/services/store/label/label.slice";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { getLabelById } from "@/services/store/label/label.thunk";
 import Heading from "@/components/layout/Heading";
@@ -14,7 +14,7 @@ const UpdateLabel = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<ILabelFormInitialValues>>(null);
   const { id } = useParams();
-  const { state, dispatch } = useArchive<IlabelInitialState>("label");
+  const { state, dispatch } = useArchive<ILabelInitialState>("label");
 
   useFetchStatus({
     module: "label",
@@ -31,22 +31,20 @@ const UpdateLabel = () => {
   });
   useEffect(() => {
     if (id) {
-      (async () => {
-        await dispatch(getLabelById(id));
+      (() => {
+        dispatch(getLabelById(id));
       })();
     }
   }, [id]);
 
   useEffect(() => {
-    if (state.activeLabel) {
-      if (formikRef.current) {
-        formikRef.current.setValues({
-          name: state.activeLabel.name,
-          description: state.activeLabel.description,
-        });
-      }
+    if (state.activeLabel && formikRef.current) {
+      formikRef.current.setValues({
+        name: state.activeLabel.name,
+        description: state.activeLabel.description,
+      });
     }
-  }, [state.activeLabelactiveLabel]);
+  }, [state.activeLabel]);
   return (
     <>
       <Heading

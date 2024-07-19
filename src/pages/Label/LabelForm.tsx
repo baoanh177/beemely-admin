@@ -1,5 +1,5 @@
 import { useArchive } from "@/hooks/useArchive";
-import { IlabelInitialState } from "@/services/store/label/label.slice";
+import { ILabelInitialState } from "@/services/store/label/label.slice";
 import { createLabel, updateLabel } from "@/services/store/label/label.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Formik } from "formik";
@@ -22,7 +22,7 @@ export interface ILabelFormInitialValues {
 }
 
 const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
-  const { dispatch } = useArchive<IlabelInitialState>("label");
+  const { dispatch } = useArchive<ILabelInitialState>("label");
 
   const initialValues: ILabelFormInitialValues = {
     name: label?.name || "",

@@ -3,8 +3,8 @@ import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IlabelInitialState, resetStatus, setFilter } from "@/services/store/label/label.slice";
-import { deleteLabel, getAlllabels } from "@/services/store/label/label.thunk";
+import { ILabelInitialState, resetStatus, setFilter } from "@/services/store/label/label.slice";
+import { deleteLabel, getAllLabels } from "@/services/store/label/label.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const Labels = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useArchive<IlabelInitialState>("label");
+  const { state, dispatch } = useArchive<ILabelInitialState>("label");
 
   useFetchStatus({
     module: "label",
@@ -27,7 +27,7 @@ const Labels = () => {
   });
 
   useEffect(() => {
-    dispatch(getAlllabels({ query: state.filter })).then(() => {});
+    dispatch(getAllLabels({ query: state.filter }));
   }, [JSON.stringify(state.filter)]);
 
   const columns: ColumnsType = [
@@ -65,7 +65,7 @@ const Labels = () => {
       onClick(record) {
         dispatch(deleteLabel(record?.key));
       },
-      permission: EPermissions.UPDATE_LABEL,
+      permission: EPermissions.DELETE_LABEL,
     },
   ];
 

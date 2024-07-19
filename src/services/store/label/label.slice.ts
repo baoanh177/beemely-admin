@@ -2,15 +2,15 @@ import { commonStaticReducers } from "@/services/shared";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Ilabel } from "./label.model";
-import { createLabel, deleteLabel, getAlllabels, getLabelById, updateLabel } from "./label.thunk";
+import { ILabel } from "./label.model";
+import { createLabel, deleteLabel, getAllLabels, getLabelById, updateLabel } from "./label.thunk";
 
-export interface IlabelInitialState extends IInitialState {
-  labels: Ilabel[];
-  activeLabel: Ilabel | undefined;
+export interface ILabelInitialState extends IInitialState {
+  labels: ILabel[];
+  activeLabel: ILabel | undefined;
 }
 
-const initialState: IlabelInitialState = {
+const initialState: ILabelInitialState = {
   status: EFetchStatus.IDLE,
   message: "",
   labels: [],
@@ -26,15 +26,15 @@ const labelSlice = createSlice({
   name: "label",
   initialState,
   reducers: {
-    ...commonStaticReducers<IlabelInitialState>(),
+    ...commonStaticReducers<ILabelInitialState>(),
   },
   extraReducers(builder) {
     // ? Get all labels
-    builder.addCase(getAlllabels.fulfilled, (state, { payload }: PayloadAction<IResponse<Ilabel[]>>) => {
+    builder.addCase(getAllLabels.fulfilled, (state, { payload }: PayloadAction<IResponse<ILabel[]>>) => {
       state.labels = payload.metaData;
     });
     // ? Get label by id
-    builder.addCase(getLabelById.fulfilled, (state, { payload }: PayloadAction<IResponse<Ilabel>>) => {
+    builder.addCase(getLabelById.fulfilled, (state, { payload }: PayloadAction<IResponse<ILabel>>) => {
       state.activeLabel = payload.metaData;
     });
     // ? Create label
@@ -48,6 +48,7 @@ const labelSlice = createSlice({
       })
       .addCase(createLabel.rejected, (state) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = "Created unsuccessful";
       });
     // ? Update label
     builder
@@ -60,6 +61,7 @@ const labelSlice = createSlice({
       })
       .addCase(updateLabel.rejected, (state) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = "Updated unsuccessful";
       });
     // ? Delete label
     builder
@@ -73,6 +75,7 @@ const labelSlice = createSlice({
       })
       .addCase(deleteLabel.rejected, (state) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = "Deleted unsuccessful";
       });
   },
 });
