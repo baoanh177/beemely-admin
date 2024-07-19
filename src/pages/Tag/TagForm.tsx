@@ -31,7 +31,6 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
 
   const tagSchema = object().shape({
     name: string().required("Please enter name"),
-    description: string(),
   });
   return (
     <Formik
