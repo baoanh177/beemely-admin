@@ -130,10 +130,8 @@ const Components = () => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-5">
-          <h1 className="display-s-regular mb-2">FormDate</h1>
-          <FormDate />
-          <label>{"FormDate RangePicker"}</label>
-          <DateRangePicker />
+          <FormDate label="FormDate" />
+          <DateRangePicker label="FormDate RangePicker" />
           <h1 className="display-s-regular mb-2">FormInputArea</h1>
           <FormInputArea label="Description" />
           <FormInputArea label="Description" defaultValue="Example text" />
