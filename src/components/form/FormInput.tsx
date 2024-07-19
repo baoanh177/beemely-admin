@@ -12,6 +12,7 @@ interface FormInputProps {
   defaultValue?: string | number;
   isDisabled?: boolean;
   isReadonly?: boolean;
+  autoFocus?: boolean;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string;
   onChange?: (value: string | number) => void;
@@ -30,6 +31,7 @@ const FormInput = ({
   onBlur,
   error,
   onChange,
+  autoFocus,
 }: FormInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -56,8 +58,8 @@ const FormInput = ({
   };
 
   return (
-    <div>
-      {label && <label className="text-m-medium mb-1 text-black-300">{label}</label>}
+    <div className="flex flex-col gap-1">
+      {label && <label className="text-m-medium text-black-300">{label}</label>}
       <div
         className={clsx("flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25", isFocused && "bg-white")}
       >
@@ -73,6 +75,7 @@ const FormInput = ({
           type={type}
           placeholder={placeholder}
           value={value}
+          autoFocus={autoFocus}
           onChange={handleChange}
           defaultValue={defaultValue as string}
           disabled={isDisabled}
@@ -81,12 +84,15 @@ const FormInput = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
           ref={inputRef}
-          className={clsx("text-m-regular placeholder:text-m-medium flex-1 grow bg-gray-25 py-[8.5px] text-black-500 outline-none focus:bg-white", {
-            "px-3": !Icon,
-            "pl-0": Icon,
-            "border-red-500": error,
-            "select-none !bg-gray-50 !text-black-300": isDisabled,
-          })}
+          className={clsx(
+            "text-m-regular placeholder:text-m-medium w-full flex-1 grow bg-gray-25 py-[8.5px] text-black-500 outline-none focus:bg-white",
+            {
+              "px-3": !Icon,
+              "pl-0": Icon,
+              "border-red-500": error,
+              "select-none !bg-gray-50 !text-black-300": isDisabled,
+            },
+          )}
         />
       </div>
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}

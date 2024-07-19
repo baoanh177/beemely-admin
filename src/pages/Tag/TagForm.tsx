@@ -13,7 +13,6 @@ interface ITagFormProps {
   formikRef?: FormikRefType<ITagFormInitialValues>;
   type: "create" | "update";
   tag?: ITagFormInitialValues;
-  isloading?: boolean;
 }
 
 export interface ITagFormInitialValues {
@@ -22,7 +21,7 @@ export interface ITagFormInitialValues {
   description: string;
 }
 
-const TagForm = ({ formikRef, type, tag, isloading }: ITagFormProps) => {
+const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
   const { dispatch } = useArchive<ITagInitialState>("tag");
 
   const initialValues: ITagFormInitialValues = {
@@ -40,11 +39,11 @@ const TagForm = ({ formikRef, type, tag, isloading }: ITagFormProps) => {
       enableReinitialize
       initialValues={initialValues}
       validationSchema={tagSchema}
-      onSubmit={async (data) => {
+      onSubmit={(data) => {
         if (type === "create") {
-          await dispatch(createTag({ body: lodash.omit(data, "id") }));
+          dispatch(createTag({ body: lodash.omit(data, "id") }));
         } else if (type === "update" && tag?.id) {
-          await dispatch(updateTag({ body: lodash.omit(data, "id"), param: tag.id }));
+          dispatch(updateTag({ body: lodash.omit(data, "id"), param: tag.id }));
         }
       }}
     >
@@ -52,7 +51,6 @@ const TagForm = ({ formikRef, type, tag, isloading }: ITagFormProps) => {
         <UpdateGrid
           colNumber="1"
           rate="1"
-          isLoading={isloading}
           groups={{
             colLeft: (
               <FormGroup title="General information">

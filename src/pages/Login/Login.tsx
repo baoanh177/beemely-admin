@@ -69,6 +69,7 @@ const Login = () => {
                   <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
                     <FormInput
                       type="text"
+                      autoFocus
                       value={values.email}
                       error={touched.email ? errors.email : ""}
                       isDisabled={state.status === EFetchStatus.PENDING}

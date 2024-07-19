@@ -6,9 +6,10 @@ export interface IFormSwitchProps {
   uncheckedText?: string;
   onChange?: SwitchChangeEventHandler;
   idDisabled?: boolean;
+  label?: string;
 }
 
-const FormSwitch = ({ checkedText, uncheckedText, idDisabled, onChange }: IFormSwitchProps) => {
+const FormSwitch = ({ checkedText, uncheckedText, idDisabled, label, onChange }: IFormSwitchProps) => {
   return (
     <ConfigProvider
       theme={{
@@ -20,7 +21,10 @@ const FormSwitch = ({ checkedText, uncheckedText, idDisabled, onChange }: IFormS
         },
       }}
     >
-      <Switch unCheckedChildren={uncheckedText} checkedChildren={checkedText} disabled={idDisabled} onChange={onChange} />
+      <div className="flex flex-col items-start">
+        {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
+        <Switch unCheckedChildren={uncheckedText} checkedChildren={checkedText} disabled={idDisabled} onChange={onChange} />
+      </div>
     </ConfigProvider>
   );
 };

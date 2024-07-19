@@ -12,6 +12,7 @@ import { deleteBrand, getAllBrands } from "@/services/store/brand/brand.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
+import ImageTable from "@/components/table/ImageTable";
 
 const Brands = () => {
   const navigate = useNavigate();
@@ -32,13 +33,9 @@ const Brands = () => {
 
   const columns: ColumnsType<ITableData> = [
     {
-      dataIndex: "name",
-      title: "Name",
-    },
-    {
-      dataIndex: "image",
-      title: "Image",
-      render: (image: string) => <img src={image} alt="Brand" className="h-11 w-11 rounded-xl" />,
+      dataIndex: "brand",
+      title: "Brand",
+      render: (text: string, record: any) => <ImageTable title={record.name} imageSrc={record.image} />,
     },
     {
       dataIndex: "description",
@@ -47,7 +44,7 @@ const Brands = () => {
   ];
 
   const data: ITableData[] = useMemo(() => {
-    if (state.brands && state.brands.length > 0) {
+    if (Array.isArray(state.brands)) {
       return state.brands.map((brand) => ({
         key: brand.id,
         name: brand.name,

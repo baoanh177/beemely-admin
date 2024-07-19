@@ -7,6 +7,7 @@ import { IBrandInitialState } from "@/services/store/brand/brand.slice";
 import { createBrand, updateBrand } from "@/services/store/brand/brand.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import FormInputArea from "@/components/form/FormInputArea";
+import UpdateGrid from "@/components/grid/UpdateGrid";
 
 interface IBrandFormProps {
   formikRef?: FormikRefType<IBrandFormInitialValues>;
@@ -25,9 +26,9 @@ const BrandForm = ({ formikRef, type, brand }: IBrandFormProps) => {
   const { dispatch } = useArchive<IBrandInitialState>("brand");
 
   const initialValues: IBrandFormInitialValues = {
-    name: brand?.name || "",
-    image: brand?.image || "",
-    description: brand?.description || "",
+    name: brand?.name ?? "",
+    image: brand?.image ?? "",
+    description: brand?.description ?? "",
   };
 
   const brandSchema = object().shape({
@@ -50,28 +51,35 @@ const BrandForm = ({ formikRef, type, brand }: IBrandFormProps) => {
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <Form>
-          <FormGroup title="General information">
-            <FormInput
-              label="Brand name"
-              placeholder="Type brand name here..."
-              name="name"
-              value={values.name}
-              error={touched.name ? errors.name : ""}
-              onChange={(e) => setFieldValue("name", e)}
-              onBlur={handleBlur}
-            />
-
-            <FormInputArea
-              label="Description"
-              placeholder="Type description here..."
-              name="description"
-              value={values.description}
-              error={touched.description ? errors.description : ""}
-              onChange={(e) => setFieldValue("description", e)}
-            />
-          </FormGroup>
-        </Form>
+        <UpdateGrid
+          colNumber="1"
+          rate="1"
+          groups={{
+            colLeft: (
+              <Form>
+                <FormGroup title="General information">
+                  <FormInput
+                    label="Brand name"
+                    placeholder="Type brand name here..."
+                    name="name"
+                    value={values.name}
+                    error={touched.name ? errors.name : ""}
+                    onChange={(e) => setFieldValue("name", e)}
+                    onBlur={handleBlur}
+                  />
+                  <FormInputArea
+                    label="Description"
+                    placeholder="Type description here..."
+                    name="description"
+                    value={values.description}
+                    error={touched.description ? errors.description : ""}
+                    onChange={(e) => setFieldValue("description", e)}
+                  />
+                </FormGroup>
+              </Form>
+            ),
+          }}
+        />
       )}
     </Formik>
   );

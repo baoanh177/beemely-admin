@@ -2,20 +2,20 @@ import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
-import { IPermissionInitialState, setFilter } from "@/services/store/permission/permission.slice";
-import { getAllPermissions } from "@/services/store/permission/permission.thunk";
+import { IPermissionInitialState, resetStatus, setFilter } from "@/services/store/permission/permission.slice";
+import { deletePermission, getAllPermissions } from "@/services/store/permission/permission.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { EPermissions } from "@/shared/enums/permissions";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import useFetchStatus from "@/hooks/useFetchStatus";
 
 const Permissions = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
-  const [loading, setLoading] = useState(true);
   const columns: ColumnsType = [
     {
       dataIndex: "label",
@@ -28,7 +28,6 @@ const Permissions = () => {
     {
       dataIndex: "module",
       title: "Module",
-      sorter: true,
     },
   ];
 
@@ -36,12 +35,16 @@ const Permissions = () => {
     {
       type: EButtonTypes.UPDATE,
       permission: EPermissions.UPDATE_PERMISSION,
-      onClick() {},
+      onClick(record) {
+        navigate(`/permissions/update/${record.key}`);
+      },
     },
     {
       type: EButtonTypes.DELETE,
       permission: EPermissions.DELETE_PERMISSION,
-      onClick() {},
+      onClick(record) {
+        dispatch(deletePermission(record.key));
+      },
     },
   ];
 
@@ -57,14 +60,25 @@ const Permissions = () => {
     return [];
   }, [JSON.stringify(state.permissions)]);
 
+  useFetchStatus({
+    module: "permission",
+    reset: resetStatus,
+    actions: {
+      success: {
+        message: state.message,
+      },
+      error: {
+        message: state.message,
+      },
+    },
+  });
+
   useEffect(() => {
     dispatch(
       getAllPermissions({
         query: state.filter,
       }),
-    ).then(() => {
-      setLoading(false);
-    });
+    );
   }, [state.filter]);
 
   return (
@@ -81,7 +95,18 @@ const Permissions = () => {
           },
         ]}
       />
-      <ManagementGrid isLoading={loading} columns={columns} data={data} search={{ status: [] }} setFilter={setFilter} buttons={buttons} />
+      <ManagementGrid
+        columns={columns}
+        data={data}
+        search={{ status: [] }}
+        pagination={{
+          current: state.filter._page!,
+          pageSize: state.filter._size!,
+          total: state.totalRecords,
+        }}
+        setFilter={setFilter}
+        buttons={buttons}
+      />
     </>
   );
 };

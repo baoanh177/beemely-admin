@@ -44,6 +44,10 @@ export const interceptor = async <MetaDataType>({
       data.message = "Access Denied!";
       return { response, data };
     }
+    case 409: {
+      // Duplicate
+      return { response, data };
+    }
     case 500: {
       // Server Error
       data.message = "Something went wrong, please try again later!";

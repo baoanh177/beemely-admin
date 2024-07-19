@@ -1,15 +1,16 @@
+import UploadImage from "@/components/form/UploadImage";
+import Heading from "@/components/layout/Heading";
+import { useArchive } from "@/hooks/useArchive";
+import useFetchStatus from "@/hooks/useFetchStatus";
+import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
+import { getBrandById, updateBrand } from "@/services/store/brand/brand.thunk";
+import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { FormikProps } from "formik";
 import { useEffect, useRef, useState } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import BrandForm, { IBrandFormInitialValues } from "../BrandForm";
-import { FormikProps } from "formik";
-import Heading from "@/components/layout/Heading";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
-import useFetchStatus from "@/hooks/useFetchStatus";
-import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
-import { useArchive } from "@/hooks/useArchive";
-import { getBrandById, updateBrand } from "@/services/store/brand/brand.thunk";
-import UpdateImage from "@/components/form/FormUpload";
+import UpdateGrid from "@/components/grid/UpdateGrid";
 
 const UpdateBrand = () => {
   const navigate = useNavigate();
@@ -87,17 +88,23 @@ const UpdateBrand = () => {
           },
         ]}
       />
-      <div className="flex w-full justify-between gap-6">
-        <UpdateImage
-          lable="Change Image"
-          isMultiple={false}
-          text="Photo"
-          title="Thumbnail"
-          onImageUpload={handleImageUpload}
-          currentImageUrl={currentImageUrl}
-        />
-        <div className="w-3/4">{state.activeBrand && <BrandForm type="update" formikRef={formikRef} brand={state.activeBrand} />}</div>
-      </div>
+      <UpdateGrid
+        colNumber="2"
+        rate="1-3"
+        groups={{
+          colLeft: (
+            <UploadImage
+              label="Change Image"
+              isMultiple={false}
+              text="Photo"
+              title="Thumbnail"
+              onImageUpload={handleImageUpload}
+              currentImageUrl={currentImageUrl}
+            />
+          ),
+          colRight: <div>{state.activeBrand && <BrandForm type="update" formikRef={formikRef} brand={state.activeBrand} />}</div>,
+        }}
+      />
     </>
   );
 };

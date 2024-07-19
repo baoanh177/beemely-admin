@@ -31,10 +31,8 @@ export interface IRoleFormInitialValues {
   permissions: string[];
 }
 
-const RoleForm = ({ formikRef, type, role, isLoading }: IRoleFormProps) => {
+const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
   const [treePermissions, setTreePermissions] = useState<DataNode[]>([]);
-  const [loading, setLoading] = useState(true);
-
   const { dispatch, state } = useArchive<IPermissionInitialState>("permission");
 
   const initialValues: IRoleFormInitialValues = {
@@ -51,20 +49,17 @@ const RoleForm = ({ formikRef, type, role, isLoading }: IRoleFormProps) => {
       await dispatch(
         getAllPermissions({
           query: {
-            pagination: false,
+            _pagination: false,
           },
         }),
       );
       await dispatch(getAllModules());
-      setLoading(false);
     })();
   }, []);
 
   useEffect(() => {
-    if (!loading) {
-      setTreePermissions(getTreePermissions(state.permissions, state.modules));
-    }
-  }, [loading, state.permissions, state.modules]);
+    setTreePermissions(getTreePermissions(state.permissions, state.modules));
+  }, [, state.permissions, state.modules]);
 
   return (
     <Formik
@@ -87,7 +82,6 @@ const RoleForm = ({ formikRef, type, role, isLoading }: IRoleFormProps) => {
         <UpdateGrid
           colNumber="2"
           rate="1-3"
-          isLoading={isLoading || loading}
           groups={{
             colLeft: (
               <FormGroup title="Permissions">

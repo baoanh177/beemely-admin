@@ -1,29 +1,29 @@
-import { useArchive } from "@/hooks/useArchive";
 import Heading from "@/components/layout/Heading";
-import { IRoleInitialState, resetStatus } from "@/services/store/role/role.slice";
-import { getRoleById } from "@/services/store/role/role.thunk";
+import PermissionForm, { IPermissionFormInitialValues } from "../PermissionForm";
+import { useArchive } from "@/hooks/useArchive";
+import { IPermissionInitialState, resetStatus } from "@/services/store/permission/permission.slice";
 import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import RoleForm, { IRoleFormInitialValues } from "../RoleForm";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { convertRolePermissions } from "../helpers/convertRolePermissions";
+import { getPermissionById } from "@/services/store/permission/permission.thunk";
 
-const UpdateRole = () => {
+const UpdatePermission = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { state, dispatch } = useArchive<IRoleInitialState>("role");
-  const formikRef = useRef<FormikProps<IRoleFormInitialValues>>(null);
+  const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
+
+  const formikRef = useRef<FormikProps<IPermissionFormInitialValues>>(null);
 
   useFetchStatus({
-    module: "role",
+    module: "permission",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/roles",
+        navigate: "/permissions",
       },
       error: {
         message: state.message,
@@ -32,23 +32,13 @@ const UpdateRole = () => {
   });
 
   useEffect(() => {
-    if (id) {
-      (async () => {
-        await dispatch(getRoleById(id));
-      })();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (state.activeRole && formikRef.current) {
-      formikRef.current.setValues(convertRolePermissions(state.activeRole));
-    }
-  }, [state.activeRole]);
+    dispatch(getPermissionById(id as string));
+  }, [])
 
   return (
     <>
       <Heading
-        title="Update Role"
+        title="Update Permission"
         hasBreadcrumb
         buttons={[
           {
@@ -56,7 +46,7 @@ const UpdateRole = () => {
             text: "Cancel",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/roles");
+              navigate("/permissions");
             },
           },
           {
@@ -69,9 +59,9 @@ const UpdateRole = () => {
           },
         ]}
       />
-      {state.activeRole && <RoleForm type="update" formikRef={formikRef} role={convertRolePermissions(state.activeRole)} />}
+      <PermissionForm formikRef={formikRef} type="update" permission={state.activePermission}/>
     </>
   );
 };
 
-export default UpdateRole;
+export default UpdatePermission;

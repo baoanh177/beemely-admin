@@ -9,14 +9,13 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 const Roles = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
-  const [isLoading, setIsLoading] = useState(true);
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.VIEW,
@@ -69,9 +68,7 @@ const Roles = () => {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(true);
       await dispatch(getAllRoles({ query: state.filter }));
-      setIsLoading(false);
     })();
   }, [JSON.stringify(state.filter)]);
 
@@ -90,14 +87,13 @@ const Roles = () => {
         ]}
       />
       <ManagementGrid
-        isLoading={isLoading}
         columns={columns}
         data={data}
         search={{ status: [] }}
         buttons={buttons}
         pagination={{
-          current: state.filter.page ?? 1,
-          pageSize: state.filter.size ?? 10,
+          current: state.filter._page ?? 1,
+          pageSize: state.filter._size ?? 10,
           total: state.totalRecords,
         }}
         setFilter={setFilter}

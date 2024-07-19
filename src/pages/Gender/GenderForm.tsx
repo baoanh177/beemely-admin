@@ -12,7 +12,6 @@ interface IGenderFormProps {
   formikRef?: FormikRefType<IGenderFormInitialValues>;
   type: "create" | "update";
   gender?: IGenderFormInitialValues;
-  isLoading?: boolean;
 }
 
 export interface IGenderFormInitialValues {
@@ -20,7 +19,7 @@ export interface IGenderFormInitialValues {
   name: string;
 }
 
-const GenderForm = ({ formikRef, type, gender, isLoading }: IGenderFormProps) => {
+const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
   const { dispatch } = useArchive<IGenderInitialState>("gender");
   const initialValues: IGenderFormInitialValues = {
     name: gender?.name || "",
@@ -47,7 +46,6 @@ const GenderForm = ({ formikRef, type, gender, isLoading }: IGenderFormProps) =>
         <UpdateGrid
           colNumber="1"
           rate="1"
-          isLoading={isLoading}
           groups={{
             colLeft: (
               <FormGroup title="General information">

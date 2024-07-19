@@ -9,7 +9,8 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
 import { useArchive } from "@/hooks/useArchive";
 import { createBrand } from "@/services/store/brand/brand.thunk";
-import UpdateImage from "@/components/form/FormUpload";
+import UploadImage from "@/components/form/UploadImage";
+import UpdateGrid from "@/components/grid/UpdateGrid";
 
 const CreateBrand = () => {
   const navigate = useNavigate();
@@ -76,12 +77,14 @@ const CreateBrand = () => {
           },
         ]}
       />
-      <div className="flex w-full justify-between gap-6">
-        <UpdateImage lable="Add Image" isMultiple={false} text="Photo" title="Thumbnail" onImageUpload={handleImageUpload} />
-        <div className="w-3/4">
-          <BrandForm type="create" formikRef={formikRef} />
-        </div>
-      </div>
+      <UpdateGrid
+        colNumber="2"
+        rate="1-3"
+        groups={{
+          colLeft: <UploadImage label="Add Image" isMultiple={false} text="Photo" title="Thumbnail" onImageUpload={handleImageUpload} />,
+          colRight: <BrandForm type="create" formikRef={formikRef} />,
+        }}
+      />
     </>
   );
 };

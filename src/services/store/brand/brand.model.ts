@@ -4,3 +4,8 @@ export interface IBrand {
   image: string;
   description: string;
 }
+export interface IBrandResponse {
+  message: string;
+  statusCode: number;
+  metaData: IBrand[];
+}

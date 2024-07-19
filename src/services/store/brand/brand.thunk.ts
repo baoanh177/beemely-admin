@@ -25,7 +25,7 @@ export const getBrandById = createAsyncThunk("brand/get-brand-by-id", async (id:
 
 export const createBrand = createAsyncThunk("brand/create-brand", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.post<IBrand[]>(prefix, payload);
+    const { response, data } = await client.post<IBrand>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -34,7 +34,7 @@ export const createBrand = createAsyncThunk("brand/create-brand", async (payload
 
 export const updateBrand = createAsyncThunk("brand/update-brand", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<IBrand[]>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<IBrand>(`${prefix}/${payload.param}`, payload);
     return response.status >= 400 ? rejectWithValue(data) : data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
