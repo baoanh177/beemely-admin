@@ -31,7 +31,6 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
 
   const labelSchema = object().shape({
     name: string().required("Please enter name"),
-    description: string()
   });
   return (
     <Formik

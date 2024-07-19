@@ -30,12 +30,8 @@ const UpdateLabel = () => {
     },
   });
   useEffect(() => {
-    if (id) {
-      (() => {
-        dispatch(getLabelById(id));
-      })();
-    }
-  }, [id]);
+    dispatch(getLabelById(id as string));
+  }, []);
 
   useEffect(() => {
     if (state.activeLabel && formikRef.current) {
