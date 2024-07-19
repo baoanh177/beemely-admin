@@ -35,7 +35,7 @@ const Brands = () => {
     {
       dataIndex: "brand",
       title: "Brand",
-      render: (text: string, record: any) => <ImageTable title={record.name} imageSrc={record.image} />,
+      render: (record: any) => <ImageTable title={record.name} imageSrc={record.image} />,
     },
     {
       dataIndex: "description",
