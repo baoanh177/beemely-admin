@@ -18,7 +18,7 @@ interface ILabelFormProps {
 export interface ILabelFormInitialValues {
   id?: string;
   name: string;
-  description: string;
+  description?: string;
 }
 
 const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
@@ -31,7 +31,7 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
 
   const labelSchema = object().shape({
     name: string().required("Please enter name"),
-    description: string().required("Please enter description"),
+    description: string()
   });
   return (
     <Formik

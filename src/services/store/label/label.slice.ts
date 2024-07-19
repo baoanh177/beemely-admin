@@ -46,9 +46,9 @@ const labelSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
-      .addCase(createLabel.rejected, (state) => {
+      .addCase(createLabel.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = "Created unsuccessful";
+        state.message = payload.message;
       });
     // ? Update label
     builder
@@ -59,9 +59,9 @@ const labelSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
-      .addCase(updateLabel.rejected, (state) => {
+      .addCase(updateLabel.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = "Updated unsuccessful";
+        state.message = payload.message;
       });
     // ? Delete label
     builder
@@ -73,9 +73,9 @@ const labelSlice = createSlice({
         state.message = "Deleted successfully";
         state.labels = state.labels.filter((label) => label.id !== payload);
       })
-      .addCase(deleteLabel.rejected, (state) => {
+      .addCase(deleteLabel.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = "Deleted unsuccessful";
+        state.message = payload.message;
       });
   },
 });
