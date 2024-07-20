@@ -1,8 +1,8 @@
 export interface IBrand {
-  id: string;
+  id?: string;
   name: string;
   image: string;
-  description: string;
+  description?: string;
 }
 export interface IBrandResponse {
   message: string;

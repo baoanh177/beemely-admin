@@ -44,12 +44,14 @@ const Brands = () => {
 
   const data: ITableData[] = useMemo(() => {
     if (Array.isArray(state.brands)) {
-      return state.brands.map((brand) => ({
-        key: brand.id,
-        name: brand.name,
-        image: brand.image,
-        description: brand.description,
-      }));
+      return state.brands
+        .filter((brand) => brand.id)
+        .map((brand) => ({
+          key: brand.id ?? "default-key",
+          name: brand.name,
+          image: brand.image,
+          description: brand.description,
+        }));
     }
     return [];
   }, [state.brands]);

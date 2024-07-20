@@ -7,11 +7,12 @@ import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import BrandForm, { IBrandFormInitialValues } from "../BrandForm";
+import BrandForm from "../BrandForm";
+import { IBrand } from "@/services/store/brand/brand.model";
 
 const CreateBrand = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IBrandFormInitialValues>>(null);
+  const formikRef = useRef<FormikProps<IBrand>>(null);
   const { state } = useArchive<IBrandInitialState>("brand");
 
   useFetchStatus({
@@ -55,7 +56,7 @@ const CreateBrand = () => {
           },
         ]}
       />
-      <BrandForm type="create" formikRef={formikRef} />
+      <BrandForm type="create" FormikRefType={formikRef} />
     </>
   );
 };

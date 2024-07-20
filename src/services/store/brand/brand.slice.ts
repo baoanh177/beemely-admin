@@ -46,8 +46,9 @@ const brandSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
-      .addCase(createBrand.rejected, (state) => {
+      .addCase(createBrand.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Update brand
     builder
@@ -58,9 +59,11 @@ const brandSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
-      .addCase(updateBrand.rejected, (state) => {
+      .addCase(updateBrand.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
+
     // ? Delete brand
     builder
       .addCase(deleteBrand.pending, (state) => {
@@ -71,8 +74,9 @@ const brandSlice = createSlice({
         state.message = "Deleted successfully";
         state.brands = state.brands.filter((brand) => brand.id !== payload);
       })
-      .addCase(deleteBrand.rejected, (state) => {
+      .addCase(deleteBrand.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
   },
 });

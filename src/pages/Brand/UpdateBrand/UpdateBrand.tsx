@@ -8,11 +8,12 @@ import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import BrandForm, { IBrandFormInitialValues } from "../BrandForm";
+import BrandForm from "../BrandForm";
+import { IBrand } from "@/services/store/brand/brand.model";
 
 const UpdateBrand = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IBrandFormInitialValues>>(null);
+  const formikRef = useRef<FormikProps<IBrand>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<IBrandInitialState>("brand");
 
@@ -37,7 +38,7 @@ const UpdateBrand = () => {
   }, [id]);
 
   useEffect(() => {
-    if (state.activeBrand) {
+    if (state.activeBrand && formikRef.current) {
       if (formikRef.current) {
         formikRef.current.setValues({
           name: state.activeBrand.name,
@@ -76,7 +77,7 @@ const UpdateBrand = () => {
           },
         ]}
       />
-      {state.activeBrand && <BrandForm type="update" formikRef={formikRef} brand={state.activeBrand} />}
+      {state.activeBrand && <BrandForm type="update" FormikRefType={formikRef} brand={state.activeBrand} />}
     </>
   );
 };

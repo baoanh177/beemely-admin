@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import imageError from "@/assets/images/imgError-table.jpg";
+import imageError from "@/assets/images/imgError.jpg";
 import clsx from "clsx";
 import imgFbDefault from "@/assets/images/customerDefaultAvatar.png";
 interface CustomerAvatarProps {

@@ -9,24 +9,18 @@ import { createBrand, updateBrand } from "@/services/store/brand/brand.thunk";
 import FormInputArea from "@/components/form/FormInputArea";
 import UpdateGrid from "@/components/grid/UpdateGrid";
 import UploadImage from "@/components/form/UploadImage";
+import { IBrand } from "@/services/store/brand/brand.model";
 
 interface IBrandFormProps {
-  formikRef?: React.MutableRefObject<FormikProps<IBrandFormInitialValues> | null>;
+  FormikRefType?: React.MutableRefObject<FormikProps<IBrand> | null>;
   type: "create" | "update";
-  brand?: IBrandFormInitialValues;
+  brand?: IBrand;
 }
 
-export interface IBrandFormInitialValues {
-  id?: string;
-  name: string;
-  image: string;
-  description: string;
-}
-
-const BrandForm: React.FC<IBrandFormProps> = ({ formikRef, type, brand }) => {
+const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) => {
   const { dispatch } = useArchive<IBrandInitialState>("brand");
 
-  const initialValues: IBrandFormInitialValues = {
+  const initialValues: IBrand = {
     name: brand?.name ?? "",
     image: brand?.image ?? "",
     description: brand?.description ?? "",
@@ -35,17 +29,16 @@ const BrandForm: React.FC<IBrandFormProps> = ({ formikRef, type, brand }) => {
   const brandSchema = object().shape({
     name: string().required("Please enter brand name"),
     image: string().required("Please enter image"),
-    description: string().required("Please enter description"),
   });
 
   const handleImageUpload = (imageURL: string | string[]) => {
     const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
-    formikRef?.current?.setFieldValue("image", url);
+    FormikRefType?.current?.setFieldValue("image", url);
   };
 
   return (
     <Formik
-      innerRef={formikRef}
+      innerRef={FormikRefType}
       initialValues={initialValues}
       validationSchema={brandSchema}
       onSubmit={(data) => {
