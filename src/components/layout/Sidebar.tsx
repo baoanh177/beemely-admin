@@ -99,6 +99,12 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           path: "brands",
           permissions: EPermissions.READ_BRAND,
         },
+        {
+          id: "3.5",
+          label: "Labels",
+          path: "labels",
+          permissions: EPermissions.READ_LABEL,
+        },
       ],
     },
     {

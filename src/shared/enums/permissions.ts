@@ -37,4 +37,10 @@ export enum EPermissions {
   CREATE_BRAND = "Create_Brand",
   UPDATE_BRAND = "Update_Brand",
   DELETE_BRAND = "Delete_Brand",
+
+  // ? Label
+  READ_LABEL = "Read_Label",
+  CREATE_LABEL = "Create_Label",
+  UPDATE_LABEL = "Update_Label",
+  DELETE_LABEL = "Delete_Label",
 }

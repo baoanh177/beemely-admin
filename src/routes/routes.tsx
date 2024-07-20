@@ -16,6 +16,7 @@ import { genderRoutes } from "./gender.route";
 import { tagRoutes } from "./tag.route";
 import { permissionRoutes } from "./permission.route";
 import { brandRoutes } from "./brand.route";
+import { labelRoutes } from "./label.router";
 
 export interface IRoute {
   path: string;
@@ -74,6 +75,11 @@ export const routes: IRoute[] = [
             path: "brands",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
             pages: brandRoutes,
+          },
+          {
+            path: "labels",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_LABEL]} />,
+            pages: labelRoutes,
           },
           {
             path: "permissions",
