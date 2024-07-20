@@ -31,7 +31,7 @@ const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue, valu
         },
       }}
     >
-      <div className={clsx("flex gap-1")}>
+      <div className={clsx("flex flex-col")}>
         {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
 
         <DatePicker

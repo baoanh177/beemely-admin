@@ -1,22 +1,18 @@
-import { useRef, useState, useEffect } from "react";
+import Heading from "@/components/layout/Heading";
+import { useArchive } from "@/hooks/useArchive";
+import useFetchStatus from "@/hooks/useFetchStatus";
+import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
+import { FormikProps } from "formik";
+import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import BrandForm, { IBrandFormInitialValues } from "../BrandForm";
-import { FormikProps } from "formik";
-import Heading from "@/components/layout/Heading";
-import useFetchStatus from "@/hooks/useFetchStatus";
-import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
-import { useArchive } from "@/hooks/useArchive";
-import { createBrand } from "@/services/store/brand/brand.thunk";
-import UploadImage from "@/components/form/UploadImage";
-import UpdateGrid from "@/components/grid/UpdateGrid";
 
 const CreateBrand = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<IBrandFormInitialValues>>(null);
-  const { state, dispatch } = useArchive<IBrandInitialState>("brand");
-  const [imageURL, setImageURL] = useState<string>("");
+  const { state } = useArchive<IBrandInitialState>("brand");
 
   useFetchStatus({
     module: "brand",
@@ -32,28 +28,10 @@ const CreateBrand = () => {
     },
   });
 
-  const handleImageUpload = (url: string) => {
-    setImageURL(url);
-  };
-
-  useEffect(() => {
-    if (imageURL !== "") {
-      handleSubmit();
+  const handleSubmit = () => {
+    if (formikRef.current) {
+      formikRef.current.handleSubmit();
     }
-  }, [imageURL]);
-
-  const handleSubmit = async () => {
-    try {
-      if (formikRef.current) {
-        formikRef.current.handleSubmit();
-        const formData = {
-          name: formikRef.current.values.name,
-          image: imageURL,
-          description: formikRef.current.values.description,
-        };
-        dispatch(createBrand({ body: formData }));
-      }
-    } catch (error) {}
   };
 
   return (
@@ -77,14 +55,7 @@ const CreateBrand = () => {
           },
         ]}
       />
-      <UpdateGrid
-        colNumber="2"
-        rate="1-3"
-        groups={{
-          colLeft: <UploadImage label="Add Image" isMultiple={false} text="Photo" title="Thumbnail" onImageUpload={handleImageUpload} />,
-          colRight: <BrandForm type="create" formikRef={formikRef} />,
-        }}
-      />
+      <BrandForm type="create" formikRef={formikRef} />
     </>
   );
 };

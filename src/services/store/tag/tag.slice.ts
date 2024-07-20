@@ -46,8 +46,9 @@ const tagSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
-      .addCase(createTag.rejected, (state) => {
+      .addCase(createTag.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Update tag
     builder
@@ -58,8 +59,9 @@ const tagSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
-      .addCase(updateTag.rejected, (state) => {
+      .addCase(updateTag.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Delete tag
     builder
@@ -71,8 +73,9 @@ const tagSlice = createSlice({
         state.message = "Deleted successfully";
         state.tags = state.tags.filter((tag) => tag.id !== payload);
       })
-      .addCase(deleteTag.rejected, (state) => {
+      .addCase(deleteTag.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
   },
 });

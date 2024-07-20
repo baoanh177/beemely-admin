@@ -30,11 +30,7 @@ const UpdateTag = () => {
     },
   });
   useEffect(() => {
-    if (id) {
-      (async () => {
-        await dispatch(getTagById(id));
-      })();
-    }
+    dispatch(getTagById(id as string));
   }, [id]);
 
   useEffect(() => {

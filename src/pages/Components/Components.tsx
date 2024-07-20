@@ -131,10 +131,8 @@ const Components = () => {
           </div>
         </div>
         <div className="flex flex-col items-start gap-5">
-          <h1 className="display-s-regular mb-2">FormDate</h1>
           <FormDate label="FormDate" />
-          <label>{"FormDate RangePicker"}</label>
-          <DateRangePicker />
+          <DateRangePicker label="FormDate RangePicker" />
           <h1 className="display-s-regular mb-2">FormInputArea</h1>
           <FormInputArea label="Description" />
           <FormInputArea label="Description" placeholder="Example text" />
@@ -143,7 +141,7 @@ const Components = () => {
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">FormUpload</h1>
-          <UploadImage label="Add Image" isMultiple title="Media" text="Photo" />
+          <UploadImage isMultiple={true} label="Add Image" />
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>

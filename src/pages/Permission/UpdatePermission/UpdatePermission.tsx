@@ -33,7 +33,7 @@ const UpdatePermission = () => {
 
   useEffect(() => {
     dispatch(getPermissionById(id as string));
-  }, [])
+  }, []);
 
   return (
     <>
@@ -59,7 +59,7 @@ const UpdatePermission = () => {
           },
         ]}
       />
-      <PermissionForm formikRef={formikRef} type="update" permission={state.activePermission}/>
+      <PermissionForm formikRef={formikRef} type="update" permission={state.activePermission} />
     </>
   );
 };

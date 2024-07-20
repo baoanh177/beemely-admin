@@ -33,9 +33,8 @@ const Brands = () => {
 
   const columns: ColumnsType<ITableData> = [
     {
-      dataIndex: "brand",
       title: "Brand",
-      render: (record: any) => <ImageTable title={record.name} imageSrc={record.image} />,
+      render: (record) => <ImageTable title={record?.name} imageSrc={record?.image} />,
     },
     {
       dataIndex: "description",

@@ -45,16 +45,14 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
   });
 
   useEffect(() => {
-    (async () => {
-      await dispatch(
-        getAllPermissions({
-          query: {
-            _pagination: false,
-          },
-        }),
-      );
-      await dispatch(getAllModules());
-    })();
+    dispatch(
+      getAllPermissions({
+        query: {
+          _pagination: false,
+        },
+      }),
+    );
+    dispatch(getAllModules());
   }, []);
 
   useEffect(() => {

@@ -91,7 +91,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           id: "3.4",
           label: "Genders",
           path: "genders",
-          permissions: EPermissions.READ_Gender,
+          permissions: EPermissions.READ_GENDER,
         },
         {
           id: "3.5",

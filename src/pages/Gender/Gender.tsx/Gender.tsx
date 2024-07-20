@@ -52,14 +52,14 @@ const Genders = () => {
       onClick(record) {
         navigate(`/genders/update/${record?.key}`);
       },
-      permission: EPermissions.UPDATE_Gender,
+      permission: EPermissions.UPDATE_GENDER,
     },
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
         dispatch(deleteGender(record.key));
       },
-      permission: EPermissions.DELETE_Gender,
+      permission: EPermissions.DELETE_GENDER,
     },
   ];
 
@@ -71,13 +71,20 @@ const Genders = () => {
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_Gender,
+            permission: EPermissions.CREATE_GENDER,
             text: "Create Gender",
             onClick: () => navigate("/genders/create"),
           },
         ]}
       />
-      <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />
+      <ManagementGrid
+        columns={columns}
+        data={data}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        setFilter={setFilter}
+        search={{ status: [] }}
+        buttons={buttons}
+      />
     </>
   );
 };

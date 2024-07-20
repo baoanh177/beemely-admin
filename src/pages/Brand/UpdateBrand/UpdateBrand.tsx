@@ -1,23 +1,20 @@
-import UploadImage from "@/components/form/UploadImage";
 import Heading from "@/components/layout/Heading";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
-import { getBrandById, updateBrand } from "@/services/store/brand/brand.thunk";
+import { getBrandById } from "@/services/store/brand/brand.thunk";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { FormikProps } from "formik";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import BrandForm, { IBrandFormInitialValues } from "../BrandForm";
-import UpdateGrid from "@/components/grid/UpdateGrid";
 
 const UpdateBrand = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<IBrandFormInitialValues>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<IBrandInitialState>("brand");
-  const [currentImageUrl, setCurrentImageUrl] = useState<string>("");
 
   useFetchStatus({
     module: "brand",
@@ -47,22 +44,13 @@ const UpdateBrand = () => {
           image: state.activeBrand.image,
           description: state.activeBrand.description,
         });
-        setCurrentImageUrl(state.activeBrand.image);
       }
     }
   }, [state.activeBrand]);
 
-  const handleImageUpload = async (url: string) => {
-    setCurrentImageUrl(url);
-  };
-
   const handleSubmit = () => {
     if (formikRef.current) {
-      const updatedValues = {
-        ...formikRef.current.values,
-        image: currentImageUrl,
-      };
-      dispatch(updateBrand({ body: updatedValues, param: id }));
+      formikRef.current.handleSubmit();
     }
   };
 
@@ -88,23 +76,7 @@ const UpdateBrand = () => {
           },
         ]}
       />
-      <UpdateGrid
-        colNumber="2"
-        rate="1-3"
-        groups={{
-          colLeft: (
-            <UploadImage
-              label="Change Image"
-              isMultiple={false}
-              text="Photo"
-              title="Thumbnail"
-              onImageUpload={handleImageUpload}
-              currentImageUrl={currentImageUrl}
-            />
-          ),
-          colRight: <div>{state.activeBrand && <BrandForm type="update" formikRef={formikRef} brand={state.activeBrand} />}</div>,
-        }}
-      />
+      {state.activeBrand && <BrandForm type="update" formikRef={formikRef} brand={state.activeBrand} />}
     </>
   );
 };

@@ -1,16 +1,17 @@
-import { Formik, Form } from "formik";
+import React from "react";
+import { Formik, FormikProps } from "formik";
 import { object, string } from "yup";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
 import { IBrandInitialState } from "@/services/store/brand/brand.slice";
 import { createBrand, updateBrand } from "@/services/store/brand/brand.thunk";
-import { FormikRefType } from "@/shared/utils/shared-types";
 import FormInputArea from "@/components/form/FormInputArea";
 import UpdateGrid from "@/components/grid/UpdateGrid";
+import UploadImage from "@/components/form/UploadImage";
 
 interface IBrandFormProps {
-  formikRef?: FormikRefType<IBrandFormInitialValues>;
+  formikRef?: React.MutableRefObject<FormikProps<IBrandFormInitialValues> | null>;
   type: "create" | "update";
   brand?: IBrandFormInitialValues;
 }
@@ -22,7 +23,7 @@ export interface IBrandFormInitialValues {
   description: string;
 }
 
-const BrandForm = ({ formikRef, type, brand }: IBrandFormProps) => {
+const BrandForm: React.FC<IBrandFormProps> = ({ formikRef, type, brand }) => {
   const { dispatch } = useArchive<IBrandInitialState>("brand");
 
   const initialValues: IBrandFormInitialValues = {
@@ -32,10 +33,15 @@ const BrandForm = ({ formikRef, type, brand }: IBrandFormProps) => {
   };
 
   const brandSchema = object().shape({
-    name: string().required("Please enter name"),
-    image: string().required("Please enter image URL"),
+    name: string().required("Please enter brand name"),
+    image: string().required("Please enter image"),
     description: string().required("Please enter description"),
   });
+
+  const handleImageUpload = (imageURL: string | string[]) => {
+    const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
+    formikRef?.current?.setFieldValue("image", url);
+  };
 
   return (
     <Formik
@@ -52,31 +58,34 @@ const BrandForm = ({ formikRef, type, brand }: IBrandFormProps) => {
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <UpdateGrid
-          colNumber="1"
-          rate="1"
+          colNumber="2"
+          rate="1-3"
           groups={{
             colLeft: (
-              <Form>
-                <FormGroup title="General information">
-                  <FormInput
-                    label="Brand name"
-                    placeholder="Type brand name here..."
-                    name="name"
-                    value={values.name}
-                    error={touched.name ? errors.name : ""}
-                    onChange={(e) => setFieldValue("name", e)}
-                    onBlur={handleBlur}
-                  />
-                  <FormInputArea
-                    label="Description"
-                    placeholder="Type description here..."
-                    name="description"
-                    value={values.description}
-                    error={touched.description ? errors.description : ""}
-                    onChange={(e) => setFieldValue("description", e)}
-                  />
-                </FormGroup>
-              </Form>
+              <FormGroup title="Thumbnail">
+                <UploadImage isMultiple={false} label="Photo" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
+              </FormGroup>
+            ),
+            colRight: (
+              <FormGroup title="General information">
+                <FormInput
+                  label="Brand name"
+                  placeholder="Type brand name here..."
+                  name="name"
+                  value={values.name}
+                  error={touched.name ? errors.name : ""}
+                  onChange={(e) => setFieldValue("name", e)}
+                  onBlur={handleBlur}
+                />
+                <FormInputArea
+                  label="Description"
+                  placeholder="Type description here..."
+                  name="description"
+                  value={values.description}
+                  error={touched.description ? errors.description : ""}
+                  onChange={(e) => setFieldValue("description", e)}
+                />
+              </FormGroup>
             ),
           }}
         />
