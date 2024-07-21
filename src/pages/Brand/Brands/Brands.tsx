@@ -7,17 +7,19 @@ import ManagementGrid from "@/components/grid/ManagementGrid";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IGenderInitialState, resetStatus, setFilter } from "@/services/store/gender/gender.slice";
-import { deleteGender, getAllGenders } from "@/services/store/gender/gender.thunk";
+import { IBrandInitialState, resetStatus, setFilter } from "@/services/store/brand/brand.slice";
+import { deleteBrand, getAllBrands } from "@/services/store/brand/brand.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
+import ImageTable from "@/components/table/ImageTable";
 
-const Genders = () => {
+const Brands = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+  const { state, dispatch } = useArchive<IBrandInitialState>("brand");
+
   useFetchStatus({
-    module: "gender",
+    module: "brand",
     reset: resetStatus,
     actions: {
       success: { message: state.message },
@@ -26,67 +28,68 @@ const Genders = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllGenders({ query: state.filter }));
+    dispatch(getAllBrands({ query: state.filter }));
   }, [JSON.stringify(state.filter)]);
 
   const columns: ColumnsType<ITableData> = [
     {
-      dataIndex: "name",
-      title: "Name",
+      title: "Brand",
+      render: (record) => <ImageTable title={record?.name} imageSrc={record?.image} />,
+    },
+    {
+      dataIndex: "description",
+      title: "Description",
     },
   ];
 
   const data: ITableData[] = useMemo(() => {
-    if (state.genders && state.genders.length > 0) {
-      return state.genders.map((gender) => ({
-        key: gender.id,
-        name: gender.name,
-      }));
+    if (Array.isArray(state.brands)) {
+      return state.brands
+        .filter((brand) => brand.id)
+        .map((brand) => ({
+          key: brand.id ?? "default-key",
+          name: brand.name,
+          image: brand.image,
+          description: brand.description,
+        }));
     }
     return [];
-  }, [state.genders]);
+  }, [state.brands]);
 
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.UPDATE,
       onClick(record) {
-        navigate(`/genders/update/${record?.key}`);
+        navigate(`/brands/update/${record?.key}`);
       },
-      permission: EPermissions.UPDATE_GENDER,
+      permission: EPermissions.UPDATE_BRAND,
     },
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteGender(record.key));
+        dispatch(deleteBrand(record.key));
       },
-      permission: EPermissions.DELETE_GENDER,
+      permission: EPermissions.DELETE_BRAND,
     },
   ];
 
   return (
     <>
       <Heading
-        title="Genders"
+        title="Brands"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_GENDER,
-            text: "Create Gender",
-            onClick: () => navigate("/genders/create"),
+            permission: EPermissions.CREATE_BRAND,
+            text: "Create Brand",
+            onClick: () => navigate("/brands/create"),
           },
         ]}
       />
-      <ManagementGrid
-        columns={columns}
-        data={data}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
-        setFilter={setFilter}
-        search={{ status: [] }}
-        buttons={buttons}
-      />
+      <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />
     </>
   );
 };
 
-export default Genders;
+export default Brands;

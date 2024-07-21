@@ -27,10 +27,16 @@ export enum EPermissions {
   DELETE_TAG = "Delete_Tag",
 
   // ? Gender
-  READ_Gender = "Read_Gender",
-  CREATE_Gender = "Create_Gender",
-  UPDATE_Gender = "Update_Gender",
-  DELETE_Gender = "Delete_Gender",
+  READ_GENDER = "Read_Gender",
+  CREATE_GENDER = "Create_Gender",
+  UPDATE_GENDER = "Update_Gender",
+  DELETE_GENDER = "Delete_Gender",
+
+  // ? Brand
+  READ_BRAND = "Read_Brand",
+  CREATE_BRAND = "Create_Brand",
+  UPDATE_BRAND = "Update_Brand",
+  DELETE_BRAND = "Delete_Brand",
 
   // ? Label
   READ_LABEL = "Read_Label",

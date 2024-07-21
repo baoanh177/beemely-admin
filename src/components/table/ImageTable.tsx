@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import imageError from "@/assets/images/imgError-table.jpg";
+import imageError from "@/assets/images/imgError.jpg";
 import imgEmpty from "@/assets/images/image-empty.png";
 
 interface ImageTableProps {
@@ -27,7 +27,7 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
     <div className="flex items-center gap-2">
       {!imgSrc ? (
         <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-gray-50">
-          <span className="text-m-medium text-gray-400">{title[0]}</span>
+          <span className="text-m-medium text-gray-400">{title}</span>
         </div>
       ) : (
         <img src={imgSrc} onError={handleError} className="h-11 w-11 rounded-lg bg-gray-50 object-cover" alt="" />

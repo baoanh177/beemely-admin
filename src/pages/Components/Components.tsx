@@ -5,7 +5,7 @@ import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
 import Heading from "@/components/layout/Heading";
-import UpdateImage from "@/components/form/FormUpload";
+
 import { IoBagOutline, IoSaveOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
@@ -21,6 +21,7 @@ import { FaShoppingCart, FaTrophy, FaMoneyBill } from "react-icons/fa";
 import StatCard from "@/components/card/StatCards";
 import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
+import UploadImage from "@/components/form/UploadImage";
 const Components = () => {
   return (
     <>
@@ -134,13 +135,13 @@ const Components = () => {
           <DateRangePicker label="FormDate RangePicker" />
           <h1 className="display-s-regular mb-2">FormInputArea</h1>
           <FormInputArea label="Description" />
-          <FormInputArea label="Description" defaultValue="Example text" />
+          <FormInputArea label="Description" placeholder="Example text" />
           <FormInputArea error="error" label="Description err" />
           <FormInputArea isReadonly label="Description Readonly" />
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">FormUpload</h1>
-          <UpdateImage />
+          <UploadImage isMultiple={true} label="Add Image" />
         </div>
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
