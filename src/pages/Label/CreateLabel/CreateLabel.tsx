@@ -38,7 +38,7 @@ const CreateLabel = () => {
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Hủy",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/labels");
@@ -46,7 +46,7 @@ const CreateLabel = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Create Label",
+            text: "Thêm Label",
             icon: <FaPlus className="text-[18px]" />,
             onClick: () => {
               if (formikRef.current) {

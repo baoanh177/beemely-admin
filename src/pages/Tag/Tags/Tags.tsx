@@ -33,11 +33,11 @@ const Tags = () => {
   const columns: ColumnsType = [
     {
       dataIndex: "name",
-      title: "Name",
+      title: "Tên",
     },
     {
       dataIndex: "description",
-      title: "Description",
+      title: "Mô tả",
     },
   ];
 
@@ -78,7 +78,7 @@ const Tags = () => {
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_TAG,
-            text: "Create Tag",
+            text: "Thêm Tag",
             onClick: () => navigate("/tags/create"),
           },
         ]}

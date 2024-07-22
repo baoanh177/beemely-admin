@@ -28,7 +28,7 @@ interface IPrimaryTableProps {
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, setFilter }) => {
   const dispatch = useDispatch();
   const getShowingText = (total: number, range: [number, number]) => {
-    return `Showing ${range[0]}-${range[1]} from ${total}`;
+    return `Hiển thị ${range[0]}-${range[1]} từ ${total}`;
   };
   return (
     <div className="primary-table flex w-full flex-col gap-6">
@@ -36,7 +36,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
         <div className="flex justify-between">
           <FilterTableStatus options={search.status} />
           <div className="flex gap-4">
-            <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
+            <FormInput icon={IoSearchOutline} placeholder="Tìm kiếm. . ." type="text" />
             <DateRangePicker />
           </div>
         </div>
