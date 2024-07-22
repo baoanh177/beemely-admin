@@ -48,10 +48,10 @@ const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
           rate="1"
           groups={{
             colLeft: (
-              <FormGroup title="General information">
+              <FormGroup title="Thông tin chung">
                 <FormInput
-                  label="Gender name"
-                  placeholder="Type name gender here..."
+                  label="Tên gender"
+                  placeholder="Nhập tên gender ở đây..."
                   name="name"
                   value={values.name}
                   error={touched.name ? errors.name : ""}

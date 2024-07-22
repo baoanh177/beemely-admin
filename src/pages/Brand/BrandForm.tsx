@@ -27,8 +27,8 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
   };
 
   const brandSchema = object().shape({
-    name: string().required("Please enter brand name"),
-    image: string().required("Please enter image"),
+    name: string().required("Vui lòng nhập tên brand"),
+    image: string().required("Vui lòng chọn hình ảnh"),
   });
 
   const handleImageUpload = (imageURL: string | string[]) => {
@@ -55,15 +55,15 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
           rate="1-3"
           groups={{
             colLeft: (
-              <FormGroup title="Thumbnail">
-                <UploadImage isMultiple={false} label="Photo" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
+              <FormGroup title="Ảnh đại diện">
+                <UploadImage isMultiple={false} label="Ảnh" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
               </FormGroup>
             ),
             colRight: (
-              <FormGroup title="General information">
+              <FormGroup title="Thông tin chung">
                 <FormInput
-                  label="Brand name"
-                  placeholder="Type brand name here..."
+                  label="Tên brand"
+                  placeholder="Nhập tên brand ở đây..."
                   name="name"
                   value={values.name}
                   error={touched.name ? errors.name : ""}
@@ -71,8 +71,8 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
                   onBlur={handleBlur}
                 />
                 <FormInputArea
-                  label="Description"
-                  placeholder="Type description here..."
+                  label="Mô tả brand"
+                  placeholder="Nhập mô tả ở đây..."
                   name="description"
                   value={values.description}
                   error={touched.description ? errors.description : ""}

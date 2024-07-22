@@ -58,12 +58,12 @@ const UpdateBrand = () => {
   return (
     <>
       <Heading
-        title="Update Brand"
+        title="Cập nhật Brand"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Huỷ",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/brands");
@@ -71,7 +71,7 @@ const UpdateBrand = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Save changes",
+            text: "Lưu thay đổi",
             icon: <IoSaveOutline className="text-[18px]" />,
             onClick: handleSubmit,
           },

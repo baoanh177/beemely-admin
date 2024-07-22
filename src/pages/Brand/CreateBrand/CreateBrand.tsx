@@ -38,19 +38,19 @@ const CreateBrand = () => {
   return (
     <>
       <Heading
-        title="Create Brand"
+        title="Tạo mới Brand"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Huỷ",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/brands");
             },
           },
           {
-            text: "Create Brand",
+            text: "Tạo mới Brand",
             icon: <FaPlus className="text-[18px]" />,
             onClick: handleSubmit,
           },

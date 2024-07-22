@@ -33,12 +33,12 @@ const Brands = () => {
 
   const columns: ColumnsType<ITableData> = [
     {
-      title: "Brand",
+      title: "Tên",
       render: (record) => <ImageTable title={record?.name} imageSrc={record?.image} />,
     },
     {
       dataIndex: "description",
-      title: "Description",
+      title: "Mô tả",
     },
   ];
 
@@ -82,7 +82,7 @@ const Brands = () => {
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_BRAND,
-            text: "Create Brand",
+            text: "Tạo mới Brand",
             onClick: () => navigate("/brands/create"),
           },
         ]}

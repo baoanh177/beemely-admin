@@ -1,7 +1,7 @@
 import React from "react";
 import { ConfigProvider, DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
-
+import viVN from "antd/es/locale/vi_VN";
 import type { Dayjs } from "dayjs";
 import clsx from "clsx";
 
@@ -23,6 +23,7 @@ const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue, valu
 
   return (
     <ConfigProvider
+      locale={viVN}
       theme={{
         token: {
           colorPrimary: "#883DCF",
