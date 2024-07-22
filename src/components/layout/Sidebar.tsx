@@ -70,6 +70,12 @@ const Sidebar = ({ children }: PropsWithChildren) => {
       icon: { component: IoSettingsOutline },
       items: [
         {
+          id: "users",
+          label: "Users",
+          path: "users",
+          permissions: EPermissions.READ_USER,
+        },
+        {
           id: "3.1",
           label: "Roles",
           path: "roles",

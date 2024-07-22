@@ -15,6 +15,7 @@ import { roleRoutes } from "./role.route";
 import { genderRoutes } from "./gender.route";
 import { tagRoutes } from "./tag.route";
 import { permissionRoutes } from "./permission.route";
+import { userRoutes } from "./user.route";
 
 export interface IRoute {
   path: string;
@@ -34,38 +35,15 @@ export const routes: IRoute[] = [
         middleware: () => <AuthMiddleware />,
         layout: () => <DefaultLayout />,
         pages: [
-          {
-            path: "/",
-            middleware: () => <NoPathMiddleware />,
-          },
-          {
-            path: "dashboard",
-            element: () => <Dashboard />,
-          },
-          {
-            path: "products",
-            element: () => <Products />,
-          },
-          {
-            path: "orders",
-            element: () => <Orders />,
-          },
-          {
-            path: "components",
-            element: () => <Components />,
-          },
-          {
-            path: "roles",
-            pages: roleRoutes,
-          },
-          {
-            path: "genders",
-            pages: genderRoutes,
-          },
-          {
-            path: "tags",
-            pages: tagRoutes,
-          },
+          { path: "/", middleware: () => <NoPathMiddleware /> },
+          { path: "dashboard", element: () => <Dashboard /> },
+          { path: "products", element: () => <Products /> },
+          { path: "orders", element: () => <Orders /> },
+          { path: "components", element: () => <Components /> },
+          { path: "roles", pages: roleRoutes },
+          { path: "genders", pages: genderRoutes },
+          { path: "tags", pages: tagRoutes },
+          { path: "users", pages: userRoutes },
           {
             path: "permissions",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,

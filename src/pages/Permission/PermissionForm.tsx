@@ -10,6 +10,7 @@ import { createPermission, getAllModules, updatePermission } from "@/services/st
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
+import { object, string } from "yup";
 
 export interface IPermissionFormInitialValues {
   label: string;
@@ -27,6 +28,11 @@ const PermissionForm = ({ formikRef, type,permission }: IPermissionFormProps) =>
   const [newModule, setNewModule] = useState(false);
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission")
 
+  const validationSchema = object().shape({
+    label: string().required("Please enter permission name"),
+    name: string().required("Please enter permission value"),
+  })
+
   const initialValues: IPermissionFormInitialValues = {
     label: "",
     name: "",
@@ -41,6 +47,7 @@ const PermissionForm = ({ formikRef, type,permission }: IPermissionFormProps) =>
   return (
     <Formik
       enableReinitialize
+      validationSchema={validationSchema}
       innerRef={formikRef}
       initialValues={permission ? { ...permission, availableModule: permission?.module } : initialValues}
       onSubmit={(data) => {

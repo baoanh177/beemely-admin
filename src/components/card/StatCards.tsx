@@ -12,9 +12,9 @@ interface IStatsCardProps {
 const StatCard: React.FC<IStatsCardProps> = ({ title, value, percentageChange, changeValue, icon }) => {
   const isPositive = percentageChange >= 0;
   return (
-    <div className="flex gap-4">
-      <div className="flex flex-col gap-4 rounded-xl bg-[#fff] p-5">
-        <div className="flex gap-4">
+    <div className="flex w-full min-w-[232px] gap-4">
+      <div className="flex w-full flex-col gap-4 rounded-xl bg-[#fff] p-5">
+        <div className="flex justify-between gap-4">
           <div className="flex flex-col gap-2">
             <h4 className="text-l-medium text-black-300">{title}</h4>
             <div className="display-m-semibold">{value}</div>

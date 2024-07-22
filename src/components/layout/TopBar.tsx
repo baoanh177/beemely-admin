@@ -20,7 +20,7 @@ const TopBar = () => {
       </div>
 
       {/* Actions */}
-      <div className="flex h-full items-center gap-4">
+      <div className="flex h-full items-center gap-4 shrink-0">
         <IconHasBadge icon={<IoCalendarClearOutline className="text-[18px] text-gray-400" />} badge={0} />
         <IconHasBadge icon={<PiBell className="text-[18px] text-gray-400" />} badge={2} />
         <IconHasBadge icon={<IoMailOutline className="text-[18px] text-gray-400" />} badge={2} />

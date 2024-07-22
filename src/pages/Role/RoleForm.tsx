@@ -14,6 +14,7 @@ import { createRole, updateRole } from "@/services/store/role/role.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { IRole } from "@/services/store/role/role.model";
 import lodash from "lodash";
+import { Col, Row } from "antd";
 
 interface IActiveRole extends Omit<IRole, "permissions"> {
   permissions: string[];
@@ -79,48 +80,44 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <UpdateGrid
-          colNumber="2"
-          rate="1-3"
-          groups={{
-            colLeft: (
-              <FormGroup title="Permissions">
-                <TreeData
-                  isDisable={type === "view"}
-                  expanded={["parent-all"]}
-                  treeData={[
-                    {
-                      key: "parent-all",
-                      title: "All",
-                      children: treePermissions,
-                    },
-                  ]}
-                  checkedKeys={values.permissions}
-                  onCheck={(checkedKeys) => {
-                    setFieldValue("permissions", checkedKeys);
-                  }}
-                />
-              </FormGroup>
-            ),
-            colRight: (
-              <FormGroup title="General Information">
-                <FormInput
-                  type="text"
-                  isDisabled={type === "view"}
-                  label="Role name"
-                  value={values.name}
-                  name="name"
-                  error={touched.name ? errors.name : ""}
-                  placeholder="Type role name here..."
-                  onChange={(value) => {
-                    setFieldValue("name", value);
-                  }}
-                  onBlur={handleBlur}
-                />
-              </FormGroup>
-            ),
-          }}
-        />
+        <Row gutter={[24, 24]} >
+          <Col xl={{ span: 6, order: 1 }} xs={{ span: 24, order: 2}}>
+            <FormGroup title="Permissions">
+              <TreeData
+                isDisable={type === "view"}
+                expanded={["parent-all"]}
+                treeData={[
+                  {
+                    key: "parent-all",
+                    title: "All",
+                    children: treePermissions,
+                  },
+                ]}
+                checkedKeys={values.permissions}
+                onCheck={(checkedKeys) => {
+                  setFieldValue("permissions", checkedKeys);
+                }}
+              />
+            </FormGroup>
+          </Col>
+          <Col xl={{ span: 18, order: 2 }} xs={{ span: 24, order: 1}}>
+            <FormGroup title="General Information">
+              <FormInput
+                type="text"
+                isDisabled={type === "view"}
+                label="Role name"
+                value={values.name}
+                name="name"
+                error={touched.name ? errors.name : ""}
+                placeholder="Type role name here..."
+                onChange={(value) => {
+                  setFieldValue("name", value);
+                }}
+                onBlur={handleBlur}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
       )}
     </Formik>
   );

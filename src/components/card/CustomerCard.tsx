@@ -5,56 +5,32 @@ import CustomerAvatar from "../common/CustomerAvatar";
 
 interface CustomerCardProps {
   image: string;
-  title: string;
+  username: string;
   status: StatusBadgeProps;
   orders: number;
   balance: number;
+  onClick?: () => void
 }
 
-export const customerData: CustomerCardProps[] = [
-  {
-    image: "https://picsum.photos/200/300",
-    title: "Laura Prichet",
-    status: { text: "Blocked", color: "red" },
-    orders: 23434,
-    balance: 23434,
-  },
-  {
-    image: "https://picsum.photos/200/300",
-    title: "John Doe",
-    status: { text: "Active", color: "green" },
-    orders: 10000,
-    balance: 5000,
-  },
-  {
-    image: "https://picsum.photos/200/300defrgfds",
-    title: "John Doe",
-    status: { text: "Blocked", color: "red" },
-    orders: 10000,
-    balance: 5000,
-  },
-  {
-    image: "",
-    title: "John Doe",
-    status: { text: "Active", color: "green" },
-    orders: 10000,
-    balance: 5000,
-  },
-];
-const CustomerCard: React.FC<CustomerCardProps> = ({ image, title, status, orders, balance }) => {
+const CustomerCard: React.FC<CustomerCardProps> = ({ image, username, status, orders, balance, onClick }) => {
+  console.log("🦎 ~ username:", username)
   return (
-    <div className="flex max-w-[216px] flex-col gap-8 rounded-xl bg-white p-4">
+    <div
+      className="flex w-[216px] shrink-0 cursor-pointer flex-col gap-8 rounded-xl border-2 
+      border-transparent bg-white p-4 transition-colors hover:border-primary-400"
+      onClick={() => onClick && onClick()}
+    >
       <div className="flex flex-1 flex-col items-center gap-4">
         <div className="relative flex w-full items-center justify-center">
           <div>
-            <CustomerAvatar size="medium" src={image} alt={title} />
+            <CustomerAvatar size="medium" src={image} alt={username} />
           </div>
           <div className="absolute right-0 top-0 cursor-pointer text-gray-400 hover:text-black-500">
             <BsThreeDotsVertical />
           </div>
         </div>
         <div className="flex h-12 w-full flex-col items-center gap-1">
-          <div className="text-m-semibold">{title}</div>
+          <div className="text-m-semibold text-center">{username}</div>
           <StatusBadge text={status.text} color={status.color} />
         </div>
       </div>

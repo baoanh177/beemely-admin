@@ -11,8 +11,8 @@ import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 import StatusBadge from "@/components/common/StatusBadge";
-import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
-import CustomerCard, { customerData } from "@/components/card/CustomerCard";
+import SecondaryTable from "@/components/table/SecondaryTable";
+import CustomerCard from "@/components/card/CustomerCard";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/card/OrderInforCard";
 import DateRangePicker from "@/components/form/FormDateRangePicker";
 import RoundedIcon from "@/components/common/RoundedIcon";
@@ -20,7 +20,7 @@ import CustomerDetailCard from "@/components/card/CustomerDetailCard";
 import { FaShoppingCart, FaTrophy, FaMoneyBill } from "react-icons/fa";
 import StatCard from "@/components/card/StatCards";
 import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
-import { setFilter } from "@/services/store/account/account.slice";
+import { setFilter } from "@/services/store/user/user.slice";
 const Components = () => {
   return (
     <>
@@ -166,19 +166,8 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
-        <SecondaryTable columns={columns} title="SeconderyTable" data={data} />
+        <SecondaryTable columns={[]} title="SeconderyTable" data={[]} />
       </div>
-
-      {customerData.map((customer, index) => (
-        <CustomerCard
-          key={index}
-          image={customer.image}
-          title={customer.title}
-          status={customer.status}
-          orders={customer.orders}
-          balance={customer.balance}
-        />
-      ))}
 
       <div className="flex flex-col items-start gap-5">
         <OrderInForCard title={"Shipping"} icon={IoBagOutline} status={{ color: "orange", text: "Processing" }} items={dataItemsOrderInforCard} />

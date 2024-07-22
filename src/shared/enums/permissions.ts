@@ -1,4 +1,10 @@
 export enum EPermissions {
+  // ? User
+  READ_USER = "Read_User",
+  CREATE_USER = "Create_User",
+  UPDATE_USER = "Update_User",
+  DELETE_USER = "Delete_User",
+
   // ? Order
   READ_ORDER = "Read_Order",
   CREATE_ORDER = "Create_Order",
