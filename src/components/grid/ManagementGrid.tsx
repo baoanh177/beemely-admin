@@ -26,7 +26,7 @@ const ManagementGrid = ({ columns, data, search, buttons, pagination, setFilter 
       ? ([
           ...columns,
           {
-            title: "Actions",
+            title: "Hành động",
             width: "150px",
             dataIndex: "actions",
             key: "actions",

@@ -30,7 +30,7 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
   };
 
   const tagSchema = object().shape({
-    name: string().required("Please enter name"),
+    name: string().required("Vui lòng nhập tên Tag"),
   });
   return (
     <Formik
@@ -52,10 +52,10 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
           rate="1"
           groups={{
             colLeft: (
-              <FormGroup title="General information">
+              <FormGroup title="Thông tin chung">
                 <FormInput
-                  label="Tag name"
-                  placeholder="Type name tag here..."
+                  label="Tên tag"
+                  placeholder="Nhập tên tag ở đây..."
                   name="name"
                   value={values.name}
                   error={touched.name ? errors.name : ""}
@@ -63,8 +63,8 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
                   onBlur={handleBlur}
                 />
                 <FormInput
-                  label="Tag description"
-                  placeholder="Type description tag here..."
+                  label="Mô tả tag"
+                  placeholder="Nhập mô tả tag ở đây..."
                   name="description"
                   value={values.description}
                   error={touched.description ? errors.description : ""}

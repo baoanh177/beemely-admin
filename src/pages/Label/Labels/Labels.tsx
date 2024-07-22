@@ -33,11 +33,11 @@ const Labels = () => {
   const columns: ColumnsType = [
     {
       dataIndex: "name",
-      title: "Name",
+      title: "Tên",
     },
     {
       dataIndex: "description",
-      title: "Description",
+      title: "Mô tả",
     },
   ];
 
@@ -78,7 +78,7 @@ const Labels = () => {
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_LABEL,
-            text: "Create Label",
+            text: "Tạo mới Label",
             onClick: () => navigate("/labels/create"),
           },
         ]}
