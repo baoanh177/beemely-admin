@@ -30,7 +30,7 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
   };
 
   const tagSchema = object().shape({
-    name: string().required("Vui lòng nhập tên"),
+    name: string().required("Vui lòng nhập tên Tag"),
   });
   return (
     <Formik

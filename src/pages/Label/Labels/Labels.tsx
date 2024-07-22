@@ -78,7 +78,7 @@ const Labels = () => {
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_LABEL,
-            text: "Thêm Label",
+            text: "Tạo mới Label",
             onClick: () => navigate("/labels/create"),
           },
         ]}

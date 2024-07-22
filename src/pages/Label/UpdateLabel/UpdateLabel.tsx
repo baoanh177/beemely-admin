@@ -44,7 +44,7 @@ const UpdateLabel = () => {
   return (
     <>
       <Heading
-        title="Update Label"
+        title="Cập nhật Label"
         hasBreadcrumb
         buttons={[
           {

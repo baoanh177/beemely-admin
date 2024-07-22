@@ -30,7 +30,7 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
   };
 
   const labelSchema = object().shape({
-    name: string().required("Vui lòng nhập tên"),
+    name: string().required("Vui lòng nhập tên label"),
   });
   return (
     <Formik

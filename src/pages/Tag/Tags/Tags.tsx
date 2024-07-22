@@ -78,7 +78,7 @@ const Tags = () => {
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_TAG,
-            text: "Thêm Tag",
+            text: "Tạo mới Tag",
             onClick: () => navigate("/tags/create"),
           },
         ]}

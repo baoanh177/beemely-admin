@@ -46,7 +46,7 @@ const UpdateTag = () => {
   return (
     <>
       <Heading
-        title="Update Tag"
+        title="Cập nhật Tag"
         hasBreadcrumb
         buttons={[
           {

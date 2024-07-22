@@ -33,7 +33,7 @@ const CreateLabel = () => {
   return (
     <>
       <Heading
-        title="Create Label"
+        title="Tạo mới Label"
         hasBreadcrumb
         buttons={[
           {
@@ -46,7 +46,7 @@ const CreateLabel = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Thêm Label",
+            text: "Tạo mới Label",
             icon: <FaPlus className="text-[18px]" />,
             onClick: () => {
               if (formikRef.current) {
