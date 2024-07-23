@@ -10,6 +10,7 @@ import { FormikRefType } from "@/shared/utils/shared-types";
 import { Col, Row } from "antd";
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
+import { object, string } from "yup";
 
 export interface IPermissionFormInitialValues {
   label: string;
@@ -27,6 +28,19 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
   const [newModule, setNewModule] = useState(false);
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
 
+  const validationSchema = object().shape({
+    label: string().required("Vui lòng nhập tên quyền"),
+    name: string().required("Vui lòng nhập giá trị"),
+    module: string().test("check-module", "Vui lòng nhập tên module", (value) => {
+      if (!newModule) return true;
+      return !!value?.trim();
+    }),
+    availableModule: string().test("check-available-module", "Vui lòng chọn module", (value) => {
+      if (newModule) return true;
+      return !!value?.trim();
+    }),
+  });
+
   const initialValues: IPermissionFormInitialValues = {
     label: "",
     name: "",
@@ -42,6 +56,7 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
     <Formik
       enableReinitialize
       innerRef={formikRef}
+      validationSchema={validationSchema}
       initialValues={permission ? { ...permission, availableModule: permission?.module } : initialValues}
       onSubmit={(data) => {
         const body = {
@@ -75,6 +90,7 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
                     placeholder="Type permission module here..."
                     onChange={(value) => setFieldValue("module", value)}
                     value={values.module}
+                    error={touched.module ? errors.module : ""}
                   />
                 ) : (
                   <FormSelect
@@ -82,6 +98,7 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
                     onChange={(value) => setFieldValue("availableModule", value)}
                     options={state.modules.map((module) => ({ label: module, value: module }))}
                     label="Permission Module"
+                    error={touched.availableModule ? errors.availableModule : ""}
                     placeholder="Choose permission module..."
                   />
                 )}
