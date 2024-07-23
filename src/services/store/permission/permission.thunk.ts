@@ -5,10 +5,10 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { messageCreator } from "@/services/config/message-creator";
 
 const dataKeys: { [key in keyof Omit<IPermission, "id">]: string } = {
-label: "Tên quyền",
-module: "Module",
-name: "Giá trị"
-}
+  label: "Tên quyền",
+  module: "Module",
+  name: "Giá trị",
+};
 
 const prefix = "/api/permissions";
 
