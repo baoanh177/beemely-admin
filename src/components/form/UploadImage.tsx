@@ -87,7 +87,9 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
   );
 
   const renderDefaultContent = () => (
-    <div className="text-m-regular mt-3 text-center text-gray-400">{fileList.length === 0 ? "Drag and drop image here, or click add image" : ""}</div>
+    <div className="text-m-regular mt-3 text-center text-gray-400">
+      {fileList.length === 0 ? "Kéo và thả hình ảnh vào đây, hoặc nhấp để thêm hình ảnh" : ""}
+    </div>
   );
 
   return (
@@ -113,7 +115,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
               htmlFor="file-upload"
               className="text-m-medium inline-block cursor-pointer rounded bg-primary-50 px-[14px] py-[10px] text-primary-500"
             >
-              {isMultiple ? "Add Images" : uploadedImageUrls.length > 0 ? "Change Image" : "Add Image"}
+              {isMultiple ? "Thêm ảnh" : uploadedImageUrls.length > 0 ? "Thay đổi ảnh" : "Thêm ảnh"}
             </label>
             <input id="file-upload" type="file" onChange={handleFileChange} multiple={isMultiple} className="hidden" />
           </div>

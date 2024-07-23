@@ -32,7 +32,7 @@ const Genders = () => {
   const columns: ColumnsType<ITableData> = [
     {
       dataIndex: "name",
-      title: "Name",
+      title: "Tên",
     },
   ];
 
@@ -72,7 +72,7 @@ const Genders = () => {
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_GENDER,
-            text: "Create Gender",
+            text: "Tạo mới Gender",
             onClick: () => navigate("/genders/create"),
           },
         ]}
