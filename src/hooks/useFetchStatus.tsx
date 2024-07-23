@@ -35,7 +35,7 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
         // @ts-ignore
         toast[type](messages[key]);
       });
-      return
+      return;
     }
     // @ts-ignore
     toast[type](messages);

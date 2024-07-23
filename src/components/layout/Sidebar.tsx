@@ -118,10 +118,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
     <>
       {/* Page parent */}
       <div className="flex h-dvh select-none bg-gray-25">
-        <aside
-          className="fixed bottom-0 left-0 top-0 z-50 flex w-[264px] -translate-x-full 
-          flex-col bg-white transition-transform md:translate-x-0"
-        >
+        <aside className="fixed bottom-0 left-0 top-0 z-50 flex w-[264px] -translate-x-full flex-col bg-white transition-transform md:translate-x-0">
           {/* Logo */}
           <div className="flex cursor-pointer items-center gap-3 px-5 py-6" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="h-[34px] w-[34px]" />

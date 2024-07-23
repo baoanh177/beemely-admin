@@ -15,7 +15,7 @@ const errorsToMessages = (
 ): { [key: string]: string } => {
   const messages: { [key: string]: string } = {};
   Object.keys(errors).forEach((key) => {
-    messages[key] = `${dataKeys[key]} ${errorCases[errorKey]}`
+    messages[key] = `${dataKeys[key]} ${errorCases[errorKey]}`;
   });
   return messages;
 };
@@ -37,7 +37,8 @@ export const messageCreator = (responseData: IResponse<unknown>, dataKeys: { [ke
       responseWithMessages.message = errorsToMessages("empty", errors!, dataKeys);
       break;
     }
-    default: responseWithMessages.message = "Hệ thống đang bận, vui lòng thử lại sau"
+    default:
+      responseWithMessages.message = "Hệ thống đang bận, vui lòng thử lại sau";
   }
   return responseWithMessages;
 };

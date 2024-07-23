@@ -8,7 +8,7 @@ const TopBar = () => {
   return (
     <div className="flex h-12 items-center justify-between rounded-lg bg-white p-2 shadow-sm">
       {/* Search */}
-      <div className="hidden md:flex relative w-full max-w-[658px] items-center gap-2 px-2">
+      <div className="relative hidden w-full max-w-[658px] items-center gap-2 px-2 md:flex">
         <div className="flex h-6 w-6 items-center justify-center py-2">
           <IoSearchOutline className="text-[18px]" />
         </div>
@@ -20,7 +20,7 @@ const TopBar = () => {
         <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div>
       </div>
 
-      <HiOutlineBars3BottomLeft className="block md:hidden text-[20px] cursor-pointer shrink-0"/>
+      <HiOutlineBars3BottomLeft className="block shrink-0 cursor-pointer text-[20px] md:hidden" />
 
       {/* Actions */}
       <div className="flex h-full items-center gap-4">

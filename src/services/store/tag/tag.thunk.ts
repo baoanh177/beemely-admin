@@ -4,10 +4,10 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { Itag } from "./tag.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: {[key in keyof Omit<Itag, "id">]: string} = {
+const dataKeys: { [key in keyof Omit<Itag, "id">]: string } = {
   name: "Tên tag",
-  description: "Mô tả"
-}
+  description: "Mô tả",
+};
 
 const prefix = "/api/tags";
 
