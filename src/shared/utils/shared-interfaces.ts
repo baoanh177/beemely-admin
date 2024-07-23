@@ -28,8 +28,8 @@ export interface ISearchParams {
 
 export interface IResponse<MetaDataType> {
   statusCode: number;
-  message: string | { [key: string ]: string };
-  errors?: { [key: string]: string }
+  message: string | { [key: string]: string };
+  errors?: { [key: string]: string };
   metaData: MetaDataType;
   limit?: number;
   page?: number;
