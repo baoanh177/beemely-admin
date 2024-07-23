@@ -74,8 +74,9 @@ const roleSlice = createSlice({
         state.message = "Deleted successfully";
         state.roles = state.roles.filter((role) => role.id !== payload);
       })
-      .addCase(deleteRole.rejected, (state) => {
+      .addCase(deleteRole.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
   },
 });

@@ -46,8 +46,9 @@ const genderSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
-      .addCase(createGender.rejected, (state) => {
+      .addCase(createGender.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // Update gender
     builder
@@ -58,8 +59,9 @@ const genderSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
-      .addCase(updateGender.rejected, (state) => {
+      .addCase(updateGender.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // Delete gender
     builder
@@ -71,8 +73,9 @@ const genderSlice = createSlice({
         state.message = "Deleted successfully";
         state.genders = state.genders.filter((gender) => gender.id !== payload);
       })
-      .addCase(deleteGender.rejected, (state) => {
+      .addCase(deleteGender.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
   },
 });
