@@ -2,12 +2,12 @@ import { commonStaticReducers } from "@/services/shared";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Itag } from "./tag.model";
+import { ITag } from "./tag.model";
 import { createTag, deleteTag, getAllTags, getTagById, updateTag } from "./tag.thunk";
 
 export interface ITagInitialState extends IInitialState {
-  tags: Itag[];
-  activeTag: Itag | undefined;
+  tags: ITag[];
+  activeTag: ITag | undefined;
 }
 
 const initialState: ITagInitialState = {
@@ -30,11 +30,11 @@ const tagSlice = createSlice({
   },
   extraReducers(builder) {
     // ? Get all tags
-    builder.addCase(getAllTags.fulfilled, (state, { payload }: PayloadAction<IResponse<Itag[]>>) => {
+    builder.addCase(getAllTags.fulfilled, (state, { payload }: PayloadAction<IResponse<ITag[]>>) => {
       state.tags = payload.metaData;
     });
     // ? Get tag by id
-    builder.addCase(getTagById.fulfilled, (state, { payload }: PayloadAction<IResponse<Itag>>) => {
+    builder.addCase(getTagById.fulfilled, (state, { payload }: PayloadAction<IResponse<ITag>>) => {
       state.activeTag = payload.metaData;
     });
     // ? Create tag
