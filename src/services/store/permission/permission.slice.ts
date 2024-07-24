@@ -45,7 +45,6 @@ const permissionSlice = createSlice({
     builder
       .addCase(getPermissionById.fulfilled, (state, { payload }: PayloadAction<IResponse<IPermission>>) => {
         state.activePermission = payload.metaData;
-        state.totalRecords = payload.totalDocs ?? 0;
       })
       .addCase(getPermissionById.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;

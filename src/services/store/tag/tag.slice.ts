@@ -32,10 +32,13 @@ const tagSlice = createSlice({
     // ? Get all tags
     builder.addCase(getAllTags.fulfilled, (state, { payload }: PayloadAction<IResponse<ITag[]>>) => {
       state.tags = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
+
     });
     // ? Get tag by id
     builder.addCase(getTagById.fulfilled, (state, { payload }: PayloadAction<IResponse<ITag>>) => {
       state.activeTag = payload.metaData;
+      
     });
     // ? Create tag
     builder

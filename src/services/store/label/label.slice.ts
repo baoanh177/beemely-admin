@@ -32,6 +32,7 @@ const labelSlice = createSlice({
     // ? Get all labels
     builder.addCase(getAllLabels.fulfilled, (state, { payload }: PayloadAction<IResponse<ILabel[]>>) => {
       state.labels = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
     });
     // ? Get label by id
     builder.addCase(getLabelById.fulfilled, (state, { payload }: PayloadAction<IResponse<ILabel>>) => {
