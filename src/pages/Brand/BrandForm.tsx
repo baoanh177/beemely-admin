@@ -1,15 +1,15 @@
-import React from "react";
-import { Formik, FormikProps } from "formik";
-import { object, string } from "yup";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import FormInputArea from "@/components/form/FormInputArea";
+import UploadImage from "@/components/form/UploadImage";
 import { useArchive } from "@/hooks/useArchive";
+import { IBrand } from "@/services/store/brand/brand.model";
 import { IBrandInitialState } from "@/services/store/brand/brand.slice";
 import { createBrand, updateBrand } from "@/services/store/brand/brand.thunk";
-import FormInputArea from "@/components/form/FormInputArea";
-import UpdateGrid from "@/components/grid/UpdateGrid";
-import UploadImage from "@/components/form/UploadImage";
-import { IBrand } from "@/services/store/brand/brand.model";
+import { Col, Row } from "antd";
+import { Formik, FormikProps } from "formik";
+import React from "react";
+import { object, string } from "yup";
 
 interface IBrandFormProps {
   FormikRefType?: React.MutableRefObject<FormikProps<IBrand> | null>;
@@ -50,38 +50,34 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <UpdateGrid
-          colNumber="2"
-          rate="1-3"
-          groups={{
-            colLeft: (
-              <FormGroup title="Ảnh đại diện">
-                <UploadImage isMultiple={false} label="Ảnh" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
-              </FormGroup>
-            ),
-            colRight: (
-              <FormGroup title="Thông tin chung">
-                <FormInput
-                  label="Tên brand"
-                  placeholder="Nhập tên brand ở đây..."
-                  name="name"
-                  value={values.name}
-                  error={touched.name ? errors.name : ""}
-                  onChange={(e) => setFieldValue("name", e)}
-                  onBlur={handleBlur}
-                />
-                <FormInputArea
-                  label="Mô tả brand"
-                  placeholder="Nhập mô tả ở đây..."
-                  name="description"
-                  value={values.description}
-                  error={touched.description ? errors.description : ""}
-                  onChange={(e) => setFieldValue("description", e)}
-                />
-              </FormGroup>
-            ),
-          }}
-        />
+        <Row gutter={[24, 24]}>
+          <Col xs={24} md={6} lg={6}>
+            <FormGroup title="Ảnh đại diện">
+              <UploadImage isMultiple={false} label="Ảnh" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
+            </FormGroup>
+          </Col>
+          <Col xs={24} md={18} lg={18}>
+            <FormGroup title="Thông tin chung">
+              <FormInput
+                label="Tên brand"
+                placeholder="Nhập tên brand ở đây..."
+                name="name"
+                value={values.name}
+                error={touched.name ? errors.name : ""}
+                onChange={(e) => setFieldValue("name", e)}
+                onBlur={handleBlur}
+              />
+              <FormInputArea
+                label="Mô tả brand"
+                placeholder="Nhập mô tả ở đây..."
+                name="description"
+                value={values.description}
+                error={touched.description ? errors.description : ""}
+                onChange={(e) => setFieldValue("description", e)}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
       )}
     </Formik>
   );
