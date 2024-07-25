@@ -1,31 +1,31 @@
 .custom-textarea {
   height: 140px !important;
-  background-color: #f9f9fc !important;
-  border-color: #e0e2e7 !important;
+  background-color: hwb(240 98% 1%) !important;
+  border-color: $color-gray-100 !important;
   box-shadow: none !important;
   outline: none;
 
   &::placeholder {
-    color: #858d9d !important;
+    color: $color-gray-400 !important;
   }
   &:focus,
   &:focus-within {
-    background-color: #fff !important;
-    border-color: #e0e2e7 !important;
+    background-color: $color-white !important;
+    border-color: $color-gray-100 !important;
     box-shadow: none !important;
     outline: none;
   }
 
   &.readonly {
-    background-color: #f9f9fc !important;
+    background-color: $color-gray-25 !important;
     cursor: not-allowed;
     pointer-events: none;
   }
 
   &.readonly:focus,
   &.readonly:focus-within {
-    background-color: #f9f9fc !important;
-    border-color: #e0e2e7 !important;
+    background-color: $color-gray-25 !important;
+    border-color: $color-gray-100 !important;
     box-shadow: none !important;
     outline: none;
   }

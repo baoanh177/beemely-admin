@@ -3,20 +3,20 @@
   outline: none;
   &.ant-select-focused {
     .ant-select-selector {
-      background-color: #ffffff !important;
+      background-color: $color-white !important;
       transition: none;
     }
   }
   .ant-select-selector {
-    background-color: #f9f9fc !important;
+    background-color: $color-gray-25 !important;
     height: 100%;
-    border-color: #e0e2e7 !important;
+    border-color: $color-gray-100 !important;
     box-shadow: none !important;
 
     .ant-select-selection-placeholder {
       line-height: unset;
       height: 20px;
-      color: #858d9d;
+      color: $color-gray-400;
     }
     .ant-select-selection-item {
       height: 20px;
@@ -25,7 +25,7 @@
   }
   &:hover {
     .ant-select-selector {
-      border-color: #e0e2e7 !important;
+      border-color: $color-gray-100 !important;
     }
   }
   .ant-select-selection-overflow-item {
@@ -34,8 +34,8 @@
       margin: 4px 6px;
       align-items: center;
       height: 26px;
-      color: #883dcf;
-      background-color: #f4ecfb;
+      color: $color-primary-500;
+      background-color: $color-primary-50;
     }
   }
   .ant-select-selection-item {
@@ -44,9 +44,9 @@
       font-weight: 400;
     }
     .ant-select-selection-item-remove {
-      color: #883dcf;
+      color: $color-primary-500;
       &:hover {
-        color: #883dcf;
+        color: $color-primary-500;
       }
     }
   }

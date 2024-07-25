@@ -1,5 +1,5 @@
 .ant-steps-item-tail {
-    border: 0.5px dashed #e0e2e7;
+    border: 0.5px dashed $color-gray-100;
 }
 .ant-steps.ant-steps-vertical > .ant-steps-item > .ant-steps-item-container > .ant-steps-item-tail::after {
     background-color: unset;

@@ -1,11 +1,11 @@
 .ant-table-wrapper {
-  background-color: white;
+  background-color: $color-white;
   border-radius: 12px;
   .ant-table-column-sorter-down.active {
-    color: #883dcf;
+    color: $color-primary-500;
   }
   .ant-table-column-sorter-up.active {
-    color: #883dcf;
+    color: $color-primary-500;
   }
   .ant-table-content {
     font-family: ps-Bold;
@@ -14,15 +14,15 @@
     .ant-checkbox {
       &-checked {
         .ant-checkbox-inner {
-          background-color: #883dcf;
+          background-color: $color-primary-500;
 
           &:hover {
-            background-color: #883dcf;
+            background-color: $color-primary-500;
           }
         }
         &:not(.ant-checkbox-disabled):hover {
           .ant-checkbox-inner {
-            background-color: #883dcf;
+            background-color: $color-primary-500;
           }
         }
       }
@@ -30,27 +30,27 @@
     .ant-table-thead {
       padding-top: 2px;
       .ant-checkbox-inner {
-        border: 1px solid #883dcf;
+        border: 1px solid $color-primary-500;
       }
       .ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-inner {
-        border: 1px solid #883dcf;
+        border: 1px solid $color-primary-500;
       }
       .ant-checkbox-indeterminate .ant-checkbox-inner:after {
-        background-color: #883dcf;
+        background-color: $color-primary-500;
       }
 
       > tr {
         > th {
-          background-color: #ffffff;
+          background-color: $color-white;
           padding: 18px 22px;
 
         }
       }
     }
     .ant-table-tbody {
-      color: #667085;
+      color: $color-gray-500;
       .ant-checkbox-inner {
-        border: 1px solid #883dcf;
+        border: 1px solid $color-primary-500;
       }
       tr {
         td {
@@ -58,7 +58,7 @@
         }
       }
       .ant-table-row.ant-table-row-selected > .ant-table-cell {
-        background-color: #f9f9fc;
+        background-color: $color-gray-25;
       }
     }
   }
@@ -74,11 +74,11 @@
         cursor: pointer;
       }
       .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-        background-color: #f4ecfb;
+        background-color: $color-primary-50;
       }
     }
     .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
-      color: #883dcf;
+      color: $color-primary-500;
     }
     .ant-pagination-options {
       display: flex;
@@ -88,32 +88,32 @@
       }
     }
     .ant-pagination-item-link {
-      color: #883dcf;
-      background-color: #f4ecfb;
+      color: $color-primary-500;
+      background-color: $color-primary-50;
     }
     .ant-pagination-next:active .ant-pagination-item-link {
-      background-color: #f4ecfb;
+      background-color: $color-primary-50;
     }
     .ant-pagination-prev:active .ant-pagination-item-link {
-      background-color: #f4ecfb;
+      background-color: $color-primary-50;
     }
     .ant-pagination-item {
       &:active {
-        background-color: #f4ecfb;
+        background-color: $color-primary-50;
       }
-      background-color: #f4ecfb;
+      background-color: $color-primary-50;
     }
 
     .ant-pagination-item a {
-      color: #883dcf;
+      color: $color-primary-500;
     }
 
     .ant-pagination-item-active {
-      border: 1px solid #883dcf;
-      background-color: #883dcf;
+      border: 1px solid $color-primary-500;
+      background-color: $color-primary-500;
 
       a {
-        color: #ffffff;
+        color: $color-white;
       }
     }
   }
@@ -121,7 +121,7 @@
 
 .secondary-table {
   .ant-table-thead > tr > th {
-    background-color: #f9f9fc !important;
+    background-color: $color-gray-25 !important;
   }
 }
 .ant-pagination-total-text {
