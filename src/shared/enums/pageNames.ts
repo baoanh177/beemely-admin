@@ -11,5 +11,5 @@ export enum EPageNames {
   roles = "Vai trò",
   permissions = "Quyền",
   brands = "Thương hiệu",
-  genders = "Giới tính"
+  genders = "Giới tính",
 }
