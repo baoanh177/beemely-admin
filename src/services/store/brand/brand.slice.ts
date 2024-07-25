@@ -32,6 +32,7 @@ const brandSlice = createSlice({
     // ? Get all brands
     builder.addCase(getAllBrands.fulfilled, (state, { payload }: PayloadAction<IResponse<IBrand[]>>) => {
       state.brands = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
     });
     // ? Get brand by id
     builder.addCase(getBrandById.fulfilled, (state, { payload }: PayloadAction<IResponse<IBrand>>) => {
