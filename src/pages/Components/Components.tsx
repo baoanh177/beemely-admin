@@ -22,6 +22,7 @@ import StatCard from "@/components/card/StatCards";
 import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
 import UploadImage from "@/components/form/UploadImage";
+import TablePagination from "@/components/table/Pagination";
 const Components = () => {
   return (
     <>
@@ -215,6 +216,10 @@ const Components = () => {
       </div>
       <div className="flex flex-col items-start gap-5">
         <OrderStatusCard itemSteps={stepsData} currentStep={2} />
+      </div>
+      <div className="display-s-regular">Pagination</div>
+      <div className="flex flex-col gap-2">
+        <TablePagination current={1} pageSize={10} total={19} showSizeChanger={false} />
       </div>
     </>
   );

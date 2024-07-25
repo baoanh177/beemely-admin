@@ -1,0 +1,34 @@
+.table-pagination {
+  position: relative;
+  .ant-pagination {
+    .ant-pagination-item {
+      width: 32px !important;
+      height: 32px !important;
+      &:not(.ant-pagination-item-active) {
+        background: #f4ecfb !important;
+      }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      button {
+        background-color: #f4ecfb;
+        color: #883dcf;
+      }
+    }
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+  }
+  .ant-pagination-total-text {
+    font-family: ps-semiBold;
+    color: gray;
+    position: absolute;
+    left: 0;
+    padding-left: 24px;
+  }
+}
