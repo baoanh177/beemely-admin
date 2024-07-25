@@ -32,6 +32,7 @@ const genderSlice = createSlice({
     // Get all genders
     builder.addCase(getAllGenders.fulfilled, (state, { payload }: PayloadAction<IResponse<IGender[]>>) => {
       state.genders = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
     });
     // Get gender by id
     builder.addCase(getGenderById.fulfilled, (state, { payload }: PayloadAction<IResponse<IGender>>) => {
