@@ -77,7 +77,7 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
             <Col xl={{ span: 8 }} xs={{ span: 24 }}>
               <FormGroup title="Module">
                 <FormSwitch
-                  label="New module"
+                  label="Module mới"
                   onChange={(value) => {
                     setNewModule(value);
                     setFieldValue("module", "");
@@ -86,8 +86,8 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
 
                 {newModule ? (
                   <FormInput
-                    label="Permission Module"
-                    placeholder="Type permission module here..."
+                    label="Module quyền"
+                    placeholder="Nhập module quyền ở đây..."
                     onChange={(value) => setFieldValue("module", value)}
                     value={values.module}
                     error={touched.module ? errors.module : ""}
@@ -97,20 +97,20 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
                     value={values.availableModule}
                     onChange={(value) => setFieldValue("availableModule", value)}
                     options={state.modules.map((module) => ({ label: module, value: module }))}
-                    label="Permission Module"
+                    label="Module quyền"
                     error={touched.availableModule ? errors.availableModule : ""}
-                    placeholder="Choose permission module..."
+                    placeholder="Chọn module quyền..."
                   />
                 )}
               </FormGroup>
             </Col>
             <Col xl={{ span: 16 }} xs={{ span: 24 }}>
-              <FormGroup title="General Information">
+              <FormGroup title="Thông tin chung">
                 <FormInput
                   value={values.label}
-                  label="Permission Name"
+                  label="Tên quyền"
                   error={touched.label ? errors.label : ""}
-                  placeholder="Type permission name here..."
+                  placeholder="Nhập tên quyền ở đây..."
                   onBlur={handleBlur}
                   onChange={(value) => {
                     setFieldValue("label", value);
@@ -118,9 +118,9 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
                 />
                 <FormInput
                   value={values.name}
-                  label="Permission Value"
+                  label="Giá trị"
                   error={touched.name ? errors.name : ""}
-                  placeholder="Type permission value here..."
+                  placeholder="Nhập giá trị ở đây..."
                   onBlur={handleBlur}
                   onChange={(value) => {
                     setFieldValue("name", value);

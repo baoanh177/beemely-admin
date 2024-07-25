@@ -27,7 +27,7 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
   };
 
   const brandSchema = object().shape({
-    name: string().required("Vui lòng nhập tên brand"),
+    name: string().required("Vui lòng nhập tên thương hiệu"),
     image: string().required("Vui lòng chọn hình ảnh"),
   });
 
@@ -62,8 +62,8 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
             colRight: (
               <FormGroup title="Thông tin chung">
                 <FormInput
-                  label="Tên brand"
-                  placeholder="Nhập tên brand ở đây..."
+                  label="Tên thương hiệu"
+                  placeholder="Nhập tên thương hiệu ở đây..."
                   name="name"
                   value={values.name}
                   error={touched.name ? errors.name : ""}
@@ -71,7 +71,7 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
                   onBlur={handleBlur}
                 />
                 <FormInputArea
-                  label="Mô tả brand"
+                  label="Mô tả"
                   placeholder="Nhập mô tả ở đây..."
                   name="description"
                   value={values.description}

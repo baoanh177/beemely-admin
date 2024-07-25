@@ -76,13 +76,13 @@ const Brands = () => {
   return (
     <>
       <Heading
-        title="Brands"
+        title="Thương hiệu"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_BRAND,
-            text: "Tạo mới Brand",
+            text: "Tạo mới Thương hiệu",
             onClick: () => navigate("/brands/create"),
           },
         ]}

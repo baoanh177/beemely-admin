@@ -28,7 +28,7 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
   };
 
   const labelSchema = object().shape({
-    name: string().required("Vui lòng nhập tên label"),
+    name: string().required("Vui lòng nhập tên nhãn"),
   });
   return (
     <Formik
@@ -47,8 +47,8 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung">
           <FormInput
-            label="Tên label"
-            placeholder="Nhập tên label ở đây..."
+            label="Tên nhãn"
+            placeholder="Nhập tên nhãn ở đây..."
             name="name"
             value={values.name}
             error={touched.name ? errors.name : ""}
@@ -56,8 +56,8 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
             onBlur={handleBlur}
           />
           <FormInput
-            label="Mô tả label"
-            placeholder="Nhập tên mô tả ở đây..."
+            label="Mô tả"
+            placeholder="Nhập mô tả ở đây..."
             name="description"
             value={values.description}
             error={touched.description ? errors.description : ""}

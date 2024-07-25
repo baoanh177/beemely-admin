@@ -20,12 +20,12 @@ const DetailRole = () => {
   return (
     <>
       <Heading
-        title="Detail Role"
+        title="Chi tiết Vai trò"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/roles");

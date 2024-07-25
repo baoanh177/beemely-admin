@@ -66,13 +66,13 @@ const Genders = () => {
   return (
     <>
       <Heading
-        title="Genders"
+        title="Giới tính"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_GENDER,
-            text: "Tạo mới Gender",
+            text: "Tạo mới Giới tính",
             onClick: () => navigate("/genders/create"),
           },
         ]}

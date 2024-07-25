@@ -26,7 +26,7 @@ const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
   };
 
   const genderSchema = object().shape({
-    name: string().required("Please enter name"),
+    name: string().required("Vui lòng nhập tên giới tính"),
   });
 
   return (
@@ -50,8 +50,8 @@ const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
             colLeft: (
               <FormGroup title="Thông tin chung">
                 <FormInput
-                  label="Tên gender"
-                  placeholder="Nhập tên gender ở đây..."
+                  label="Tên giới tính"
+                  placeholder="Nhập tên giới tính ở đây..."
                   name="name"
                   value={values.name}
                   error={touched.name ? errors.name : ""}

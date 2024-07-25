@@ -33,12 +33,12 @@ const CreateTag = () => {
   return (
     <>
       <Heading
-        title="Tạo mới Tag"
+        title="Tạo mới Thẻ"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Hủy",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/tags");
@@ -46,7 +46,7 @@ const CreateTag = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Tạo mới Tag",
+            text: "Tạo mới Thẻ",
             icon: <FaPlus className="text-[18px]" />,
             onClick: () => {
               if (formikRef.current) {

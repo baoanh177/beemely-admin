@@ -72,13 +72,13 @@ const Labels = () => {
   return (
     <>
       <Heading
-        title="Labels"
+        title="Nhãn"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_LABEL,
-            text: "Tạo mới Label",
+            text: "Tạo mới Nhãn",
             onClick: () => navigate("/labels/create"),
           },
         ]}

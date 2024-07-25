@@ -41,7 +41,7 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
   };
 
   const validationSchema = object().shape({
-    name: string().required("Please enter role name"),
+    name: string().required("Vui lòng nhập tên vai trò"),
   });
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
           rate="1-3"
           groups={{
             colLeft: (
-              <FormGroup title="Permissions">
+              <FormGroup title="Quyền">
                 <TreeData
                   isDisable={type === "view"}
                   expanded={["parent-all"]}
@@ -101,15 +101,15 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
               </FormGroup>
             ),
             colRight: (
-              <FormGroup title="General Information">
+              <FormGroup title="Thông tin chung">
                 <FormInput
                   type="text"
                   isDisabled={type === "view"}
-                  label="Role name"
+                  label="Tên vai trò"
                   value={values.name}
                   name="name"
                   error={touched.name ? errors.name : ""}
-                  placeholder="Type role name here..."
+                  placeholder="Nhập tên vai trò ở đây..."
                   onChange={(value) => {
                     setFieldValue("name", value);
                   }}
