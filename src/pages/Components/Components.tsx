@@ -29,7 +29,6 @@ const Components = () => {
       <Heading title="Components" hasBreadcrumb />
       <div className="flex flex-col gap-8">
         <div className="flex flex-col items-start gap-5">
-
           <div className="display-s-regular">FormInput: Form input text and number</div>
           <div className="flex flex-col gap-2">
             <FormInput placeholder="Đây là input number" type="number" />
@@ -220,7 +219,7 @@ const Components = () => {
       </div>
       <div className="display-s-regular">Pagination</div>
       <div className="flex flex-col gap-2">
-        <TablePagination current={1} pageSize={10} total={19} showSizeChanger={false}/>
+        <TablePagination current={1} pageSize={10} total={19} showSizeChanger={false} />
       </div>
     </>
   );
