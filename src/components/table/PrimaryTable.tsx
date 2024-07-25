@@ -8,6 +8,7 @@ import DateRangePicker from "../form/FormDateRangePicker";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { ISearchParams } from "@/shared/utils/shared-interfaces";
 import { useDispatch } from "react-redux";
+import PaginationText from "../common/PaginationText";
 
 export interface ITableData {
   key: React.Key;
@@ -27,9 +28,7 @@ interface IPrimaryTableProps {
 
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, setFilter }) => {
   const dispatch = useDispatch();
-  const getShowingText = (total: number, range: [number, number]) => {
-    return `Hiển thị ${range[0]}-${range[1]} từ ${total}`;
-  };
+
   return (
     <div className="primary-table flex w-full flex-col gap-6">
       {search && (
@@ -56,7 +55,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
           pagination
             ? {
                 ...pagination,
-                showTotal: getShowingText,
+                showTotal: PaginationText,
                 showSizeChanger: pagination.showSideChanger ?? false,
               }
             : false

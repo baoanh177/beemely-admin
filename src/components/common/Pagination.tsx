@@ -1,5 +1,6 @@
 import { ConfigProvider, Pagination as AntdPagination } from "antd";
 import { ThemeConfig } from "antd/es/config-provider/context";
+import PaginationText from "./PaginationText";
 
 interface IPaginationProp {
   current: number;
@@ -9,10 +10,6 @@ interface IPaginationProp {
 }
 
 const Pagination = ({ current, pageSize, total, showSizeChanger }: IPaginationProp) => {
-  const getShowingText = (total: number, range: [number, number]) => {
-    return `Hiển thị ${range[0]}-${range[1]} từ ${total}`;
-  };
-
   const theme: ThemeConfig = {
     components: {
       Pagination: {
@@ -26,15 +23,8 @@ const Pagination = ({ current, pageSize, total, showSizeChanger }: IPaginationPr
 
   return (
     <ConfigProvider theme={theme}>
-      <div className="table-pagination">
-        <AntdPagination
-          className="pagination"
-          current={current}
-          pageSize={pageSize}
-          total={total}
-          showTotal={getShowingText}
-          showSizeChanger={showSizeChanger}
-        />
+      <div className="pagination">
+        <AntdPagination current={current} pageSize={pageSize} total={total} showTotal={PaginationText} showSizeChanger={showSizeChanger} />
       </div>
     </ConfigProvider>
   );
