@@ -87,7 +87,14 @@ const Brands = () => {
           },
         ]}
       />
-      <ManagementGrid columns={columns} data={data} setFilter={setFilter} search={{ status: [] }} buttons={buttons} />
+      <ManagementGrid
+        columns={columns}
+        data={data}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        setFilter={setFilter}
+        search={{ status: [] }}
+        buttons={buttons}
+      />
     </>
   );
 };
