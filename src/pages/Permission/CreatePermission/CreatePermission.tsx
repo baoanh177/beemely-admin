@@ -22,7 +22,7 @@ const CreatePermission = () => {
     reset: resetStatus,
     actions: {
       success: {
-        message: "Created successfully",
+        message: "Tạo mới thành công",
         navigate: "/permissions",
       },
       error: {
@@ -34,12 +34,12 @@ const CreatePermission = () => {
   return (
     <>
       <Heading
-        title="Create Permission"
+        title="Tạo mới Quyền"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/permissions");
@@ -47,7 +47,7 @@ const CreatePermission = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Create Permission",
+            text: "Tạo mới Quyền",
             icon: <FaPlus className="text-[18px]" />,
             onClick: () => {
               formikRef && formikRef.current && formikRef.current.handleSubmit();

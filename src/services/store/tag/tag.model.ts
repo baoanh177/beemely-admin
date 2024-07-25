@@ -1,5 +1,5 @@
-export interface Itag {
+export interface ITag {
   id: string;
   name: string;
-  description: string;
+  description?: string;
 }

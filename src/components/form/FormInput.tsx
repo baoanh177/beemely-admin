@@ -95,7 +95,7 @@ const FormInput = ({
           )}
         />
       </div>
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+      {error && <div className="text-sm text-red-500">{error}</div>}
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
-import { IoClose, IoSaveOutline } from "react-icons/io5";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
+import { FaPlus } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
@@ -8,13 +9,12 @@ import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
 import { useArchive } from "@/hooks/useArchive";
-import { getGenderById } from "@/services/store/gender/gender.thunk";
 
-const UpdateGender = () => {
+const CreateGender = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
-  const { id } = useParams();
-  const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+  const { state } = useArchive<IGenderInitialState>("gender");
+
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
@@ -29,33 +29,21 @@ const UpdateGender = () => {
     },
   });
 
-  useEffect(() => {
-    if (id) {
-      (async () => {
-        await dispatch(getGenderById(id));
-      })();
+  const handleSubmit = () => {
+    if (formikRef.current) {
+      formikRef.current.handleSubmit();
     }
-  }, [id]);
-
-  useEffect(() => {
-    if (state.activeGender) {
-      if (formikRef.current) {
-        formikRef.current.setValues({
-          name: state.activeGender.name,
-        });
-      }
-    }
-  }, [state.activeGender]);
+  };
 
   return (
     <>
       <Heading
-        title="Update Gender"
+        title="Tạo mới Giới tính"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/genders");
@@ -63,19 +51,15 @@ const UpdateGender = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Save change",
-            icon: <IoSaveOutline className="text-[18px]" />,
-            onClick: () => {
-              if (formikRef.current) {
-                formikRef.current.handleSubmit();
-              }
-            },
+            text: "Tạo mới Giới tính",
+            icon: <FaPlus className="text-[18px]" />,
+            onClick: handleSubmit,
           },
         ]}
       />
-      {state.activeGender && <GenderForm type="update" formikRef={formikRef} gender={state.activeGender} />}
+      <GenderForm type="create" formikRef={formikRef} />
     </>
   );
 };
 
-export default UpdateGender;
+export default CreateGender;

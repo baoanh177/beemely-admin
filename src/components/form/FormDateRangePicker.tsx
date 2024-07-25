@@ -1,6 +1,7 @@
 import React from "react";
 import { ConfigProvider, DatePicker } from "antd";
 import { Dayjs } from "dayjs";
+import viVN from "antd/es/locale/vi_VN";
 
 interface DateRangePickerProps {
   label?: string;
@@ -20,6 +21,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ label, onChange, defa
 
   return (
     <ConfigProvider
+      locale={viVN}
       theme={{
         token: {
           colorPrimary: "#883DCF",

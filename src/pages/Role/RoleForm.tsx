@@ -42,20 +42,18 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
   };
 
   const validationSchema = object().shape({
-    name: string().required("Please enter role name"),
+    name: string().required("Vui lòng nhập tên vai trò"),
   });
 
   useEffect(() => {
-    (async () => {
-      await dispatch(
-        getAllPermissions({
-          query: {
-            _pagination: false,
-          },
-        }),
-      );
-      await dispatch(getAllModules());
-    })();
+    dispatch(
+      getAllPermissions({
+        query: {
+          _pagination: false,
+        },
+      }),
+    );
+    dispatch(getAllModules());
   }, []);
 
   useEffect(() => {

@@ -31,7 +31,7 @@ const Button = ({ type = "primary", text, isDisabled = false, isLoading = false,
         if (onClick && !isDisabled && !isLoading) onClick();
       }}
       className={clsx(
-        "text-m-semibold flex items-center justify-center gap-1 rounded-[8px] px-[14px] py-[10px] transition-opacity",
+        "text-m-semibold flex shrink-0 items-center justify-center gap-1 rounded-[8px] px-[14px] py-[10px] transition-opacity",
         typeClass[type],
         className,
         {

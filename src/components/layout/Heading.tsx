@@ -3,6 +3,7 @@ import Button, { IButtonProps } from "@/components/common/Button";
 import { useArchive } from "@/hooks/useArchive";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 import { EPermissions } from "@/shared/enums/permissions";
+import { Col, Row } from "antd";
 
 interface IHeadingButton extends IButtonProps {
   permission?: EPermissions;
@@ -17,13 +18,13 @@ interface IHeadingProps {
 const Heading = ({ title, hasBreadcrumb, buttons = [] }: IHeadingProps) => {
   const { state } = useArchive<IAuthInitialState>("auth");
   return (
-    <div className="flex items-end justify-between gap-6">
-      <div className="flex flex-col gap-2">
+    <Row className="flex items-end justify-between gap-6">
+      <Col className="flex shrink-0 flex-col gap-2">
         <h3 className="display-m-semibold text-black-500">{title}</h3>
         {hasBreadcrumb && <Breadcrumb />}
-      </div>
+      </Col>
 
-      <div className="flex shrink-0 gap-4">
+      <Col className="flex shrink-0 gap-4">
         {buttons?.map((btn, index) => {
           if (btn.permission) {
             const userPermissions = state.profile?.listNamePermission;
@@ -32,8 +33,8 @@ const Heading = ({ title, hasBreadcrumb, buttons = [] }: IHeadingProps) => {
           }
           return <Button key={index} {...btn} />;
         })}
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

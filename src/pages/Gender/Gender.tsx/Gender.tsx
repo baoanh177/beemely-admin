@@ -32,7 +32,7 @@ const Genders = () => {
   const columns: ColumnsType<ITableData> = [
     {
       dataIndex: "name",
-      title: "Name",
+      title: "Tên",
     },
   ];
 
@@ -52,27 +52,27 @@ const Genders = () => {
       onClick(record) {
         navigate(`/genders/update/${record?.key}`);
       },
-      permission: EPermissions.UPDATE_Gender,
+      permission: EPermissions.UPDATE_GENDER,
     },
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
         dispatch(deleteGender(record.key));
       },
-      permission: EPermissions.DELETE_Gender,
+      permission: EPermissions.DELETE_GENDER,
     },
   ];
 
   return (
     <>
       <Heading
-        title="Genders"
+        title="Giới tính"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_Gender,
-            text: "Create Gender",
+            permission: EPermissions.CREATE_GENDER,
+            text: "Tạo mới Giới tính",
             onClick: () => navigate("/genders/create"),
           },
         ]}

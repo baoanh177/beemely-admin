@@ -84,7 +84,7 @@ const CustomerDetail = () => {
 
   return (
     <>
-      <Heading title="User Detail" hasBreadcrumb />
+      <Heading title="Chi tiết Khách hàng" hasBreadcrumb />
       <Row gutter={[24, 24]}>
         <Col xl={{ span: 6 }}>
           <CustomerDetailCard

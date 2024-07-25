@@ -43,7 +43,7 @@ const Roles = () => {
   const columns: ColumnsType = [
     {
       dataIndex: "name",
-      title: "Name",
+      title: "Tên",
     },
   ];
 
@@ -73,13 +73,13 @@ const Roles = () => {
   return (
     <>
       <Heading
-        title="Roles"
+        title="Vai trò"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_ROLE,
-            text: "Create Role",
+            text: "Tạo mới Vai trò",
             onClick: () => navigate("/roles/create"),
           },
         ]}

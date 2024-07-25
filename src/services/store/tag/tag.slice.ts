@@ -2,12 +2,12 @@ import { commonStaticReducers } from "@/services/shared";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Itag } from "./tag.model";
+import { ITag } from "./tag.model";
 import { createTag, deleteTag, getAllTags, getTagById, updateTag } from "./tag.thunk";
 
 export interface ITagInitialState extends IInitialState {
-  tags: Itag[];
-  activeTag: Itag | undefined;
+  tags: ITag[];
+  activeTag: ITag | undefined;
 }
 
 const initialState: ITagInitialState = {
@@ -30,11 +30,12 @@ const tagSlice = createSlice({
   },
   extraReducers(builder) {
     // ? Get all tags
-    builder.addCase(getAllTags.fulfilled, (state, { payload }: PayloadAction<IResponse<Itag[]>>) => {
+    builder.addCase(getAllTags.fulfilled, (state, { payload }: PayloadAction<IResponse<ITag[]>>) => {
       state.tags = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
     });
     // ? Get tag by id
-    builder.addCase(getTagById.fulfilled, (state, { payload }: PayloadAction<IResponse<Itag>>) => {
+    builder.addCase(getTagById.fulfilled, (state, { payload }: PayloadAction<IResponse<ITag>>) => {
       state.activeTag = payload.metaData;
     });
     // ? Create tag
@@ -46,8 +47,9 @@ const tagSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Created successfully";
       })
-      .addCase(createTag.rejected, (state) => {
+      .addCase(createTag.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Update tag
     builder
@@ -58,8 +60,9 @@ const tagSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
-      .addCase(updateTag.rejected, (state) => {
+      .addCase(updateTag.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Delete tag
     builder
@@ -71,8 +74,9 @@ const tagSlice = createSlice({
         state.message = "Deleted successfully";
         state.tags = state.tags.filter((tag) => tag.id !== payload);
       })
-      .addCase(deleteTag.rejected, (state) => {
+      .addCase(deleteTag.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
   },
 });

@@ -16,6 +16,8 @@ import { genderRoutes } from "./gender.route";
 import { tagRoutes } from "./tag.route";
 import { permissionRoutes } from "./permission.route";
 import { userRoutes } from "./user.route";
+import { brandRoutes } from "./brand.route";
+import { labelRoutes } from "./label.router";
 
 export interface IRoute {
   path: string;
@@ -35,15 +37,56 @@ export const routes: IRoute[] = [
         middleware: () => <AuthMiddleware />,
         layout: () => <DefaultLayout />,
         pages: [
-          { path: "/", middleware: () => <NoPathMiddleware /> },
-          { path: "dashboard", element: () => <Dashboard /> },
-          { path: "products", element: () => <Products /> },
-          { path: "orders", element: () => <Orders /> },
-          { path: "components", element: () => <Components /> },
-          { path: "roles", pages: roleRoutes },
-          { path: "genders", pages: genderRoutes },
-          { path: "tags", pages: tagRoutes },
-          { path: "users", pages: userRoutes },
+          {
+            path: "/",
+            middleware: () => <NoPathMiddleware />,
+          },
+          {
+            path: "dashboard",
+            element: () => <Dashboard />,
+          },
+          {
+            path: "products",
+            element: () => <Products />,
+          },
+          {
+            path: "orders",
+            element: () => <Orders />,
+          },
+          {
+            path: "components",
+            element: () => <Components />,
+          },
+          {
+            path: "users",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_USER]} />,
+            pages: userRoutes,
+          },
+          {
+            path: "roles",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ROLE]} />,
+            pages: roleRoutes,
+          },
+          {
+            path: "genders",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_GENDER]} />,
+            pages: genderRoutes,
+          },
+          {
+            path: "tags",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
+            pages: tagRoutes,
+          },
+          {
+            path: "brands",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
+            pages: brandRoutes,
+          },
+          {
+            path: "labels",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_LABEL]} />,
+            pages: labelRoutes,
+          },
           {
             path: "permissions",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,

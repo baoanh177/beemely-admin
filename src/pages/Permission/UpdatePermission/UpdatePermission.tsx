@@ -33,17 +33,17 @@ const UpdatePermission = () => {
 
   useEffect(() => {
     dispatch(getPermissionById(id as string));
-  }, [])
+  }, []);
 
   return (
     <>
       <Heading
-        title="Update Permission"
+        title="Cập nhật Quyền"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/permissions");
@@ -51,7 +51,7 @@ const UpdatePermission = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Save Change",
+            text: "Lưu thay đổi",
             icon: <IoSaveOutline className="text-[18px]" />,
             onClick: () => {
               formikRef && formikRef.current && formikRef.current.handleSubmit();
@@ -59,7 +59,7 @@ const UpdatePermission = () => {
           },
         ]}
       />
-      <PermissionForm formikRef={formikRef} type="update" permission={state.activePermission}/>
+      <PermissionForm formikRef={formikRef} type="update" permission={state.activePermission} />
     </>
   );
 };

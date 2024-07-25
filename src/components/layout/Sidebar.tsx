@@ -31,7 +31,6 @@ export interface IMenuItem {
 
 const Sidebar = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
-
   const { state } = useArchive<IAuthInitialState>("auth");
 
   const [activeMenuItemId, setActiveMenuItemId] = useState<string | null>();
@@ -97,7 +96,19 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           id: "3.4",
           label: "Genders",
           path: "genders",
-          permissions: EPermissions.READ_Gender,
+          permissions: EPermissions.READ_GENDER,
+        },
+        {
+          id: "3.5",
+          label: "Brands",
+          path: "brands",
+          permissions: EPermissions.READ_BRAND,
+        },
+        {
+          id: "3.5",
+          label: "Labels",
+          path: "labels",
+          permissions: EPermissions.READ_LABEL,
         },
       ],
     },
@@ -113,7 +124,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
     <>
       {/* Page parent */}
       <div className="flex h-dvh select-none bg-gray-25">
-        <aside className="fixed bottom-0 left-0 top-0 z-40 flex w-[264px] flex-col bg-white">
+        <aside className="fixed bottom-0 left-0 top-0 z-50 flex w-[264px] -translate-x-full flex-col bg-white transition-transform md:translate-x-0">
           {/* Logo */}
           <div className="flex cursor-pointer items-center gap-3 px-5 py-6" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="h-[34px] w-[34px]" />
@@ -158,7 +169,7 @@ const Sidebar = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className="ml-[264px] flex grow flex-col gap-6 overflow-y-scroll p-6">{children}</main>
+        <main className="ml-0 flex grow flex-col gap-6 overflow-y-scroll p-6 md:ml-[264px]">{children}</main>
       </div>
     </>
   );

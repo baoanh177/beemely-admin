@@ -30,11 +30,7 @@ const UpdateTag = () => {
     },
   });
   useEffect(() => {
-    if (id) {
-      (async () => {
-        await dispatch(getTagById(id));
-      })();
-    }
+    dispatch(getTagById(id as string));
   }, [id]);
 
   useEffect(() => {
@@ -50,12 +46,12 @@ const UpdateTag = () => {
   return (
     <>
       <Heading
-        title="Update Tag"
+        title="Cập nhật Thẻ"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/tags");
@@ -63,7 +59,7 @@ const UpdateTag = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Save change",
+            text: "Lưu thay đổi",
             icon: <IoSaveOutline className="text-[18px]" />,
             onClick: () => {
               if (formikRef.current) {

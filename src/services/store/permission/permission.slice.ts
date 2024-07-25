@@ -37,19 +37,18 @@ const permissionSlice = createSlice({
         state.permissions = payload.metaData;
         state.totalRecords = payload.totalDocs ?? 0;
       })
-      .addCase(getAllPermissions.rejected, (state) => {
+      .addCase(getAllPermissions.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = "Something went wrong, please try again later";
+        state.message = payload.message;
       });
     // ? Get permission by id
     builder
       .addCase(getPermissionById.fulfilled, (state, { payload }: PayloadAction<IResponse<IPermission>>) => {
         state.activePermission = payload.metaData;
-        state.totalRecords = payload.totalDocs ?? 0;
       })
-      .addCase(getPermissionById.rejected, (state) => {
+      .addCase(getPermissionById.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = "Something went wrong, please try again later";
+        state.message = payload.message;
       });
     // ? Create permission
     builder
@@ -59,8 +58,9 @@ const permissionSlice = createSlice({
       .addCase(createPermission.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
       })
-      .addCase(createPermission.rejected, (state) => {
+      .addCase(createPermission.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Update permission
     builder
@@ -71,17 +71,18 @@ const permissionSlice = createSlice({
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
-      .addCase(updatePermission.rejected, (state) => {
+      .addCase(updatePermission.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
     // ? Get all modules
     builder
       .addCase(getAllModules.fulfilled, (state, { payload }: PayloadAction<IResponse<string[]>>) => {
         state.modules = payload.metaData;
       })
-      .addCase(getAllModules.rejected, (state) => {
+      .addCase(getAllModules.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = "Something went wrong, please try again later";
+        state.message = payload.message;
       });
     // ? Delete permission
     builder
@@ -93,8 +94,9 @@ const permissionSlice = createSlice({
         state.message = "Deleted successfully";
         state.permissions = state.permissions.filter((permission) => permission.id !== payload);
       })
-      .addCase(deletePermission.rejected, (state) => {
+      .addCase(deletePermission.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
+        state.message = payload.message;
       });
   },
 });
