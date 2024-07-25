@@ -23,7 +23,7 @@ const Permissions = () => {
     },
     {
       dataIndex: "value",
-      title: "Value",
+      title: "Giá trị",
     },
     {
       dataIndex: "module",
@@ -84,13 +84,13 @@ const Permissions = () => {
   return (
     <>
       <Heading
-        title="Permissions"
+        title="Quyền"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_PERMISSION,
-            text: "Create Permission",
+            text: "Tạo mới Quyền",
             onClick: () => navigate("/permissions/create"),
           },
         ]}

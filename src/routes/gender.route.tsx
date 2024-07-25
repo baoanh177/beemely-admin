@@ -1,7 +1,7 @@
 import Gender from "@/pages/Gender/Gender.tsx/Gender";
 import { IRoute } from "./routes";
-import CreateRender from "@/pages/Gender/CreateRender.tsx/CreateRender";
-import UpdateRender from "@/pages/Gender/UpdateRender/UpdateRender";
+import CreateRender from "@/pages/Gender/CreateGender.tsx/CreateGender";
+import UpdateRender from "@/pages/Gender/UpdateGender/UpdateGender";
 
 export const genderRoutes: IRoute[] = [
   {

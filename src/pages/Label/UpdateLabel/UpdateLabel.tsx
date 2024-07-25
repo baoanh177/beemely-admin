@@ -44,12 +44,12 @@ const UpdateLabel = () => {
   return (
     <>
       <Heading
-        title="Cập nhật Label"
+        title="Cập nhật Nhãn"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Hủy",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/labels");

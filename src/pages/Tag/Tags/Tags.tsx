@@ -72,13 +72,13 @@ const Tags = () => {
   return (
     <>
       <Heading
-        title="Tags"
+        title="Thẻ"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_TAG,
-            text: "Tạo mới Tag",
+            text: "Tạo mới Thẻ",
             onClick: () => navigate("/tags/create"),
           },
         ]}

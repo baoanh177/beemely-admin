@@ -48,12 +48,12 @@ const UpdateRole = () => {
   return (
     <>
       <Heading
-        title="Update Role"
+        title="Cập nhật Vai trò"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Cancel",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/roles");
@@ -61,7 +61,7 @@ const UpdateRole = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Save Change",
+            text: "Lưu thay đổi",
             icon: <IoSaveOutline className="text-[18px]" />,
             onClick: () => {
               formikRef && formikRef.current && formikRef.current.handleSubmit();

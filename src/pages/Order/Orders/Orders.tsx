@@ -6,17 +6,17 @@ import { EPermissions } from "@/shared/enums/permissions";
 const Orders = () => {
   return (
     <Heading
-      title="Orders"
+      title="Đơn hàng"
       hasBreadcrumb
       buttons={[
         {
-          text: "Export",
+          text: "Xuất",
           type: "ghost",
           icon: <GoDownload className="text-[18px]" />,
           permission: EPermissions.READ_ORDER,
         },
         {
-          text: "Add Order",
+          text: "Tạo mới Đơn hàng",
           icon: <FaPlus className="text-[18px]" />,
           permission: EPermissions.CREATE_ORDER,
         },

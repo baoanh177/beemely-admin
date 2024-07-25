@@ -1,52 +1,56 @@
 import { useEffect, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import TagForm, { ITagFormInitialValues } from "../TagForm";
+import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { ITagInitialState, resetStatus } from "@/services/store/tag/tag.slice";
+import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
 import { useArchive } from "@/hooks/useArchive";
-import { getTagById } from "@/services/store/tag/tag.thunk";
+import { getGenderById } from "@/services/store/gender/gender.thunk";
 
-const UpdateTag = () => {
+const UpdateGender = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<ITagFormInitialValues>>(null);
+  const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
   const { id } = useParams();
-  const { state, dispatch } = useArchive<ITagInitialState>("tag");
-
+  const { state, dispatch } = useArchive<IGenderInitialState>("gender");
   useFetchStatus({
-    module: "tag",
+    module: "gender",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/tags",
+        navigate: "/genders",
       },
       error: {
         message: state.message,
       },
     },
   });
+
   useEffect(() => {
-    dispatch(getTagById(id as string));
+    if (id) {
+      (async () => {
+        await dispatch(getGenderById(id));
+      })();
+    }
   }, [id]);
 
   useEffect(() => {
-    if (state.activeTag) {
+    if (state.activeGender) {
       if (formikRef.current) {
         formikRef.current.setValues({
-          name: state.activeTag.name,
-          description: state.activeTag.description,
+          name: state.activeGender.name,
         });
       }
     }
-  }, [state.activeTag]);
+  }, [state.activeGender]);
+
   return (
     <>
       <Heading
-        title="Cập nhật Thẻ"
+        title="Cập nhật Giới tính"
         hasBreadcrumb
         buttons={[
           {
@@ -54,7 +58,7 @@ const UpdateTag = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/tags");
+              navigate("/genders");
             },
           },
           {
@@ -69,9 +73,9 @@ const UpdateTag = () => {
           },
         ]}
       />
-      {state.activeTag && <TagForm type="update" formikRef={formikRef} tag={state.activeTag} />}
+      {state.activeGender && <GenderForm type="update" formikRef={formikRef} gender={state.activeGender} />}
     </>
   );
 };
 
-export default UpdateTag;
+export default UpdateGender;

@@ -5,16 +5,16 @@ import { FaPlus } from "react-icons/fa6";
 const Products = () => {
   return (
     <Heading
-      title="Products"
+      title="Sản phẩm"
       hasBreadcrumb
       buttons={[
         {
-          text: "Export",
+          text: "Xuất",
           type: "ghost",
           icon: <GoDownload className="text-[18px]" />,
         },
         {
-          text: "Add Product",
+          text: "Tạo mới Sản phẩm",
           icon: <FaPlus className="text-[18px]" />,
         },
       ]}

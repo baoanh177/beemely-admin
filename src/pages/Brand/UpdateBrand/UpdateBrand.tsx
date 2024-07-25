@@ -58,12 +58,12 @@ const UpdateBrand = () => {
   return (
     <>
       <Heading
-        title="Cập nhật Brand"
+        title="Cập nhật Thương hiệu"
         hasBreadcrumb
         buttons={[
           {
             type: "secondary",
-            text: "Huỷ",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
               navigate("/brands");
