@@ -27,12 +27,8 @@ const Labels = () => {
     },
   });
 
-  const {
-    loading: { getAllLabelsLoading },
-  } = useAsyncEffect(
-    (async) => {
-      async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading");
-    },
+  const { getAllLabelsLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading"),
     [JSON.stringify(state.filter)],
   );
 

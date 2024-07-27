@@ -32,9 +32,7 @@ const UpdateBrand = () => {
     },
   });
 
-  const {
-    loading: { getBrandByIdLoading },
-  } = useAsyncEffect(
+  const { getBrandByIdLoading } = useAsyncEffect(
     (async) => {
       id && async(dispatch(getBrandById(id)), "getBrandByIdLoading");
     },

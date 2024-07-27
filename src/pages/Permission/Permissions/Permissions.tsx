@@ -74,9 +74,7 @@ const Permissions = () => {
     },
   });
 
-  const {
-    loading: { getAllPermissionsLoading },
-  } = useAsyncEffect(
+  const { getAllPermissionsLoading } = useAsyncEffect(
     (async) => {
       async(
         dispatch(

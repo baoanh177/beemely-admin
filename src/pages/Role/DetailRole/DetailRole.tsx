@@ -13,14 +13,7 @@ const DetailRole = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
 
-  const {
-    loading: { getRoleByIdLoading },
-  } = useAsyncEffect(
-    (async) => {
-      if (id) async(dispatch(getRoleById(id)), "getRoleByIdLoading");
-    },
-    [id],
-  );
+  const { getRoleByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getRoleById(id)), "getRoleByIdLoading"), [id]);
 
   return (
     <>

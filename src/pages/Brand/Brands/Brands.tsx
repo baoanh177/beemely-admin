@@ -28,9 +28,7 @@ const Brands = () => {
     },
   });
 
-  const {
-    loading: { getAllBrandsLoading },
-  } = useAsyncEffect(
+  const { getAllBrandsLoading } = useAsyncEffect(
     (async) => {
       async(dispatch(getAllBrands({ query: state.filter })), "getAllBrandsLoading");
     },

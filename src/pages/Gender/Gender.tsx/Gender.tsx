@@ -26,12 +26,8 @@ const Genders = () => {
     },
   });
 
-  const {
-    loading: { getAllGendersLoading },
-  } = useAsyncEffect(
-    (async) => {
-      async(dispatch(getAllGenders({ query: state.filter })), "getAllGendersLoading");
-    },
+  const { getAllGendersLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllGenders({ query: state.filter })), "getAllGendersLoading"),
     [JSON.stringify(state.filter)],
   );
 
