@@ -30,14 +30,7 @@ const UpdateTag = () => {
       },
     },
   });
-  const {
-    loading: { getTagByIdLoading },
-  } = useAsyncEffect(
-    (async) => {
-      id && async(dispatch(getTagById(id)), "getTagByIdLoading");
-    },
-    [id],
-  );
+  const { getTagByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getTagById(id)), "getTagByIdLoading"), [id]);
 
   useEffect(() => {
     if (state.activeTag) {

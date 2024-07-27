@@ -67,12 +67,8 @@ const Roles = () => {
     },
   });
 
-  const {
-    loading: { getAllRolesLoading },
-  } = useAsyncEffect(
-    (async) => {
-      async(dispatch(getAllRoles({ query: state.filter })), "getAllRolesLoading");
-    },
+  const { getAllRolesLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllRoles({ query: state.filter })), "getAllRolesLoading"),
     [JSON.stringify(state.filter)],
   );
 

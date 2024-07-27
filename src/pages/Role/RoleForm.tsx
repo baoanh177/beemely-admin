@@ -45,9 +45,7 @@ const RoleForm = ({ formikRef, type, role, isFormLoading = false }: IRoleFormPro
     name: string().required("Vui lòng nhập tên vai trò"),
   });
 
-  const {
-    loading: { getAllPermissionsLoading, getAllModulesLoading },
-  } = useAsyncEffect((async) => {
+  const { getAllPermissionsLoading, getAllModulesLoading } = useAsyncEffect((async) => {
     async(
       dispatch(
         getAllPermissions({

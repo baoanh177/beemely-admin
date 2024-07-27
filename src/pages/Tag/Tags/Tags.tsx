@@ -27,12 +27,8 @@ const Tags = () => {
     },
   });
 
-  const {
-    loading: { getAllTagsLoading },
-  } = useAsyncEffect(
-    (async) => {
-      async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading");
-    },
+  const { getAllTagsLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
 

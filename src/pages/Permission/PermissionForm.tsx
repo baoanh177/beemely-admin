@@ -50,11 +50,7 @@ const PermissionForm = ({ formikRef, type, permission, isFormLoading = false }: 
     availableModule: undefined,
   };
 
-  const {
-    loading: { getAllModulesLoading },
-  } = useAsyncEffect((async) => {
-    async(dispatch(getAllModules()), "getAllModulesLoading");
-  }, []);
+  const { getAllModulesLoading } = useAsyncEffect((async) => async(dispatch(getAllModules()), "getAllModulesLoading"), []);
 
   return (
     <Formik
