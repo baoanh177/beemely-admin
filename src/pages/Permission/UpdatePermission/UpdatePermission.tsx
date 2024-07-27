@@ -2,13 +2,14 @@ import Heading from "@/components/layout/Heading";
 import PermissionForm, { IPermissionFormInitialValues } from "../PermissionForm";
 import { useArchive } from "@/hooks/useArchive";
 import { IPermissionInitialState, resetStatus } from "@/services/store/permission/permission.slice";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { getPermissionById } from "@/services/store/permission/permission.thunk";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdatePermission = () => {
   const { id } = useParams();
@@ -31,8 +32,10 @@ const UpdatePermission = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(getPermissionById(id as string));
+  const {
+    loading: { getPermissionByIdLoading },
+  } = useAsyncEffect((async) => {
+    id && async(dispatch(getPermissionById(id)), "getPermissionByIdLoading");
   }, []);
 
   return (
@@ -59,7 +62,7 @@ const UpdatePermission = () => {
           },
         ]}
       />
-      <PermissionForm formikRef={formikRef} type="update" permission={state.activePermission} />
+      <PermissionForm formikRef={formikRef} isFormLoading={getPermissionByIdLoading ?? true} type="update" permission={state.activePermission} />
     </>
   );
 };

@@ -3,13 +3,14 @@ import FormInput from "@/components/form/FormInput";
 import FormSelect from "@/components/form/FormSelect";
 import FormSwitch from "@/components/form/FormSwitch";
 import { useArchive } from "@/hooks/useArchive";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IPermission } from "@/services/store/permission/permission.model";
 import { IPermissionInitialState } from "@/services/store/permission/permission.slice";
 import { createPermission, getAllModules, updatePermission } from "@/services/store/permission/permission.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Col, Row } from "antd";
 import { Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { object, string } from "yup";
 
 export interface IPermissionFormInitialValues {
@@ -22,9 +23,10 @@ interface IPermissionFormProps {
   formikRef?: FormikRefType<IPermissionFormInitialValues>;
   type: "create" | "view" | "update";
   permission?: IPermission;
+  isFormLoading?: boolean;
 }
 
-const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) => {
+const PermissionForm = ({ formikRef, type, permission, isFormLoading = false }: IPermissionFormProps) => {
   const [newModule, setNewModule] = useState(false);
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
 
@@ -48,8 +50,10 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
     availableModule: undefined,
   };
 
-  useEffect(() => {
-    dispatch(getAllModules());
+  const {
+    loading: { getAllModulesLoading },
+  } = useAsyncEffect((async) => {
+    async(dispatch(getAllModules()), "getAllModulesLoading");
   }, []);
 
   return (
@@ -75,7 +79,7 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
         return (
           <Row gutter={[24, 24]}>
             <Col xl={{ span: 8 }} xs={{ span: 24 }}>
-              <FormGroup title="Module">
+              <FormGroup title="Module" isLoading={(getAllModulesLoading || isFormLoading) ?? true}>
                 <FormSwitch
                   label="Module mới"
                   onChange={(value) => {
@@ -105,7 +109,7 @@ const PermissionForm = ({ formikRef, type, permission }: IPermissionFormProps) =
               </FormGroup>
             </Col>
             <Col xl={{ span: 16 }} xs={{ span: 24 }}>
-              <FormGroup title="Thông tin chung">
+              <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
                 <FormInput
                   value={values.label}
                   label="Tên quyền"

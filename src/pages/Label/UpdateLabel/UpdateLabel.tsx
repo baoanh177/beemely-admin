@@ -9,6 +9,7 @@ import { getLabelById } from "@/services/store/label/label.thunk";
 import Heading from "@/components/layout/Heading";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateLabel = () => {
   const navigate = useNavigate();
@@ -29,8 +30,10 @@ const UpdateLabel = () => {
       },
     },
   });
-  useEffect(() => {
-    dispatch(getLabelById(id as string));
+  const {
+    loading: { getLabelByIdLoading },
+  } = useAsyncEffect((async) => {
+    id && async(dispatch(getLabelById(id)), "getLabelByIdLoading");
   }, []);
 
   useEffect(() => {
@@ -67,7 +70,9 @@ const UpdateLabel = () => {
           },
         ]}
       />
-      {state.activeLabel && <LabelForm type="update" formikRef={formikRef} label={state.activeLabel} />}
+      {state.activeLabel && (
+        <LabelForm type="update" isFormLoading={getLabelByIdLoading ?? true} formikRef={formikRef} label={state.activeLabel} />
+      )}
     </>
   );
 };

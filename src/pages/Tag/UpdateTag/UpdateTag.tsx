@@ -9,6 +9,7 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import { ITagInitialState, resetStatus } from "@/services/store/tag/tag.slice";
 import { useArchive } from "@/hooks/useArchive";
 import { getTagById } from "@/services/store/tag/tag.thunk";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateTag = () => {
   const navigate = useNavigate();
@@ -29,9 +30,14 @@ const UpdateTag = () => {
       },
     },
   });
-  useEffect(() => {
-    dispatch(getTagById(id as string));
-  }, [id]);
+  const {
+    loading: { getTagByIdLoading },
+  } = useAsyncEffect(
+    (async) => {
+      id && async(dispatch(getTagById(id)), "getTagByIdLoading");
+    },
+    [id],
+  );
 
   useEffect(() => {
     if (state.activeTag) {
@@ -69,7 +75,7 @@ const UpdateTag = () => {
           },
         ]}
       />
-      {state.activeTag && <TagForm type="update" formikRef={formikRef} tag={state.activeTag} />}
+      {state.activeTag && <TagForm type="update" isFormLoading={getTagByIdLoading ?? true} formikRef={formikRef} tag={state.activeTag} />}
     </>
   );
 };

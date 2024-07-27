@@ -9,9 +9,10 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const Roles = () => {
   const navigate = useNavigate();
@@ -66,11 +67,14 @@ const Roles = () => {
     },
   });
 
-  useEffect(() => {
-    (async () => {
-      await dispatch(getAllRoles({ query: state.filter }));
-    })();
-  }, [JSON.stringify(state.filter)]);
+  const {
+    loading: { getAllRolesLoading },
+  } = useAsyncEffect(
+    (async) => {
+      async(dispatch(getAllRoles({ query: state.filter })), "getAllRolesLoading");
+    },
+    [JSON.stringify(state.filter)],
+  );
 
   return (
     <>
@@ -88,6 +92,7 @@ const Roles = () => {
       />
       <ManagementGrid
         columns={columns}
+        isTableLoading={getAllRolesLoading ?? true}
         data={data}
         search={{ status: [] }}
         buttons={buttons}

@@ -11,6 +11,7 @@ interface ILabelFormProps {
   formikRef?: FormikRefType<ILabelFormInitialValues>;
   type: "create" | "update";
   label?: ILabelFormInitialValues;
+  isFormLoading?: boolean;
 }
 
 export interface ILabelFormInitialValues {
@@ -19,7 +20,7 @@ export interface ILabelFormInitialValues {
   description?: string;
 }
 
-const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
+const LabelForm = ({ formikRef, type, label, isFormLoading = false }: ILabelFormProps) => {
   const { dispatch } = useArchive<ILabelInitialState>("label");
 
   const initialValues: ILabelFormInitialValues = {
@@ -45,7 +46,7 @@ const LabelForm = ({ formikRef, type, label }: ILabelFormProps) => {
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <FormGroup title="Thông tin chung">
+        <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
           <FormInput
             label="Tên nhãn"
             placeholder="Nhập tên nhãn ở đây..."

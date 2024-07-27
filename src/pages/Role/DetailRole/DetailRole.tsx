@@ -6,16 +6,21 @@ import { IRoleInitialState } from "@/services/store/role/role.slice";
 import { useArchive } from "@/hooks/useArchive";
 import { convertRolePermissions } from "../helpers/convertRolePermissions";
 import { getRoleById } from "@/services/store/role/role.thunk";
-import { useEffect } from "react";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const DetailRole = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
 
-  useEffect(() => {
-    if (id) dispatch(getRoleById(id));
-  }, [id]);
+  const {
+    loading: { getRoleByIdLoading },
+  } = useAsyncEffect(
+    (async) => {
+      if (id) async(dispatch(getRoleById(id)), "getRoleByIdLoading");
+    },
+    [id],
+  );
 
   return (
     <>
@@ -34,7 +39,7 @@ const DetailRole = () => {
         ]}
       />
 
-      {state.activeRole && <RoleForm type="view" role={convertRolePermissions(state.activeRole)} />}
+      {state.activeRole && <RoleForm type="view" isFormLoading={getRoleByIdLoading ?? true} role={convertRolePermissions(state.activeRole)} />}
     </>
   );
 };

@@ -12,6 +12,7 @@ interface ITagFormProps {
   formikRef?: FormikRefType<ITagFormInitialValues>;
   type: "create" | "update";
   tag?: ITagFormInitialValues;
+  isFormLoading?: boolean;
 }
 
 export interface ITagFormInitialValues {
@@ -20,7 +21,7 @@ export interface ITagFormInitialValues {
   description?: string;
 }
 
-const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
+const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps) => {
   const { dispatch } = useArchive<ITagInitialState>("tag");
 
   const initialValues: ITagFormInitialValues = {
@@ -46,7 +47,7 @@ const TagForm = ({ formikRef, type, tag }: ITagFormProps) => {
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <FormGroup title="Thông tin chung">
+        <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
           <FormInput
             label="Tên thẻ"
             placeholder="Nhập tên thẻ ở đây..."

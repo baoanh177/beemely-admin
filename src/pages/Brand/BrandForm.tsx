@@ -15,9 +15,10 @@ interface IBrandFormProps {
   FormikRefType?: React.MutableRefObject<FormikProps<IBrand> | null>;
   type: "create" | "update";
   brand?: IBrand;
+  isFormLoading?: boolean;
 }
 
-const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) => {
+const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFormLoading = false }) => {
   const { dispatch } = useArchive<IBrandInitialState>("brand");
 
   const initialValues: IBrand = {
@@ -52,12 +53,12 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand }) =>
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <Row gutter={[24, 24]}>
           <Col xs={24} md={6} lg={6}>
-            <FormGroup title="Ảnh đại diện">
+            <FormGroup title="Ảnh đại diện" isLoading={isFormLoading}>
               <UploadImage isMultiple={false} label="Ảnh" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
             </FormGroup>
           </Col>
           <Col xs={24} md={18} lg={18}>
-            <FormGroup title="Thông tin chung">
+            <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
               <FormInput
                 label="Tên thương hiệu"
                 placeholder="Nhập tên thương hiệu ở đây..."

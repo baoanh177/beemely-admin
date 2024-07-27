@@ -10,6 +10,7 @@ import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import BrandForm from "../BrandForm";
 import { IBrand } from "@/services/store/brand/brand.model";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateBrand = () => {
   const navigate = useNavigate();
@@ -31,11 +32,14 @@ const UpdateBrand = () => {
     },
   });
 
-  useEffect(() => {
-    if (id) {
-      dispatch(getBrandById(id));
-    }
-  }, [id]);
+  const {
+    loading: { getBrandByIdLoading },
+  } = useAsyncEffect(
+    (async) => {
+      id && async(dispatch(getBrandById(id)), "getBrandByIdLoading");
+    },
+    [id],
+  );
 
   useEffect(() => {
     if (state.activeBrand && formikRef.current) {
@@ -77,7 +81,9 @@ const UpdateBrand = () => {
           },
         ]}
       />
-      {state.activeBrand && <BrandForm type="update" FormikRefType={formikRef} brand={state.activeBrand} />}
+      {state.activeBrand && (
+        <BrandForm type="update" isFormLoading={getBrandByIdLoading ?? true} FormikRefType={formikRef} brand={state.activeBrand} />
+      )}
     </>
   );
 };
