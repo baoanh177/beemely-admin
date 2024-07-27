@@ -1,7 +1,6 @@
 import { useArchive } from "@/hooks/useArchive";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
-import UpdateGrid from "@/components/grid/UpdateGrid";
 import { Formik } from "formik";
 import TreeData from "@/components/TreeData";
 import { object, string } from "yup";
@@ -14,6 +13,8 @@ import { createRole, updateRole } from "@/services/store/role/role.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { IRole } from "@/services/store/role/role.model";
 import lodash from "lodash";
+import { Col, Row } from "antd";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 interface IActiveRole extends Omit<IRole, "permissions"> {
   permissions: string[];
@@ -23,7 +24,7 @@ interface IRoleFormProps {
   formikRef?: FormikRefType<IRoleFormInitialValues>;
   type: "create" | "view" | "update";
   role?: IActiveRole;
-  isLoading?: boolean;
+  isFormLoading?: boolean;
 }
 
 export interface IRoleFormInitialValues {
@@ -31,7 +32,7 @@ export interface IRoleFormInitialValues {
   permissions: string[];
 }
 
-const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
+const RoleForm = ({ formikRef, type, role, isFormLoading = false }: IRoleFormProps) => {
   const [treePermissions, setTreePermissions] = useState<DataNode[]>([]);
   const { dispatch, state } = useArchive<IPermissionInitialState>("permission");
 
@@ -44,20 +45,25 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
     name: string().required("Vui lòng nhập tên vai trò"),
   });
 
-  useEffect(() => {
-    dispatch(
-      getAllPermissions({
-        query: {
-          _pagination: false,
-        },
-      }),
+  const {
+    loading: { getAllPermissionsLoading, getAllModulesLoading },
+  } = useAsyncEffect((async) => {
+    async(
+      dispatch(
+        getAllPermissions({
+          query: {
+            _pagination: false,
+          },
+        }),
+      ),
+      "getAllPermissionsLoading",
     );
-    dispatch(getAllModules());
+    async(dispatch(getAllModules()), "getAllModulesLoading");
   }, []);
 
   useEffect(() => {
     setTreePermissions(getTreePermissions(state.permissions, state.modules));
-  }, [, state.permissions, state.modules]);
+  }, [state.permissions, state.modules]);
 
   return (
     <Formik
@@ -76,13 +82,11 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
         }
       }}
     >
-      {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <UpdateGrid
-          colNumber="2"
-          rate="1-3"
-          groups={{
-            colLeft: (
-              <FormGroup title="Quyền">
+      {({ values, errors, touched, handleBlur, setFieldValue }) => {
+        return (
+          <Row gutter={[24, 24]}>
+            <Col xl={{ span: 6, order: 1 }} xs={{ span: 24, order: 2 }}>
+              <FormGroup title="Quyền" isLoading={(getAllPermissionsLoading || getAllModulesLoading || isFormLoading) ?? true}>
                 <TreeData
                   isDisable={type === "view"}
                   expanded={["parent-all"]}
@@ -99,9 +103,9 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
                   }}
                 />
               </FormGroup>
-            ),
-            colRight: (
-              <FormGroup title="Thông tin chung">
+            </Col>
+            <Col xl={{ span: 18, order: 2 }} xs={{ span: 24, order: 1 }}>
+              <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
                 <FormInput
                   type="text"
                   isDisabled={type === "view"}
@@ -116,10 +120,10 @@ const RoleForm = ({ formikRef, type, role }: IRoleFormProps) => {
                   onBlur={handleBlur}
                 />
               </FormGroup>
-            ),
-          }}
-        />
-      )}
+            </Col>
+          </Row>
+        );
+      }}
     </Formik>
   );
 };

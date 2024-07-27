@@ -7,11 +7,12 @@ import { deletePermission, getAllPermissions } from "@/services/store/permission
 import { EButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { EPermissions } from "@/shared/enums/permissions";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import useFetchStatus from "@/hooks/useFetchStatus";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const Permissions = () => {
   const navigate = useNavigate();
@@ -73,13 +74,21 @@ const Permissions = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(
-      getAllPermissions({
-        query: state.filter,
-      }),
-    );
-  }, [state.filter]);
+  const {
+    loading: { getAllPermissionsLoading },
+  } = useAsyncEffect(
+    (async) => {
+      async(
+        dispatch(
+          getAllPermissions({
+            query: state.filter,
+          }),
+        ),
+        "getAllPermissionsLoading",
+      );
+    },
+    [state.filter],
+  );
 
   return (
     <>
@@ -98,6 +107,7 @@ const Permissions = () => {
       <ManagementGrid
         columns={columns}
         data={data}
+        isTableLoading={getAllPermissionsLoading}
         search={{ status: [] }}
         pagination={{
           current: state.filter._page!,

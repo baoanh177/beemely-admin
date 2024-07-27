@@ -61,7 +61,10 @@ const FormInput = ({
     <div className="flex flex-col gap-1">
       {label && <label className="text-m-medium text-black-300">{label}</label>}
       <div
-        className={clsx("flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25", isFocused && "bg-white")}
+        className={clsx(
+          "flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25",
+          isFocused && "bg-white",
+        )}
       >
         {Icon && (
           <Icon

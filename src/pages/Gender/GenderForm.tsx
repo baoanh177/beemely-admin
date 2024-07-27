@@ -11,6 +11,7 @@ interface IGenderFormProps {
   formikRef?: FormikRefType<IGenderFormInitialValues>;
   type: "create" | "update";
   gender?: IGenderFormInitialValues;
+  isFormLoading?: boolean;
 }
 
 export interface IGenderFormInitialValues {
@@ -18,7 +19,7 @@ export interface IGenderFormInitialValues {
   name: string;
 }
 
-const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
+const GenderForm = ({ formikRef, type, gender, isFormLoading = false }: IGenderFormProps) => {
   const { dispatch } = useArchive<IGenderInitialState>("gender");
   const initialValues: IGenderFormInitialValues = {
     name: gender?.name || "",
@@ -42,7 +43,7 @@ const GenderForm = ({ formikRef, type, gender }: IGenderFormProps) => {
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <FormGroup title="Thông tin chung">
+        <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
           <FormInput
             label="Tên giới tính"
             placeholder="Nhập tên giới tính ở đây..."

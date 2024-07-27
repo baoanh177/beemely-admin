@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ColumnsType } from "antd/es/table";
@@ -12,6 +12,7 @@ import { deleteGender, getAllGenders } from "@/services/store/gender/gender.thun
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const Genders = () => {
   const navigate = useNavigate();
@@ -25,9 +26,14 @@ const Genders = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(getAllGenders({ query: state.filter }));
-  }, [JSON.stringify(state.filter)]);
+  const {
+    loading: { getAllGendersLoading },
+  } = useAsyncEffect(
+    (async) => {
+      async(dispatch(getAllGenders({ query: state.filter })), "getAllGendersLoading");
+    },
+    [JSON.stringify(state.filter)],
+  );
 
   const columns: ColumnsType<ITableData> = [
     {
@@ -80,6 +86,7 @@ const Genders = () => {
       <ManagementGrid
         columns={columns}
         data={data}
+        isTableLoading={getAllGendersLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
         search={{ status: [] }}

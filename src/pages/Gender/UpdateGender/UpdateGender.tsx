@@ -9,6 +9,7 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
 import { useArchive } from "@/hooks/useArchive";
 import { getGenderById } from "@/services/store/gender/gender.thunk";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateGender = () => {
   const navigate = useNavigate();
@@ -29,13 +30,14 @@ const UpdateGender = () => {
     },
   });
 
-  useEffect(() => {
-    if (id) {
-      (async () => {
-        await dispatch(getGenderById(id));
-      })();
-    }
-  }, [id]);
+  const {
+    loading: { getGenderByIdLoading },
+  } = useAsyncEffect(
+    (async) => {
+      id && async(dispatch(getGenderById(id)), "getGenderByIdLoading");
+    },
+    [id],
+  );
 
   useEffect(() => {
     if (state.activeGender) {
@@ -73,7 +75,9 @@ const UpdateGender = () => {
           },
         ]}
       />
-      {state.activeGender && <GenderForm type="update" formikRef={formikRef} gender={state.activeGender} />}
+      {state.activeGender && (
+        <GenderForm type="update" isFormLoading={getGenderByIdLoading ?? true} formikRef={formikRef} gender={state.activeGender} />
+      )}
     </>
   );
 };

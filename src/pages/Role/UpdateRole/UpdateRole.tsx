@@ -10,6 +10,7 @@ import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { convertRolePermissions } from "../helpers/convertRolePermissions";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateRole = () => {
   const { id } = useParams();
@@ -31,13 +32,14 @@ const UpdateRole = () => {
     },
   });
 
-  useEffect(() => {
-    if (id) {
-      (async () => {
-        await dispatch(getRoleById(id));
-      })();
-    }
-  }, [id]);
+  const {
+    loading: { getRoleByIdLoading },
+  } = useAsyncEffect(
+    (async) => {
+      id && async(dispatch(getRoleById(id)), "getRoleByIdLoading");
+    },
+    [id],
+  );
 
   useEffect(() => {
     if (state.activeRole && formikRef.current) {
@@ -69,7 +71,14 @@ const UpdateRole = () => {
           },
         ]}
       />
-      {state.activeRole && <RoleForm type="update" formikRef={formikRef} role={convertRolePermissions(state.activeRole)} />}
+      {state.activeRole && (
+        <RoleForm
+          type="update"
+          isFormLoading={getRoleByIdLoading ?? true}
+          formikRef={formikRef}
+          role={convertRolePermissions(state.activeRole)}
+        />
+      )}
     </>
   );
 };

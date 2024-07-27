@@ -183,7 +183,12 @@ const Components = () => {
       ))}
 
       <div className="flex flex-col items-start gap-5">
-        <OrderInForCard title={"Shipping"} icon={IoBagOutline} status={{ color: "orange", text: "Processing" }} items={dataItemsOrderInforCard} />
+        <OrderInForCard
+          title={"Shipping"}
+          icon={IoBagOutline}
+          status={{ color: "orange", text: "Processing" }}
+          items={dataItemsOrderInforCard}
+        />
       </div>
       <div className="flex flex-col items-start gap-5">
         <RoundedIcon icon={IoBagOutline} color="red" shape="square" size="large" />

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
@@ -12,6 +12,7 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const Tags = () => {
   const navigate = useNavigate();
@@ -26,9 +27,14 @@ const Tags = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(getAllTags({ query: state.filter })).then(() => {});
-  }, [JSON.stringify(state.filter)]);
+  const {
+    loading: { getAllTagsLoading },
+  } = useAsyncEffect(
+    (async) => {
+      async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading");
+    },
+    [JSON.stringify(state.filter)],
+  );
 
   const columns: ColumnsType = [
     {
@@ -86,6 +92,7 @@ const Tags = () => {
       {
         <ManagementGrid
           columns={columns}
+          isTableLoading={getAllTagsLoading && true}
           data={data}
           pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
           setFilter={setFilter}

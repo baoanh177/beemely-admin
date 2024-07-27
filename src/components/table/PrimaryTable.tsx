@@ -9,6 +9,7 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { ISearchParams } from "@/shared/utils/shared-interfaces";
 import { useDispatch } from "react-redux";
 import PaginationText from "../common/PaginationText";
+import PrimaryTableSkeleton from "../skeleton/PrimaryTableSkeleton";
 
 export interface ITableData {
   key: React.Key;
@@ -22,11 +23,12 @@ interface IPrimaryTableProps {
   search?: ISearchTable | false;
   columns: ColumnsType;
   data: ITableData[];
+  isTableLoading?: boolean;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
 }
 
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, setFilter }) => {
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, isTableLoading, setFilter }) => {
   const dispatch = useDispatch();
 
   return (
@@ -40,28 +42,32 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
           </div>
         </div>
       )}
-      <Table
-        onChange={(newPagination) => {
-          dispatch(
-            setFilter({
-              _page: newPagination.current,
-              _size: newPagination.pageSize,
-            }),
-          );
-        }}
-        columns={columns}
-        dataSource={data}
-        pagination={
-          pagination
-            ? {
-                ...pagination,
-                showTotal: PaginationText,
-                showSizeChanger: pagination.showSideChanger ?? false,
-              }
-            : false
-        }
-        className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
-      />
+      {!isTableLoading ? (
+        <Table
+          onChange={(newPagination) => {
+            dispatch(
+              setFilter({
+                _page: newPagination.current,
+                _size: newPagination.pageSize,
+              }),
+            );
+          }}
+          columns={columns}
+          dataSource={data}
+          pagination={
+            pagination
+              ? {
+                  ...pagination,
+                  showTotal: PaginationText,
+                  showSizeChanger: pagination.showSideChanger ?? false,
+                }
+              : false
+          }
+          className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
+        />
+      ) : (
+        <PrimaryTableSkeleton />
+      )}
     </div>
   );
 };

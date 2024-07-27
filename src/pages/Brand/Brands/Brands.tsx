@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ColumnsType } from "antd/es/table";
@@ -13,6 +13,7 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import ImageTable from "@/components/table/ImageTable";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const Brands = () => {
   const navigate = useNavigate();
@@ -27,9 +28,14 @@ const Brands = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(getAllBrands({ query: state.filter }));
-  }, [JSON.stringify(state.filter)]);
+  const {
+    loading: { getAllBrandsLoading },
+  } = useAsyncEffect(
+    (async) => {
+      async(dispatch(getAllBrands({ query: state.filter })), "getAllBrandsLoading");
+    },
+    [JSON.stringify(state.filter)],
+  );
 
   const columns: ColumnsType<ITableData> = [
     {
@@ -90,6 +96,7 @@ const Brands = () => {
       <ManagementGrid
         columns={columns}
         data={data}
+        isTableLoading={getAllBrandsLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
         search={{ status: [] }}

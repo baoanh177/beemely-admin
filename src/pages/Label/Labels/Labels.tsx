@@ -2,6 +2,7 @@ import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { ILabelInitialState, resetStatus, setFilter } from "@/services/store/label/label.slice";
 import { deleteLabel, getAllLabels } from "@/services/store/label/label.thunk";
@@ -9,7 +10,7 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -26,9 +27,14 @@ const Labels = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(getAllLabels({ query: state.filter }));
-  }, [JSON.stringify(state.filter)]);
+  const {
+    loading: { getAllLabelsLoading },
+  } = useAsyncEffect(
+    (async) => {
+      async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading");
+    },
+    [JSON.stringify(state.filter)],
+  );
 
   const columns: ColumnsType = [
     {
@@ -85,6 +91,7 @@ const Labels = () => {
       />
       {
         <ManagementGrid
+          isTableLoading={getAllLabelsLoading ?? true}
           pagination={{
             current: state.filter._page!,
             pageSize: state.filter._size!,
