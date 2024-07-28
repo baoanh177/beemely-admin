@@ -1,18 +1,24 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 export interface IFilterTableStatusOption {
   value: string;
   label: string;
 }
 
-interface IFilterTableStatusProps {
+export interface IFilterTableStatusProps {
   options: IFilterTableStatusOption[];
+  onChange?: (selectedOption: IFilterTableStatusOption) => void;
 }
 
-const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options }) => {
+const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChange }) => {
   const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOption>({ value: "all", label: "All" });
+  const fullOptions = useMemo(() => [{ value: "all", label: "All" }, ...options], [options]);
 
-  const fullOptions = useMemo(() => [{ value: "all", label: "All" }, ...options], [JSON.stringify(options)]);
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedOption);
+    }
+  }, [selectedOption]);
 
   return (
     <div>
@@ -20,10 +26,12 @@ const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options }) => {
         {fullOptions.map((option, index) => (
           <div
             key={index}
-            className={`text-m-medium h-full px-3 py-[6px] ${
-              selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"
-            } outline-none`}
-            onClick={() => setSelectedOption(option)}
+            className={`text-m-medium h-full px-3 py-[6px] ${selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"} outline-none`}
+            onClick={() => {
+              if (selectedOption.value !== option.value) {
+                setSelectedOption(option);
+              }
+            }}
           >
             {option.label}
           </div>

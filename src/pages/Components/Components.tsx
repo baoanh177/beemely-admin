@@ -6,7 +6,7 @@ import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
 import Heading from "@/components/layout/Heading";
 
-import { IoBagOutline, IoSaveOutline } from "react-icons/io5";
+import { IoBagOutline, IoSaveOutline, IoSearchOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
@@ -23,6 +23,7 @@ import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
 import UploadImage from "@/components/form/UploadImage";
 import Pagination from "@/components/common/Pagination";
+import AdvancedSearch from "@/components/search/AdvancedSearch";
 const Components = () => {
   return (
     <>
