@@ -6,6 +6,7 @@ import FormInput from "../form/FormInput";
 import { IoSearchOutline, IoFilterOutline } from "react-icons/io5";
 import { ColumnsType } from "antd/es/table";
 import { ConfigProvider, Button } from "antd";
+import AdvancedSearch from "../form/AdvancedSearch";
 
 interface StatusType {
   text: string;
@@ -102,6 +103,50 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideCompon
   const [filteredData, setFilteredData] = useState<DataType[]>(data);
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
+  const filters = [
+    {
+      type: "input",
+      label: "Tìm kiếm theo tên",
+      placeholder: "Nhập tên",
+      key: "productTitle",
+    },
+    {
+      type: "input",
+      label: "Tìm kiếm theo giá",
+      placeholder: "Nhập giá",
+      key: "total",
+      inputType: "number",
+    },
+    {
+      type: "select",
+      label: "Chọn trạng thái",
+      placeholder: "Chọn trạng thái",
+      key: "status",
+      options: [
+        { value: "all", label: "All Status" },
+        { value: "processing", label: "Processing" },
+        { value: "shipped", label: "Shipped" },
+        { value: "delivered", label: "Delivered" },
+        { value: "cancelled", label: "Cancelled" },
+      ],
+    },
+    {
+      type: "switch",
+      label: "Active",
+      key: "isActive",
+    },
+    {
+      type: "date",
+      label: "Ngày",
+      key: "date",
+    },
+    {
+      type: "checkbox",
+      label: "Checked",
+      key: "checked",
+    },
+  ];
+
   useEffect(() => {
     if (searchValue) {
       const filtered = data.filter((item) => Object.values(item).some((val) => String(val).toLowerCase().includes(searchValue.toLowerCase())));
@@ -110,6 +155,16 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideCompon
       setFilteredData(data);
     }
   }, [searchValue, data]);
+
+  const handleSearch = (filters: Record<string, any>) => {
+    let filtered = data;
+
+    if (filters.productTitle) {
+      filtered = filtered.filter((item) => item.productTitle.toLowerCase().includes(filters.productTitle.toLowerCase()));
+    }
+    setFilteredData(filtered);
+    // console.log(filters);
+  };
 
   const handleBasicSearch = (value: string | number) => {
     setSearchValue(value as string);
@@ -134,6 +189,7 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideCompon
             </div>
           </div>
         )}
+        {showAdvancedSearch && <AdvancedSearch onSearch={handleSearch} filters={filters} />}
         <Table columns={columns} dataSource={filteredData} pagination={!hideComponents?.includes("pagination") ? paginationConfig : false} />
       </div>
     </ConfigProvider>

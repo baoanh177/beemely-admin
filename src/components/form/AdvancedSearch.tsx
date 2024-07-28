@@ -5,7 +5,8 @@ import FormInput from "./FormInput";
 import FormSelect from "./FormSelect";
 import FormSwitch from "./FormSwitch";
 import FormCheck from "./FormCheck";
-import FormDate from "./FormDate";
+import DateRangePicker from "./FormDateRangePicker";
+import dayjs from "dayjs";
 
 interface ISearch {
   filters: any[];
@@ -16,7 +17,12 @@ const AdvancedSearch = ({ filters, onSearch }: ISearch) => {
   const [filterValues, setFilterValues] = useState<any>({});
 
   const handleFilterChange = (key: string, value: any) => {
-    setFilterValues((prevFilters: Record<string, any>) => ({ ...prevFilters, [key]: value }));
+    if (key === "date" && Array.isArray(value)) {
+      const dateStrings = value.map((date) => (date ? date.toISOString() : null));
+      setFilterValues((prevFilters: Record<string, any>) => ({ ...prevFilters, [key]: dateStrings }));
+    } else {
+      setFilterValues((prevFilters: Record<string, any>) => ({ ...prevFilters, [key]: value }));
+    }
   };
 
   const handleSearch = () => {
@@ -30,7 +36,7 @@ const AdvancedSearch = ({ filters, onSearch }: ISearch) => {
 
   return (
     <div className="advanced-search">
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         {filters.map((filter) => {
           switch (filter.type) {
             case "input":
@@ -67,11 +73,15 @@ const AdvancedSearch = ({ filters, onSearch }: ISearch) => {
               );
             case "date":
               return (
-                <FormDate
+                <DateRangePicker
                   key={filter.key}
                   label={filter.label}
-                  value={filterValues[filter.key] || null}
-                  onChange={(date) => handleFilterChange(filter.key, date)}
+                  value={
+                    filterValues[filter.key]
+                      ? filterValues[filter.key].map((dateString: string) => (dateString ? dayjs(dateString) : null))
+                      : [null, null]
+                  }
+                  onChange={(dates) => handleFilterChange(filter.key, dates)}
                 />
               );
             case "checkbox":
