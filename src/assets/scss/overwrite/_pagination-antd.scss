@@ -1,6 +1,13 @@
-.pagination{
+.pagination {
   position: relative;
   .ant-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
     .ant-pagination-item {
       width: 32px !important;
       height: 32px !important;
@@ -16,13 +23,6 @@
         color: #883dcf;
       }
     }
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    font-weight: 500;
   }
   .ant-pagination-total-text {
     font-family: ps-semiBold;
