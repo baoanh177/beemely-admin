@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import FilterTableStatus from "./FilterTableStatus";
 import FormInput from "../form/FormInput";
 import { IoSearchOutline, IoFilterOutline } from "react-icons/io5";
-import DateRangePicker from "../form/FormDateRangePicker";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { ISearchParams } from "@/shared/utils/shared-interfaces";
 import { useDispatch } from "react-redux";
 import AdvancedSearch from "../form/AdvancedSearch";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ISearchParams } from "@/shared/utils/shared-interfaces";
 
 export interface ITableData {
   key: React.Key;
@@ -31,14 +30,69 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [searchValue, setSearchValue] = useState<string>("");
+  const [filteredData, setFilteredData] = useState<ITableData[]>(data);
+
+  const filters = [
+    {
+      type: "input",
+      label: "Tìm kiếm theo tên",
+      placeholder: "Nhập tên",
+      key: "name",
+    },
+    {
+      type: "input",
+      label: "Tìm kiếm theo giá",
+      placeholder: "Nhập giá",
+      key: "price",
+      inputType: "number",
+    },
+    {
+      type: "select",
+      label: "Chọn trạng thái",
+      placeholder: "Chọn trạng thái",
+      key: "status",
+      options: [
+        { value: "all", label: "All Status" },
+        { value: "processing", label: "Processing" },
+        { value: "shipped", label: "Shipped" },
+        { value: "delivered", label: "Delivered" },
+        { value: "cancelled", label: "Cancelled" },
+      ],
+    },
+    {
+      type: "switch",
+      label: "Active",
+      key: "isActive",
+    },
+    {
+      type: "date",
+      label: "Ngày",
+      key: "date",
+    },
+    {
+      type: "checkbox",
+      label: "Checked",
+      key: "checked",
+    },
+  ];
+
+  useEffect(() => {
+    if (searchValue) {
+      const filtered = data.filter((item) => Object.values(item).some((val) => String(val).toLowerCase().includes(searchValue.toLowerCase())));
+      setFilteredData(filtered);
+    } else {
+      setFilteredData(data);
+    }
+  }, [searchValue, data]);
 
   const handleSearch = (filters: any) => {
+    // console.log("Filters:", filters);
     dispatch(setFilter(filters));
   };
 
-  const handleBasicSearch = (e: any) => {
-    setSearchValue(e.target.value);
-    handleSearch({ search: e.target.value });
+  const handleBasicSearch = (value: string | number) => {
+    setSearchValue(value as string);
+    handleSearch({ search: value });
   };
 
   const getShowingText = (total: number, range: [number, number]) => {
@@ -53,11 +107,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
             <FilterTableStatus options={search.status} />
             <div className="flex gap-4">
               <FormInput icon={IoSearchOutline} placeholder="Tìm kiếm..." type="text" value={searchValue} onChange={handleBasicSearch} />
-              <DateRangePicker />
-              <Button icon={<IoFilterOutline />} onClick={() => setShowAdvancedSearch(!showAdvancedSearch)} />
+              <Button className="h-[38px]" icon={<IoFilterOutline />} onClick={() => setShowAdvancedSearch(!showAdvancedSearch)} />
             </div>
           </div>
-          {showAdvancedSearch && <AdvancedSearch onSearch={handleSearch} />}
+          {showAdvancedSearch && <AdvancedSearch onSearch={handleSearch} filters={filters} />}
         </div>
       )}
       <Table
@@ -70,7 +123,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
           );
         }}
         columns={columns}
-        dataSource={data}
+        dataSource={filteredData}
         pagination={
           pagination
             ? {
