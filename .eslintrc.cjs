@@ -31,7 +31,7 @@ module.exports = {
     "jsx-a11y/alt-text": "error",
     "prefer-const": "error",
     "no-var": "error",
-    "max-len": ["warn", { code: 150 }],
+    "max-len": ["error", { code: 150 }],
     "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
     "react/jsx-no-useless-fragment": "error",
     "react/react-in-jsx-scope": "off",
