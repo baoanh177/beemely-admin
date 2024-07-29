@@ -93,6 +93,7 @@ const AdvancedSearchSecondary = ({ advanced, normal }: IAdvancedSearchSecondaryP
               onChange={(value: string | number) => handleAdvancedChange(field.name, value)}
               icon={field.icon}
               value={advancedValues[field.name] || ""}
+              className="bg-white"
             />
           </div>
         );
@@ -105,6 +106,7 @@ const AdvancedSearchSecondary = ({ advanced, normal }: IAdvancedSearchSecondaryP
               onChange={(value: number | string) => handleAdvancedChange(field.name, value)}
               icon={field.icon}
               value={advancedValues[field.name] || ""}
+              className="bg-white"
             />
           </div>
         );
