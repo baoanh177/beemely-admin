@@ -1,32 +1,27 @@
+import React from "react";
 import FilterTableStatus, { IFilterTableStatusOptions } from "../table/FilterTableStatus";
-import FormInput from "../form/FormInput";
-import { IoSearchOutline } from "react-icons/io5";
-import { BiSliderAlt } from "react-icons/bi";
-import clsx from "clsx";
+import FormInput, { IFormInputProps } from "../form/FormInput";
 
 export interface IDefaultSearchProp {
-  option: IFilterTableStatusOptions[];
-  onFilterToggle: () => void;
-  showFilterStatus: boolean;
+  input?: IFormInputProps;
+  options?: IFilterTableStatusOptions[];
 }
 
-const DefaultSearch = ({ option, onFilterToggle, showFilterStatus }: IDefaultSearchProp) => {
+export const DefaultSearch: React.FC<IDefaultSearchProp> = ({
+  input,
+  options,
+}) => {
   return (
-    <div>
-      <div className={clsx("flex", { "justify-between": showFilterStatus, "justify-end": !showFilterStatus })}>
-        {showFilterStatus && <FilterTableStatus options={option} />}
-        <div className="flex gap-4">
-          <FormInput icon={IoSearchOutline} placeholder="Tìm kiếm. . ." type="text" />
-          <div
-            className="flex h-[40px] w-[48px] cursor-pointer items-center justify-center rounded-lg bg-primary-50 text-lg text-primary-500"
-            onClick={onFilterToggle}
-          >
-            <BiSliderAlt />
-          </div>
-        </div>
+    <div className="flex w-full">
+      {options && <FilterTableStatus options={options} />}
+      <div className="ml-auto">
+        <FormInput
+        className="bg-white"
+          icon={input?.icon}
+          placeholder={input?.placeholder}
+          type={input?.type}
+        />
       </div>
     </div>
   );
 };
-
-export default DefaultSearch;

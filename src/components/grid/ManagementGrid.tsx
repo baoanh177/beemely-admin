@@ -1,17 +1,17 @@
 import { ColumnsType } from "antd/es/table";
-import PrimaryTable, { ISearchTable, ITableData } from "../table/PrimaryTable";
+import PrimaryTable, { IAdvancedSearch, ITableData } from "../table/PrimaryTable";
 import { IGridButton, ISearchParams } from "@/shared/utils/shared-interfaces";
 import { useMemo } from "react";
 import { EButtonTypes } from "@/shared/enums/button";
 import GridButtons from "./GridButtons";
 import { TableColumnsType } from "antd";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { IAdvancedSearchProps } from "../search/AdvancedSearch";
+import { IDefaultSearchProp } from "../search/DefaultSearch";
 
 export interface IGridProps {
   columns: ColumnsType;
   data: ITableData[];
-  search: ISearchTable | false;
+  search?: IDefaultSearchProp | false;
   buttons?: IGridButton[];
   isTableLoading?: boolean;
   pagination?: {
@@ -19,7 +19,7 @@ export interface IGridProps {
     current: number;
     total: number;
   };
-  advancedSearch?: IAdvancedSearchProps;
+  advancedSearch?: IAdvancedSearch;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
 }
 
@@ -29,19 +29,19 @@ const ManagementGrid = ({ advancedSearch, columns, data, search, buttons, pagina
       (button) => button.type === EButtonTypes.VIEW || button.type === EButtonTypes.UPDATE || button.type === EButtonTypes.DELETE,
     )
       ? ([
-          ...columns,
-          {
-            title: "Hành động",
-            width: "150px",
-            dataIndex: "actions",
-            key: "actions",
-            fixed: "right",
-            align: "center",
-            render(_, record) {
-              return <GridButtons buttons={buttons} record={record} />;
-            },
+        ...columns,
+        {
+          title: "Hành động",
+          width: "150px",
+          dataIndex: "actions",
+          key: "actions",
+          fixed: "right",
+          align: "center",
+          render(_, record) {
+            return <GridButtons buttons={buttons} record={record} />;
           },
-        ] as TableColumnsType)
+        },
+      ] as TableColumnsType)
       : columns;
   }, [JSON.stringify(buttons)]);
   return (

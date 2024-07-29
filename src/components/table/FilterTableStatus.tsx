@@ -8,6 +8,7 @@ export interface IFilterTableStatusOptions {
 export interface IFilterTableStatusProps {
   options: IFilterTableStatusOptions[];
   onChange?: (selectedOption: IFilterTableStatusOptions) => void;
+  name?: string
 }
 
 const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChange }) => {
@@ -26,9 +27,8 @@ const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChang
         {fullOptions.map((option, index) => (
           <div
             key={index}
-            className={`text-m-medium h-full px-3 py-[6px] ${
-              selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"
-            } outline-none`}
+            className={`text-m-medium h-full px-3 py-[6px] ${selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"
+              } outline-none`}
             onClick={() => {
               if (selectedOption.value !== option.value) {
                 setSelectedOption(option);

@@ -1,6 +1,7 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
-import { ITableData } from "@/components/table/PrimaryTable";
+import { IDefaultSearchProp } from "@/components/search/DefaultSearch";
+import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
@@ -17,7 +18,35 @@ import { useNavigate } from "react-router-dom";
 const Labels = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ILabelInitialState>("label");
+  const advancedSearch: IAdvancedSearch = [
+    {
+      type: "text",
+      name: "123",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "text",
+      name: "1235",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "status",
+      name: "123123321312",
+      options: [{ label: "12323", value: "1223323" }],
+    },
+    {
+      type: "date",
 
+    }
+  ]
+  const defaultSearch: IDefaultSearchProp = {
+    options: [{ label: "123", value: "123" }],
+    input: {
+      type: "text",
+      name: "123",
+      placeholder: "Search ordersss. . .",
+    }
+  }
   useFetchStatus({
     module: "label",
     reset: resetStatus,
@@ -96,7 +125,7 @@ const Labels = () => {
           columns={columns}
           data={data}
           setFilter={setFilter}
-          search={{ status: [] }}
+          search={defaultSearch}
           buttons={buttons}
         />
       }

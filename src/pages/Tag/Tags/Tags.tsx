@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
-import { ITableData } from "@/components/table/PrimaryTable";
+import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { ITagInitialState, resetStatus, setFilter } from "@/services/store/tag/tag.slice";
@@ -13,7 +13,7 @@ import { ColumnsType } from "antd/es/table";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { IAdvancedSearchProps } from "@/components/search/AdvancedSearch";
+import { IDefaultSearchProp } from "@/components/search/DefaultSearch";
 
 const Tags = () => {
   const navigate = useNavigate();
@@ -32,63 +32,36 @@ const Tags = () => {
     (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
-  const dataSearch: IAdvancedSearchProps = {
-    advanced: [
-      {
-        type: "text",
-        name: "123",
-        placeholder: "Search orders. . .",
-      },
-      {
-        type: "text",
-        name: "1235",
-        placeholder: "Search orders. . .",
-      },
-      {
-        type: "text",
-        name: "123523",
-        placeholder: "Search orders. . .",
-      },
-      {
-        type: "text",
-        name: "1235232",
-        placeholder: "Search orders. . .",
-      },
-      {
-        type: "text",
-        name: "1231232",
-      },
-      {
-        type: "text",
-        name: "12352334",
-        placeholder: "Search orders. . .",
-      },
-      {
-        type: "text",
-        name: "123534",
-        placeholder: "Search orders. . .",
-      },
+  const advancedSearch: IAdvancedSearch = [
+    {
+      type: "text",
+      name: "123",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "text",
+      name: "1235",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "status",
+      name: "123123321312",
+      options: [{ label: "12323", value: "1223323" }],
+    },
+    {
+      type: "date",
 
-      {
-        type: "text",
-        name: "1234",
-        placeholder: "Search orders. . .",
-      },
-      {
-        type: "check",
-        name: "1222223",
-      },
-      {
-        type: "date",
-        name: "12223",
-      },
-      {
-        type: "status",
-        options: [{ label: "InActive", value: "inactive" }],
-        name: "ads",
-      },
-    ],
-  };
+    }
+  ]
+  const defaultSearch: IDefaultSearchProp = {
+    options: [{ label: "123", value: "123" }],
+    input: {
+      type: "text",
+      name: "123",
+      placeholder: "Search ordersss. . .",
+    }
+  }
+
   const columns: ColumnsType = [
     {
       dataIndex: "name",
@@ -144,13 +117,13 @@ const Tags = () => {
       />
       {
         <ManagementGrid
-          advancedSearch={dataSearch}
+          advancedSearch={advancedSearch}
           columns={columns}
           isTableLoading={getAllTagsLoading && true}
           data={data}
           pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
           setFilter={setFilter}
-          search={{ status: [] }}
+          search={defaultSearch}
           buttons={buttons}
         />
       }

@@ -1,22 +1,22 @@
 import { useState } from "react";
 import FilterTableStatus, { IFilterTableStatusOptions, IFilterTableStatusProps } from "../table/FilterTableStatus";
-import FormInput, { FormInputProps } from "../form/FormInput";
+import FormInput, { IFormInputProps } from "../form/FormInput";
 import { Dayjs } from "dayjs";
 import FormDateRangePicker, { DateRangePickerProps } from "../form/FormDateRangePicker";
 import FormSwitch, { IFormSwitchProps } from "../form/FormSwitch";
 import FormCheck, { FormCheckProps } from "../form/FormCheck";
-import DefaultSearch from "./DefaultSearch";
+import { DefaultSearch } from "./DefaultSearch";
 
 export interface IAdvancedSearchSecondaryProps {
   advanced: Field[];
   normal?: IFilterTableStatusOptions[];
 }
 
-interface TextField extends FormInputProps {
+interface TextField extends IFormInputProps {
   type: "text";
   name: string;
 }
-interface NumberField extends FormInputProps {
+interface NumberField extends IFormInputProps {
   type: "number";
   name: string;
 }
@@ -126,7 +126,7 @@ const AdvancedSearchSecondary = ({ advanced, normal }: IAdvancedSearchSecondaryP
   return (
     <div>
       <div className="flex flex-col gap-3">
-        <DefaultSearch showFilterStatus={true} option={normal || []} onFilterToggle={handleFilterToggle} />
+        <DefaultSearch showFilterStatus={true} options={normal || []} onFilterToggle={handleFilterToggle} />
       </div>
       <div>
         {isFilterVisible && (

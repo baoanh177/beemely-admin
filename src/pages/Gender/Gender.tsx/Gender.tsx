@@ -85,7 +85,6 @@ const Genders = () => {
         isTableLoading={getAllGendersLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
-        search={{ status: [] }}
         buttons={buttons}
       />
     </>
