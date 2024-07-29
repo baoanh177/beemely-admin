@@ -12,19 +12,6 @@ const { confirm } = Modal;
 const UserSettings = () => {
   const { state, dispatch } = useArchive<IAuthInitialState>("auth");
 
-  // useFetchStatus({
-  //   module: "auth",
-  //   reset: resetStatus,
-  //   actions: {
-  //     success: {
-  //       navigate: "/auth/login",
-  //     },
-  //     error: {
-  //       message: state.message,
-  //     },
-  //   },
-  // });
-
   const items: MenuProps["items"] = [
     {
       label: (
@@ -71,11 +58,11 @@ const UserSettings = () => {
           <div className="absolute bottom-0 right-0 h-[10px] w-[10px] rounded-circle border-2 border-white bg-green-500"></div>
         </div>
         {/* Info */}
-        <div className="shrink-0">
+        <div className="hidden shrink-0 md:block">
           <div className="text-m-medium text-black-500">{state.profile?.userName}</div>
           <div className="text-s-medium text-black-400">{state.profile?.listNameRole?.at(0)}</div>
         </div>
-        <FaCaretDown className="shrink-0 text-gray-400" />
+        <FaCaretDown className="hidden shrink-0 text-gray-400 md:block" />
       </div>
     </Dropdown>
   );

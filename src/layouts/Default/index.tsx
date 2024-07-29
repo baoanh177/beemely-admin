@@ -1,15 +1,35 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../../components/layout/Sidebar";
-import TopBar from "../../components/layout/TopBar";
-import Copyright from "../../components/layout/Copyright";
+import TopBar from "@/components/layout/TopBar";
+import Copyright from "@/components/layout/Copyright";
+import DesktopSidebar from "@/components/layout/DesktopSidebar";
+import MobileSidebar from "@/components/layout/MobileSidebar";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "@/services/reducers";
+import { AppDispatch } from "@/services/store";
+import { setMobileMenu } from "@/services/store/app/app.slice";
+import clsx from "clsx";
 
 const DefaultLayout = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { mobileMenu } = useSelector((state: RootStateType) => state.app);
   return (
-    <Sidebar>
-      <TopBar />
-      <Outlet />
-      <Copyright />
-    </Sidebar>
+    <div className="flex h-dvh select-none bg-gray-25">
+      {/* Overlay */}
+      <div
+        className={clsx(
+          "fixed inset-0 z-20 h-full w-full bg-black-800 bg-opacity-35 transition-[visibility,opacity] md:hidden",
+          mobileMenu ? "visible opacity-100" : "invisible opacity-0",
+        )}
+        onClick={() => dispatch(setMobileMenu(false))}
+      ></div>
+      <DesktopSidebar />
+      <MobileSidebar isOpen={mobileMenu} />
+      <main className="ml-0 flex grow flex-col gap-6 overflow-y-scroll p-6 md:ml-[264px]">
+        <TopBar />
+        <Outlet />
+        <Copyright />
+      </main>
+    </div>
   );
 };
 

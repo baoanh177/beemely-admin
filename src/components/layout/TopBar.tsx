@@ -3,10 +3,14 @@ import UserSettings from "./UserSettings";
 import IconHasBadge from "@/components/common/IconHasBadge";
 import { PiBell } from "react-icons/pi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/services/store";
+import { setMobileMenu } from "@/services/store/app/app.slice";
 
 const TopBar = () => {
+  const dispatch = useDispatch<AppDispatch>();
   return (
-    <div className="flex h-12 items-center justify-between rounded-lg bg-white p-2 shadow-sm">
+    <div className="flex h-12 items-center justify-between gap-4 rounded-lg bg-white p-2 shadow-sm">
       {/* Search */}
       <div className="relative hidden w-full max-w-[658px] items-center gap-2 px-2 md:flex">
         <div className="flex h-6 w-6 items-center justify-center py-2">
@@ -20,10 +24,13 @@ const TopBar = () => {
         <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div>
       </div>
 
-      <HiOutlineBars3BottomLeft className="block shrink-0 cursor-pointer text-[20px] md:hidden" />
+      <HiOutlineBars3BottomLeft
+        className="block shrink-0 cursor-pointer text-[20px] text-gray-400 md:hidden"
+        onClick={() => dispatch(setMobileMenu(true))}
+      />
 
       {/* Actions */}
-      <div className="flex h-full items-center gap-4">
+      <div className="flex h-full shrink-0 items-center gap-4">
         <IconHasBadge icon={<IoCalendarClearOutline className="text-[18px] text-gray-400" />} badge={0} />
         <IconHasBadge icon={<PiBell className="text-[18px] text-gray-400" />} badge={2} />
         <IconHasBadge icon={<IoMailOutline className="text-[18px] text-gray-400" />} badge={2} />

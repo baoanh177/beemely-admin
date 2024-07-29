@@ -7,7 +7,7 @@
 const config = {
   trailingComma: "es5",
   tabWidth: 2,
-  printWidth: 150,
+  printWidth: 145,
   semi: true,
   bracketSpacing: true
 };
