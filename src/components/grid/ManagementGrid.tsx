@@ -6,7 +6,7 @@ import { EButtonTypes } from "@/shared/enums/button";
 import GridButtons from "./GridButtons";
 import { TableColumnsType } from "antd";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { IAdvancedSearchProp } from "../search/AdvancedSearch";
+import { IAdvancedSearchProps } from "../search/AdvancedSearch";
 
 export interface IGridProps {
   columns: ColumnsType;
@@ -19,7 +19,7 @@ export interface IGridProps {
     current: number;
     total: number;
   };
-  advancedSearch?: IAdvancedSearchProp;
+  advancedSearch?: IAdvancedSearchProps;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
 }
 
