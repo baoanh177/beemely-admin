@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 
-type TAsyncFunction = (promise: Promise<unknown>, key: string) => Promise<unknown>
+type TAsyncFunction = (promise: Promise<unknown>, key: string) => Promise<unknown>;
 
-const useAsyncEffect = (
-  callback: (async: TAsyncFunction) => unknown,
-  dependencies: unknown[] = [],
-) => {
+const useAsyncEffect = (callback: (async: TAsyncFunction) => unknown, dependencies: unknown[] = []) => {
   const [loading, setLoading] = useState<Record<string, boolean>>({});
 
   const async: TAsyncFunction = async (promise, key) => {
