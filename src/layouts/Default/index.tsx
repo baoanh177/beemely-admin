@@ -24,11 +24,13 @@ const DefaultLayout = () => {
       ></div>
       <DesktopSidebar />
       <MobileSidebar isOpen={mobileMenu} />
-      <main className="ml-0 flex grow flex-col gap-6 overflow-y-scroll p-6 md:ml-[264px]">
+      <div className="relative grow md:ml-[264px]">
         <TopBar />
-        <Outlet />
-        <Copyright />
-      </main>
+        <main className="ml-0 flex flex-col gap-6 overflow-y-scroll p-6">
+          <Outlet />
+          <Copyright />
+        </main>
+      </div>
     </div>
   );
 };

@@ -58,6 +58,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
             pagination
               ? {
                   ...pagination,
+                  responsive: true,
                   showTotal: PaginationText,
                   showSizeChanger: pagination.showSideChanger ?? false,
                 }

@@ -24,7 +24,14 @@ const Pagination = ({ current, pageSize, total, showSizeChanger }: IPaginationPr
   return (
     <ConfigProvider theme={theme}>
       <div className="pagination">
-        <AntdPagination current={current} pageSize={pageSize} total={total} showTotal={PaginationText} showSizeChanger={showSizeChanger} />
+        <AntdPagination
+          current={current}
+          pageSize={pageSize}
+          responsive
+          total={total}
+          showTotal={PaginationText}
+          showSizeChanger={showSizeChanger}
+        />
       </div>
     </ConfigProvider>
   );
