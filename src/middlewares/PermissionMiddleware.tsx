@@ -1,4 +1,4 @@
-import { checkPermission } from "@/helpers/checkPermission";
+import { checkPermission } from "@/utils/checkPermission";
 import { useArchive } from "@/hooks/useArchive";
 import AccessDenied from "@/pages/Errors/AccessDenied";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
