@@ -12,15 +12,16 @@
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #666;
+  background-color: $color-primary-500;
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #ccc;
+  background: $color-primary-50;
 }
 
 :-webkit-autofill{
