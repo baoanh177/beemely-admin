@@ -6,7 +6,7 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { useArchive } from "@/hooks/useArchive";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
-import { checkPermission } from "@/helpers/checkPermission";
+import { checkPermission } from "@/utils/checkPermission";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
