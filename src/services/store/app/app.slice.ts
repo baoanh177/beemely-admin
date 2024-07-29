@@ -1,21 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const theme = JSON.parse(localStorage.getItem("theme")!);
+export interface IAppInitialState {
+  loading: boolean;
+  mobileMenu: boolean;
+}
 
-const initialState = {
-  theme: theme ? theme : "light",
+const initialState: IAppInitialState = {
   loading: false,
+  mobileMenu: false,
 };
 
 const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setTheme: (state, { payload }) => {
-      state.theme = payload;
-      localStorage.setItem("theme", JSON.stringify(payload));
+    setMobileMenu: (state, { payload }) => {
+      state.mobileMenu = payload;
     },
   },
 });
-export const { setTheme } = appSlice.actions;
+export const { setMobileMenu } = appSlice.actions;
 export { appSlice };

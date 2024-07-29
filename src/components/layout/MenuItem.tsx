@@ -4,6 +4,9 @@ import { IoPieChartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import { IMenuItem } from "@/data/menu-items";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/services/store";
+import { setMobileMenu } from "@/services/store/app/app.slice";
 
 interface IMenuItemProps extends IMenuItem {
   isOpen?: boolean;
@@ -25,6 +28,7 @@ const MenuItem = ({
   isOpen = false,
 }: IMenuItemProps) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const IconComponent = icon?.component;
 
   return (
@@ -34,7 +38,12 @@ const MenuItem = ({
         (isActive || isChildActive) && "!bg-primary-50",
       )}
       onClick={() => {
-        path ? navigate(path) : onClick && onClick();
+        if (path) {
+          navigate(path);
+          dispatch(setMobileMenu(false));
+        } else if (onClick) {
+          onClick();
+        }
       }}
     >
       <div
@@ -48,7 +57,7 @@ const MenuItem = ({
         {IconComponent && (
           <IconComponent
             className={clsx(
-              "text-2xl group-hover:text-primary-500",
+              "shrink-0 text-2xl group-hover:text-primary-500",
               icon.className,
               (isActive || isChildActive || isOpen) && "text-primary-500",
             )}
@@ -57,7 +66,7 @@ const MenuItem = ({
         {isChild && <IoPieChartOutline className="invisible text-2xl" />}
         <span
           className={clsx(
-            "text-m-semibold text-black-400 group-hover:text-primary-500",
+            "text-m-semibold shrink-0 text-black-400 group-hover:text-primary-500",
             (isActive || isChildActive || isOpen) && "text-primary-500",
           )}
         >
