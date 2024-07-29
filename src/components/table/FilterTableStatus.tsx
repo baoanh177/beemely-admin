@@ -1,17 +1,17 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-export interface IFilterTableStatusOption {
+export interface IFilterTableStatusOptions {
   value: string;
   label: string;
 }
 
 export interface IFilterTableStatusProps {
-  options: IFilterTableStatusOption[];
-  onChange?: (selectedOption: IFilterTableStatusOption) => void;
+  options: IFilterTableStatusOptions[];
+  onChange?: (selectedOption: IFilterTableStatusOptions) => void;
 }
 
 const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChange }) => {
-  const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOption>({ value: "all", label: "All" });
+  const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOptions>({ value: "all", label: "All" });
   const fullOptions = useMemo(() => [{ value: "all", label: "All" }, ...options], [options]);
 
   useEffect(() => {

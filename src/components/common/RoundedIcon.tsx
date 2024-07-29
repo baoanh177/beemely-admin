@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 export interface IRoundIcon {
   icon: IconType;
   color?: "orange" | "primary" | "green" | "gray" | "red";
-  size: "large" | "medium" | "filter";
+  size: "large" | "medium";
   shape: "circle" | "square";
   onClick?: () => void;
 }
@@ -39,7 +39,6 @@ const RoundedIcon = ({ icon: ItemIcon, color, size, shape, onClick }: IRoundIcon
         colorClasses,
         size === "large" && "h-[40px] w-[40px]",
         size === "medium" && "h-[36px] w-[36px]",
-        size === "filter" && "h-[40px] w-[48px]",
       )}
       onClick={onClick}
     >

@@ -13,7 +13,7 @@ import { ColumnsType } from "antd/es/table";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { IAdvancedSearchProp } from "@/components/search/AdvancedSearch";
+import { IAdvancedSearchProps } from "@/components/search/AdvancedSearch";
 
 const Tags = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Tags = () => {
     (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
-  const dataSearch: IAdvancedSearchProp = {
+  const dataSearch: IAdvancedSearchProps = {
     advanced: [
       {
         type: "text",
@@ -53,6 +53,10 @@ const Tags = () => {
         type: "text",
         name: "1235232",
         placeholder: "Search orders. . .",
+      },
+      {
+        type: "text",
+        name: "1231232",
       },
       {
         type: "text",

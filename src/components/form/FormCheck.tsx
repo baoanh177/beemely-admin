@@ -2,7 +2,7 @@ import { Checkbox, ConfigProvider } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import clsx from "clsx";
 
-interface FormCheckProps {
+export interface FormCheckProps {
   label?: string;
   onChange?: (isDefaultChecked: boolean) => void;
   isDefaultChecked?: boolean;

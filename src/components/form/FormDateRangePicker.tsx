@@ -3,7 +3,7 @@ import { ConfigProvider, DatePicker } from "antd";
 import { Dayjs } from "dayjs";
 import viVN from "antd/es/locale/vi_VN";
 
-interface DateRangePickerProps {
+export interface DateRangePickerProps {
   label?: string;
   onChange?: (dates: [Dayjs | null, Dayjs | null], dateStrings: [string, string]) => void;
   defaultValue?: [Dayjs | null, Dayjs | null];

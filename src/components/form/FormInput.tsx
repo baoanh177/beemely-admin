@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useState, useRef } from "react";
 import { IconType } from "react-icons";
 
-interface FormInputProps {
+export interface FormInputProps {
   label?: string;
   icon?: IconType;
   placeholder?: string;

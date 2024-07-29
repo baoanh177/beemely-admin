@@ -6,7 +6,7 @@ import { ISearchParams } from "@/shared/utils/shared-interfaces";
 import { useDispatch } from "react-redux";
 import PaginationText from "../common/PaginationText";
 import PrimaryTableSkeleton from "../skeleton/PrimaryTableSkeleton";
-import AdvancedSearch, { IAdvancedSearchProp } from "../search/AdvancedSearch";
+import AdvancedSearch, { IAdvancedSearchProps } from "../search/AdvancedSearch";
 
 export interface ITableData {
   key: React.Key;
@@ -23,7 +23,7 @@ interface IPrimaryTableProps {
   isTableLoading?: boolean;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
-  advancedSearch?: IAdvancedSearchProp;
+  advancedSearch?: IAdvancedSearchProps;
 }
 
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch, search, columns, data, pagination, isTableLoading, setFilter }) => {

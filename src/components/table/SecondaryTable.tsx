@@ -5,7 +5,7 @@ import { ColumnsType } from "antd/es/table";
 import React from "react";
 import { useDispatch } from "react-redux";
 import StatusBadge from "../common/StatusBadge";
-import { IAdvancedSearchProp } from "../search/AdvancedSearch";
+import { IAdvancedSearchProps } from "../search/AdvancedSearch";
 import AdvancedSearchSecondary from "../search/AdvancedSearchSecondary";
 import PrimaryTableSkeleton from "../skeleton/PrimaryTableSkeleton";
 import ImageTable from "./ImageTable";
@@ -40,7 +40,7 @@ interface SecondaryTableProps {
   search?: ISearchTable | false;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
-  advancedSearch?: IAdvancedSearchProp;
+  advancedSearch?: IAdvancedSearchProps;
   isTableLoading?: boolean;
 }
 export const columns: ColumnsType<DataType> = [
@@ -104,7 +104,7 @@ export const data: DataType[] = [
     productDescription: "Product Description",
   },
 ];
-export const dataSearch: IAdvancedSearchProp = {
+export const dataSearch: IAdvancedSearchProps = {
   advanced: [
     {
       type: "date",
