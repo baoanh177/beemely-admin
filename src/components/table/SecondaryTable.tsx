@@ -1,11 +1,15 @@
-import React from "react";
+import { ISearchParams } from "@/shared/utils/shared-interfaces";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { Space, Table } from "antd";
-import StatusBadge from "../common/StatusBadge";
-import ImageTable from "./ImageTable";
-import FormInput from "../form/FormInput";
-import FormDate from "../form/FormDate";
-import { IoSearchOutline } from "react-icons/io5";
 import { ColumnsType } from "antd/es/table";
+import React from "react";
+import { useDispatch } from "react-redux";
+import StatusBadge from "../common/StatusBadge";
+import { IAdvancedSearchProp } from "../search/AdvancedSearch";
+import AdvancedSearchSecondary from "../search/AdvancedSearchSecondary";
+import PrimaryTableSkeleton from "../skeleton/PrimaryTableSkeleton";
+import ImageTable from "./ImageTable";
+import { ISearchTable } from "./PrimaryTable";
 interface StatusType {
   text: string;
   color: "blue" | "green" | "orange" | "gray" | "red";
@@ -19,9 +23,12 @@ interface DataType {
   productTitle: string;
   productDescription?: string;
 }
-
+export interface ITableData {
+  key: React.Key;
+  [key: string]: unknown;
+}
 interface SecondaryTableProps {
-  title: string;
+  title?: string;
   data: DataType[];
   columns: ColumnsType<DataType>;
   hideComponents?: string[];
@@ -30,6 +37,11 @@ interface SecondaryTableProps {
     current?: number;
     total?: number;
   };
+  search?: ISearchTable | false;
+  setFilter: ActionCreatorWithPayload<ISearchParams>;
+  pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
+  advancedSearch?: IAdvancedSearchProp;
+  isTableLoading?: boolean;
 }
 export const columns: ColumnsType<DataType> = [
   {
@@ -92,20 +104,72 @@ export const data: DataType[] = [
     productDescription: "Product Description",
   },
 ];
+export const dataSearch: IAdvancedSearchProp = {
+  advanced: [
+    {
+      type: "date",
+      name: "12343",
+    },
+    {
+      type: "text",
+      name: "12342",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "text",
+      name: "1235",
+      placeholder: "Search orders. . .",
+    },
 
-const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideComponents, paginationConfig, columns }) => {
+    {
+      type: "status",
+      options: [
+        { label: "Processing", value: "processing" },
+        { label: "Shiped", value: "shiped" },
+        { label: "Delivered", value: "delivered" },
+        { label: "Cancelled", value: "cancelled" },
+      ],
+      name: "ads",
+    },
+  ],
+};
+const SecondaryTable: React.FC<SecondaryTableProps> = ({
+  advancedSearch,
+  search,
+  setFilter,
+  title,
+  data,
+  hideComponents,
+  paginationConfig,
+  isTableLoading,
+  columns,
+}) => {
+  const dispatch = useDispatch();
   return (
     <div className="secondary-table">
       {!hideComponents?.includes("transactionHeader") && (
-        <div className="flex items-center justify-between gap-3 rounded-lg bg-white px-6 py-[18px]">
+        <div className="gap-3 rounded-xl bg-white px-6 py-4">
           <div className="display-s-semibold text-black-500">{title}</div>
-          <div className="flex gap-3">
-            <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
-            <FormDate />
-          </div>
+          {search && advancedSearch && <AdvancedSearchSecondary advanced={advancedSearch.advanced} normal={advancedSearch.normal} />}
         </div>
       )}
-      <Table columns={columns} dataSource={data} pagination={!hideComponents?.includes("pagination") ? paginationConfig : false} />
+      {!isTableLoading ? (
+        <Table
+          onChange={(newPagination) => {
+            dispatch(
+              setFilter({
+                _page: newPagination.current,
+                _size: newPagination.pageSize,
+              }),
+            );
+          }}
+          columns={columns}
+          dataSource={data}
+          pagination={!hideComponents?.includes("pagination") ? paginationConfig : false}
+        />
+      ) : (
+        <PrimaryTableSkeleton />
+      )}
     </div>
   );
 };

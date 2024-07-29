@@ -13,6 +13,7 @@ import { ColumnsType } from "antd/es/table";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { IAdvancedSearchProp } from "@/components/search/AdvancedSearch";
 
 const Tags = () => {
   const navigate = useNavigate();
@@ -31,7 +32,59 @@ const Tags = () => {
     (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
+  const dataSearch: IAdvancedSearchProp = {
+    advanced: [
+      {
+        type: "text",
+        name: "123",
+        placeholder: "Search orders. . .",
+      },
+      {
+        type: "text",
+        name: "1235",
+        placeholder: "Search orders. . .",
+      },
+      {
+        type: "text",
+        name: "123523",
+        placeholder: "Search orders. . .",
+      },
+      {
+        type: "text",
+        name: "1235232",
+        placeholder: "Search orders. . .",
+      },
+      {
+        type: "text",
+        name: "12352334",
+        placeholder: "Search orders. . .",
+      },
+      {
+        type: "text",
+        name: "123534",
+        placeholder: "Search orders. . .",
+      },
 
+      {
+        type: "text",
+        name: "1234",
+        placeholder: "Search orders. . .",
+      },
+      {
+        type: "check",
+        name: "1222223",
+      },
+      {
+        type: "date",
+        name: "12223",
+      },
+      {
+        type: "status",
+        options: [{ label: "InActive", value: "inactive" }],
+        name: "ads",
+      },
+    ],
+  };
   const columns: ColumnsType = [
     {
       dataIndex: "name",
@@ -87,6 +140,7 @@ const Tags = () => {
       />
       {
         <ManagementGrid
+          advancedSearch={dataSearch}
           columns={columns}
           isTableLoading={getAllTagsLoading && true}
           data={data}

@@ -16,6 +16,7 @@ interface FormInputProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string;
   onChange?: (value: string | number) => void;
+  className?: string;
 }
 
 const FormInput = ({
@@ -32,6 +33,7 @@ const FormInput = ({
   error,
   onChange,
   autoFocus,
+  className,
 }: FormInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -95,6 +97,7 @@ const FormInput = ({
               "border-red-500": error,
               "select-none !bg-gray-50 !text-black-300": isDisabled,
             },
+            className,
           )}
         />
       </div>

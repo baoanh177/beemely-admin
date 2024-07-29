@@ -9,7 +9,7 @@ import FormCheck from "../form/FormCheck";
 import Button from "../common/Button";
 import DefaultSearch from "./DefaultSearch";
 
-export interface IAdvancedSearchProp {
+export interface IAdvancedSearchSecondaryProp {
   advanced: Field[];
   normal?: IFilterTableStatusOption[];
 }
@@ -65,7 +65,7 @@ interface CheckField extends BaseField {
 
 type Field = TextField | NumberField | DateField | StatusField | SwitchField | CheckField;
 
-const AdvancedSearch = ({ advanced, normal }: IAdvancedSearchProp) => {
+const AdvancedSearchSecondary = ({ advanced, normal }: IAdvancedSearchSecondaryProp) => {
   const [advancedValues, setAdvancedValues] = useState<Record<string, any>>({});
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
@@ -123,7 +123,7 @@ const AdvancedSearch = ({ advanced, normal }: IAdvancedSearchProp) => {
         );
       case "status":
         return (
-          <div key={fieldKey}>
+          <div className="flex h-[40px] w-full justify-center" key={fieldKey}>
             <FilterTableStatus
               options={field.options || []}
               onChange={(selectedOption: IFilterTableStatusOption) => handleAdvancedChange(field.name, selectedOption)}
@@ -162,25 +162,24 @@ const AdvancedSearch = ({ advanced, normal }: IAdvancedSearchProp) => {
     // console.log(advancedValues);
   };
   return (
-    <div className="flex w-full flex-col gap-3">
-      <DefaultSearch showFilterStatus={true} option={normal || []} onFilterToggle={handleFilterToggle} />
-      {isFilterVisible && (
-        <>
-          <div>Tìm kiếm nâng cao</div>
-          <div className="flex justify-between">
-            {advanced.filter((field) => field.type === "status").map(renderAdvancedField)}
-            {advanced.filter((field) => field.type === "date").map(renderAdvancedField)}
+    <div>
+      <div className="flex flex-col gap-3">
+        <DefaultSearch showFilterStatus={true} option={normal || []} onFilterToggle={handleFilterToggle} />
+      </div>
+      <div>
+        {isFilterVisible && (
+          <div className="flex flex-col gap-3 pt-3">
+            <div>Tìm kiếm nâng cao</div>
+            <div className="flex justify-between">{advanced.filter((field) => field.type === "status").map(renderAdvancedField)}</div>
+            <div className="grid grid-cols-3 gap-3">{advanced.filter((field) => field.type !== "status").map(renderAdvancedField)}</div>
+            <div className="flex justify-end gap-3">
+              <Button text="Button" type="primary" onClick={handleButtonClick} />
+              <Button text="Reset" type="secondary" onClick={handleReset} />
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-3">
-            {advanced.filter((field) => field.type !== "date" && field.type !== "status").map(renderAdvancedField)}
-          </div>
-          <div className="flex justify-end gap-3">
-            <Button text="Button" type="primary" onClick={handleButtonClick} />
-            <Button text="Reset" type="secondary" onClick={handleReset} />
-          </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 };
-export default AdvancedSearch;
+export default AdvancedSearchSecondary;

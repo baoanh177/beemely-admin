@@ -5,13 +5,12 @@ import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
 import Heading from "@/components/layout/Heading";
-
-import { IoBagOutline, IoSaveOutline, IoSearchOutline } from "react-icons/io5";
+import { IoBagOutline, IoSaveOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 import StatusBadge from "@/components/common/StatusBadge";
-import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
+import SecondaryTable, { columns, data, dataSearch } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/card/CustomerCard";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/card/OrderInforCard";
 import DateRangePicker from "@/components/form/FormDateRangePicker";
@@ -23,7 +22,6 @@ import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
 import UploadImage from "@/components/form/UploadImage";
 import Pagination from "@/components/common/Pagination";
-import AdvancedSearch from "@/components/search/AdvancedSearch";
 const Components = () => {
   return (
     <>
@@ -169,7 +167,13 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
-        <SecondaryTable columns={columns} title="SeconderyTable" data={data} />
+        <SecondaryTable
+          data={data}
+          columns={columns}
+          search={{ status: [{ value: "lnog", label: "123" }] }}
+          advancedSearch={dataSearch}
+          setFilter={setFilter}
+        />
       </div>
 
       {customerData.map((customer, index) => (

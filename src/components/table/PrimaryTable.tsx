@@ -23,44 +23,15 @@ interface IPrimaryTableProps {
   isTableLoading?: boolean;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
+  advancedSearch?: IAdvancedSearchProp;
 }
 
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pagination, isTableLoading, setFilter }) => {
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch, search, columns, data, pagination, isTableLoading, setFilter }) => {
   const dispatch = useDispatch();
-  const dataSearch: IAdvancedSearchProp = {
-    normal: [
-      {
-        label: "haha",
-        value: "haha"
-      }
-    ],
-    advanced: [
 
-      {
-        type: "text",
-        name: "123",
-
-      },
-      {
-        type: "check",
-        name: "1222223",
-      },
-      {
-        type: "date",
-        name: "12223"
-      },
-      {
-        type: 'status',
-        options: [{ label: "InActive", value: "inactive" }],
-        name: "ads"
-      }
-    ]
-  }
   return (
     <div className="primary-table flex w-full flex-col gap-6">
-      {search && (
-        <AdvancedSearch advanced={dataSearch.advanced} normal={dataSearch.normal} />
-      )}
+      {search && advancedSearch && <AdvancedSearch advanced={advancedSearch.advanced} normal={advancedSearch.normal} />}
       {!isTableLoading ? (
         <Table
           onChange={(newPagination) => {
@@ -76,10 +47,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ search, columns, data, pag
           pagination={
             pagination
               ? {
-                ...pagination,
-                showTotal: PaginationText,
-                showSizeChanger: pagination.showSideChanger ?? false,
-              }
+                  ...pagination,
+                  showTotal: PaginationText,
+                  showSizeChanger: pagination.showSideChanger ?? false,
+                }
               : false
           }
           className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
