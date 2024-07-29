@@ -42,7 +42,8 @@ type FieldValue = string | number | [Dayjs | null, Dayjs | null] | IFilterTableS
 const AdvancedSearchSecondary = ({ advanced, normal }: IAdvancedSearchSecondaryProps) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const handleAdvancedChange = (name: string, value: FieldValue) => {
-    console.log(name, value);
+        // để tạm
+    <div>{name} {!value}</div>
   };
   const handleFilterToggle = () => {
     setIsFilterVisible((prev) => !prev);

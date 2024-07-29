@@ -43,7 +43,8 @@ const AdvancedSearch = ({ advanced, normal }: IAdvancedSearchProps) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   const handleAdvancedChange = (name: string, value: FieldValue) => {
-    console.log(name, value);
+    // để tạm
+    <div>{name} {!value}</div>
   };
 
   const handleFilterToggle = () => {
