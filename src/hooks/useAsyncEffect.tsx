@@ -5,17 +5,16 @@ const useAsyncEffect = (callback: (async: Function) => unknown, dependencies: un
 
   const async = async (promise: Promise<unknown>, key: string): Promise<unknown> => {
     setLoading((prev) => ({ ...prev, [key]: true }));
-    return promise
-      .finally(() => {
-        setLoading((prev) => ({ ...prev, [key]: false }));
-      });
+    return promise.finally(() => {
+      setLoading((prev) => ({ ...prev, [key]: false }));
+    });
   };
 
   useEffect(() => {
     callback(async);
   }, dependencies);
 
-  return loading
+  return loading;
 };
 
 export default useAsyncEffect;

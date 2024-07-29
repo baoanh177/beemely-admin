@@ -9,10 +9,10 @@ interface FormDateProps {
   label?: string;
   onChange?: (date: Dayjs | null, dateString: string) => void;
   defaultValue?: Dayjs | null;
-  name?: string
+  name?: string;
   value?: Dayjs | null;
   disabled?: boolean;
-  placeholder?: string
+  placeholder?: string;
 }
 
 const FormDate: React.FC<FormDateProps> = ({ label, onChange, defaultValue, value, name, disabled, placeholder }: FormDateProps) => {

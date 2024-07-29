@@ -10,7 +10,7 @@ interface DateRangePickerProps {
   value?: [Dayjs | null, Dayjs | null];
   name?: string;
   disabled?: boolean;
-  placeholder?: [string, string]
+  placeholder?: [string, string];
 }
 
 const FormDateRangePicker: React.FC<DateRangePickerProps> = ({ label, onChange, defaultValue, placeholder, value, name, disabled }) => {
