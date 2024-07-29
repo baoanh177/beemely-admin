@@ -3,7 +3,7 @@ import { FaCaretUp } from "react-icons/fa";
 import { IoPieChartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-import { IMenuItem } from "./Sidebar";
+import { IMenuItem } from "@/data/menu-items";
 
 interface IMenuItemProps extends IMenuItem {
   isOpen?: boolean;
