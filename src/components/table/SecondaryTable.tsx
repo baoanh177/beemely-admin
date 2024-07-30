@@ -2,14 +2,16 @@ import { ISearchParams } from "@/shared/utils/shared-interfaces";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import React from "react";
+import clsx from "clsx";
+import React, { useState } from "react";
+import { BiSliderAlt } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import StatusBadge from "../common/StatusBadge";
-import { IAdvancedSearchProps } from "../search/AdvancedSearch";
 import AdvancedSearchSecondary from "../search/AdvancedSearchSecondary";
+import { DefaultSearch, IDefaultSearchProps } from "../search/DefaultSearch";
 import PrimaryTableSkeleton from "../skeleton/PrimaryTableSkeleton";
 import ImageTable from "./ImageTable";
-import { ISearchTable } from "./PrimaryTable";
+import { IAdvancedSearch } from "./PrimaryTable";
 interface StatusType {
   text: string;
   color: "blue" | "green" | "orange" | "gray" | "red";
@@ -37,10 +39,10 @@ interface SecondaryTableProps {
     current?: number;
     total?: number;
   };
-  search?: ISearchTable | false;
+  search?: IDefaultSearchProps | false;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
   pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
-  advancedSearch?: IAdvancedSearchProps;
+  advancedSearch?: IAdvancedSearch;
   isTableLoading?: boolean;
 }
 export const columns: ColumnsType<DataType> = [
@@ -104,37 +106,9 @@ export const data: DataType[] = [
     productDescription: "Product Description",
   },
 ];
-export const dataSearch: IAdvancedSearchProps = {
-  advanced: [
-    {
-      type: "date",
-      name: "12343",
-    },
-    {
-      type: "text",
-      name: "12342",
-      placeholder: "Search orders. . .",
-    },
-    {
-      type: "text",
-      name: "1235",
-      placeholder: "Search orders. . .",
-    },
 
-    {
-      type: "status",
-      options: [
-        { label: "Processing", value: "processing" },
-        { label: "Shiped", value: "shiped" },
-        { label: "Delivered", value: "delivered" },
-        { label: "Cancelled", value: "cancelled" },
-      ],
-      name: "ads",
-    },
-  ],
-};
 const SecondaryTable: React.FC<SecondaryTableProps> = ({
-  advancedSearch,
+  advancedSearch = [],
   search,
   setFilter,
   title,
@@ -145,12 +119,34 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({
   columns,
 }) => {
   const dispatch = useDispatch();
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+
   return (
     <div className="secondary-table">
       {!hideComponents?.includes("transactionHeader") && (
         <div className="gap-3 rounded-xl bg-white px-6 py-4">
           <div className="display-s-semibold text-black-500">{title}</div>
-          {search && advancedSearch && <AdvancedSearchSecondary advanced={advancedSearch.advanced} normal={advancedSearch.normal} />}
+          {search && (
+            <div>
+              <div className="flex gap-4">
+                <DefaultSearch {...search} />
+                {!!advancedSearch.length && (
+                  <div
+                    className={clsx(
+                      "flex h-[40px] w-[48px] shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg",
+                      showAdvancedSearch
+                        ? "border border-primary-500 bg-primary-50 text-primary-500"
+                        : "border border-gray-100 bg-white text-gray-400",
+                    )}
+                    onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+                  >
+                    <BiSliderAlt />
+                  </div>
+                )}
+              </div>
+              {showAdvancedSearch && !!advancedSearch.length && <AdvancedSearchSecondary advanced={advancedSearch} />}
+            </div>
+          )}
         </div>
       )}
       {!isTableLoading ? (

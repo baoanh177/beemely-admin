@@ -13,7 +13,15 @@ import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
-
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+export const defaultSearch: IDefaultSearchProps = {
+  options: [{ label: "123", value: "123" }],
+  input: {
+    type: "text",
+    name: "123",
+    placeholder: "Search ordersss. . .",
+  },
+};
 const Roles = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
@@ -90,7 +98,7 @@ const Roles = () => {
         columns={columns}
         isTableLoading={getAllRolesLoading ?? true}
         data={data}
-        search={{ status: [] }}
+        search={defaultSearch}
         buttons={buttons}
         pagination={{
           current: state.filter._page ?? 1,

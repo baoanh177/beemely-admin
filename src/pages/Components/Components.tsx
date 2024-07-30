@@ -10,7 +10,7 @@ import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
 import { tableColumns, tableData } from "./table-data";
 import StatusBadge from "@/components/common/StatusBadge";
-import SecondaryTable, { columns, data, dataSearch } from "@/components/table/SecondaryTable";
+import SecondaryTable, { columns, data } from "@/components/table/SecondaryTable";
 import CustomerCard, { customerData } from "@/components/card/CustomerCard";
 import OrderInForCard, { dataItemsOrderInforCard } from "@/components/card/OrderInforCard";
 import DateRangePicker from "@/components/form/FormDateRangePicker";
@@ -22,6 +22,7 @@ import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
 import UploadImage from "@/components/form/UploadImage";
 import Pagination from "@/components/common/Pagination";
+import { advancedSearch, defaultSearch } from "../Tag/Tags/Tags";
 const Components = () => {
   return (
     <>
@@ -146,7 +147,6 @@ const Components = () => {
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
           <PrimaryTable
-            search={{ status: [{ value: "lnog", label: "123" }] }}
             columns={tableColumns}
             pagination={{ current: 1, pageSize: 5, total: tableData.length }}
             data={tableData}
@@ -167,13 +167,7 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
-        <SecondaryTable
-          data={data}
-          columns={columns}
-          search={{ status: [{ value: "lnog", label: "123" }] }}
-          advancedSearch={dataSearch}
-          setFilter={setFilter}
-        />
+        <SecondaryTable search={defaultSearch} data={data} columns={columns} advancedSearch={advancedSearch} setFilter={setFilter} />
       </div>
 
       {customerData.map((customer, index) => (

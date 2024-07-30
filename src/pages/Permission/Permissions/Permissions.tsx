@@ -13,7 +13,16 @@ import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 
+export const defaultSearch: IDefaultSearchProps = {
+  options: [{ label: "123", value: "123" }],
+  input: {
+    type: "text",
+    name: "123",
+    placeholder: "Search ordersss. . .",
+  },
+};
 const Permissions = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
@@ -106,7 +115,7 @@ const Permissions = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllPermissionsLoading}
-        search={{ status: [] }}
+        search={defaultSearch}
         pagination={{
           current: state.filter._page!,
           pageSize: state.filter._size!,

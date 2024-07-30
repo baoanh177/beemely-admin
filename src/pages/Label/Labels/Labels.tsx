@@ -1,6 +1,6 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
-import { IDefaultSearchProp } from "@/components/search/DefaultSearch";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
@@ -36,17 +36,16 @@ const Labels = () => {
     },
     {
       type: "date",
-
-    }
-  ]
-  const defaultSearch: IDefaultSearchProp = {
+    },
+  ];
+  const defaultSearch: IDefaultSearchProps = {
     options: [{ label: "123", value: "123" }],
     input: {
       type: "text",
       name: "123",
       placeholder: "Search ordersss. . .",
-    }
-  }
+    },
+  };
   useFetchStatus({
     module: "label",
     reset: resetStatus,
@@ -122,6 +121,7 @@ const Labels = () => {
             pageSize: state.filter._size!,
             total: state.totalRecords,
           }}
+          advancedSearch={advancedSearch}
           columns={columns}
           data={data}
           setFilter={setFilter}

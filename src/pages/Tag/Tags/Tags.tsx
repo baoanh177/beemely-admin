@@ -13,8 +13,35 @@ import { ColumnsType } from "antd/es/table";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { IDefaultSearchProp } from "@/components/search/DefaultSearch";
-
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+export const defaultSearch: IDefaultSearchProps = {
+  options: [{ label: "123", value: "123" }],
+  input: {
+    type: "text",
+    name: "123",
+    placeholder: "Search ordersss. . .",
+  },
+};
+export const advancedSearch: IAdvancedSearch = [
+  {
+    type: "text",
+    name: "123",
+    placeholder: "Search orders. . .",
+  },
+  {
+    type: "text",
+    name: "1235",
+    placeholder: "Search orders. . .",
+  },
+  {
+    type: "status",
+    name: "123123321312",
+    options: [{ label: "12323", value: "1223323" }],
+  },
+  {
+    type: "date",
+  },
+];
 const Tags = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ITagInitialState>("tag");
@@ -32,35 +59,6 @@ const Tags = () => {
     (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
-  const advancedSearch: IAdvancedSearch = [
-    {
-      type: "text",
-      name: "123",
-      placeholder: "Search orders. . .",
-    },
-    {
-      type: "text",
-      name: "1235",
-      placeholder: "Search orders. . .",
-    },
-    {
-      type: "status",
-      name: "123123321312",
-      options: [{ label: "12323", value: "1223323" }],
-    },
-    {
-      type: "date",
-
-    }
-  ]
-  const defaultSearch: IDefaultSearchProp = {
-    options: [{ label: "123", value: "123" }],
-    input: {
-      type: "text",
-      name: "123",
-      placeholder: "Search ordersss. . .",
-    }
-  }
 
   const columns: ColumnsType = [
     {

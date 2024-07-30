@@ -12,7 +12,7 @@ interface IAdvancedSearchProps {
 type FieldValue = string | number | [Dayjs | null, Dayjs | null] | IFilterTableStatusOptions | boolean;
 const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
   const handleAdvancedChange = (value: FieldValue) => {
-    console.log(value);
+    <div>{!value}</div>;
   };
 
   const renderAdvancedField = (field: any) => {

@@ -35,7 +35,7 @@ const FormDateRangePicker: React.FC<DateRangePickerProps> = ({ label, onChange, 
         {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
         <DatePicker.RangePicker
           placeholder={placeholder}
-          className="custom-datepicker w-full rounded-md bg-gray-25 py-2"
+          className="custom-datepicker w-full rounded-md bg-white py-2"
           onChange={handleChange}
           defaultValue={defaultValue}
           value={value}

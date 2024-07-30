@@ -14,7 +14,16 @@ import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import ImageTable from "@/components/table/ImageTable";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 
+export const defaultSearch: IDefaultSearchProps = {
+  options: [{ label: "123", value: "123" }],
+  input: {
+    type: "text",
+    name: "123",
+    placeholder: "Search ordersss. . .",
+  },
+};
 const Brands = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IBrandInitialState>("brand");
@@ -97,7 +106,7 @@ const Brands = () => {
         isTableLoading={getAllBrandsLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
-        search={{ status: [] }}
+        search={defaultSearch}
         buttons={buttons}
       />
     </>
