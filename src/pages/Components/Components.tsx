@@ -5,7 +5,6 @@ import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
 import FormSelect from "@/components/form/FormSelect";
 import Heading from "@/components/layout/Heading";
-
 import { IoBagOutline, IoSaveOutline } from "react-icons/io5";
 import ImageTable from "@/components/table/ImageTable";
 import PrimaryTable from "@/components/table/PrimaryTable";
@@ -23,6 +22,7 @@ import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
 import UploadImage from "@/components/form/UploadImage";
 import Pagination from "@/components/common/Pagination";
+import { advancedSearch, defaultSearch } from "../Tag/Tags/Tags";
 const Components = () => {
   return (
     <>
@@ -147,7 +147,6 @@ const Components = () => {
         <div className="flex flex-col items-start gap-5">
           <h1 className="display-s-regular mb-2">Table</h1>
           <PrimaryTable
-            search={{ status: [{ value: "lnog", label: "123" }] }}
             columns={tableColumns}
             pagination={{ current: 1, pageSize: 5, total: tableData.length }}
             data={tableData}
@@ -168,7 +167,7 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
-        <SecondaryTable columns={columns} title="SeconderyTable" data={data} />
+        <SecondaryTable search={defaultSearch} data={data} columns={columns} advancedSearch={advancedSearch} setFilter={setFilter} />
       </div>
 
       {customerData.map((customer, index) => (

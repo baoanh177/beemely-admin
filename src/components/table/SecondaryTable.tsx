@@ -1,11 +1,17 @@
-import React from "react";
+import { ISearchParams } from "@/shared/utils/shared-interfaces";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { Space, Table } from "antd";
-import StatusBadge from "../common/StatusBadge";
-import ImageTable from "./ImageTable";
-import FormInput from "../form/FormInput";
-import FormDate from "../form/FormDate";
-import { IoSearchOutline } from "react-icons/io5";
 import { ColumnsType } from "antd/es/table";
+import clsx from "clsx";
+import React, { useState } from "react";
+import { BiSliderAlt } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import StatusBadge from "../common/StatusBadge";
+import AdvancedSearchSecondary from "../search/AdvancedSearchSecondary";
+import { DefaultSearch, IDefaultSearchProps } from "../search/DefaultSearch";
+import PrimaryTableSkeleton from "../skeleton/PrimaryTableSkeleton";
+import ImageTable from "./ImageTable";
+import { IAdvancedSearch } from "./PrimaryTable";
 interface StatusType {
   text: string;
   color: "blue" | "green" | "orange" | "gray" | "red";
@@ -19,9 +25,12 @@ interface DataType {
   productTitle: string;
   productDescription?: string;
 }
-
+export interface ITableData {
+  key: React.Key;
+  [key: string]: unknown;
+}
 interface SecondaryTableProps {
-  title: string;
+  title?: string;
   data: DataType[];
   columns: ColumnsType<DataType>;
   hideComponents?: string[];
@@ -30,6 +39,11 @@ interface SecondaryTableProps {
     current?: number;
     total?: number;
   };
+  search?: IDefaultSearchProps | false;
+  setFilter: ActionCreatorWithPayload<ISearchParams>;
+  pagination?: { pageSize: number; current: number; total: number; showSideChanger?: boolean };
+  advancedSearch?: IAdvancedSearch;
+  isTableLoading?: boolean;
 }
 export const columns: ColumnsType<DataType> = [
   {
@@ -93,19 +107,65 @@ export const data: DataType[] = [
   },
 ];
 
-const SecondaryTable: React.FC<SecondaryTableProps> = ({ title, data, hideComponents, paginationConfig, columns }) => {
+const SecondaryTable: React.FC<SecondaryTableProps> = ({
+  advancedSearch = [],
+  search,
+  setFilter,
+  title,
+  data,
+  hideComponents,
+  paginationConfig,
+  isTableLoading,
+  columns,
+}) => {
+  const dispatch = useDispatch();
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+
   return (
     <div className="secondary-table">
       {!hideComponents?.includes("transactionHeader") && (
-        <div className="flex items-center justify-between gap-3 rounded-lg bg-white px-6 py-[18px]">
+        <div className="gap-3 rounded-xl bg-white px-6 py-4">
           <div className="display-s-semibold text-black-500">{title}</div>
-          <div className="flex gap-3">
-            <FormInput icon={IoSearchOutline} placeholder="Search product. . ." type="text" />
-            <FormDate />
-          </div>
+          {search && (
+            <div>
+              <div className="flex gap-4">
+                <DefaultSearch {...search} />
+                {!!advancedSearch.length && (
+                  <div
+                    className={clsx(
+                      "flex h-[40px] w-[48px] shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg",
+                      showAdvancedSearch
+                        ? "border border-primary-500 bg-primary-50 text-primary-500"
+                        : "border border-gray-100 bg-white text-gray-400",
+                    )}
+                    onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+                  >
+                    <BiSliderAlt />
+                  </div>
+                )}
+              </div>
+              {showAdvancedSearch && !!advancedSearch.length && <AdvancedSearchSecondary advanced={advancedSearch} />}
+            </div>
+          )}
         </div>
       )}
-      <Table columns={columns} dataSource={data} pagination={!hideComponents?.includes("pagination") ? paginationConfig : false} />
+      {!isTableLoading ? (
+        <Table
+          onChange={(newPagination) => {
+            dispatch(
+              setFilter({
+                _page: newPagination.current,
+                _size: newPagination.pageSize,
+              }),
+            );
+          }}
+          columns={columns}
+          dataSource={data}
+          pagination={!hideComponents?.includes("pagination") ? paginationConfig : false}
+        />
+      ) : (
+        <PrimaryTableSkeleton />
+      )}
     </div>
   );
 };

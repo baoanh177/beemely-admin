@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useState, useRef } from "react";
 import { IconType } from "react-icons";
 
-interface FormInputProps {
+export interface IFormInputProps {
   label?: string;
   icon?: IconType;
   placeholder?: string;
@@ -16,6 +16,7 @@ interface FormInputProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: string;
   onChange?: (value: string | number) => void;
+  className?: string;
 }
 
 const FormInput = ({
@@ -32,7 +33,8 @@ const FormInput = ({
   error,
   onChange,
   autoFocus,
-}: FormInputProps) => {
+  className,
+}: IFormInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -95,6 +97,7 @@ const FormInput = ({
               "border-red-500": error,
               "select-none !bg-gray-50 !text-black-300": isDisabled,
             },
+            className,
           )}
         />
       </div>

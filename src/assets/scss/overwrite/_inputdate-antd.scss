@@ -1,12 +1,10 @@
 .custom-datepicker {
   height: 40px;
-  background-color: $color-gray-25 !important;
   border-color: $color-gray-100 !important;
   box-shadow: none !important;
   outline: none;
 
   .ant-picker-input > input {
-    background-color: $color-gray-25 !important;
     height: 100%;
     border-color: $color-gray-100 !important;
     box-shadow: none !important;

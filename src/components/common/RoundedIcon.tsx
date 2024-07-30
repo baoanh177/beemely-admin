@@ -6,9 +6,10 @@ export interface IRoundIcon {
   color?: "orange" | "primary" | "green" | "gray" | "red";
   size: "large" | "medium";
   shape: "circle" | "square";
+  onClick?: () => void;
 }
 
-const RoundedIcon = ({ icon: ItemIcon, color, size, shape }: IRoundIcon) => {
+const RoundedIcon = ({ icon: ItemIcon, color, size, shape, onClick }: IRoundIcon) => {
   let colorClasses;
   switch (color) {
     case "orange":
@@ -36,8 +37,10 @@ const RoundedIcon = ({ icon: ItemIcon, color, size, shape }: IRoundIcon) => {
           "rounded-lg": shape === "square",
         },
         colorClasses,
-        size === "large" ? "h-[40px] w-[40px]" : "h-[36px] w-[36px]",
+        size === "large" && "h-[40px] w-[40px]",
+        size === "medium" && "h-[36px] w-[36px]",
       )}
+      onClick={onClick}
     >
       <ItemIcon />
     </div>
