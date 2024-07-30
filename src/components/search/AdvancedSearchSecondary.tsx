@@ -4,7 +4,7 @@ import FormDateRangePicker from "../form/FormDateRangePicker";
 import FormInput from "../form/FormInput";
 import FormSwitch from "../form/FormSwitch";
 import FilterTableStatus, { IFilterTableStatusOptions } from "../table/FilterTableStatus";
-import { IAdvancedSearch } from "../table/PrimaryTable";
+import { CheckField, DateField, IAdvancedSearch, StatusField, SwitchField, TextNumberField } from "../table/PrimaryTable";
 
 interface IAdvancedSearchSecondaryProps {
   advanced: IAdvancedSearch;
@@ -16,7 +16,7 @@ const AdvancedSearchSecondary = ({ advanced }: IAdvancedSearchSecondaryProps) =>
     <div>{!value}</div>;
   };
 
-  const renderAdvancedField = (field: any) => {
+  const renderAdvancedField = (field: TextNumberField | DateField | StatusField | SwitchField | CheckField) => {
     const fieldKey = field.name;
     switch (field.type) {
       case "text":

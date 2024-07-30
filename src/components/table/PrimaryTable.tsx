@@ -21,22 +21,21 @@ export interface ITableData {
   [key: string]: unknown;
 }
 
-interface TextNumberField extends IFormInputProps {
+export interface TextNumberField extends IFormInputProps {
   type: "text" | "number";
 }
-interface DateField extends DateRangePickerProps {
+export interface DateField extends DateRangePickerProps {
   type: "date";
 }
-interface StatusField extends IFilterTableStatusProps {
+export interface StatusField extends IFilterTableStatusProps {
   type: "status";
 }
-interface SwitchField extends IFormSwitchProps {
+export interface SwitchField extends IFormSwitchProps {
   type: "switch";
 }
-interface CheckField extends FormCheckProps {
+export interface CheckField extends FormCheckProps {
   type: "check";
 }
-
 export type IAdvancedSearch = Array<TextNumberField | DateField | StatusField | SwitchField | CheckField>;
 export interface ISearchTable {
   status: { value: string; label: string }[];
@@ -95,10 +94,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
           pagination={
             pagination
               ? {
-                  ...pagination,
-                  showTotal: PaginationText,
-                  showSizeChanger: pagination.showSizeChanger ?? false,
-                }
+                ...pagination,
+                showTotal: PaginationText,
+                showSizeChanger: pagination.showSizeChanger ?? false,
+              }
               : false
           }
           className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
