@@ -147,7 +147,7 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({
               </div>
               <div
                 ref={advancedSearchRef}
-                className="overflow-hidden transition-all duration-300 ease-in-out"
+                className="overflow-hidden transition-max-height duration-300 ease-in-out"
                 style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
               >
                 {!!advancedSearch.length && <AdvancedSearchSecondary advanced={advancedSearch} />}
