@@ -15,7 +15,8 @@ const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
     <div>{!value}</div>;
   };
 
-  const renderAdvancedField = (field: TextNumberField | DateField | StatusField | SwitchField | CheckField) => {    const fieldKey = field.name;
+  const renderAdvancedField = (field: TextNumberField | DateField | StatusField | SwitchField | CheckField) => {
+    const fieldKey = field.name;
     switch (field.type) {
       case "text":
       case "number":
