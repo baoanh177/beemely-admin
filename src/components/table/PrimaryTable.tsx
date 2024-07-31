@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
@@ -55,6 +55,7 @@ interface IPrimaryTableProps {
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], search, columns, data, pagination, isTableLoading, setFilter }) => {
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const advancedSearchRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="primary-table flex w-full flex-col gap-6">
@@ -65,7 +66,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
             {!!advancedSearch.length && (
               <div
                 className={clsx(
-                  "flex h-[40px] w-[48px] shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg",
+                  "flex h-10 w-12 shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg transition-colors",
                   showAdvancedSearch
                     ? "border border-primary-500 bg-primary-50 text-primary-500"
                     : "border border-gray-100 bg-white text-gray-400",
@@ -76,7 +77,13 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
               </div>
             )}
           </div>
-          {showAdvancedSearch && !!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
+          <div
+            ref={advancedSearchRef}
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+            style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
+          >
+            {!!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
+          </div>
         </div>
       )}
       {!isTableLoading ? (
@@ -94,10 +101,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
           pagination={
             pagination
               ? {
-                ...pagination,
-                showTotal: PaginationText,
-                showSizeChanger: pagination.showSizeChanger ?? false,
-              }
+                  ...pagination,
+                  showTotal: PaginationText,
+                  showSizeChanger: pagination.showSizeChanger ?? false,
+                }
               : false
           }
           className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"

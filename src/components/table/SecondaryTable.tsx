@@ -3,7 +3,7 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { Space, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BiSliderAlt } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import StatusBadge from "../common/StatusBadge";
@@ -120,6 +120,7 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const advancedSearchRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="secondary-table">
@@ -144,7 +145,13 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({
                   </div>
                 )}
               </div>
-              {showAdvancedSearch && !!advancedSearch.length && <AdvancedSearchSecondary advanced={advancedSearch} />}
+              <div
+                ref={advancedSearchRef}
+                className="overflow-hidden transition-all duration-300 ease-in-out"
+                style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
+              >
+                {!!advancedSearch.length && <AdvancedSearchSecondary advanced={advancedSearch} />}
+              </div>
             </div>
           )}
         </div>
