@@ -17,6 +17,7 @@ import { tagRoutes } from "./tag.route";
 import { permissionRoutes } from "./permission.route";
 import { brandRoutes } from "./brand.route";
 import { labelRoutes } from "./label.router";
+import GoogleCallback from "@/pages/GoogleCallback/GoogleCallback";
 
 export interface IRoute {
   path: string;
@@ -96,6 +97,10 @@ export const routes: IRoute[] = [
             path: "login",
             element: () => <Login />,
           },
+          {
+            path: "google/callback",
+            element: () => <GoogleCallback />
+          }
         ],
       },
     ],
