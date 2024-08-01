@@ -19,13 +19,13 @@ export const refreshToken = async (client: ClientType) => {
       localStorage.setItem("refreshToken", JSON.stringify(data.metaData.refreshToken));
     } else throw new Error();
 
-    const prevRefreshTime = localStorage.getItem("r")
+    const prevRefreshTime = localStorage.getItem("r");
 
-    if(prevRefreshTime) {
-      if(new Date().getTime() - JSON.parse(prevRefreshTime) <= 2000) throw new Error()
+    if (prevRefreshTime) {
+      if (new Date().getTime() - JSON.parse(prevRefreshTime) <= 2000) throw new Error();
     }
 
-    localStorage.setItem("r", JSON.stringify(new Date().getTime()))
+    localStorage.setItem("r", JSON.stringify(new Date().getTime()));
 
     return response.ok;
   } catch (e) {

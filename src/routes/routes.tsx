@@ -99,8 +99,8 @@ export const routes: IRoute[] = [
           },
           {
             path: "google/callback",
-            element: () => <GoogleCallback />
-          }
+            element: () => <GoogleCallback />,
+          },
         ],
       },
     ],

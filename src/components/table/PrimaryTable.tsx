@@ -79,7 +79,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
           </div>
           <div
             ref={advancedSearchRef}
-            className="overflow-hidden transition-max-height duration-300 ease-in-out"
+            className="transition-max-height overflow-hidden duration-300 ease-in-out"
             style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
           >
             {!!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
