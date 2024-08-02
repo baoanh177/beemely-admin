@@ -4,7 +4,7 @@ import imgEmpty from "@/assets/images/image-empty.png";
 
 interface ImageTableProps {
   imageSrc?: string;
-  title: string;
+  title?: string;
   description?: string;
 }
 

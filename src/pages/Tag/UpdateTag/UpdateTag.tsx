@@ -38,6 +38,10 @@ const UpdateTag = () => {
         formikRef.current.setValues({
           name: state.activeTag.name,
           description: state.activeTag.description,
+          slug: state.activeTag.slug,
+          image: state.activeTag.image,
+          status: state.activeTag.status,
+          parentId: state.activeTag.parentId
         });
       }
     }
@@ -68,7 +72,7 @@ const UpdateTag = () => {
           },
         ]}
       />
-      {state.activeTag && <TagForm type="update" isFormLoading={getTagByIdLoading ?? true} formikRef={formikRef} tag={state.activeTag} />}
+      {state.activeTag && <TagForm type="update" isFormLoading={getTagByIdLoading ?? true} FormikRefType={formikRef} tag={state.activeTag} />}
     </>
   );
 };

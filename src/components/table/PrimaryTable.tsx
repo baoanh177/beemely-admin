@@ -50,9 +50,10 @@ interface IPrimaryTableProps {
   pagination?: { pageSize: number; current: number; total: number; showSizeChanger?: boolean };
   advancedSearch?: IAdvancedSearch;
   defaultSearchProps?: IFilterTableStatusOptions;
+  expandable?: any
 }
 
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], search, columns, data, pagination, isTableLoading, setFilter }) => {
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], expandable, search, columns, data, pagination, isTableLoading, setFilter }) => {
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const advancedSearchRef = useRef<HTMLDivElement>(null);
@@ -88,6 +89,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
       )}
       {!isTableLoading ? (
         <Table
+          expandable={expandable}
           onChange={(newPagination) => {
             dispatch(
               setFilter({
@@ -101,10 +103,10 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
           pagination={
             pagination
               ? {
-                  ...pagination,
-                  showTotal: PaginationText,
-                  showSizeChanger: pagination.showSizeChanger ?? false,
-                }
+                ...pagination,
+                showTotal: PaginationText,
+                showSizeChanger: pagination.showSizeChanger ?? false,
+              }
               : false
           }
           className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"

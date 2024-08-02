@@ -56,7 +56,7 @@ const CreateTag = () => {
           },
         ]}
       />
-      <TagForm type="create" formikRef={formikRef} />
+      <TagForm type="create" FormikRefType={formikRef} />
     </>
   );
 };

@@ -1,17 +1,21 @@
-import { Formik } from "formik";
+import { Formik, FormikProps } from "formik";
 import { object, string } from "yup";
 import lodash from "lodash";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
 import { ITagInitialState } from "@/services/store/tag/tag.slice";
-import { createTag, updateTag } from "@/services/store/tag/tag.thunk";
-import { FormikRefType } from "@/shared/utils/shared-types";
+import { createTag, getAllTags, updateTag } from "@/services/store/tag/tag.thunk";
+import { ITag } from "@/services/store/tag/tag.model";
+import UploadImage from "@/components/form/UploadImage";
+import FormSwitch from "@/components/form/FormSwitch";
+import FormSelect from "@/components/form/FormSelect";
+import { useEffect } from "react";
 
 interface ITagFormProps {
-  formikRef?: FormikRefType<ITagFormInitialValues>;
+  FormikRefType?: React.MutableRefObject<FormikProps<ITag> | null>;
   type: "create" | "update";
-  tag?: ITagFormInitialValues;
+  tag?: ITag;
   isFormLoading?: boolean;
 }
 
@@ -19,30 +23,56 @@ export interface ITagFormInitialValues {
   id?: string;
   name: string;
   description?: string;
+  slug: string;
+  image: string;
+  parentId: string | null;
+  status: 0 | 1;
 }
 
-const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps) => {
-  const { dispatch } = useArchive<ITagInitialState>("tag");
+const TagForm = ({ FormikRefType, type, tag, isFormLoading = false }: ITagFormProps) => {
+  const { dispatch, state } = useArchive<ITagInitialState>("tag");
+
+  useEffect(() => {
+    dispatch(getAllTags({}));
+  }, [dispatch]);
+
+  const allTags = state.tags || [];
 
   const initialValues: ITagFormInitialValues = {
     name: tag?.name || "",
     description: tag?.description || "",
+    slug: tag?.slug || "",
+    image: tag?.image || "",
+    parentId: tag?.parentId || null,
+    status: tag?.status || 0,
   };
 
   const tagSchema = object().shape({
     name: string().required("Vui lòng nhập tên thẻ"),
+    image: string().required("Vui lòng chọn hình ảnh"),
+    parentId: type === "update" ? string().required("Vui lòng chọn parent_id") : string(),
   });
+
   return (
     <Formik
-      innerRef={formikRef}
+      innerRef={FormikRefType}
       enableReinitialize
       initialValues={initialValues}
       validationSchema={tagSchema}
       onSubmit={(data) => {
+        const { parentId, ...rest } = data;
+        const apiData = {
+          ...rest,
+          parent_id: parentId,
+        };
+        const filteredData = type === "create"
+          ? lodash.omit(apiData, ["id", "slug", "status"])
+          : lodash.omit(apiData, ["slug"]);
+
         if (type === "create") {
-          dispatch(createTag({ body: lodash.omit(data, "id") }));
+          dispatch(createTag({ body: filteredData }));
         } else if (type === "update" && tag?.id) {
-          dispatch(updateTag({ body: lodash.omit(data, "id"), param: tag.id }));
+          dispatch(updateTag({ body: filteredData, param: tag.id }));
         }
       }}
     >
@@ -57,6 +87,34 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
+          <UploadImage
+            isMultiple={false}
+            label="Ảnh"
+            onImageUpload={(imageURL) => {
+              const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
+              setFieldValue("image", url);
+            }}
+            currentImageUrl={values.image}
+          />
+          <FormSelect
+            label="Parent Tag"
+            value={values.parentId || ""}
+            error={touched.parentId ? errors.parentId : ""}
+            onChange={(e) => setFieldValue("parentId", e)}
+            options={[
+              { value: "", label: "Không có parent" },
+              ...allTags
+                .filter((t) => t.id !== tag?.id && t.id !== "")
+                .map((t) => ({ value: t.id as string, label: t.name }))
+            ]}
+          />
+          {type === "update" && (
+            <FormSwitch
+              uncheckedText=""
+              value={values.status}
+              onChange={(e) => setFieldValue("status", e)}
+            />
+          )}
           <FormInput
             label="Mô tả"
             placeholder="Nhập mô tả ở đây..."
