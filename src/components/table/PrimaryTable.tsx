@@ -21,19 +21,19 @@ export interface ITableData {
   [key: string]: unknown;
 }
 
-interface TextNumberField extends IFormInputProps {
+export interface TextNumberField extends IFormInputProps {
   type: "text" | "number";
 }
-interface DateField extends DateRangePickerProps {
+export interface DateField extends DateRangePickerProps {
   type: "date";
 }
-interface StatusField extends IFilterTableStatusProps {
+export interface StatusField extends IFilterTableStatusProps {
   type: "status";
 }
-interface SwitchField extends IFormSwitchProps {
+export interface SwitchField extends IFormSwitchProps {
   type: "switch";
 }
-interface CheckField extends FormCheckProps {
+export interface CheckField extends FormCheckProps {
   type: "check";
 }
 
