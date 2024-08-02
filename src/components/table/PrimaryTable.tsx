@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
@@ -56,6 +56,7 @@ interface IPrimaryTableProps {
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], search, columns, data, pagination, isTableLoading, setFilter }) => {
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const advancedSearchRef = useRef<HTMLDivElement>(null);
   const handleSearch = (value: string | number) => {
     if (search && typeof search !== "boolean" && search.onSearch) {
       search.onSearch(value.toString());
@@ -81,7 +82,13 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
               </div>
             )}
           </div>
-          {showAdvancedSearch && !!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
+          <div
+            ref={advancedSearchRef}
+            className="transition-max-height overflow-hidden duration-300 ease-in-out"
+            style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
+          >
+            {!!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
+          </div>
         </div>
       )}
       {!isTableLoading ? (

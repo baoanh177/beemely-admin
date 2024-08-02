@@ -18,11 +18,7 @@ const Login = () => {
   const { state, dispatch } = useArchive<IAuthInitialState>("auth");
 
   const handleLogin = (data: ILoginFormData) => {
-    dispatch(
-      login({
-        body: data,
-      }),
-    );
+    dispatch(login({ body: data }));
   };
 
   useFetchStatus({
@@ -56,6 +52,15 @@ const Login = () => {
         <div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
           <div className="flex flex-col gap-5 p-8">
             <h1 className="text-gray-900 display-m-bold md:text-xl-semibold">Đăng nhập</h1>
+            <Button
+              text="Đăng nhập với Google (Chỉ có ở trang Client)"
+              type="ghost"
+              onClick={() => {
+                fetch(`${import.meta.env.VITE_API_URL}/api/auth/google/redirect`)
+                  .then((res) => res.json())
+                  .then((data) => (window.location.href = data.metaData));
+              }}
+            />
             <Formik
               validationSchema={validateSchema}
               initialValues={loginFormInitialValues}
@@ -69,7 +74,6 @@ const Login = () => {
                   <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
                     <FormInput
                       type="text"
-                      autoFocus
                       value={values.email}
                       error={touched.email ? errors.email : ""}
                       isDisabled={state.status === EFetchStatus.PENDING}
@@ -92,7 +96,7 @@ const Login = () => {
                       }}
                       placeholder="Nhập mật khẩu ở đây..."
                     />
-                    <Button text="Login" isLoading={state.status === EFetchStatus.PENDING} className="mt-3" />
+                    <Button text="Đăng nhập" isLoading={state.status === EFetchStatus.PENDING} className="mt-3" />
                     <Link
                       to="/forgot-password"
                       className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"
