@@ -2,7 +2,7 @@ import { commonStaticReducers } from "@/services/shared";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createPermission, deletePermission, getAllModules, getAllPermissions, getPermissionById, updatePermission } from "./permission.thunk";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IPermission } from "./permission.model";
 
 export interface IPermissionInitialState extends IInitialState {

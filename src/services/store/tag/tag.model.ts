@@ -1,9 +1,11 @@
+import { EActiveStatus } from "@/shared/enums/status";
+
 export interface ITag {
-  id?: string;
+  id: string;
   description?: string;
   name: string;
   slug: string;
   image: string;
-  parentId: string | null;
-  status: 0 | 1;
+  parentId: ITag;
+  status: EActiveStatus;
 }

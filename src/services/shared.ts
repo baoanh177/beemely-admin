@@ -1,4 +1,4 @@
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, ISearchParams } from "@/shared/utils/shared-interfaces";
 import { PayloadAction } from "@reduxjs/toolkit";
 

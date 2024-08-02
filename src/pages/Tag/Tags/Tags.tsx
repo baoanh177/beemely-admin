@@ -16,6 +16,7 @@ import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import ImageTable from "@/components/table/ImageTable";
 import FormSwitch from "@/components/form/FormSwitch";
+import { handleConvertTags } from "../helpers/convertTags";
 
 export const defaultSearch: IDefaultSearchProps = {
   options: [{ label: "123", value: "123" }],
@@ -69,15 +70,7 @@ const Tags = () => {
     {
       dataIndex: "name",
       title: "Tên",
-    },
-    {
-      dataIndex: "slug",
-      title: "Slug",
-    },
-    {
-      dataIndex: "status",
-      title: "Status",
-      render: (status) => <FormSwitch value={status} />,
+      width: "40%",
     },
     {
       dataIndex: "image",
@@ -88,30 +81,15 @@ const Tags = () => {
       dataIndex: "description",
       title: "Mô tả",
     },
+    {
+      dataIndex: "status",
+      title: "Status",
+      render: (status) => <FormSwitch value={status} />,
+    },
   ];
 
-  const data: ITableData[] = useMemo(() => {
-    if (state.tags && state.tags.length > 0) {
-      return state.tags.map((tag) => ({
-        key: tag.id!,
-        name: tag.name,
-        slug: tag.slug,
-        image: tag.image,
-        parentId: tag.parentId,
-        description: tag.description,
-        status: tag.status,
-        children: state.tags.filter(t => t.parentId === tag.id).map(child => ({
-          key: child.id!,
-          name: child.name,
-          slug: child.slug,
-          image: child.image,
-          parentId: child.parentId,
-          description: child.description,
-          status: child.status,
-        })),
-      }));
-    }
-    return [];
+  const treeTags: ITableData[] = useMemo(() => {
+    return handleConvertTags(state.tags).map((tag) => ({ key: tag.id, ...tag }));
   }, [state.tags]);
 
   const buttons: IGridButton[] = [
@@ -150,12 +128,11 @@ const Tags = () => {
           advancedSearch={advancedSearch}
           columns={columns}
           isTableLoading={getAllTagsLoading && true}
-          data={data}
+          data={treeTags}
           pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
           setFilter={setFilter}
           search={defaultSearch}
           buttons={buttons}
-         
         />
       }
     </>

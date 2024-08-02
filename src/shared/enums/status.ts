@@ -4,3 +4,8 @@ export enum EFetchStatus {
   FULFILLED = "fulfilled",
   REJECTED = "rejected",
 }
+
+export enum EActiveStatus {
+  ACTIVE = 0,
+  INACTIVE = 1
+}
