@@ -54,3 +54,12 @@ export const deleteGender = createAsyncThunk("gender/delete-gender", async (id: 
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
+
+export const searchGenders = createAsyncThunk("gender/search-genders", async (payload: IThunkPayload, { rejectWithValue }) => {
+  try {
+    const { response, data } = await client.get<IGender[]>(`${prefix}?name=${payload.query?.search}`);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+  } catch (error: any) {
+    return rejectWithValue(messageCreator(error.response.data, dataKeys));
+  }
+});

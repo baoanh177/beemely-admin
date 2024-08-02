@@ -1,22 +1,76 @@
-import { useMemo } from "react";
-import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { ColumnsType } from "antd/es/table";
-import Heading from "@/components/layout/Heading";
 import ManagementGrid from "@/components/grid/ManagementGrid";
-import { ITableData } from "@/components/table/PrimaryTable";
+import Heading from "@/components/layout/Heading";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
+import { AppDispatch } from "@/services/store";
 import { IGenderInitialState, resetStatus, setFilter } from "@/services/store/gender/gender.slice";
-import { deleteGender, getAllGenders } from "@/services/store/gender/gender.thunk";
+import { deleteGender, getAllGenders, searchGenders } from "@/services/store/gender/gender.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { ColumnsType } from "antd/es/table";
+import { useMemo } from "react";
+import { FaPlus } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Genders = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+  const appDispatch = useDispatch<AppDispatch>(); // Sử dụng AppDispatch
+
+  useFetchStatus({
+    module: "gender",
+    reset: resetStatus,
+    actions: {
+      success: { message: state.message },
+      error: { message: state.message },
+    },
+  });
+
+  const handleSearch = (value: string) => {
+    appDispatch(searchGenders({ query: { search: value } }));
+  };
+
+  const defaultSearch: IDefaultSearchProps = {
+    input: {
+      type: "text",
+      name: "search",
+      placeholder: "Tìm kiếm giới tính...",
+    },
+    onSearch: handleSearch,
+  };
+  const advancedSearch: IAdvancedSearch = [
+    {
+      type: "text",
+      name: "123",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "text",
+      name: "1235",
+      placeholder: "Search orders. . .",
+    },
+    {
+      type: "status",
+      name: "123123321312",
+      options: [{ label: "12323", value: "1223323" }],
+    },
+    {
+      type: "date",
+    },
+  ];
+  useFetchStatus({
+    module: "gender",
+    reset: resetStatus,
+    actions: {
+      success: { message: state.message },
+      error: { message: state.message },
+    },
+  });
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
@@ -81,11 +135,13 @@ const Genders = () => {
       />
       <ManagementGrid
         columns={columns}
+        advancedSearch={advancedSearch}
         data={data}
         isTableLoading={getAllGendersLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
+        search={defaultSearch}
       />
     </>
   );

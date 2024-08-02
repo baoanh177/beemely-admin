@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
@@ -21,21 +21,22 @@ export interface ITableData {
   [key: string]: unknown;
 }
 
-export interface TextNumberField extends IFormInputProps {
+interface TextNumberField extends IFormInputProps {
   type: "text" | "number";
 }
-export interface DateField extends DateRangePickerProps {
+interface DateField extends DateRangePickerProps {
   type: "date";
 }
-export interface StatusField extends IFilterTableStatusProps {
+interface StatusField extends IFilterTableStatusProps {
   type: "status";
 }
-export interface SwitchField extends IFormSwitchProps {
+interface SwitchField extends IFormSwitchProps {
   type: "switch";
 }
-export interface CheckField extends FormCheckProps {
+interface CheckField extends FormCheckProps {
   type: "check";
 }
+
 export type IAdvancedSearch = Array<TextNumberField | DateField | StatusField | SwitchField | CheckField>;
 export interface ISearchTable {
   status: { value: string; label: string }[];
@@ -55,18 +56,21 @@ interface IPrimaryTableProps {
 const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], search, columns, data, pagination, isTableLoading, setFilter }) => {
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
-  const advancedSearchRef = useRef<HTMLDivElement>(null);
-
+  const handleSearch = (value: string | number) => {
+    if (search && typeof search !== "boolean" && search.onSearch) {
+      search.onSearch(value.toString());
+    }
+  };
   return (
     <div className="primary-table flex w-full flex-col gap-6">
       {search && (
         <div>
           <div className="flex gap-4">
-            <DefaultSearch {...search} />
+            <DefaultSearch {...search} input={{ ...search.input, onChange: handleSearch }} />
             {!!advancedSearch.length && (
               <div
                 className={clsx(
-                  "flex h-10 w-12 shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg transition-colors",
+                  "flex h-[40px] w-[48px] shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg",
                   showAdvancedSearch
                     ? "border border-primary-500 bg-primary-50 text-primary-500"
                     : "border border-gray-100 bg-white text-gray-400",
@@ -77,13 +81,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
               </div>
             )}
           </div>
-          <div
-            ref={advancedSearchRef}
-            className="overflow-hidden transition-max-height duration-300 ease-in-out"
-            style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
-          >
-            {!!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
-          </div>
+          {showAdvancedSearch && !!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
         </div>
       )}
       {!isTableLoading ? (
