@@ -5,7 +5,6 @@ import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { AppDispatch } from "@/services/store";
 import { IGenderInitialState, resetStatus, setFilter } from "@/services/store/gender/gender.slice";
 import { deleteGender, getAllGenders, searchGenders } from "@/services/store/gender/gender.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
@@ -14,25 +13,14 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
 import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Genders = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
-  const appDispatch = useDispatch<AppDispatch>(); // Sử dụng AppDispatch
-
-  useFetchStatus({
-    module: "gender",
-    reset: resetStatus,
-    actions: {
-      success: { message: state.message },
-      error: { message: state.message },
-    },
-  });
 
   const handleSearch = (value: string) => {
-    appDispatch(searchGenders({ query: { search: value } }));
+    dispatch(searchGenders({ query: { search: value } }));
   };
 
   const defaultSearch: IDefaultSearchProps = {
@@ -44,14 +32,6 @@ const Genders = () => {
     onSearch: handleSearch,
   };
 
-  useFetchStatus({
-    module: "gender",
-    reset: resetStatus,
-    actions: {
-      success: { message: state.message },
-      error: { message: state.message },
-    },
-  });
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
