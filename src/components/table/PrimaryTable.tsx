@@ -71,7 +71,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
             {!!advancedSearch.length && (
               <div
                 className={clsx(
-                  "flex h-[40px] w-[48px] shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg",
+                  "flex h-10 w-12 shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg transition-colors",
                   showAdvancedSearch
                     ? "border border-primary-500 bg-primary-50 text-primary-500"
                     : "border border-gray-100 bg-white text-gray-400",
