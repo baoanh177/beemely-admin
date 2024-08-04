@@ -9,6 +9,7 @@ import { CheckField, DateField, IAdvancedSearch, StatusField, SwitchField, TextN
 interface IAdvancedSearchSecondaryProps {
   advanced: IAdvancedSearch;
 }
+
 type FieldValue = string | number | [Dayjs | null, Dayjs | null] | IFilterTableStatusOptions | boolean;
 const AdvancedSearchSecondary = ({ advanced }: IAdvancedSearchSecondaryProps) => {
   const handleAdvancedChange = (value: FieldValue) => {
