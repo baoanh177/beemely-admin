@@ -12,7 +12,7 @@ const prefix = "/api/genders";
 
 export const getAllGenders = createAsyncThunk("gender/get-all-genders", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IGender[]>(prefix, payload);
+    const { response, data } = await client.get<IGender[]>(`${prefix}${payload.query?.search ? `?name=${payload.query.search}` : ""}`);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -50,15 +50,6 @@ export const deleteGender = createAsyncThunk("gender/delete-gender", async (id: 
   try {
     const { response, data } = await client.delete(`${prefix}/${id}`);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
-  } catch (error: any) {
-    return rejectWithValue(messageCreator(error.response.data, dataKeys));
-  }
-});
-
-export const searchGenders = createAsyncThunk("gender/search-genders", async (payload: IThunkPayload, { rejectWithValue }) => {
-  try {
-    const { response, data } = await client.get<IGender[]>(`${prefix}?name=${payload.query?.search}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

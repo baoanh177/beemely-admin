@@ -6,7 +6,7 @@ import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IGenderInitialState, resetStatus, setFilter } from "@/services/store/gender/gender.slice";
-import { deleteGender, getAllGenders, searchGenders } from "@/services/store/gender/gender.thunk";
+import { deleteGender, getAllGenders } from "@/services/store/gender/gender.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
@@ -20,7 +20,7 @@ const Genders = () => {
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
 
   const handleSearch = (value: string) => {
-    dispatch(searchGenders({ query: { search: value } }));
+    dispatch(getAllGenders({ query: { ...state.filter, search: value } }));
   };
 
   const defaultSearch: IDefaultSearchProps = {

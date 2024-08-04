@@ -3,12 +3,11 @@ import { commonStaticReducers } from "@/services/shared";
 import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { IGender } from "./gender.model";
-import { createGender, deleteGender, getAllGenders, getGenderById, searchGenders, updateGender } from "./gender.thunk";
+import { createGender, deleteGender, getAllGenders, getGenderById, updateGender } from "./gender.thunk";
 
 export interface IGenderInitialState extends IInitialState {
   genders: IGender[];
   activeGender: IGender | undefined;
-  searchQuery: string;
 }
 
 const initialState: IGenderInitialState = {
@@ -21,7 +20,6 @@ const initialState: IGenderInitialState = {
     size: 10,
     page: 1,
   },
-  searchQuery: "",
 };
 
 const genderSlice = createSlice({
@@ -29,18 +27,10 @@ const genderSlice = createSlice({
   initialState,
   reducers: {
     ...commonStaticReducers<IGenderInitialState>(),
-    setSearchQuery(state, action: PayloadAction<string>) {
-      state.searchQuery = action.payload;
-    },
   },
   extraReducers(builder) {
     // Get all genders
     builder.addCase(getAllGenders.fulfilled, (state, { payload }: PayloadAction<IResponse<IGender[]>>) => {
-      state.genders = payload.metaData;
-      state.totalRecords = payload.totalDocs ?? 0;
-    });
-    // Search genders
-    builder.addCase(searchGenders.fulfilled, (state, { payload }: PayloadAction<IResponse<IGender[]>>) => {
       state.genders = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
@@ -91,5 +81,5 @@ const genderSlice = createSlice({
   },
 });
 
-export const { resetStatus, setFilter, setSearchQuery } = genderSlice.actions;
+export const { resetStatus, setFilter } = genderSlice.actions;
 export { genderSlice };
