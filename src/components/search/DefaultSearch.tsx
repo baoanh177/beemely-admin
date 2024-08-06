@@ -5,20 +5,21 @@ import FormInput, { IFormInputProps } from "../form/FormInput";
 export interface IDefaultSearchProps {
   input?: IFormInputProps;
   options?: IFilterTableStatusOptions[];
-  onSearch?: (value: string) => void;
+  onSearch?: (value: string | number) => void;
 }
 
 export const DefaultSearch: React.FC<IDefaultSearchProps> = ({ input, options, onSearch }) => {
-  const handleInputChange = (value: string | number) => {
-    if (onSearch) {
-      onSearch(value.toString());
-    }
-  };
   return (
     <div className="flex w-full">
       {options && <FilterTableStatus options={options} />}
       <div className="ml-auto">
-        <FormInput className="bg-white" icon={input?.icon} placeholder={input?.placeholder} onChange={handleInputChange} type={input?.type} />
+        <FormInput
+          className="bg-white"
+          icon={input?.icon}
+          placeholder={input?.placeholder}
+          onChange={(value) => onSearch?.(value)}
+          type={input?.type}
+        />
       </div>
     </div>
   );

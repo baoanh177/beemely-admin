@@ -25,7 +25,7 @@ const Genders = () => {
       name: "search",
       placeholder: "Tìm kiếm giới tính...",
     },
-    onSearch: (value: string) => {
+    onSearch: (value: string | number) => {
       dispatch(setFilter({ ...state.filter, name: value }));
     },
   };
