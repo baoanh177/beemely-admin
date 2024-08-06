@@ -13,10 +13,22 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 
 const Genders = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+
+  const defaultSearch: IDefaultSearchProps = {
+    input: {
+      type: "text",
+      name: "search",
+      placeholder: "Tìm kiếm giới tính...",
+    },
+    onSearch: (value: string) => {
+      dispatch(setFilter({ ...state.filter, name: value }));
+    },
+  };
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
@@ -86,6 +98,7 @@ const Genders = () => {
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
+        search={defaultSearch}
       />
     </>
   );
