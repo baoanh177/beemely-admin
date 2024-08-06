@@ -3,24 +3,29 @@ import lodash from "lodash";
 
 interface ITreeTag extends Omit<ITag, "parentId"> {
   children: ITreeTag[];
+  key?: string;
 }
 
-export const handleConvertTags = (tags: ITag[]) => {
+export const handleConvertTags = (tags: ITag[]): ITreeTag[] => {
+  const tagMap = new Map<string, ITreeTag>();
+
+  tags.forEach((tag) => {
+    tagMap.set(tag.id, { ...lodash.omit(tag, ["parentId"]), children: [], key: tag.id });
+  });
+
   const rootTags: ITreeTag[] = [];
 
-  // * Chưa tối ưu
-  for (const tag of tags) {
-    if (!tag.parentId) rootTags.push({ ...lodash.omit(tag, ["parentId"]), children: [] });
-  }
-
-  // * Chưa tối ưu
-  for (const tag of tags) {
+  tags.forEach((tag) => {
+    const treeTag = tagMap.get(tag.id)!;
     if (tag.parentId) {
-      for (const hihi of rootTags) {
-        if (hihi.id === tag.parentId.id) hihi.children.push({ ...lodash.omit(tag, ["parentId"]), children: [] });
+      const parentTag = tagMap.get(tag.parentId.id);
+      if (parentTag) {
+        parentTag.children.push(treeTag);
       }
+    } else {
+      rootTags.push(treeTag);
     }
-  }
+  });
 
   return rootTags;
 };

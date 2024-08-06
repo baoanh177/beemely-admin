@@ -1,11 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { ITagInitialState, resetStatus, setFilter } from "@/services/store/tag/tag.slice";
-import { deleteTag, getAllTags } from "@/services/store/tag/tag.thunk";
+import { deleteTag, getAllTags, updateTag } from "@/services/store/tag/tag.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
@@ -17,6 +17,8 @@ import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import ImageTable from "@/components/table/ImageTable";
 import FormSwitch from "@/components/form/FormSwitch";
 import { handleConvertTags } from "../helpers/convertTags";
+import { ITag } from "@/services/store/tag/tag.model";
+import { EActiveStatus } from "@/shared/enums/status";
 
 export const defaultSearch: IDefaultSearchProps = {
   options: [{ label: "123", value: "123" }],
@@ -51,6 +53,7 @@ export const advancedSearch: IAdvancedSearch = [
 const Tags = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ITagInitialState>("tag");
+  console.log(state.tags);
 
   useFetchStatus({
     module: "tag",
@@ -64,6 +67,23 @@ const Tags = () => {
   const { getAllTagsLoading } = useAsyncEffect(
     (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
+  );
+
+  const handleStatusChange = useCallback(
+    (checked: EActiveStatus, record: ITag) => {
+      console.log(checked);
+
+      const updatedTag = {
+        name: record.name,
+        image: record.image,
+        description: record.description,
+        status: checked
+      };
+      dispatch(updateTag({ body: updatedTag, param: record.id })).then(() => {
+        // dispatch(getAllTags({ query: state.filter }));
+      });
+    },
+    [dispatch, state.filter]
   );
 
   const columns: ColumnsType = [
@@ -84,8 +104,18 @@ const Tags = () => {
     {
       dataIndex: "status",
       title: "Status",
-      render: (status) => <FormSwitch value={status} />,
+      render: (checked, record) => {
+        console.log(checked)
+        return (
+          <FormSwitch
+            checked={checked}
+            onChange={(checked) => handleStatusChange(checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE, record)} />
+        )
+
+      }
+
     },
+
   ];
 
   const treeTags: ITableData[] = useMemo(() => {

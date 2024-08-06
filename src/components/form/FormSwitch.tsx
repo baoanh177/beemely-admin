@@ -4,18 +4,14 @@ import { SwitchChangeEventHandler } from "antd/es/switch";
 export interface IFormSwitchProps {
   checkedText?: string;
   uncheckedText?: string;
-  onChange?: (checked: 0 | 1) => void;
+  onChange?: SwitchChangeEventHandler;
   idDisabled?: boolean;
   label?: string;
   name?: string;
-  value?: 0 | 1;
+  checked?: boolean
 }
 
-const FormSwitch = ({ checkedText, uncheckedText, idDisabled, label, value = 0, onChange }: IFormSwitchProps) => {
-  const handleChange: SwitchChangeEventHandler = (checked) => {
-    onChange?.(checked ? 1 : 0);
-  };
-
+const FormSwitch = ({ checkedText, checked, uncheckedText, idDisabled, label, onChange }: IFormSwitchProps) => {
   return (
     <ConfigProvider
       theme={{
@@ -29,13 +25,7 @@ const FormSwitch = ({ checkedText, uncheckedText, idDisabled, label, value = 0, 
     >
       <div className="flex flex-col items-start">
         {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
-        <Switch
-          checked={value === 1}
-          unCheckedChildren={uncheckedText}
-          checkedChildren={checkedText}
-          disabled={idDisabled}
-          onChange={handleChange}
-        />
+        <Switch checked={checked} unCheckedChildren={uncheckedText} checkedChildren={checkedText} disabled={idDisabled} onChange={onChange} />
       </div>
     </ConfigProvider>
   );

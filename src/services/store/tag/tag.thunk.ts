@@ -10,7 +10,7 @@ const dataKeys: { [key in keyof Omit<ITag, "id">]: string } = {
   image: "Hình ảnh",
   parentId: "Parent để tạm",
   slug: "Slug",
-  status: "Trạng thái"
+  status: "Trạng thái",
 };
 
 const prefix = "/api/tags";

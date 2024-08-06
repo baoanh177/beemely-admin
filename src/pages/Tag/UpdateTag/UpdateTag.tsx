@@ -41,7 +41,7 @@ const UpdateTag = () => {
           slug: state.activeTag.slug,
           image: state.activeTag.image,
           status: state.activeTag.status,
-          parentId: state.activeTag.parentId
+          parentId: state.activeTag.parentId?.id
         });
       }
     }
