@@ -1,4 +1,4 @@
-import Gender from "@/pages/Gender/Gender.tsx/Gender";
+import Gender from "@/pages/Gender/Gender/Gender";
 import { IRoute } from "./routes";
 import CreateRender from "@/pages/Gender/CreateGender.tsx/CreateGender";
 import UpdateRender from "@/pages/Gender/UpdateGender/UpdateGender";

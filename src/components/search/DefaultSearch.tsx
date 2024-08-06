@@ -12,7 +12,7 @@ export const DefaultSearch: React.FC<IDefaultSearchProps> = ({ input, options })
     <div className="flex w-full">
       {options && <FilterTableStatus options={options} />}
       <div className="ml-auto">
-        <FormInput className="bg-white" icon={input?.icon} placeholder={input?.placeholder} type={input?.type} />
+        <FormInput className="bg-white" {...input} />
       </div>
     </div>
   );
