@@ -56,7 +56,8 @@ const tagSlice = createSlice({
       .addCase(updateTag.pending, (state) => {
         state.status = EFetchStatus.PENDING;
       })
-      .addCase(updateTag.fulfilled, (state) => {
+      .addCase(updateTag.fulfilled, (state, { payload }: PayloadAction<any>) => {
+        state.tags = state.tags.map((tag) => (tag.id === payload.metaData.id ? payload.metaData : tag));
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })

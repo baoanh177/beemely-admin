@@ -7,5 +7,5 @@ export enum EFetchStatus {
 
 export enum EActiveStatus {
   ACTIVE = 1,
-  INACTIVE = 0
+  INACTIVE = 0,
 }

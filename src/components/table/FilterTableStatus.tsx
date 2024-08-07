@@ -12,14 +12,14 @@ export interface IFilterTableStatusProps {
 }
 
 const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChange }) => {
-  const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOptions>({ value: "all", label: "All" });
-  const fullOptions = useMemo(() => [{ value: "all", label: "All" }, ...options], [options]);
+  const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOptions>({ value: "", label: "All" });
+  const fullOptions = useMemo(() => [{ value: "", label: "All" }, ...options], [options]);
 
   useEffect(() => {
     if (onChange) {
       onChange(selectedOption);
     }
-  }, [selectedOption]);
+  }, [JSON.stringify(selectedOption)]);
 
   return (
     <div>

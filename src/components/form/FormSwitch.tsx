@@ -8,7 +8,7 @@ export interface IFormSwitchProps {
   idDisabled?: boolean;
   label?: string;
   name?: string;
-  checked?: boolean
+  checked?: boolean;
 }
 
 const FormSwitch = ({ checkedText, checked, uncheckedText, idDisabled, label, onChange }: IFormSwitchProps) => {

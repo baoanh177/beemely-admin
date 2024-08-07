@@ -1,0 +1,36 @@
+# Ignore node_modules, sẽ được cài đặt lại bên trong container
+/node_modules
+
+# Ignore log files
+*.log
+
+# Ignore build output
+dist
+
+# Ignore môi trường config files
+.env
+
+# Ignore Docker files
+Dockerfile
+Dockerfile.dev
+Dockerfile.prod
+docker-compose.yml
+
+# Ignore IDE files
+.vscode
+.idea
+
+# Ignore hệ điều hành đặc biệt và các tệp hệ thống khác
+.DS_Store
+Thumbs.db
+
+# Ignore test files và coverage
+coverage
+test
+__tests__
+__mocks__
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo

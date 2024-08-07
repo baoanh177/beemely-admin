@@ -1,4 +1,4 @@
-import { Formik, FormikProps } from "formik";
+import { Formik } from "formik";
 import { object, string } from "yup";
 import lodash from "lodash";
 import FormGroup from "@/components/form/FormGroup";
@@ -13,6 +13,7 @@ import FormSelect from "@/components/form/FormSelect";
 import { useEffect } from "react";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Col, Row } from "antd";
+import { EActiveStatus } from "@/shared/enums/status";
 
 interface ITagFormProps {
   formikRef?: FormikRefType<ITagFormInitialValues>;
@@ -28,7 +29,7 @@ export interface ITagFormInitialValues {
   slug: string;
   image: string;
   parentId: string | null;
-  status: 0 | 1;
+  status: EActiveStatus;
 }
 
 const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps) => {
@@ -46,7 +47,7 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
     slug: tag?.slug || "",
     image: tag?.image || "",
     parentId: tag?.parentId?.id || null,
-    status: tag?.status || 0,
+    status: tag?.status || EActiveStatus.INACTIVE,
   };
 
   const tagSchema = object().shape({
@@ -66,9 +67,7 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
           ...rest,
           parent_id: parentId,
         };
-        const filteredData = type === "create"
-          ? lodash.omit(apiData, ["id", "slug", "status"])
-          : lodash.omit(apiData, ["slug"]);
+        const filteredData = type === "create" ? lodash.omit(apiData, ["id", "slug", "status"]) : lodash.omit(apiData, ["slug"]);
 
         if (type === "create") {
           dispatch(createTag({ body: filteredData }));
@@ -80,8 +79,7 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <Row gutter={[24, 24]}>
           <Col xs={24} md={6} lg={6}>
-            <FormGroup
-              title="Ảnh">
+            <FormGroup title="Ảnh">
               <UploadImage
                 isMultiple={false}
                 label="Ảnh"
@@ -111,17 +109,11 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
                 onChange={(e) => setFieldValue("parentId", e)}
                 options={[
                   { value: "", label: "Không có parent" },
-                  ...allTags
-                    .filter((t) => t.id !== tag?.id && t.id !== "")
-                    .map((t) => ({ value: t.id as string, label: t.name }))
+                  ...allTags.filter((t) => t.id !== tag?.id && t.id !== "").map((t) => ({ value: t.id as string, label: t.name })),
                 ]}
               />
               {type === "update" && (
-                <FormSwitch
-                  uncheckedText=""
-                  value={values.status}
-                  onChange={(e) => setFieldValue("status", e)}
-                />
+                <FormSwitch uncheckedText="" checked={values.status === EActiveStatus.ACTIVE} onChange={(e) => setFieldValue("status", e)} />
               )}
               <FormInput
                 label="Mô tả"
@@ -135,9 +127,8 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
             </FormGroup>
           </Col>
         </Row>
-      )
-      }
-    </Formik >
+      )}
+    </Formik>
   );
 };
 

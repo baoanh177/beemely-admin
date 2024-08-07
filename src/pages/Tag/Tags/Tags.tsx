@@ -20,40 +20,30 @@ import { handleConvertTags } from "../helpers/convertTags";
 import { ITag } from "@/services/store/tag/tag.model";
 import { EActiveStatus } from "@/shared/enums/status";
 
-export const defaultSearch: IDefaultSearchProps = {
-  options: [{ label: "123", value: "123" }],
-  input: {
-    type: "text",
-    name: "123",
-    placeholder: "Search ordersss. . .",
-  },
-};
-
-export const advancedSearch: IAdvancedSearch = [
-  {
-    type: "text",
-    name: "123",
-    placeholder: "Search orders. . .",
-  },
-  {
-    type: "text",
-    name: "1235",
-    placeholder: "Search orders. . .",
-  },
-  {
-    type: "status",
-    name: "123123321312",
-    options: [{ label: "12323", value: "1223323" }],
-  },
-  {
-    type: "date",
-  },
-];
-
 const Tags = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ITagInitialState>("tag");
-  console.log(state.tags);
+  const defaultSearch: IDefaultSearchProps = {
+    filterOptions: {
+      name: "status",
+      options: [
+        { label: "Inactive", value: "1" },
+        { label: "Active", value: "0" },
+      ],
+      onChange: (selectedOption) => {
+        const statusValue = selectedOption.value;
+        dispatch(setFilter({ ...state.filter, status: statusValue }));
+      },
+    },
+    input: {
+      type: "text",
+      name: "parent_id",
+      onChange: (value) => {
+        dispatch(setFilter({ ...state.filter, parent_id: value }));
+      },
+      placeholder: "Tìm kiếm theo tên. . .",
+    },
+  };
 
   useFetchStatus({
     module: "tag",
@@ -64,29 +54,35 @@ const Tags = () => {
     },
   });
 
+  const advancedSearch: IAdvancedSearch = [
+    {
+      type: "text",
+      name: "parent_id",
+      placeholder: "Tìm theo parent",
+      onChange: (value) => {
+        dispatch(setFilter({ ...state.filter, parent_id: value }));
+      },
+    },
+  ];
+
   const { getAllTagsLoading } = useAsyncEffect(
     (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
-
   const handleStatusChange = useCallback(
-    (checked: EActiveStatus, record: ITag) => {
-      console.log(checked);
-
+    (checked: boolean, record: ITag) => {
       const updatedTag = {
         name: record.name,
         image: record.image,
         description: record.description,
-        status: checked
+        status: checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE,
       };
-      dispatch(updateTag({ body: updatedTag, param: record.id })).then(() => {
-        // dispatch(getAllTags({ query: state.filter }));
-      });
+      dispatch(updateTag({ body: updatedTag, param: record.id }));
     },
-    [dispatch, state.filter]
+    [dispatch],
   );
 
-  const columns: ColumnsType = [
+  const columns: ColumnsType<ITag> = [
     {
       dataIndex: "name",
       title: "Tên",
@@ -104,18 +100,10 @@ const Tags = () => {
     {
       dataIndex: "status",
       title: "Status",
-      render: (checked, record) => {
-        console.log(checked)
-        return (
-          <FormSwitch
-            checked={checked}
-            onChange={(checked) => handleStatusChange(checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE, record)} />
-        )
-
-      }
-
+      render: (checked, record) => (
+        <FormSwitch checked={checked === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />
+      ),
     },
-
   ];
 
   const treeTags: ITableData[] = useMemo(() => {
@@ -125,17 +113,13 @@ const Tags = () => {
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.UPDATE,
-      onClick(record) {
-        navigate(`/tags/update/${record?.key}`);
-      },
+      onClick: (record) => navigate(`/tags/update/${record?.key}`),
       permission: EPermissions.UPDATE_TAG,
     },
     {
       type: EButtonTypes.DELETE,
-      onClick(record) {
-        dispatch(deleteTag(record?.key));
-      },
-      permission: EPermissions.UPDATE_TAG,
+      onClick: (record) => dispatch(deleteTag(record?.key)),
+      permission: EPermissions.DELETE_TAG,
     },
   ];
 
@@ -153,18 +137,16 @@ const Tags = () => {
           },
         ]}
       />
-      {
-        <ManagementGrid
-          advancedSearch={advancedSearch}
-          columns={columns}
-          isTableLoading={getAllTagsLoading && true}
-          data={treeTags}
-          pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
-          setFilter={setFilter}
-          search={defaultSearch}
-          buttons={buttons}
-        />
-      }
+      <ManagementGrid
+        advancedSearch={advancedSearch}
+        columns={columns}
+        isTableLoading={getAllTagsLoading}
+        data={treeTags}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        setFilter={setFilter}
+        search={defaultSearch}
+        buttons={buttons}
+      />
     </>
   );
 };

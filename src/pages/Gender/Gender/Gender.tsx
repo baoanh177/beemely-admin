@@ -1,22 +1,23 @@
-import { useMemo } from "react";
-import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { ColumnsType } from "antd/es/table";
-import Heading from "@/components/layout/Heading";
 import ManagementGrid from "@/components/grid/ManagementGrid";
+import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IGenderInitialState, resetStatus, setFilter } from "@/services/store/gender/gender.slice";
 import { deleteGender, getAllGenders } from "@/services/store/gender/gender.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { ColumnsType } from "antd/es/table";
+import { useMemo } from "react";
+import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Genders = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
@@ -86,6 +87,14 @@ const Genders = () => {
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
+        search={{
+          input: {
+            placeholder: "Tìm kiếm giới tính",
+            onChange(value) {
+              dispatch(setFilter({ ...state.filter, name: value }));
+            },
+          },
+        }}
       />
     </>
   );

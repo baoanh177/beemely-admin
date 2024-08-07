@@ -21,33 +21,31 @@ export interface IGridProps {
   };
   advancedSearch?: IAdvancedSearch;
   setFilter: ActionCreatorWithPayload<ISearchParams>;
-  expandable?: any
 }
 
-const ManagementGrid = ({ advancedSearch, expandable, columns, data, search, buttons, pagination, isTableLoading, setFilter }: IGridProps) => {
+const ManagementGrid = ({ advancedSearch, columns, data, search, buttons, pagination, isTableLoading, setFilter }: IGridProps) => {
   const renderColumns = useMemo(() => {
     return buttons?.some(
       (button) => button.type === EButtonTypes.VIEW || button.type === EButtonTypes.UPDATE || button.type === EButtonTypes.DELETE,
     )
       ? ([
-        ...columns,
-        {
-          title: "Hành động",
-          width: "150px",
-          dataIndex: "actions",
-          key: "actions",
-          fixed: "right",
-          align: "center",
-          render(_, record) {
-            return <GridButtons buttons={buttons} record={record} />;
+          ...columns,
+          {
+            title: "Hành động",
+            width: "150px",
+            dataIndex: "actions",
+            key: "actions",
+            fixed: "right",
+            align: "center",
+            render(_, record) {
+              return <GridButtons buttons={buttons} record={record} />;
+            },
           },
-        },
-      ] as TableColumnsType)
+        ] as TableColumnsType)
       : columns;
   }, [JSON.stringify(buttons)]);
   return (
     <PrimaryTable
-      expandable={expandable}
       advancedSearch={advancedSearch}
       search={search}
       columns={renderColumns}
