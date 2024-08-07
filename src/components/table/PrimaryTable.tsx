@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Table } from "antd";
+import { ConfigProvider, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { ISearchParams } from "@/shared/utils/shared-interfaces";
@@ -52,67 +52,85 @@ interface IPrimaryTableProps {
   defaultSearchProps?: IFilterTableStatusOptions;
 }
 
-const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], search, columns, data, pagination, isTableLoading, setFilter }) => {
+const PrimaryTable: React.FC<IPrimaryTableProps> = ({
+  advancedSearch = [],
+  search,
+  columns,
+  data,
+  pagination,
+  isTableLoading,
+  setFilter
+}) => {
   const dispatch = useDispatch();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const advancedSearchRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="primary-table flex w-full flex-col gap-6">
-      {search && (
-        <div>
-          <div className="flex gap-4">
-            <DefaultSearch {...search} />
-            {!!advancedSearch.length && (
-              <div
-                className={clsx(
-                  "flex h-10 w-12 shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg transition-colors",
-                  showAdvancedSearch
-                    ? "border border-primary-500 bg-primary-50 text-primary-500"
-                    : "border border-gray-100 bg-white text-gray-400",
-                )}
-                onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
-              >
-                <BiSliderAlt />
-              </div>
-            )}
+    <ConfigProvider
+      theme={{
+        components: {
+          Pagination: {
+            colorBgTextHover: "#F4ECFB"
+          },
+        },
+      }}
+    >
+      <div className="primary-table flex w-full flex-col gap-6">
+        {search && (
+          <div>
+            <div className="flex gap-4">
+              <DefaultSearch {...search} />
+              {!!advancedSearch.length && (
+                <div
+                  className={clsx(
+                    "flex h-10 w-12 shrink-0 cursor-pointer items-center justify-center rounded-lg text-lg transition-colors",
+                    showAdvancedSearch
+                      ? "border border-primary-500 bg-primary-50 text-primary-500"
+                      : "border border-gray-100 bg-white text-gray-400",
+                  )}
+                  onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+                >
+                  <BiSliderAlt />
+                </div>
+              )}
+            </div>
+            <div
+              ref={advancedSearchRef}
+              className="transition-max-height overflow-hidden duration-300 ease-in-out"
+              style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
+            >
+              {!!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
+            </div>
           </div>
-          <div
-            ref={advancedSearchRef}
-            className="transition-max-height overflow-hidden duration-300 ease-in-out"
-            style={{ maxHeight: showAdvancedSearch ? `${advancedSearchRef.current?.scrollHeight}px` : "0px" }}
-          >
-            {!!advancedSearch.length && <AdvancedSearch advanced={advancedSearch} />}
-          </div>
-        </div>
-      )}
-      {!isTableLoading ? (
-        <Table
-          onChange={(newPagination) => {
-            dispatch(
-              setFilter({
-                _page: newPagination.current,
-                _size: newPagination.pageSize,
-              }),
-            );
-          }}
-          columns={columns}
-          dataSource={data}
-          pagination={
-            pagination
-              ? {
+        )}
+        {!isTableLoading ? (
+          <Table
+            onChange={(newPagination) => {
+              dispatch(
+                setFilter({
+                  _page: newPagination.current,
+                  _size: newPagination.pageSize,
+                }),
+              );
+            }}
+            columns={columns}
+            dataSource={data}
+            pagination={
+              pagination
+                ? {
                   ...pagination,
                   showTotal: PaginationText,
                   showSizeChanger: pagination.showSizeChanger ?? false,
                 }
-              : false
-          }
-          className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
-        />
-      ) : (
-        <PrimaryTableSkeleton />
-      )}
-    </div>
+                : false
+            }
+            className="shadow-[0px_4px_30px_0px_rgba(46,45,116,0.05)]"
+          />
+        ) : (
+          <PrimaryTableSkeleton />
+        )}
+      </div>
+    </ConfigProvider>
   );
 };
 
