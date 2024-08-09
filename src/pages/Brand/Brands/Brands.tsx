@@ -100,7 +100,7 @@ const Brands = () => {
         buttons={buttons}
         search={{
           input: {
-            placeholder: "Tìm kiếm thương hiệu",
+            placeholder: "Nhập tên thương hiệu...",
             onChange(value) {
               dispatch(setFilter({ ...state.filter, name: value }));
             },
