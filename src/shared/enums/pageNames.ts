@@ -12,4 +12,5 @@ export enum EPageNames {
   permissions = "Quyền",
   brands = "Thương hiệu",
   genders = "Giới tính",
+  colors = "Màu",
 }
