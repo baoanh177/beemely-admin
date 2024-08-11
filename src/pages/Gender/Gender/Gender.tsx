@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 const Genders = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IGenderInitialState>("gender");
-
+  //abc
   useFetchStatus({
     module: "gender",
     reset: resetStatus,
