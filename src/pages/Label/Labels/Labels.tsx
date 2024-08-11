@@ -34,8 +34,8 @@ const Labels = () => {
     filterOptions: {
       name: "status",
       options: [
-        { label: "Inactive", value: "1" },
-        { label: "Active", value: "0" },
+        { label: "Inactive", value: `${EActiveStatus.ACTIVE}` },
+        { label: "Active", value: `${EActiveStatus.INACTIVE}` },
       ],
       onChange: (selectedOption) => {
         const statusValue = selectedOption.value;
