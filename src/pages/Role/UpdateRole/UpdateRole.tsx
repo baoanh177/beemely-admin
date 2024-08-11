@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RoleForm, { IRoleFormInitialValues } from "../RoleForm";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { convertRolePermissions } from "../helpers/convertRolePermissions";

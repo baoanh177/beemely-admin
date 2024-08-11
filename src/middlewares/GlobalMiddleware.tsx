@@ -3,7 +3,7 @@ import Loading from "@/pages/Loading/Loading";
 import { IUserProfile } from "@/services/store/auth/auth.model";
 import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
 import { getProfile } from "@/services/store/auth/auth.thunk";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 

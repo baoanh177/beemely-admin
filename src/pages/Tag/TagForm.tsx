@@ -5,13 +5,20 @@ import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
 import { ITagInitialState } from "@/services/store/tag/tag.slice";
-import { createTag, updateTag } from "@/services/store/tag/tag.thunk";
+import { createTag, getAllTags, updateTag } from "@/services/store/tag/tag.thunk";
+import { ITag } from "@/services/store/tag/tag.model";
+import UploadImage from "@/components/form/UploadImage";
+import FormSwitch from "@/components/form/FormSwitch";
+import { useEffect } from "react";
 import { FormikRefType } from "@/shared/utils/shared-types";
+import { Col, Row } from "antd";
+import { EActiveStatus } from "@/shared/enums/status";
+import FormTreeSelect from "@/components/form/FormTreeSelect";
 
 interface ITagFormProps {
   formikRef?: FormikRefType<ITagFormInitialValues>;
   type: "create" | "update";
-  tag?: ITagFormInitialValues;
+  tag?: ITag;
   isFormLoading?: boolean;
 }
 
@@ -19,19 +26,43 @@ export interface ITagFormInitialValues {
   id?: string;
   name: string;
   description?: string;
+  slug: string;
+  image: string;
+  parentId: string | null;
+  status: EActiveStatus;
 }
 
 const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps) => {
-  const { dispatch } = useArchive<ITagInitialState>("tag");
+  const { dispatch, state } = useArchive<ITagInitialState>("tag");
 
+  useEffect(() => {
+    dispatch(getAllTags({}));
+  }, [dispatch]);
+  const convertToTreeData = (tags: ITag[], parentId: string | null = null): any[] => {
+    return tags
+      .filter((tag) => (parentId === null ? !tag.parentId : tag.parentId?.id === parentId))
+      .map((tag) => ({
+        value: tag.id,
+        title: tag.name,
+        children: convertToTreeData(tags, tag.id),
+      }));
+  };
+
+  const allTags = state.tags || [];
+  const treeData = [{ value: "", title: "Không có parent" }, ...convertToTreeData(allTags.filter((t) => t.id !== tag?.id))];
   const initialValues: ITagFormInitialValues = {
     name: tag?.name || "",
     description: tag?.description || "",
+    slug: tag?.slug || "",
+    image: tag?.image || "",
+    parentId: tag?.parentId?.id || null,
+    status: tag?.status || EActiveStatus.INACTIVE,
   };
-
   const tagSchema = object().shape({
     name: string().required("Vui lòng nhập tên thẻ"),
+    image: string().required("Vui lòng chọn hình ảnh"),
   });
+
   return (
     <Formik
       innerRef={formikRef}
@@ -39,34 +70,69 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
       initialValues={initialValues}
       validationSchema={tagSchema}
       onSubmit={(data) => {
+        const { parentId, ...rest } = data;
+        const apiData = {
+          ...rest,
+          parent_id: parentId === "" ? null : parentId,
+        };
+        const filteredData = type === "create" ? lodash.omit(apiData, ["id", "slug", "status"]) : lodash.omit(apiData, ["slug"]);
+
         if (type === "create") {
-          dispatch(createTag({ body: lodash.omit(data, "id") }));
+          dispatch(createTag({ body: filteredData }));
         } else if (type === "update" && tag?.id) {
-          dispatch(updateTag({ body: lodash.omit(data, "id"), param: tag.id }));
+          dispatch(updateTag({ body: filteredData, param: tag.id }));
         }
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
-        <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
-          <FormInput
-            label="Tên thẻ"
-            placeholder="Nhập tên thẻ ở đây..."
-            name="name"
-            value={values.name}
-            error={touched.name ? errors.name : ""}
-            onChange={(e) => setFieldValue("name", e)}
-            onBlur={handleBlur}
-          />
-          <FormInput
-            label="Mô tả"
-            placeholder="Nhập mô tả ở đây..."
-            name="description"
-            value={values.description}
-            error={touched.description ? errors.description : ""}
-            onChange={(e) => setFieldValue("description", e)}
-            onBlur={handleBlur}
-          />
-        </FormGroup>
+        <Row gutter={[24, 24]}>
+          <Col xs={24} md={6} lg={6}>
+            <FormGroup title="Ảnh">
+              <UploadImage
+                isMultiple={false}
+                label="Ảnh"
+                onImageUpload={(imageURL) => {
+                  const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
+                  setFieldValue("image", url);
+                }}
+                currentImageUrl={values.image}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={24} md={18} lg={18}>
+            <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+              <FormInput
+                label="Tên thẻ"
+                placeholder="Nhập tên thẻ ở đây..."
+                name="name"
+                value={values.name}
+                error={touched.name ? errors.name : ""}
+                onChange={(e) => setFieldValue("name", e)}
+                onBlur={handleBlur}
+              />
+              <FormTreeSelect
+                label="Parent Tag"
+                value={values.parentId || ""}
+                error={touched.parentId ? errors.parentId : ""}
+                onChange={(value) => setFieldValue("parentId", value)}
+                treeData={treeData}
+                placeholder="Chọn parent tag"
+              />
+              {type === "update" && (
+                <FormSwitch uncheckedText="" checked={values.status === EActiveStatus.ACTIVE} onChange={(e) => setFieldValue("status", e)} />
+              )}
+              <FormInput
+                label="Mô tả"
+                placeholder="Nhập mô tả ở đây..."
+                name="description"
+                value={values.description}
+                error={touched.description ? errors.description : ""}
+                onChange={(e) => setFieldValue("description", e)}
+                onBlur={handleBlur}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
       )}
     </Formik>
   );

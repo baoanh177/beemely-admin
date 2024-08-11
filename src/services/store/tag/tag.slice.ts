@@ -1,5 +1,5 @@
 import { commonStaticReducers } from "@/services/shared";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITag } from "./tag.model";
@@ -56,7 +56,8 @@ const tagSlice = createSlice({
       .addCase(updateTag.pending, (state) => {
         state.status = EFetchStatus.PENDING;
       })
-      .addCase(updateTag.fulfilled, (state) => {
+      .addCase(updateTag.fulfilled, (state, { payload }: PayloadAction<any>) => {
+        state.tags = state.tags.map((tag) => (tag.id === payload.metaData.id ? payload.metaData : tag));
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })

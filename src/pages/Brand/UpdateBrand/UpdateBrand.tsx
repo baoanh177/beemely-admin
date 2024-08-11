@@ -3,7 +3,7 @@ import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IBrandInitialState, resetStatus } from "@/services/store/brand/brand.slice";
 import { getBrandById } from "@/services/store/brand/brand.thunk";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";

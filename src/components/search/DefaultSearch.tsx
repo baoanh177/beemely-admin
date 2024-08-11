@@ -1,16 +1,16 @@
 import React from "react";
-import FilterTableStatus, { IFilterTableStatusOptions } from "../table/FilterTableStatus";
+import FilterTableStatus, { IFilterTableStatusProps } from "../table/FilterTableStatus";
 import FormInput, { IFormInputProps } from "../form/FormInput";
 
 export interface IDefaultSearchProps {
   input?: IFormInputProps;
-  options?: IFilterTableStatusOptions[];
+  filterOptions?: IFilterTableStatusProps;
 }
 
-export const DefaultSearch: React.FC<IDefaultSearchProps> = ({ input, options }) => {
+export const DefaultSearch: React.FC<IDefaultSearchProps> = ({ input, filterOptions }) => {
   return (
     <div className="flex w-full">
-      {options && <FilterTableStatus options={options} />}
+      {filterOptions && <FilterTableStatus {...filterOptions} />}
       <div className="ml-auto">
         <FormInput className="bg-white" {...input} />
       </div>

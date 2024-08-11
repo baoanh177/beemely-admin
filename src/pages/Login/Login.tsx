@@ -1,7 +1,7 @@
 import Button from "@/components/common/Button";
 import FormInput from "@/components/form/FormInput";
 import { useArchive } from "@/hooks/useArchive";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";

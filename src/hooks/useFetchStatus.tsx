@@ -2,7 +2,7 @@ import { RootStateType } from "@/services/reducers";
 import { IInitialState } from "@/shared/utils/shared-interfaces";
 import { useArchive } from "./useArchive";
 import { useEffect } from "react";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { useNavigate } from "react-router-dom";
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
