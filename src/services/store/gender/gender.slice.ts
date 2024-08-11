@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { commonStaticReducers } from "@/services/shared";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { IGender } from "./gender.model";
 import { createGender, deleteGender, getAllGenders, getGenderById, updateGender } from "./gender.thunk";

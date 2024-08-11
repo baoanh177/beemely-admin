@@ -39,7 +39,6 @@ const Labels = () => {
     },
   ];
   const defaultSearch: IDefaultSearchProps = {
-    options: [{ label: "123", value: "123" }],
     input: {
       type: "text",
       name: "123",

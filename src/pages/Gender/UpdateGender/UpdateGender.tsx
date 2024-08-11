@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
 import { useArchive } from "@/hooks/useArchive";

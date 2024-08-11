@@ -1,5 +1,5 @@
 import { EButtonTypes } from "../enums/button";
-import { EFetchStatus } from "../enums/fetchStatus";
+import { EFetchStatus } from "../enums/status";
 import { EPermissions } from "../enums/permissions";
 import { MethodType } from "./shared-types";
 

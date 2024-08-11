@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { useArchive } from "@/hooks/useArchive";
 import { IRoleInitialState, resetStatus } from "@/services/store/role/role.slice";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 
 const CreateRole = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import TagForm, { ITagFormInitialValues } from "../TagForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { ITagInitialState, resetStatus } from "@/services/store/tag/tag.slice";
 import { useArchive } from "@/hooks/useArchive";
@@ -38,6 +38,10 @@ const UpdateTag = () => {
         formikRef.current.setValues({
           name: state.activeTag.name,
           description: state.activeTag.description,
+          slug: state.activeTag.slug,
+          image: state.activeTag.image,
+          status: state.activeTag.status,
+          parentId: state.activeTag.parentId?.id,
         });
       }
     }

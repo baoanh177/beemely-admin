@@ -2,7 +2,7 @@ import Heading from "@/components/layout/Heading";
 import { useArchive } from "@/hooks/useArchive";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { ILabelInitialState, resetStatus } from "@/services/store/label/label.slice";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";

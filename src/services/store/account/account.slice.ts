@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState } from "@/shared/utils/shared-interfaces";
 import { commonStaticReducers } from "@/services/shared";
 

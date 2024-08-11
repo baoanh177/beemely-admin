@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { FormikProps } from "formik";
 import { IoClose } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { useNavigate } from "react-router-dom";
 import { useArchive } from "@/hooks/useArchive";
 import { IPermissionInitialState, resetStatus } from "@/services/store/permission/permission.slice";

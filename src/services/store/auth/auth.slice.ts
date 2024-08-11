@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { getProfile, login, logout } from "./auth.thunk";
 import { ILoginResponseData, IUserProfile } from "./auth.model";

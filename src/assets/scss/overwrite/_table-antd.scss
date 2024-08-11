@@ -130,3 +130,25 @@
   left: 0;
   padding-left: 24px;
 }
+.ant-table-row-expand-icon {
+  color: $color-primary-500;
+  border-color: $color-primary-500;
+
+  &:hover,
+  &:focus {
+    color: $color-primary-500;
+    border-color: $color-primary-500;
+  }
+
+  &.ant-table-row-expand-icon-collapsed,
+  &.ant-table-row-expand-icon-expanded {
+    color: $color-primary-500;
+    border-color: $color-primary-500;
+
+    &:hover,
+    &:focus {
+      color: $color-primary-500;
+      border-color: $color-primary-500;
+    }
+  }
+}

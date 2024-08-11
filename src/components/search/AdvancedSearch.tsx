@@ -1,5 +1,4 @@
-import { Dayjs } from "dayjs";
-import FilterTableStatus, { IFilterTableStatusOptions } from "../table/FilterTableStatus";
+import FilterTableStatus from "../table/FilterTableStatus";
 import FormInput from "../form/FormInput";
 import FormDateRangePicker from "../form/FormDateRangePicker";
 import FormSwitch from "../form/FormSwitch";
@@ -9,12 +8,7 @@ import { CheckField, DateField, IAdvancedSearch, StatusField, SwitchField, TextN
 interface IAdvancedSearchProps {
   advanced: IAdvancedSearch;
 }
-type FieldValue = string | number | [Dayjs | null, Dayjs | null] | IFilterTableStatusOptions | boolean;
 const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
-  const handleAdvancedChange = (value: FieldValue) => {
-    <div>{!value}</div>;
-  };
-
   const renderAdvancedField = (field: TextNumberField | DateField | StatusField | SwitchField | CheckField) => {
     const fieldKey = field.name;
     switch (field.type) {
@@ -25,7 +19,7 @@ const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
             key={fieldKey}
             type={field.type}
             placeholder={field.placeholder}
-            onChange={(value: string | number) => handleAdvancedChange(value)}
+            onChange={field.onChange}
             icon={field.icon}
             className="bg-white"
           />
@@ -35,27 +29,21 @@ const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
           <FormDateRangePicker
             key={fieldKey}
             placeholder={field.placeholder}
-            onChange={(dates: [Dayjs | null, Dayjs | null]) => handleAdvancedChange(dates)}
+            onChange={field.onChange}
             defaultValue={undefined}
             disabled={false}
             name={field.name}
           />
         );
       case "status":
-        return (
-          <FilterTableStatus
-            key={fieldKey}
-            options={field.options}
-            onChange={(selectedOption: IFilterTableStatusOptions) => handleAdvancedChange(selectedOption)}
-          />
-        );
+        return <FilterTableStatus key={fieldKey} options={field.options} onChange={field.onChange} />;
       case "switch":
         return (
           <FormSwitch
             key={fieldKey}
             checkedText={field.checkedText}
             uncheckedText={field.uncheckedText}
-            onChange={(checked: boolean) => handleAdvancedChange(checked)}
+            onChange={field.onChange}
             idDisabled={field.idDisabled}
             label={field.label}
           />
@@ -66,7 +54,7 @@ const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
             key={fieldKey}
             isDefaultChecked={field.isDefaultChecked}
             isDisable={field.isDisable}
-            onChange={(checked: boolean) => handleAdvancedChange(checked)}
+            onChange={field.onChange}
             label={field.label}
           />
         );

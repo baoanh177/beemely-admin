@@ -8,7 +8,7 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import { getLabelById } from "@/services/store/label/label.thunk";
 import Heading from "@/components/layout/Heading";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateLabel = () => {

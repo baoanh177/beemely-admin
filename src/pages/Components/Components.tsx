@@ -22,7 +22,6 @@ import OrderStatusCard, { stepsData } from "@/components/card/OrderStatusCard";
 import { setFilter } from "@/services/store/account/account.slice";
 import UploadImage from "@/components/form/UploadImage";
 import Pagination from "@/components/common/Pagination";
-import { advancedSearch, defaultSearch } from "../Tag/Tags/Tags";
 const Components = () => {
   return (
     <>
@@ -167,7 +166,7 @@ const Components = () => {
           <StatusBadge text="Draft" color="gray" />
           <StatusBadge text="Out of Stock" color="red" />
         </div>
-        <SecondaryTable search={defaultSearch} data={data} columns={columns} advancedSearch={advancedSearch} setFilter={setFilter} />
+        <SecondaryTable data={data} columns={columns} setFilter={setFilter} />
       </div>
 
       {customerData.map((customer, index) => (

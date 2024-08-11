@@ -5,7 +5,7 @@ import { IPermissionInitialState, resetStatus } from "@/services/store/permissio
 import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
+import { EFetchStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { getPermissionById } from "@/services/store/permission/permission.thunk";
