@@ -1,28 +1,20 @@
-import { useMemo } from "react";
-import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { ColumnsType } from "antd/es/table";
-import Heading from "@/components/layout/Heading";
 import ManagementGrid from "@/components/grid/ManagementGrid";
+import Heading from "@/components/layout/Heading";
+import ImageTable from "@/components/table/ImageTable";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IBrandInitialState, resetStatus, setFilter } from "@/services/store/brand/brand.slice";
 import { deleteBrand, getAllBrands } from "@/services/store/brand/brand.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import ImageTable from "@/components/table/ImageTable";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+import { ColumnsType } from "antd/es/table";
+import { useMemo } from "react";
+import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-export const defaultSearch: IDefaultSearchProps = {
-  input: {
-    type: "text",
-    name: "123",
-    placeholder: "Search ordersss. . .",
-  },
-};
 const Brands = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IBrandInitialState>("brand");
@@ -105,8 +97,15 @@ const Brands = () => {
         isTableLoading={getAllBrandsLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
-        search={defaultSearch}
         buttons={buttons}
+        search={{
+          input: {
+            placeholder: "Nhập tên thương hiệu...",
+            onChange(value) {
+              dispatch(setFilter({ ...state.filter, name: value }));
+            },
+          },
+        }}
       />
     </>
   );

@@ -66,7 +66,7 @@ const Tags = () => {
   ];
 
   const { getAllTagsLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllTags({ query: state.filter })), "getAllTagsLoading"),
+    (async) => async(dispatch(getAllTags({ query: { _pagination: false } })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
   const handleStatusChange = useCallback(
@@ -142,7 +142,6 @@ const Tags = () => {
         columns={columns}
         isTableLoading={getAllTagsLoading}
         data={treeTags}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
         setFilter={setFilter}
         search={defaultSearch}
         buttons={buttons}

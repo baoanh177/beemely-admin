@@ -9,11 +9,11 @@ import { createTag, getAllTags, updateTag } from "@/services/store/tag/tag.thunk
 import { ITag } from "@/services/store/tag/tag.model";
 import UploadImage from "@/components/form/UploadImage";
 import FormSwitch from "@/components/form/FormSwitch";
-import FormSelect from "@/components/form/FormSelect";
 import { useEffect } from "react";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Col, Row } from "antd";
 import { EActiveStatus } from "@/shared/enums/status";
+import FormTreeSelect from "@/components/form/FormTreeSelect";
 
 interface ITagFormProps {
   formikRef?: FormikRefType<ITagFormInitialValues>;
@@ -38,9 +38,18 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
   useEffect(() => {
     dispatch(getAllTags({}));
   }, [dispatch]);
+  const convertToTreeData = (tags: ITag[], parentId: string | null = null): any[] => {
+    return tags
+      .filter((tag) => (parentId === null ? !tag.parentId : tag.parentId?.id === parentId))
+      .map((tag) => ({
+        value: tag.id,
+        title: tag.name,
+        children: convertToTreeData(tags, tag.id),
+      }));
+  };
 
   const allTags = state.tags || [];
-
+  const treeData = [{ value: "", title: "Không có parent" }, ...convertToTreeData(allTags.filter((t) => t.id !== tag?.id))];
   const initialValues: ITagFormInitialValues = {
     name: tag?.name || "",
     description: tag?.description || "",
@@ -49,7 +58,6 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
     parentId: tag?.parentId?.id || null,
     status: tag?.status || EActiveStatus.INACTIVE,
   };
-
   const tagSchema = object().shape({
     name: string().required("Vui lòng nhập tên thẻ"),
     image: string().required("Vui lòng chọn hình ảnh"),
@@ -65,7 +73,7 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
         const { parentId, ...rest } = data;
         const apiData = {
           ...rest,
-          parent_id: parentId,
+          parent_id: parentId === "" ? null : parentId,
         };
         const filteredData = type === "create" ? lodash.omit(apiData, ["id", "slug", "status"]) : lodash.omit(apiData, ["slug"]);
 
@@ -102,15 +110,13 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
                 onChange={(e) => setFieldValue("name", e)}
                 onBlur={handleBlur}
               />
-              <FormSelect
+              <FormTreeSelect
                 label="Parent Tag"
                 value={values.parentId || ""}
                 error={touched.parentId ? errors.parentId : ""}
-                onChange={(e) => setFieldValue("parentId", e)}
-                options={[
-                  { value: "", label: "Không có parent" },
-                  ...allTags.filter((t) => t.id !== tag?.id && t.id !== "").map((t) => ({ value: t.id as string, label: t.name })),
-                ]}
+                onChange={(value) => setFieldValue("parentId", value)}
+                treeData={treeData}
+                placeholder="Chọn parent tag"
               />
               {type === "update" && (
                 <FormSwitch uncheckedText="" checked={values.status === EActiveStatus.ACTIVE} onChange={(e) => setFieldValue("status", e)} />

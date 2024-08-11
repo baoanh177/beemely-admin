@@ -4,28 +4,48 @@ import lodash from "lodash";
 interface ITreeTag extends Omit<ITag, "parentId"> {
   children: ITreeTag[];
   key?: string;
+  parentId?: string | null;
 }
 
 export const handleConvertTags = (tags: ITag[]): ITreeTag[] => {
   const tagMap = new Map<string, ITreeTag>();
 
   tags.forEach((tag) => {
-    tagMap.set(tag.id, { ...lodash.omit(tag, ["parentId"]), children: [], key: tag.id });
+    tagMap.set(tag.id, {
+      ...lodash.omit(tag, ["parentId"]),
+      children: [],
+      key: tag.id,
+      parentId: tag.parentId ? tag.parentId.id : null,
+    });
   });
 
   const rootTags: ITreeTag[] = [];
-
-  tags.forEach((tag) => {
-    const treeTag = tagMap.get(tag.id)!;
-    if (tag.parentId) {
-      const parentTag = tagMap.get(tag.parentId.id);
+  tagMap.forEach((treeTag) => {
+    if (treeTag.parentId) {
+      const parentTag = tagMap.get(treeTag.parentId);
       if (parentTag) {
-        parentTag.children.push(treeTag);
+        if (!parentTag.children.some((child) => child.id === treeTag.id)) {
+          parentTag.children.push(treeTag);
+        }
+      } else {
+        if (!rootTags.some((root) => root.id === treeTag.id)) {
+          rootTags.push(treeTag);
+        }
       }
     } else {
-      rootTags.push(treeTag);
+      if (!rootTags.some((root) => root.id === treeTag.id)) {
+        rootTags.push(treeTag);
+      }
     }
   });
+  const sortTags = (tags: ITreeTag[]): ITreeTag[] => {
+    return tags
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((tag) => ({
+        ...tag,
+        children: sortTags(tag.children),
+      }));
+  };
 
-  return rootTags;
+  return sortTags(rootTags);
 };
