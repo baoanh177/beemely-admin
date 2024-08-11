@@ -1,9 +1,9 @@
 import { commonStaticReducers } from "@/services/shared";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IColor } from "./color.model";
 import { createColor, deleteColor, getAllColors, getColorById, updateColor } from "./color.thunk";
+import { EFetchStatus } from "@/shared/enums/status";
 
 export interface IColorInitialState extends IInitialState {
   colors: IColor[];

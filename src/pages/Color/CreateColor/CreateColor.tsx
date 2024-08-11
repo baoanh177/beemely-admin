@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import ColorForm, { IColorFormInitialValues } from "../ColorForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { useArchive } from "@/hooks/useArchive";
 import { IColorInitialState, resetStatus } from "@/services/store/color/color.slice";
+import { EFetchStatus } from "@/shared/enums/status";
 
 const CreateColor = () => {
   const navigate = useNavigate();

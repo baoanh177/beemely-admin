@@ -4,12 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import ColorForm, { IColorFormInitialValues } from "../ColorForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
-import { EFetchStatus } from "@/shared/enums/fetchStatus";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { useArchive } from "@/hooks/useArchive";
 import { getColorById } from "@/services/store/color/color.thunk";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IColorInitialState, resetStatus } from "@/services/store/color/color.slice";
+import { EFetchStatus } from "@/shared/enums/status";
 
 const UpdateColor = () => {
   const navigate = useNavigate();
@@ -36,8 +36,8 @@ const UpdateColor = () => {
     if (state.activeColor) {
       if (formikRef.current) {
         formikRef.current.setValues({
-            name: state.activeColor.name,
-            value:state.activeColor.value
+          name: state.activeColor.name,
+          value: state.activeColor.value,
         });
       }
     }
