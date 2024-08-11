@@ -37,6 +37,7 @@ const UpdateLabel = () => {
       formikRef.current.setValues({
         name: state.activeLabel.name,
         description: state.activeLabel.description,
+        status: state.activeLabel.status,
       });
     }
   }, [state.activeLabel]);

@@ -7,6 +7,7 @@ import { object, string } from "yup";
 import lodash from "lodash";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import { EActiveStatus } from "@/shared/enums/status";
 interface ILabelFormProps {
   formikRef?: FormikRefType<ILabelFormInitialValues>;
   type: "create" | "update";
@@ -18,6 +19,7 @@ export interface ILabelFormInitialValues {
   id?: string;
   name: string;
   description?: string;
+  status: EActiveStatus;
 }
 
 const LabelForm = ({ formikRef, type, label, isFormLoading = false }: ILabelFormProps) => {
@@ -26,6 +28,7 @@ const LabelForm = ({ formikRef, type, label, isFormLoading = false }: ILabelForm
   const initialValues: ILabelFormInitialValues = {
     name: label?.name || "",
     description: label?.description || "",
+    status: label?.status || EActiveStatus.INACTIVE,
   };
 
   const labelSchema = object().shape({
@@ -39,9 +42,9 @@ const LabelForm = ({ formikRef, type, label, isFormLoading = false }: ILabelForm
       validationSchema={labelSchema}
       onSubmit={(data) => {
         if (type === "create") {
-          dispatch(createLabel({ body: lodash.omit(data, "id") }));
+          dispatch(createLabel({ body: lodash.omit(data, ["id", "status"]) }));
         } else if (type === "update" && label?.id) {
-          dispatch(updateLabel({ body: lodash.omit(data, "id"), param: label.id }));
+          dispatch(updateLabel({ body: lodash.omit(data, ["id", "status"]), param: label.id }));
         }
       }}
     >

@@ -7,6 +7,7 @@ import { messageCreator } from "@/services/config/message-creator";
 const dataKeys: { [key in keyof Omit<ILabel, "id">]: string } = {
   name: "Tên label",
   description: "Mô tả",
+  status: "Trạng thái",
 };
 
 const prefix = "/api/labels";

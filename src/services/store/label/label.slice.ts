@@ -56,7 +56,8 @@ const labelSlice = createSlice({
       .addCase(updateLabel.pending, (state) => {
         state.status = EFetchStatus.PENDING;
       })
-      .addCase(updateLabel.fulfilled, (state) => {
+      .addCase(updateLabel.fulfilled, (state, { payload }: PayloadAction<any>) => {
+        state.labels = state.labels.map((label) => (label.id === payload.metaData.id ? payload.metaData : label));
         state.status = EFetchStatus.FULFILLED;
         state.message = "Updated successfully";
       })
