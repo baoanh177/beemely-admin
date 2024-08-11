@@ -43,4 +43,10 @@ export enum EPermissions {
   CREATE_LABEL = "Create_Label",
   UPDATE_LABEL = "Update_Label",
   DELETE_LABEL = "Delete_Label",
+
+  // ? Color
+  READ_COLOR = "Read_Color",
+  CREATE_COLOR = "Create_Color",
+  UPDATE_COLOR = "Update_Color",
+  DELETE_COLOR = "Delete_Color",
 }

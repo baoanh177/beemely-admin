@@ -83,6 +83,12 @@ export const menuItems: IMenuItem[] = [
         path: "labels",
         permissions: EPermissions.READ_LABEL,
       },
+      {
+        id: "3.5",
+        label: "Color",
+        path: "colors",
+        permissions: EPermissions.READ_COLOR,
+      },
     ],
   },
   {
