@@ -45,7 +45,7 @@ const colorSlice = createSlice({
       })
       .addCase(createColor.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo thành công";
       })
       .addCase(createColor.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -58,7 +58,7 @@ const colorSlice = createSlice({
       })
       .addCase(updateColor.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateColor.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -71,7 +71,7 @@ const colorSlice = createSlice({
       })
       .addCase(deleteColor.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.colors = state.colors.filter((color) => color.id !== payload);
       })
       .addCase(deleteColor.rejected, (state, { payload }: PayloadAction<any>) => {
