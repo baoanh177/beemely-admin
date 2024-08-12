@@ -12,8 +12,8 @@ export interface IFilterTableStatusProps {
 }
 
 const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChange }) => {
-  const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOptions>({ value: "", label: "All" });
-  const fullOptions = useMemo(() => [{ value: "", label: "All" }, ...options], [options]);
+  const [selectedOption, setSelectedOption] = useState<IFilterTableStatusOptions>({ value: "", label: "Tất cả" });
+  const fullOptions = useMemo(() => [{ value: "", label: "Tất cả" }, ...options], [options]);
 
   useEffect(() => {
     if (onChange) {
@@ -27,9 +27,9 @@ const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChang
         {fullOptions.map((option, index) => (
           <div
             key={index}
-            className={`text-m-medium h-full px-3 py-[6px] ${
-              selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"
-            } outline-none`}
+            className={`text-m-medium h-full px-3 py-[6px] 
+              ${selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"
+              } outline-none`}
             onClick={() => {
               if (selectedOption.value !== option.value) {
                 setSelectedOption(option);

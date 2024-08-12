@@ -2,7 +2,7 @@ import FormSwitch from "@/components/form/FormSwitch";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
-import { ITableData } from "@/components/table/PrimaryTable";
+import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
@@ -34,8 +34,8 @@ const Labels = () => {
     filterOptions: {
       name: "status",
       options: [
-        { label: "Inactive", value: `${EActiveStatus.ACTIVE}` },
-        { label: "Active", value: `${EActiveStatus.INACTIVE}` },
+        { label: "Chưa kích hoạt", value: `${EActiveStatus.ACTIVE}` },
+        { label: "Kích hoạt", value: `${EActiveStatus.INACTIVE}` },
       ],
       onChange: (selectedOption) => {
         const statusValue = selectedOption.value;
@@ -51,6 +51,16 @@ const Labels = () => {
       placeholder: "Tìm kiếm theo tên. . .",
     },
   };
+  const advancedSearch: IAdvancedSearch = [
+    {
+      type: "text",
+      name: "description",
+      placeholder: "Tìm kiếm theo mô tả",
+      onChange: (value) => {
+        dispatch(setFilter({ ...state.filter, description: value }));
+      },
+    },
+  ];
 
   const { getAllLabelsLoading } = useAsyncEffect(
     (async) => async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading"),
@@ -130,6 +140,7 @@ const Labels = () => {
       />
       {
         <ManagementGrid
+          advancedSearch={advancedSearch}
           isTableLoading={getAllLabelsLoading ?? true}
           pagination={{
             current: state.filter._page!,
