@@ -55,4 +55,10 @@ export enum EPermissions {
   CREATE_VOUCHER_TYPE = "Create_VoucherType",
   UPDATE_VOUCHER_TYPE = "Update_VoucherType",
   DELETE_VOUCHER_TYPE = "Delete_VoucherType",
+
+  // ? User Gender
+  READ_USER_GENDER = "Read_UserGender",
+  CREATE_USER_GENDER = "Create_UserGender",
+  UPDATE_USER_GENDER = "Update_UserGender",
+  DELETE_USER_GENDER = "Delete_UserGender",
 }
