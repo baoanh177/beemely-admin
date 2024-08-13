@@ -95,6 +95,12 @@ export const menuItems: IMenuItem[] = [
         path: "voucherTypes",
         permissions: EPermissions.READ_VOUCHER_TYPE,
       },
+      {
+        id: "3.9",
+        label: "UserGender",
+        path: "user-genders",
+        permissions: EPermissions.READ_USER_GENDER,
+      },
     ],
   },
   {
