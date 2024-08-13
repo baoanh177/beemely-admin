@@ -27,8 +27,8 @@ const Tags = () => {
     filterOptions: {
       name: "status",
       options: [
-        { label: "Inactive", value: "1" },
-        { label: "Active", value: "0" },
+        { label: "Kích hoạt", value: `${EActiveStatus.ACTIVE}` },
+        { label: "Chưa kích hoạt", value: `${EActiveStatus.INACTIVE}` },
       ],
       onChange: (selectedOption) => {
         const statusValue = selectedOption.value;
@@ -37,9 +37,9 @@ const Tags = () => {
     },
     input: {
       type: "text",
-      name: "parent_id",
+      name: "name",
       onChange: (value) => {
-        dispatch(setFilter({ ...state.filter, parent_id: value }));
+        dispatch(setFilter({ ...state.filter, name: value }));
       },
       placeholder: "Tìm kiếm theo tên. . .",
     },
@@ -66,7 +66,7 @@ const Tags = () => {
   ];
 
   const { getAllTagsLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllTags({ query: { _pagination: false } })), "getAllTagsLoading"),
+    (async) => async(dispatch(getAllTags({ query: { _pagination: false, ...state.filter } })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
   const handleStatusChange = useCallback(
