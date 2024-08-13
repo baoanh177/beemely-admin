@@ -27,8 +27,8 @@ const Tags = () => {
     filterOptions: {
       name: "status",
       options: [
-        { label: "Kích hoạt", value: `${EActiveStatus.ACTIVE}` },
-        { label: "Chưa kích hoạt", value: `${EActiveStatus.INACTIVE}` },
+        { label: "Kích hoạt", value: String(EActiveStatus.ACTIVE) },
+        { label: "Chưa kích hoạt", value: String(EActiveStatus.INACTIVE) },
       ],
       onChange: (selectedOption) => {
         const statusValue = selectedOption.value;
