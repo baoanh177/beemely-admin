@@ -19,6 +19,7 @@ import { brandRoutes } from "./brand.route";
 import { labelRoutes } from "./label.router";
 import GoogleCallback from "@/pages/GoogleCallback/GoogleCallback";
 import { colorRoutes } from "./color.router";
+import { voucherTypeRoutes } from "./voucherType.route";
 
 export interface IRoute {
   path: string;
@@ -92,6 +93,11 @@ export const routes: IRoute[] = [
             path: "colors",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_COLOR]} />,
             pages: colorRoutes,
+          },
+          {
+            path: "voucherTypes",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_VOUCHER_TYPE]} />,
+            pages: voucherTypeRoutes,
           },
         ],
       },

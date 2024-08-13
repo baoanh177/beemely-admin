@@ -13,4 +13,5 @@ export enum EPageNames {
   brands = "Thương hiệu",
   genders = "Giới tính",
   colors = "Màu",
+  voucherTypes = "Loại mã giảm giá",
 }
