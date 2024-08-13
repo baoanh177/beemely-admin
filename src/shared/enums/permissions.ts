@@ -49,4 +49,10 @@ export enum EPermissions {
   CREATE_COLOR = "Create_Color",
   UPDATE_COLOR = "Update_Color",
   DELETE_COLOR = "Delete_Color",
+
+  // ? Voucher Type
+  READ_VOUCHER_TYPE = "Read_VoucherType",
+  CREATE_VOUCHER_TYPE = "Create_VoucherType",
+  UPDATE_VOUCHER_TYPE = "Update_VoucherType",
+  DELETE_VOUCHER_TYPE = "Delete_VoucherType",
 }
