@@ -21,7 +21,7 @@ const CreateUserGender = () => {
     actions: {
       success: {
         message: state.message,
-        navigate: "/userGenders",
+        navigate: "/user-genders",
       },
       error: {
         message: state.message,
@@ -46,7 +46,7 @@ const CreateUserGender = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/userGenders");
+              navigate("/user-genders");
             },
           },
           {

@@ -97,8 +97,8 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "3.9",
-        label: "User-Gender",
-        path: "userGenders",
+        label: "UserGender",
+        path: "user-genders",
         permissions: EPermissions.READ_USER_GENDER,
       },
     ],

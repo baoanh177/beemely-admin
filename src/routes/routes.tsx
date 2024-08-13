@@ -101,7 +101,7 @@ export const routes: IRoute[] = [
             pages: voucherTypeRoutes,
           },
           {
-            path: "userGenders",
+            path: "user-genders",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_USER_GENDER]} />,
             pages: userGenderRouter,
           },

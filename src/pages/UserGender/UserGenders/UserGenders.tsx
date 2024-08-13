@@ -58,7 +58,7 @@ const UserGenders = () => {
     {
       type: EButtonTypes.UPDATE,
       onClick(record) {
-        navigate(`/userGenders/update/${record?.key}`);
+        navigate(`/user-genders/update/${record?.key}`);
       },
       permission: EPermissions.UPDATE_USER_GENDER,
     },
@@ -81,7 +81,7 @@ const UserGenders = () => {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_USER_GENDER,
             text: "Tạo mới Giới tính người dùng",
-            onClick: () => navigate("/userGenders/create"),
+            onClick: () => navigate("/user-genders/create"),
           },
         ]}
       />

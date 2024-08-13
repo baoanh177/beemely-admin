@@ -22,7 +22,7 @@ const UpdateUserGender = () => {
     actions: {
       success: {
         message: state.message,
-        navigate: "/userGenders",
+        navigate: "/user-genders",
       },
       error: {
         message: state.message,
@@ -54,7 +54,7 @@ const UpdateUserGender = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/userGenders");
+              navigate("/user-genders");
             },
           },
           {
