@@ -1,5 +1,6 @@
 import { EActiveStatus } from "@/shared/enums/status";
 import { Dayjs } from "dayjs";
+import { IVoucherType } from "../voucherType/voucherType.model";
 
 export interface IVoucher {
   id: string;
@@ -10,7 +11,7 @@ export interface IVoucher {
   discount: number;
   discountTypes: "percentage" | "fixed";
   minimumOrderPrice: number;
-  voucherType: { id: string; name: string };
+  voucherType: IVoucherType;
   status: EActiveStatus;
   startDate: Dayjs;
   endDate: Dayjs;

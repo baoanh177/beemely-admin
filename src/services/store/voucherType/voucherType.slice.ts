@@ -7,7 +7,7 @@ import { createVoucherType, deleteVoucherType, getAllVoucherTypes, getVoucherTyp
 
 export interface IVoucherTypeInitialState extends IInitialState {
   voucherTypes: IVoucherType[];
-  activeVoucherType: IVoucherType | undefined;
+  activeVoucherType?: IVoucherType;
 }
 
 const initialState: IVoucherTypeInitialState = {

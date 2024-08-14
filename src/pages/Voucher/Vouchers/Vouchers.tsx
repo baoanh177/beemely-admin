@@ -17,19 +17,12 @@ import { useCallback, useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-
 const Vouchers = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IVoucherInitialState>("voucher");
   const handleStatusChange = useCallback(
     (checked: boolean, record: IVoucher) => {
       const updatedVoucher = {
-        name: record.name,
-        code: record.code,
-        max_usage: record.maxUsage,
-        duration: record.duration,
-        discount: record.discount,
-        discount_types: record.discountTypes,
         minimum_order_price: record.minimumOrderPrice,
         voucher_type: record.voucherType.id,
         start_date: record.startDate,

@@ -7,7 +7,7 @@ import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import FormSelect from "@/components/form/FormSelect";
 import lodash from "lodash";
-
+import dayjs from "dayjs";
 import { EActiveStatus } from "@/shared/enums/status";
 import { Dayjs } from "dayjs";
 import { IVoucher } from "@/services/store/voucher/voucher.model";
@@ -15,6 +15,7 @@ import FormDateRangePicker from "@/components/form/FormDateRangePicker";
 import { useEffect } from "react";
 import { getAllVoucherTypes } from "@/services/store/voucherType/voucherType.thunk";
 import { IVoucherTypeInitialState } from "@/services/store/voucherType/voucherType.slice";
+import { IVoucherType } from "@/services/store/voucherType/voucherType.model";
 
 interface IVoucherFormProps {
   formikRef?: FormikRefType<IVoucherFormInitialValues>;
@@ -32,7 +33,7 @@ export interface IVoucherFormInitialValues {
   discount: number;
   discountTypes: "percentage" | "fixed";
   minimumOrderPrice: number;
-  voucherType: { id: string; name: string };
+  voucherType: IVoucherType;
   status: EActiveStatus;
   startDate: Dayjs | null;
   endDate: Dayjs | null;
@@ -55,15 +56,15 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     discountTypes: voucher?.discountTypes || "percentage",
     minimumOrderPrice: voucher?.minimumOrderPrice || 0,
     voucherType: voucher?.voucherType || { id: "", name: "" },
-    startDate: voucher?.startDate!,
-    endDate: voucher?.endDate!,
+    startDate: voucher?.startDate ? dayjs(voucher.startDate) : null,
+    endDate: voucher?.endDate ? dayjs(voucher.endDate) : null,
     status: voucher?.status || EActiveStatus.INACTIVE,
   };
 
   return (
     <Formik
       innerRef={formikRef}
-      enableReinitialize
+      enableReinitialize={true}
       initialValues={initialValues}
       onSubmit={(data) => {
         const transformedData = {
@@ -71,8 +72,8 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
           discount_types: data.discountTypes,
           minimum_order_price: data.minimumOrderPrice,
           voucher_type: data.voucherType.id,
-          start_date: data.startDate,
-          end_date: data.endDate,
+          start_date: data.startDate ? dayjs(data.startDate) : null,
+          end_date: data.endDate ? dayjs(data.endDate) : null,
           name: data.name,
           code: data.code,
           duration: data.duration,
