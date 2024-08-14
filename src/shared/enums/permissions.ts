@@ -61,4 +61,10 @@ export enum EPermissions {
   CREATE_USER_GENDER = "Create_UserGender",
   UPDATE_USER_GENDER = "Update_UserGender",
   DELETE_USER_GENDER = "Delete_UserGender",
+
+  // ? Size
+  READ_SIZE = "Read_Size",
+  CREATE_SIZE = "Create_Size",
+  UPDATE_SIZE = "Update_Size",
+  DELETE_SIZE = "Delete_Size",
 }

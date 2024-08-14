@@ -21,6 +21,7 @@ import GoogleCallback from "@/pages/GoogleCallback/GoogleCallback";
 import { colorRoutes } from "./color.router";
 import { voucherTypeRoutes } from "./voucherType.route";
 import { userGenderRouter } from "./userGender.route";
+import { sizeRoutes } from "./size.route";
 
 export interface IRoute {
   path: string;
@@ -104,6 +105,11 @@ export const routes: IRoute[] = [
             path: "user-genders",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_USER_GENDER]} />,
             pages: userGenderRouter,
+          },
+          {
+            path: "sizes",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_SIZE]} />,
+            pages: sizeRoutes,
           },
         ],
       },
