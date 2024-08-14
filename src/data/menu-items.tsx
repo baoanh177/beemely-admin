@@ -101,6 +101,12 @@ export const menuItems: IMenuItem[] = [
         path: "user-genders",
         permissions: EPermissions.READ_USER_GENDER,
       },
+      {
+        id: "3.10",
+        label: "Size",
+        path: "sizes",
+        permissions: EPermissions.READ_SIZE,
+      },
     ],
   },
   {
