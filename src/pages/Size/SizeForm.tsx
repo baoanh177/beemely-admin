@@ -25,14 +25,13 @@ export interface ISizeFormInitialValues {
 
 const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }: ISizeFormProps) => {
   const { dispatch } = useArchive<ISizeInitialState>("size");
-
   const initialValues: ISizeFormInitialValues = {
     name: size?.name || "",
     gender: size?.gender.id || null,
   };
 
   const sizeSchema = object().shape({
-    name: string().required("Vui lòng nhập tên size"),
+    name: string().required("Vui lòng nhập tên Kích cỡ"),
     gender: string().required("Vui lòng chọn giới tính"),
   });
 
@@ -57,8 +56,8 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
           <FormInput
-            label="Tên size"
-            placeholder="Nhập tên size ở đây..."
+            label="Tên Kích cỡ"
+            placeholder="Nhập tên Kích cỡ ở đây..."
             name="name"
             value={values.name}
             error={touched.name ? errors.name : ""}

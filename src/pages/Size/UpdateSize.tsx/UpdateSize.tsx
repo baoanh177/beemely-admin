@@ -63,7 +63,7 @@ const UpdateSize = () => {
   return (
     <>
       <Heading
-        title="Cập nhật Kích thước"
+        title="Cập nhật Kích cỡ"
         hasBreadcrumb
         buttons={[
           {
