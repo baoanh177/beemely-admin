@@ -100,9 +100,11 @@ const Tags = () => {
     {
       dataIndex: "status",
       title: "Status",
-      render: (checked, record) => (
-        <FormSwitch checked={checked === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />
-      ),
+      render: (status, record) => {
+                console.log(record);
+                
+        return <FormSwitch checked={status === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />;
+    },
     },
   ];
 
