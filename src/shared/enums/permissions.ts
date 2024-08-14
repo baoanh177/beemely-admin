@@ -62,6 +62,11 @@ export enum EPermissions {
   UPDATE_USER_GENDER = "Update_UserGender",
   DELETE_USER_GENDER = "Delete_UserGender",
 
+  // ? User Voucher
+  READ_VOUCHER = "Read_Voucher",
+  CREATE_VOUCHER = "Create_Voucher",
+  UPDATE_VOUCHER = "Update_Voucher",
+  DELETE_VOUCHER = "Delete_Voucher",
   // ? Size
   READ_SIZE = "Read_Size",
   CREATE_SIZE = "Create_Size",

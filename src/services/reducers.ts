@@ -11,6 +11,7 @@ import { labelSlice } from "./store/label/label.slice";
 import { colorSlice } from "./store/color/color.slice";
 import { voucherTypeSlice } from "./store/voucherType/voucherType.slice";
 import { userGenderSlice } from "./store/userGender/userGender.slice";
+import { voucherSlice } from "./store/voucher/voucher.slice";
 import { sizeSlice } from "./store/size/size.slice";
 
 export const reducers = combineReducers({
@@ -26,6 +27,7 @@ export const reducers = combineReducers({
   color: colorSlice.reducer,
   voucherType: voucherTypeSlice.reducer,
   userGender: userGenderSlice.reducer,
+  voucher: voucherSlice.reducer,
   size: sizeSlice.reducer,
 });
 

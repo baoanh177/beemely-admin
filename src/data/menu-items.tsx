@@ -91,12 +91,18 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "3.8",
+        label: "Voucher",
+        path: "vouchers",
+        permissions: EPermissions.READ_VOUCHER,
+      },
+      {
+        id: "3.9",
         label: "Voucher-Type",
         path: "voucherTypes",
         permissions: EPermissions.READ_VOUCHER_TYPE,
       },
       {
-        id: "3.9",
+        id: "3.10",
         label: "UserGender",
         path: "user-genders",
         permissions: EPermissions.READ_USER_GENDER,
