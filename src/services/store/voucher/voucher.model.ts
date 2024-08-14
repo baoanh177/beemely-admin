@@ -1,5 +1,5 @@
 import { EActiveStatus } from "@/shared/enums/status";
-import  { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 
 export interface IVoucher {
   id: string;

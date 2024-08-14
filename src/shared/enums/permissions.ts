@@ -67,4 +67,9 @@ export enum EPermissions {
   CREATE_VOUCHER = "Create_Voucher",
   UPDATE_VOUCHER = "Update_Voucher",
   DELETE_VOUCHER = "Delete_Voucher",
+  // ? Size
+  READ_SIZE = "Read_Size",
+  CREATE_SIZE = "Create_Size",
+  UPDATE_SIZE = "Update_Size",
+  DELETE_SIZE = "Delete_Size",
 }
