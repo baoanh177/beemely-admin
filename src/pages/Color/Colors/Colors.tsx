@@ -9,6 +9,7 @@ import { deleteColor, getAllColors } from "@/services/store/color/color.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
+import { ColorPicker } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
@@ -40,6 +41,12 @@ const Colors = () => {
     {
       dataIndex: "value",
       title: "Mã màu",
+      render: (value) => (
+        <div className="flex items-center">
+          <ColorPicker value={value} disabled />
+          <span className="ml-2">{value}</span>
+        </div>
+      ),
     },
   ];
 
