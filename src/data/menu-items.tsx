@@ -108,10 +108,16 @@ export const menuItems: IMenuItem[] = [
         permissions: EPermissions.READ_USER_GENDER,
       },
       {
-        id: "3.10",
+        id: "3.11",
         label: "Size",
         path: "sizes",
         permissions: EPermissions.READ_SIZE,
+      },
+      {
+        id: "3.12",
+        label: "Payment-Type",
+        path: "payment-types",
+        permissions: EPermissions.READ_PAYMENT_TYPE,
       },
       {
         id: "3.13",
