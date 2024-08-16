@@ -17,9 +17,32 @@ import { useCallback, useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 const Vouchers = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IVoucherInitialState>("voucher");
+
+  const defaultSearch: IDefaultSearchProps = {
+    filterOptions: {
+      name: "status",
+      options: [
+        { label: "Kích hoạt", value: `${EActiveStatus.ACTIVE}` },
+        { label: "Chưa kích hoạt", value: `${EActiveStatus.INACTIVE}` },
+      ],
+      onChange: (selectedOption) => {
+        const statusValue = selectedOption.value;
+        dispatch(setFilter({ ...state.filter, status: statusValue }));
+      },
+    },
+    input: {
+      type: "text",
+      name: "name",
+      onChange: (value) => {
+        dispatch(setFilter({ ...state.filter, name: value }));
+      },
+      placeholder: "Tìm kiếm theo tên. . .",
+    },
+  };
   const handleStatusChange = useCallback(
     (checked: boolean, record: IVoucher) => {
       const updatedVoucher = {
@@ -58,24 +81,8 @@ const Vouchers = () => {
       title: "Mã giảm giá",
     },
     {
-      dataIndex: "maxUsage",
-      title: "Số lần sử dụng tối đa",
-    },
-    {
-      dataIndex: "duration",
-      title: "Thời gian hiệu lực",
-    },
-    {
-      dataIndex: "discount",
-      title: "Mức giảm giá",
-    },
-    {
       dataIndex: "discountTypes",
       title: "Loại giảm giá ",
-    },
-    {
-      dataIndex: "minimumOrderPrice",
-      title: "Giá trị đơn hàng tối thiểu",
     },
     {
       dataIndex: "voucherTypeName",
@@ -112,6 +119,13 @@ const Vouchers = () => {
   }, [state.vouchers]);
   const buttons: IGridButton[] = [
     {
+      type: EButtonTypes.VIEW,
+      onClick(record) {
+        navigate(`/vouchers/detail/${record?.key}`);
+      },
+      permission: EPermissions.DELETE_VOUCHER,
+    },
+    {
       type: EButtonTypes.UPDATE,
       onClick(record) {
         navigate(`/vouchers/update/${record?.key}`);
@@ -144,6 +158,7 @@ const Vouchers = () => {
       {
         <ManagementGrid
           isTableLoading={getAllVouchersLoading ?? true}
+          search={defaultSearch}
           pagination={{
             current: state.filter._page!,
             pageSize: state.filter._size!,
