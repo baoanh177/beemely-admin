@@ -31,7 +31,6 @@ const OrderStatusForm = ({ formikRef, type, orderStatus, isFormLoading = false }
 
   const orderStatusSchema = object().shape({
     name: string().required("Vui lòng nhập tên trạng thái đơn hàng"),
-    description: string(),
   });
 
   return (
