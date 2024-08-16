@@ -72,4 +72,9 @@ export enum EPermissions {
   CREATE_SIZE = "Create_Size",
   UPDATE_SIZE = "Update_Size",
   DELETE_SIZE = "Delete_Size",
+  // ? Payment Status
+  READ_PAYMENT_STATUS = "Read_PaymentStatus",
+  CREATE_PAYMENT_STATUS = "Create_PaymentStatus",
+  UPDATE_PAYMENT_STATUS = "Update_PaymentStatus",
+  DELETE_PAYMENT_STATUS = "Delete_PaymentStatus",
 }
