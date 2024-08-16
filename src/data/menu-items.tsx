@@ -119,6 +119,12 @@ export const menuItems: IMenuItem[] = [
         path: "payment-types",
         permissions: EPermissions.READ_PAYMENT_TYPE,
       },
+      {
+        id: "3.13",
+        label: "Payment-status",
+        path: "payment-statuses",
+        permissions: EPermissions.READ_PAYMENT_STATUS,
+      },
     ],
   },
   {

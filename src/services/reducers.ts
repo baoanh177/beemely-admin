@@ -14,6 +14,7 @@ import { userGenderSlice } from "./store/userGender/userGender.slice";
 import { voucherSlice } from "./store/voucher/voucher.slice";
 import { sizeSlice } from "./store/size/size.slice";
 import { paymentTypeSlice } from "./store/paymentType/paymentType.slice";
+import { paymentStatuslice } from "./store/paymentStatus/paymentStatus.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -31,6 +32,7 @@ export const reducers = combineReducers({
   voucher: voucherSlice.reducer,
   size: sizeSlice.reducer,
   paymentType: paymentTypeSlice.reducer,
+  paymentStatus: paymentStatuslice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;

@@ -45,7 +45,7 @@ const voucherTypeSlice = createSlice({
       })
       .addCase(createVoucherType.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createVoucherType.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -58,7 +58,7 @@ const voucherTypeSlice = createSlice({
       })
       .addCase(updateVoucherType.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateVoucherType.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -71,7 +71,7 @@ const voucherTypeSlice = createSlice({
       })
       .addCase(deleteVoucherType.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.voucherTypes = state.voucherTypes.filter((voucherType) => voucherType.id !== payload);
       })
       .addCase(deleteVoucherType.rejected, (state, { payload }: PayloadAction<any>) => {

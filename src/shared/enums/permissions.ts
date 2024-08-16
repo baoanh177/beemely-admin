@@ -79,4 +79,9 @@ export enum EPermissions {
   CREATE_PAYMENT_TYPE = "Create_PaymentType",
   UPDATE_PAYMENT_TYPE = "Update_PaymentType",
   DELETE_PAYMENT_TYPE = "Delete_PaymentType",
+  // ? Payment Status
+  READ_PAYMENT_STATUS = "Read_PaymentStatus",
+  CREATE_PAYMENT_STATUS = "Create_PaymentStatus",
+  UPDATE_PAYMENT_STATUS = "Update_PaymentStatus",
+  DELETE_PAYMENT_STATUS = "Delete_PaymentStatus",
 }
