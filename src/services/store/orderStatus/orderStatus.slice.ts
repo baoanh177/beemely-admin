@@ -44,7 +44,7 @@ const orderStatusSlice = createSlice({
       })
       .addCase(createOrderStatus.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Tạo thành công";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createOrderStatus.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
