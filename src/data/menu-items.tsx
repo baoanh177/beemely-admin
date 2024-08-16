@@ -125,6 +125,12 @@ export const menuItems: IMenuItem[] = [
         path: "payment-statuses",
         permissions: EPermissions.READ_PAYMENT_STATUS,
       },
+      {
+        id: "3.14",
+        label: "OrderStatus",
+        path: "order-statuses",
+        permissions: EPermissions.READ_ORDER_STATUS,
+      },
     ],
   },
   {

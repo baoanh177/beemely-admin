@@ -1,30 +1,31 @@
-import { ReactNode } from "react";
 import DefaultLayout from "@/layouts/Default";
-import Dashboard from "@/pages/Dashboard/Dashboard";
-import Components from "@/pages/Components/Components";
-import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
-import Products from "@/pages/Product/Products/Products";
-import Login from "@/pages/Login/Login";
-import GuestMiddleware from "@/middlewares/GuestMiddleware";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import GlobalMiddleware from "@/middlewares/GlobalMiddleware";
-import Orders from "@/pages/Order/Orders/Orders";
+import GuestMiddleware from "@/middlewares/GuestMiddleware";
+import NoPathMiddleware from "@/middlewares/NoPathMiddleware";
 import PermissionMiddleware from "@/middlewares/PermissionMiddleware";
-import { EPermissions } from "@/shared/enums/permissions";
-import { roleRoutes } from "./role.route";
-import { genderRoutes } from "./gender.route";
-import { tagRoutes } from "./tag.route";
-import { permissionRoutes } from "./permission.route";
-import { brandRoutes } from "./brand.route";
-import { labelRoutes } from "./label.router";
+import Components from "@/pages/Components/Components";
+import Dashboard from "@/pages/Dashboard/Dashboard";
 import GoogleCallback from "@/pages/GoogleCallback/GoogleCallback";
+import Login from "@/pages/Login/Login";
+import Orders from "@/pages/Order/Orders/Orders";
+import Products from "@/pages/Product/Products/Products";
+import { EPermissions } from "@/shared/enums/permissions";
+import { ReactNode } from "react";
+import { brandRoutes } from "./brand.route";
 import { colorRoutes } from "./color.router";
-import { voucherTypeRoutes } from "./voucherType.route";
+import { genderRoutes } from "./gender.route";
+import { labelRoutes } from "./label.router";
+import { permissionRoutes } from "./permission.route";
+import { roleRoutes } from "./role.route";
+import { sizeRoutes } from "./size.route";
+import { tagRoutes } from "./tag.route";
 import { userGenderRouter } from "./userGender.route";
 import { voucherRoutes } from "./voucher.route";
-import { sizeRoutes } from "./size.route";
 import { paymentTypeRoutes } from "./paymentType.route";
 import { paymentStatusRoutes } from "./paymentStatus.route";
+import { voucherTypeRoutes } from "./voucherType.route";
+import { orderStatusRoutes } from "./orderStatus";
 
 export interface IRoute {
   path: string;
@@ -128,6 +129,11 @@ export const routes: IRoute[] = [
             path: "payment-statuses",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PAYMENT_STATUS]} />,
             pages: paymentStatusRoutes,
+          },
+          {
+            path: "order-statuses",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ORDER_STATUS]} />,
+            pages: orderStatusRoutes,
           },
         ],
       },

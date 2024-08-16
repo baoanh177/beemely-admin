@@ -84,4 +84,10 @@ export enum EPermissions {
   CREATE_PAYMENT_STATUS = "Create_PaymentStatus",
   UPDATE_PAYMENT_STATUS = "Update_PaymentStatus",
   DELETE_PAYMENT_STATUS = "Delete_PaymentStatus",
+
+  // ? Order Status
+  READ_ORDER_STATUS = "Read_OrderStatus",
+  CREATE_ORDER_STATUS = "Create_OrderStatus",
+  UPDATE_ORDER_STATUS = "Update_OrderStatus",
+  DELETE_ORDER_STATUS = "Delete_OrderStatus",
 }
