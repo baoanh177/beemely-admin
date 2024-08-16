@@ -19,7 +19,7 @@ import { IVoucherType } from "@/services/store/voucherType/voucherType.model";
 
 interface IVoucherFormProps {
   formikRef?: FormikRefType<IVoucherFormInitialValues>;
-  type: "create" | "update";
+  type: "create" | "update" | "view";
   voucher?: IVoucher;
   isFormLoading?: boolean;
 }
@@ -95,6 +95,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
         return (
           <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
             <FormInput
+              isDisabled={type === "view"}
               label="Tên mã giảm giá"
               placeholder="Nhập tên mã giảm giá ở đây..."
               name="name"
@@ -104,6 +105,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               onBlur={handleBlur}
             />
             <FormInput
+              isDisabled={type === "view"}
               label="Mã giảm giá"
               placeholder="Nhập mã giảm giá ở đây..."
               name="code"
@@ -113,6 +115,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               onBlur={handleBlur}
             />
             <FormInput
+              isDisabled={type === "view"}
               label="Số lần sử dụng tối đa"
               placeholder="Nhập số lần sử dụng tối đa..."
               name="maxUsage"
@@ -123,6 +126,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               type="number"
             />
             <FormInput
+              isDisabled={type === "view"}
               label="Thời gian hiệu lực"
               placeholder="Nhập thời gian hiệu lực..."
               name="duration"
@@ -133,6 +137,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               type="number"
             />
             <FormInput
+              isDisabled={type === "view"}
               label="Mức giảm giá"
               placeholder="Nhập mức giảm giá..."
               name="discount"
@@ -143,6 +148,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               type="number"
             />
             <FormSelect
+              isDisabled={type === "view"}
               label="Loại giảm giá"
               placeholder="Chọn loại giảm giá..."
               options={[
@@ -154,6 +160,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               onChange={(value) => setFieldValue("discountTypes", value)}
             />
             <FormInput
+              isDisabled={type === "view"}
               label="Giá trị đơn hàng tối thiểu"
               placeholder="Nhập giá trị đơn hàng tối thiểu..."
               name="minimumOrderPrice"
@@ -164,6 +171,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               type="number"
             />
             <FormSelect
+              isDisabled={type === "view"}
               label="Loại mã giảm giá"
               placeholder="Chọn loại mã giảm giá..."
               options={voucherTypeOptions}
@@ -176,6 +184,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               }}
             />
             <FormDateRangePicker
+              disabled={type === "view"}
               label="Ngày bắt đầu và kết thúc"
               value={[values.startDate, values.endDate]}
               onChange={(dates) => {
