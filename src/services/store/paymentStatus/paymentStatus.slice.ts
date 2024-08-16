@@ -50,7 +50,7 @@ const paymentStatuslice = createSlice({
       })
       .addCase(createPaymentStatus.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Tạo mơi thành công";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createPaymentStatus.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
