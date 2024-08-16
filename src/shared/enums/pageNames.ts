@@ -17,4 +17,5 @@ export enum EPageNames {
   userGender = "Giới tính người dùng",
   vouchers = "Mã giảm giá",
   sizes = "Kích cỡ",
+  "payment-types" = "Loại thanh toán",
 }

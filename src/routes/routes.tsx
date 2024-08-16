@@ -23,6 +23,7 @@ import { voucherTypeRoutes } from "./voucherType.route";
 import { userGenderRouter } from "./userGender.route";
 import { voucherRoutes } from "./voucher.route";
 import { sizeRoutes } from "./size.route";
+import { paymentTypeRoutes } from "./paymentType.route";
 
 export interface IRoute {
   path: string;
@@ -116,6 +117,11 @@ export const routes: IRoute[] = [
             path: "sizes",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_SIZE]} />,
             pages: sizeRoutes,
+          },
+          {
+            path: "payment-types",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PAYMENT_TYPE]} />,
+            pages: paymentTypeRoutes,
           },
         ],
       },
