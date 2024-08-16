@@ -4,16 +4,16 @@ import CreatePaymentStatus from "@/pages/PaymentStatus/CreatePaymentStatus/Creat
 import UpdatePaymentStatus from "@/pages/PaymentStatus/UpdatePaymentStatus/UpdatePaymentStatus";
 
 export const paymentStatusRoutes: IRoute[] = [
-    {
-        path: "/",
-        element: () => <PaymentStatus />,
-    },
-    {
-        path: "/create",
-        element: () => <CreatePaymentStatus />,
-    },
-    {
-        path: "/update/:id",
-        element: () => <UpdatePaymentStatus />,
-    },
+  {
+    path: "/",
+    element: () => <PaymentStatus />,
+  },
+  {
+    path: "/create",
+    element: () => <CreatePaymentStatus />,
+  },
+  {
+    path: "/update/:id",
+    element: () => <UpdatePaymentStatus />,
+  },
 ];

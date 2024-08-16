@@ -50,7 +50,7 @@ const paymentStatuslice = createSlice({
       })
       .addCase(createPaymentStatus.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mơi thành công";
       })
       .addCase(createPaymentStatus.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -63,7 +63,7 @@ const paymentStatuslice = createSlice({
       })
       .addCase(updatePaymentStatus.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updatePaymentStatus.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -76,7 +76,7 @@ const paymentStatuslice = createSlice({
       })
       .addCase(deletePaymentStatus.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.paymentStatuses = state.paymentStatuses.filter((paymentStatus) => paymentStatus.id !== payload);
       })
       .addCase(deletePaymentStatus.rejected, (state, { payload }: PayloadAction<any>) => {

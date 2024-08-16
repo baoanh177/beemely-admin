@@ -30,7 +30,7 @@ export const reducers = combineReducers({
   userGender: userGenderSlice.reducer,
   voucher: voucherSlice.reducer,
   size: sizeSlice.reducer,
-  paymentStatus: paymentStatuslice.reducer
+  paymentStatus: paymentStatuslice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;
