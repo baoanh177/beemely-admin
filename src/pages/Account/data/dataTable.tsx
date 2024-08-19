@@ -85,7 +85,7 @@ export const getAccountsData = (accounts: IAccount[], currentUser: IUserProfile)
     const isCurrentUser = acc.id === currentUser.id
     return {
       key: acc.id,
-      info: <ImageTable title={acc.userName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : "Không rõ"} />,
+      info: <ImageTable title={acc.fullName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : "Không rõ"} />,
       email: acc.email,
       phone: acc.phone,
       roles: acc.roles.map((role, index) => <div key={index}>{role.name}</div>),
