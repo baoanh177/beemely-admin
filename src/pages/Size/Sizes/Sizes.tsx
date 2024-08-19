@@ -66,7 +66,7 @@ const Sizes = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteSize(record.key));
+        dispatch(deleteSize({ param: record.key }));
       },
       permission: EPermissions.DELETE_SIZE,
     },
@@ -90,7 +90,7 @@ const Sizes = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllSizesLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

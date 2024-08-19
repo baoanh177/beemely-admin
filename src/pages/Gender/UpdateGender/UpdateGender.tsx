@@ -30,7 +30,7 @@ const UpdateGender = () => {
     },
   });
 
-  const { getGenderByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getGenderById(id)), "getGenderByIdLoading"), [id]);
+  const { getGenderByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getGenderById({ param: id })), "getGenderByIdLoading"), [id]);
 
   useEffect(() => {
     if (state.activeGender) {

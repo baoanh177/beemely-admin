@@ -90,4 +90,10 @@ export enum EPermissions {
   CREATE_ORDER_STATUS = "Create_OrderStatus",
   UPDATE_ORDER_STATUS = "Update_OrderStatus",
   DELETE_ORDER_STATUS = "Delete_OrderStatus",
+  
+  // ? Account
+  READ_ACCOUNT = "Read_User",
+  CREATE_ACCOUNT = "Create_User",
+  UPDATE_ACCOUNT = "Update_User",
+  DELETE_ACCOUNT = "Delete_User",
 }

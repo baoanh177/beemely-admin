@@ -162,7 +162,7 @@ const SecondaryTable: React.FC<SecondaryTableProps> = ({
             dispatch(
               setFilter({
                 _page: newPagination.current,
-                _size: newPagination.pageSize,
+                _limit: newPagination.pageSize,
               }),
             );
           }}

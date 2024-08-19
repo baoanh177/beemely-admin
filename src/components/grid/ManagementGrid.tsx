@@ -26,7 +26,11 @@ export interface IGridProps {
 const ManagementGrid = ({ advancedSearch, columns, data, search, buttons, pagination, isTableLoading, setFilter }: IGridProps) => {
   const renderColumns = useMemo(() => {
     return buttons?.some(
-      (button) => button.type === EButtonTypes.VIEW || button.type === EButtonTypes.UPDATE || button.type === EButtonTypes.DELETE,
+      (button) =>
+        button.type === EButtonTypes.VIEW ||
+        button.type === EButtonTypes.UPDATE ||
+        button.type === EButtonTypes.DELETE ||
+        button.type === EButtonTypes.ACTIVE,
     )
       ? ([
           ...columns,
@@ -38,7 +42,7 @@ const ManagementGrid = ({ advancedSearch, columns, data, search, buttons, pagina
             fixed: "right",
             align: "center",
             render(_, record) {
-              return <GridButtons buttons={buttons} record={record} />;
+              return <GridButtons buttons={buttons} record={record} hides={record?.actions?.hides ?? []}/>;
             },
           },
         ] as TableColumnsType)

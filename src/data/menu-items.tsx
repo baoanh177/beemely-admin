@@ -19,7 +19,7 @@ export interface IMenuItem {
 export const menuItems: IMenuItem[] = [
   {
     id: "1",
-    label: "Dashboard",
+    label: "Bảng điều khiển",
     path: "dashboard",
     icon: { component: IoPieChartOutline },
   },
@@ -30,32 +30,62 @@ export const menuItems: IMenuItem[] = [
     items: [
       {
         id: "2.3",
-        label: "Orders",
+        label: "Đơn hàng",
         path: "orders",
         permissions: EPermissions.READ_ORDER,
       },
       {
         id: "2.1",
-        label: "Products",
+        label: "Sản phẩm",
         path: "products",
         permissions: EPermissions.READ_PRODUCT,
+      },
+      {
+        id: "2.2",
+        label: "Thẻ",
+        path: "tags",
+        permissions: EPermissions.READ_TAG,
+      },
+      {
+        id: "2.3",
+        label: "Giới tính",
+        path: "genders",
+        permissions: EPermissions.READ_GENDER,
+      },
+      {
+        id: "2.4",
+        label: "Thương hiệu",
+        path: "brands",
+        permissions: EPermissions.READ_BRAND,
+      },
+      {
+        id: "2.5",
+        label: "Nhãn",
+        path: "labels",
+        permissions: EPermissions.READ_LABEL,
       },
     ],
   },
   {
     id: "3",
-    label: "System",
+    label: "Hệ thống",
     icon: { component: IoSettingsOutline },
     items: [
       {
         id: "3.1",
-        label: "Roles",
+        label: "Tài khoản",
+        path: "accounts",
+        permissions: EPermissions.READ_ACCOUNT,
+      },
+      {
+        id: "3.2",
+        label: "Vai trò",
         path: "roles",
         permissions: EPermissions.READ_ROLE,
       },
       {
-        id: "3.2",
-        label: "Permissions",
+        id: "3.3",
+        label: "Quyền",
         path: "permissions",
         permissions: EPermissions.READ_PERMISSION,
       },

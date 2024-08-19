@@ -71,7 +71,7 @@ const Brands = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteBrand(record.key));
+        dispatch(deleteBrand({ param: record.key }));
       },
       permission: EPermissions.DELETE_BRAND,
     },
@@ -95,7 +95,7 @@ const Brands = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllBrandsLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

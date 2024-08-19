@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useState, useRef } from "react";
 import { IconType } from "react-icons";
+import Label from "./Label";
 
 export interface IFormInputProps {
   label?: string;
@@ -17,6 +18,7 @@ export interface IFormInputProps {
   error?: string;
   onChange?: (value: string | number) => void;
   className?: string;
+  isRequired?: boolean
 }
 
 const FormInput = ({
@@ -34,6 +36,7 @@ const FormInput = ({
   onChange,
   autoFocus,
   className,
+  isRequired = false
 }: IFormInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -61,7 +64,7 @@ const FormInput = ({
 
   return (
     <div className="flex flex-col gap-1">
-      {label && <label className="text-m-medium text-black-300">{label}</label>}
+      {label && <Label text={label} isRequired={isRequired}/>}
       <div
         className={clsx(
           "flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25",

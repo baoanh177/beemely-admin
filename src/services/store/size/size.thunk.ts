@@ -20,9 +20,9 @@ export const getAllSizes = createAsyncThunk("size/get-all-sizes", async (payload
   }
 });
 
-export const getSizeById = createAsyncThunk("size/get-size-by-id", async (id: string, { rejectWithValue }) => {
+export const getSizeById = createAsyncThunk("size/get-size-by-id", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<ISize>(prefix + `/${id}`);
+    const { response, data } = await client.get<ISize>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -41,17 +41,17 @@ export const createSize = createAsyncThunk("size/create-size", async (payload: I
 
 export const updateSize = createAsyncThunk("size/update-size", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<ISize>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<ISize>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteSize = createAsyncThunk("size/delete-size", async (id: string, { rejectWithValue }) => {
+export const deleteSize = createAsyncThunk("size/delete-size", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete(`${prefix}/${id}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
+    const { response, data } = await client.delete(prefix, payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

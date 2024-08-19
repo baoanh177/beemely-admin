@@ -7,15 +7,18 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { useArchive } from "@/hooks/useArchive";
 import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 import { checkPermission } from "@/utils/checkPermission";
+import { GoLock, GoUnlock } from "react-icons/go";
+import { EActiveStatus } from "@/shared/enums/status";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
   record: { key: string; [key: string]: any };
+  hides: Record<EButtonTypes, boolean>;
 }
 
 const { confirm } = Modal;
 
-const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
+const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
   const { state } = useArchive<IAuthInitialState>("auth");
   return (
     <div className="flex items-center justify-center gap-3">
@@ -24,33 +27,67 @@ const GridButtons = ({ buttons, record }: IGridButtonsProps) => {
         if (button.permission) {
           canAccess = checkPermission(state.profile?.listNamePermission, button.permission);
         }
+
+        const canDisplay = canAccess && !(hides[button.type] ?? false);
+
         switch (button.type) {
+          case EButtonTypes.ACTIVE:
+            return (
+              canDisplay &&
+              (record.status === EActiveStatus.ACTIVE ? (
+                <Tooltip title="Bỏ kích hoạt?" key={index}>
+                  <GoUnlock
+                    className="cursor-pointer text-xl text-green-500"
+                    onClick={() => {
+                      confirm({
+                        title: "Bỏ kích hoạt",
+                        content: "Bạn có chắc chắn muốn bỏ kích hoạt bản ghi này?",
+                        onOk: () => button.onClick(record),
+                      });
+                    }}
+                  />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Kích hoạt?" key={index}>
+                  <GoLock
+                    className="cursor-pointer text-xl text-red-500"
+                    onClick={() => {
+                      confirm({
+                        title: "Kích hoạt",
+                        content: "Bạn có chắc chắn muốn kích hoạt bản ghi này?",
+                        onOk: () => button.onClick(record),
+                      });
+                    }}
+                  />
+                </Tooltip>
+              ))
+            );
           case EButtonTypes.VIEW:
             return (
-              canAccess && (
-                <Tooltip title="View" key={index}>
+              canDisplay && (
+                <Tooltip title="Xem chi tiết" key={index}>
                   <IoEyeOutline className="cursor-pointer text-xl text-blue-500" onClick={() => button.onClick(record)} />
                 </Tooltip>
               )
             );
           case EButtonTypes.UPDATE:
             return (
-              canAccess && (
-                <Tooltip title="Edit" key={index}>
+              canDisplay && (
+                <Tooltip title="Cập nhật" key={index}>
                   <HiOutlinePencil className="cursor-pointer text-xl text-yellow-500" onClick={() => button.onClick(record)} />
                 </Tooltip>
               )
             );
           case EButtonTypes.DELETE:
             return (
-              canAccess && (
-                <Tooltip title="Delete" key={index}>
+              canDisplay && (
+                <Tooltip title="Xóa" key={index}>
                   <IoTrashBinOutline
                     className="cursor-pointer text-xl text-red-500"
                     onClick={() => {
                       confirm({
-                        title: "Delete",
-                        content: "Are you sure you want to delete this record?",
+                        title: "Xóa bản ghi?",
+                        content: "Bạn có chắc chắn muốn xóa bản ghi này, sau khi xóa sẽ không thể khôi phục!",
                         onOk: () => button.onClick(record),
                       });
                     }}

@@ -20,4 +20,5 @@ export enum EPageNames {
   "payment-types" = "Loại thanh toán",
   "payment-statuses" = "Trạng thái thanh toán",
   "order-statuses" = "Trạng thái đơn hàng",
+  accounts = "Tài khoản",
 }

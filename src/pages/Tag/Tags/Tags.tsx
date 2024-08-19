@@ -118,7 +118,7 @@ const Tags = () => {
     },
     {
       type: EButtonTypes.DELETE,
-      onClick: (record) => dispatch(deleteTag(record?.key)),
+      onClick: (record) => dispatch(deleteTag({ param: record.key })),
       permission: EPermissions.DELETE_TAG,
     },
   ];

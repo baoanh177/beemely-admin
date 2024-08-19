@@ -42,7 +42,7 @@ const Roles = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteRole(record?.key));
+        dispatch(deleteRole({ param: record.key }));
       },
       permission: EPermissions.DELETE_ROLE,
     },
@@ -101,7 +101,7 @@ const Roles = () => {
         buttons={buttons}
         pagination={{
           current: state.filter._page ?? 1,
-          pageSize: state.filter._size ?? 10,
+          pageSize: state.filter._limit ?? 10,
           total: state.totalRecords,
         }}
         setFilter={setFilter}

@@ -72,7 +72,7 @@ const Colors = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteColor(record.key));
+        dispatch(deleteColor({ param: record.key }));
       },
       permission: EPermissions.DELETE_COLOR,
     },
@@ -96,7 +96,7 @@ const Colors = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllColorsLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

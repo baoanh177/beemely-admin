@@ -30,7 +30,7 @@ const UpdateColor = () => {
     },
   });
 
-  const { getColorByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getColorById(id)), "getColorByIdLoading"), [id]);
+  const { getColorByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getColorById({ param: id })), "getColorByIdLoading"), [id]);
 
   useEffect(() => {
     if (state.activeColor) {

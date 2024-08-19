@@ -104,8 +104,8 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
   );
 
   return (
-    <div>
-      <div>{label}</div>
+    <div className="flex flex-col gap-1">
+      {label && <label className="text-m-medium text-black-300">{label}</label>}
       <Spin indicator={<LoadingOutlined spin />} className="text-primary-300" size="large" spinning={isLoading}>
         <div className="custom-upload flex h-[260px] items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
           <div className="flex-col items-center gap-4">

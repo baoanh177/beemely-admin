@@ -1,7 +1,7 @@
 import { ITag } from "@/services/store/tag/tag.model";
 import lodash from "lodash";
 
-interface ITreeTag extends Omit<ITag, "parentId"> {
+export interface ITreeTag extends Omit<ITag, "parentId"> {
   children: ITreeTag[];
   key?: string;
   parentId?: string | null;

@@ -32,7 +32,7 @@ const UpdateRole = () => {
     },
   });
 
-  const { getRoleByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getRoleById(id)), "getRoleByIdLoading"), [id]);
+  const { getRoleByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getRoleById({ param: id })), "getRoleByIdLoading"), [id]);
 
   useEffect(() => {
     if (state.activeRole && formikRef.current) {

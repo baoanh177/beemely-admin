@@ -21,9 +21,9 @@ export const getAllBrands = createAsyncThunk("brand/get-all-brands", async (payl
   }
 });
 
-export const getBrandById = createAsyncThunk("brand/get-brand-by-id", async (id: string, { rejectWithValue }) => {
+export const getBrandById = createAsyncThunk("brand/get-brand-by-id", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IBrand>(prefix + `/${id}`);
+    const { response, data } = await client.get<IBrand>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -41,17 +41,17 @@ export const createBrand = createAsyncThunk("brand/create-brand", async (payload
 
 export const updateBrand = createAsyncThunk("brand/update-brand", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<IBrand>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<IBrand>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteBrand = createAsyncThunk("brand/delete-brand", async (id: string, { rejectWithValue }) => {
+export const deleteBrand = createAsyncThunk("brand/delete-brand", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete(`${prefix}/${id}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
+    const { response, data } = await client.delete(prefix, payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

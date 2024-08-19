@@ -16,7 +16,7 @@ const initialState: IPermissionInitialState = {
   message: "",
   filter: {
     _page: 1,
-    _size: 10,
+    _limit: 10,
   },
   totalRecords: 0,
   permissions: [],

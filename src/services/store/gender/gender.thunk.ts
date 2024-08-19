@@ -19,9 +19,9 @@ export const getAllGenders = createAsyncThunk("gender/get-all-genders", async (p
   }
 });
 
-export const getGenderById = createAsyncThunk("gender/get-gender-by-id", async (id: string, { rejectWithValue }) => {
+export const getGenderById = createAsyncThunk("gender/get-gender-by-id", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IGender>(`${prefix}/${id}`);
+    const { response, data } = await client.get<IGender>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -39,17 +39,17 @@ export const createGender = createAsyncThunk("gender/create-gender", async (payl
 
 export const updateGender = createAsyncThunk("gender/update-gender", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<IGender[]>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<IGender[]>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteGender = createAsyncThunk("gender/delete-gender", async (id: string, { rejectWithValue }) => {
+export const deleteGender = createAsyncThunk("gender/delete-gender", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete(`${prefix}/${id}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
+    const { response, data } = await client.delete(prefix, payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

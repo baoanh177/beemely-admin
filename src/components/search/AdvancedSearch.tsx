@@ -48,7 +48,7 @@ const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
             label={field.label}
           />
         );
-      case "check":
+      case "checkbox":
         return (
           <FormCheck
             key={fieldKey}
