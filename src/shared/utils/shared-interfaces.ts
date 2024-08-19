@@ -22,7 +22,7 @@ export interface IThunkPayload {
 
 export interface ISearchParams {
   _page?: number;
-  _size?: number;
+  _limit?: number;
   [key: string]: unknown;
 }
 
@@ -54,4 +54,5 @@ export interface IGridButton {
   type: EButtonTypes;
   onClick: (record: { key: string; [key: string]: any }) => unknown;
   permission?: EPermissions;
+  isHidden?: boolean
 }

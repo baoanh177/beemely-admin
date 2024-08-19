@@ -52,7 +52,7 @@ const Permissions = () => {
       type: EButtonTypes.DELETE,
       permission: EPermissions.DELETE_PERMISSION,
       onClick(record) {
-        dispatch(deletePermission(record.key));
+        dispatch(deletePermission({ param: record.key }));
       },
     },
   ];
@@ -117,7 +117,7 @@ const Permissions = () => {
         search={defaultSearch}
         pagination={{
           current: state.filter._page!,
-          pageSize: state.filter._size!,
+          pageSize: state.filter._limit!,
           total: state.totalRecords,
         }}
         setFilter={setFilter}

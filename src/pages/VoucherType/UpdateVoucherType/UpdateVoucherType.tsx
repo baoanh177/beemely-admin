@@ -31,7 +31,7 @@ const UpdateVoucherType = () => {
   });
 
   const { getVoucherTypeByIdLoading } = useAsyncEffect(
-    (async) => id && async(dispatch(getVoucherTypeByid(id)), "getVoucherTypeByIdLoading"),
+    (async) => id && async(dispatch(getVoucherTypeByid({ param: id })), "getVoucherTypeByIdLoading"),
     [id],
   );
 

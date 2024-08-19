@@ -31,7 +31,7 @@ const UpdatePaymentType = () => {
   });
 
   const { getPaymentTypeByIdLoading } = useAsyncEffect(
-    (async) => id && async(dispatch(getPaymentTypeById(id)), "getPaymentTypeByIdLoading"),
+    (async) => id && async(dispatch(getPaymentTypeById({ param: id })), "getPaymentTypeByIdLoading"),
     [id],
   );
 

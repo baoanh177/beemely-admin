@@ -33,7 +33,7 @@ const UpdateSize = () => {
     },
   });
 
-  const { getSizeByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getSizeById(id)), "getSizeByIdLoading"), [id]);
+  const { getSizeByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getSizeById({ param: id })), "getSizeByIdLoading"), [id]);
 
   useEffect(() => {
     dispatch(getAllSizes({}));

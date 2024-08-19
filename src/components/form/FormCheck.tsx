@@ -1,21 +1,18 @@
-import { Checkbox, ConfigProvider } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { Checkbox, ConfigProvider, Radio } from "antd";
 import clsx from "clsx";
 
 export interface FormCheckProps {
+  type?: "checkbox" | "radio";
   label?: string;
   onChange?: (isDefaultChecked: boolean) => void;
   isDefaultChecked?: boolean;
   isDisable?: boolean;
+  checked?: boolean;
+  value?: string;
   name?: string;
 }
 false;
-const FormCheck = ({ label, onChange, isDefaultChecked, name, isDisable }: FormCheckProps) => {
-  const handleChange = (e: CheckboxChangeEvent) => {
-    if (onChange) {
-      onChange(e.target.checked);
-    }
-  };
+const FormCheck = ({ type = "checkbox", label, onChange, checked, value, isDefaultChecked, name, isDisable }: FormCheckProps) => {
 
   return (
     <ConfigProvider
@@ -24,20 +21,35 @@ const FormCheck = ({ label, onChange, isDefaultChecked, name, isDisable }: FormC
           colorPrimary: "#883DCF",
           colorTextDisabled: "#fff",
           colorBgContainerDisabled: "#fff",
-          colorBorder: "#883DCF",
         },
       }}
     >
-      <div className={clsx("mb-4 flex items-center gap-2", isDisable && "opacity-65")}>
-        <Checkbox
-          name={name}
-          defaultChecked={isDefaultChecked}
-          disabled={isDisable}
-          type="checkbox"
-          onChange={(e) => !isDisable && handleChange(e)}
-          className="rounded-md"
-        />
-        {label && <label className="text-m-semibold text-primary-500">{label}</label>}
+      <div className={clsx("flex items-center gap-2", isDisable && "opacity-65")}>
+        {type === "checkbox" ? (
+          <Checkbox
+            name={name}
+            defaultChecked={isDefaultChecked}
+            checked={checked}
+            value={value}
+            disabled={isDisable}
+            onChange={(e) => {
+              if (!isDisable && onChange) onChange(e.target.checked);
+            }}
+            className="rounded-md"
+          />
+        ) : (
+          <Radio
+            name={name}
+            checked={checked}
+            value={value}
+            defaultChecked={isDefaultChecked}
+            disabled={isDisable}
+            onChange={(e) => {
+              if (!isDisable && onChange) onChange(e.target.checked);
+            }}
+          />
+        )}
+        {label && <label className="text-m-medium text-black-300">{label}</label>}
       </div>
     </ConfigProvider>
   );

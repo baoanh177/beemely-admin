@@ -61,7 +61,7 @@ const AdvancedSearchSecondary = ({ advanced }: IAdvancedSearchSecondaryProps) =>
             label={field.label}
           />
         );
-      case "check":
+      case "checkbox":
         return (
           <FormCheck
             key={fieldKey}

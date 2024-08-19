@@ -24,9 +24,9 @@ export const getAllTags = createAsyncThunk("tag/get-all-tags", async (payload: I
   }
 });
 
-export const getTagById = createAsyncThunk("tag/get-tag-by-id", async (id: string, { rejectWithValue }) => {
+export const getTagById = createAsyncThunk("tag/get-tag-by-id", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<ITag>(prefix + `/${id}`);
+    const { response, data } = await client.get<ITag>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -44,17 +44,17 @@ export const createTag = createAsyncThunk("tag/create-tag", async (payload: IThu
 
 export const updateTag = createAsyncThunk("tag/update-tag", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<ITag[]>(`${prefix}/${payload.param}`, payload); // ! ITag[]
+    const { response, data } = await client.patch<ITag[]>(prefix, payload); // ! ITag[]
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteTag = createAsyncThunk("tag/delete-tag", async (id: string, { rejectWithValue }) => {
+export const deleteTag = createAsyncThunk("tag/delete-tag", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete(`${prefix}/${id}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
+    const { response, data } = await client.delete(prefix, payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

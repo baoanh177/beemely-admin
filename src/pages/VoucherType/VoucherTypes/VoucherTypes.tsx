@@ -60,7 +60,7 @@ const VoucherTypes = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteVoucherType(record.key));
+        dispatch(deleteVoucherType({ param: record.key }));
       },
       permission: EPermissions.DELETE_VOUCHER_TYPE,
     },
@@ -84,7 +84,7 @@ const VoucherTypes = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllVoucherTypesLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

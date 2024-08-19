@@ -17,8 +17,8 @@ const initialState: ITagInitialState = {
   activeTag: undefined,
   totalRecords: 0,
   filter: {
-    size: 10,
-    page: 1,
+    _limit: 10,
+    _page: 1,
   },
 };
 

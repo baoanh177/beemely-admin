@@ -29,9 +29,9 @@ export const getAllVouchers = createAsyncThunk("voucher/getAllVouchers", async (
   }
 });
 
-export const getVoucherById = createAsyncThunk("voucher/getVoucherById", async (id: string, { rejectWithValue }) => {
+export const getVoucherById = createAsyncThunk("voucher/getVoucherById", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IVoucher>(`${prefix}/${id}`);
+    const { response, data } = await client.get<IVoucher>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -49,17 +49,17 @@ export const createVoucher = createAsyncThunk("voucher/createVoucher", async (pa
 
 export const updateVoucher = createAsyncThunk("voucher/updateVoucher", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<IVoucher>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<IVoucher>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteVoucher = createAsyncThunk("voucher/deleteVoucher", async (id: string, { rejectWithValue }) => {
+export const deleteVoucher = createAsyncThunk("voucher/deleteVoucher", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete(`${prefix}/${id}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
+    const { response, data } = await client.delete(prefix, payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

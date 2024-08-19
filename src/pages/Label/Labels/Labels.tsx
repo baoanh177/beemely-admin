@@ -108,7 +108,7 @@ const Labels = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteLabel(record?.key));
+        dispatch(deleteLabel({ param: record.key }));
       },
       permission: EPermissions.DELETE_LABEL,
     },
@@ -133,7 +133,7 @@ const Labels = () => {
           isTableLoading={getAllLabelsLoading ?? true}
           pagination={{
             current: state.filter._page!,
-            pageSize: state.filter._size!,
+            pageSize: state.filter._limit!,
             total: state.totalRecords,
           }}
           columns={columns}

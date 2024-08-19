@@ -19,9 +19,9 @@ export const getAllVoucherTypes = createAsyncThunk("voucher-types/getAllVoucherT
   }
 });
 
-export const getVoucherTypeByid = createAsyncThunk("voucher-types/getVoucherTypeByid", async (id: string, { rejectWithValue }) => {
+export const getVoucherTypeByid = createAsyncThunk("voucher-types/getVoucherTypeByid", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IVoucherType>(`${prefix}/${id}`);
+    const { response, data } = await client.get<IVoucherType>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -39,17 +39,17 @@ export const createVoucherType = createAsyncThunk("voucher-types/createVoucherTy
 
 export const updateVoucherType = createAsyncThunk("voucher-types/updateVoucherType", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<IVoucherType>(`${prefix}/${payload.param}`, payload);
+    const { response, data } = await client.patch<IVoucherType>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteVoucherType = createAsyncThunk("voucher-types/deleteVoucherType", async (id: string, { rejectWithValue }) => {
+export const deleteVoucherType = createAsyncThunk("voucher-types/deleteVoucherType", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.delete(`${prefix}/${id}`);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : id;
+    const { response, data } = await client.delete(prefix, payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

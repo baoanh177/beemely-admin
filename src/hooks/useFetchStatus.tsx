@@ -32,11 +32,15 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
     if (!messages) return;
     if (typeof messages === "object") {
       Object.keys(messages).forEach((key) => {
+        if (type === "pending") {
+          return toast(messages[key]);
+        }
         // @ts-ignore
         toast[type](messages[key]);
       });
       return;
     }
+    if (type === "pending") return toast(messages)
     // @ts-ignore
     toast[type](messages);
   };

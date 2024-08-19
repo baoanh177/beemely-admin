@@ -65,7 +65,7 @@ const UserGenders = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteUserGender(record.key));
+        dispatch(deleteUserGender({ param: record.key }));
       },
       permission: EPermissions.DELETE_USER_GENDER,
     },
@@ -89,7 +89,7 @@ const UserGenders = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllUserGendersLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

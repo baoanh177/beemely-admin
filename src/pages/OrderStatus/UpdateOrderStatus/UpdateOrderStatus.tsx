@@ -32,7 +32,7 @@ const UpdateOrderStatus = () => {
   });
 
   const { getOrderStatusByIdLoading } = useAsyncEffect(
-    (async) => id && async(dispatch(getOrderStatusById(id)), "getOrderStatusByIdLoading"),
+    (async) => id && async(dispatch(getOrderStatusById({ param: id })), "getOrderStatusByIdLoading"),
     [id],
   );
 

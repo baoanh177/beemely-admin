@@ -11,7 +11,7 @@ export interface IFormSwitchProps {
   checked?: boolean;
 }
 
-const FormSwitch = ({ checkedText, checked, uncheckedText, idDisabled, label, onChange }: IFormSwitchProps) => {
+const FormSwitch = ({ checkedText, uncheckedText, checked, idDisabled, label, onChange }: IFormSwitchProps) => {
   return (
     <ConfigProvider
       theme={{

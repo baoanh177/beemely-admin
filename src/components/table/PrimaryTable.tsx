@@ -34,7 +34,7 @@ export interface SwitchField extends IFormSwitchProps {
   type: "switch";
 }
 export interface CheckField extends FormCheckProps {
-  type: "check";
+  type: "checkbox";
 }
 export type IAdvancedSearch = Array<TextNumberField | DateField | StatusField | SwitchField | CheckField>;
 export interface ISearchTable {
@@ -101,7 +101,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
               dispatch(
                 setFilter({
                   _page: newPagination.current,
-                  _size: newPagination.pageSize,
+                  _limit: newPagination.pageSize,
                 }),
               );
             }}

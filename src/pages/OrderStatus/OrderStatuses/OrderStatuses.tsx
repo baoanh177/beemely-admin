@@ -65,7 +65,7 @@ const OrderStatuses = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteOrderStatus(record.key));
+        dispatch(deleteOrderStatus({ param: record.key }));
       },
       permission: EPermissions.DELETE_ORDER_STATUS,
     },
@@ -89,7 +89,7 @@ const OrderStatuses = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllOrderStatusesLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

@@ -26,6 +26,7 @@ import { paymentTypeRoutes } from "./paymentType.route";
 import { paymentStatusRoutes } from "./paymentStatus.route";
 import { voucherTypeRoutes } from "./voucherType.route";
 import { orderStatusRoutes } from "./orderStatus";
+import { accountRoutes } from "./account.route";
 
 export interface IRoute {
   path: string;
@@ -134,6 +135,11 @@ export const routes: IRoute[] = [
             path: "order-statuses",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ORDER_STATUS]} />,
             pages: orderStatusRoutes,
+          },
+          {
+            path: "accounts",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ACCOUNT]} />,
+            pages: accountRoutes,
           },
         ],
       },

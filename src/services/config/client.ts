@@ -25,7 +25,9 @@ export const client = {
     method: MethodType = "GET",
     payload: IThunkPayload = {},
   ): Promise<ClientReturnType<IResponse<MetaDataType>>> {
-    const { headers = {}, body, query = {} } = payload;
+    const { headers = {}, body, query = {}, param } = payload;
+
+    const completedPath = param ? `${path}/${param}` : path
 
     let queryParams = new URLSearchParams(query as Record<string, string>).toString();
     if (queryParams) queryParams = `?${queryParams}`;
@@ -45,7 +47,7 @@ export const client = {
       headers,
     });
 
-    const response = await fetch(`${this.SERVER_URL}${path}${queryParams}`, options);
+    const response = await fetch(`${this.SERVER_URL}${completedPath}${queryParams}`, options);
     const data: IResponse<MetaDataType> = await response.json();
     if (!response.ok) {
       return await interceptor<MetaDataType>({
@@ -53,7 +55,7 @@ export const client = {
         data,
         response,
         sendOptions: {
-          path,
+          path: completedPath,
           method,
           payload,
         },

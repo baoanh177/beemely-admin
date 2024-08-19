@@ -60,7 +60,7 @@ const PaymentStatus = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deletePaymentStatus(record.key));
+        dispatch(deletePaymentStatus({ param: record.key }));
       },
       permission: EPermissions.DELETE_PAYMENT_STATUS,
     },
@@ -84,7 +84,7 @@ const PaymentStatus = () => {
         columns={columns}
         data={data}
         isTableLoading={getAllPaymentStatusesLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._size!, total: state.totalRecords }}
+        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
         search={{

@@ -30,7 +30,7 @@ const UpdateLabel = () => {
       },
     },
   });
-  const { getLabelByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getLabelById(id)), "getLabelByIdLoading"), []);
+  const { getLabelByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getLabelById({ param: id })), "getLabelByIdLoading"), []);
 
   useEffect(() => {
     if (state.activeLabel && formikRef.current) {

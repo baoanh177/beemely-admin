@@ -31,7 +31,7 @@ const UpdatePaymentStatus = () => {
   });
 
   const { getPaymentStatusByIdLoading } = useAsyncEffect(
-    (async) => id && async(dispatch(getPaymentStatusById(id)), "getPaymentStatusByIdLoading"),
+    (async) => id && async(dispatch(getPaymentStatusById({ param: id })), "getPaymentStatusByIdLoading"),
     [id],
   );
 
