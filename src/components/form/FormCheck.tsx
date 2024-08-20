@@ -13,7 +13,6 @@ export interface FormCheckProps {
 }
 false;
 const FormCheck = ({ type = "checkbox", label, onChange, checked, value, isDefaultChecked, name, isDisable }: FormCheckProps) => {
-
   return (
     <ConfigProvider
       theme={{

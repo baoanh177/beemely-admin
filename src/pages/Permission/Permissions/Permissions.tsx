@@ -14,11 +14,13 @@ import { useNavigate } from "react-router-dom";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+import { IoSearchOutline } from "react-icons/io5";
 
 export const defaultSearch: IDefaultSearchProps = {
   input: {
     type: "text",
     name: "123",
+    icon: IoSearchOutline,
     placeholder: "Search ordersss. . .",
   },
 };

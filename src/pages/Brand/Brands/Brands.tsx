@@ -1,5 +1,6 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import ImageTable from "@/components/table/ImageTable";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
@@ -13,12 +14,23 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
 import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
+import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const Brands = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IBrandInitialState>("brand");
-
+  const defaultSearch: IDefaultSearchProps = {
+    input: {
+      type: "text",
+      name: "name",
+      icon: IoSearchOutline,
+      onChange: (value) => {
+        dispatch(setFilter({ ...state.filter, name: value }));
+      },
+      placeholder: "Tìm kiếm theo tên. . .",
+    },
+  };
   useFetchStatus({
     module: "brand",
     reset: resetStatus,
@@ -98,14 +110,7 @@ const Brands = () => {
         pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
-        search={{
-          input: {
-            placeholder: "Nhập tên thương hiệu...",
-            onChange(value) {
-              dispatch(setFilter({ ...state.filter, name: value }));
-            },
-          },
-        }}
+        search={defaultSearch}
       />
     </>
   );

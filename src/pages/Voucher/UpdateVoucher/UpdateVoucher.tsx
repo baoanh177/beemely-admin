@@ -29,7 +29,10 @@ const UpdateVoucher = () => {
       },
     },
   });
-  const { getVoucherByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getVoucherById({ param: id })), "getVoucherByIdLoading"), [id]);
+  const { getVoucherByIdLoading } = useAsyncEffect(
+    (async) => id && async(dispatch(getVoucherById({ param: id })), "getVoucherByIdLoading"),
+    [id],
+  );
   return (
     <>
       <Heading

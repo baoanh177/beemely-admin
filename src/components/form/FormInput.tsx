@@ -18,7 +18,7 @@ export interface IFormInputProps {
   error?: string;
   onChange?: (value: string | number) => void;
   className?: string;
-  isRequired?: boolean
+  isRequired?: boolean;
 }
 
 const FormInput = ({
@@ -36,7 +36,7 @@ const FormInput = ({
   onChange,
   autoFocus,
   className,
-  isRequired = false
+  isRequired = false,
 }: IFormInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,10 +64,10 @@ const FormInput = ({
 
   return (
     <div className="flex flex-col gap-1">
-      {label && <Label text={label} isRequired={isRequired}/>}
+      {label && <Label text={label} isRequired={isRequired} />}
       <div
         className={clsx(
-          "flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-gray-25",
+          "flex shrink-0 items-center gap-1 overflow-hidden rounded-[8px] border border-gray-100 bg-white",
           isFocused && "bg-white",
         )}
       >
