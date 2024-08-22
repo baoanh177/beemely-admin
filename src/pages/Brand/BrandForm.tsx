@@ -54,7 +54,13 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFo
         <Row gutter={[24, 24]}>
           <Col xs={24} md={6} lg={6}>
             <FormGroup title="Ảnh đại diện" isLoading={isFormLoading}>
-              <UploadImage isMultiple={false} label="Ảnh" onImageUpload={handleImageUpload} currentImageUrl={values.image} />
+              <UploadImage
+                isMultiple={false}
+                label="Ảnh"
+                onImageUpload={handleImageUpload}
+                currentImageUrl={values.image}
+                error={touched.image ? errors.image : ""}
+              />
             </FormGroup>
           </Col>
           <Col xs={24} md={18} lg={18}>

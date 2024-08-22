@@ -43,7 +43,7 @@ const Colors = () => {
       title: "Mã màu",
       render: (value) => (
         <div className="flex items-center">
-          <ColorPicker value={value} disabled />
+          <ColorPicker value={value} />
           <span className="ml-2">{value}</span>
         </div>
       ),
