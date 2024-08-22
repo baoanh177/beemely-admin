@@ -96,6 +96,7 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
                   setFieldValue("image", url);
                 }}
                 currentImageUrl={values.image}
+                error={touched.image ? errors.image : ""}
               />
             </FormGroup>
           </Col>

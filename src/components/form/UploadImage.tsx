@@ -8,12 +8,13 @@ interface UploadImageProps {
   label: string;
   onImageUpload?: (imageURL: string | string[]) => void;
   currentImageUrl?: string;
+  error?: string;
 }
 
-const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "" }) => {
+const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "", error }) => {
   const [fileList, setFileList] = useState<File[]>([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>(currentImageUrl ? [currentImageUrl] : []);
-  const [error, setError] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
         setFileList([...fileList, ...newFiles]);
       } catch (error) {
         message.error("Error uploading files, please try again");
-        setError("Error uploading files, please try again");
+        setUploadError("Error uploading files, please try again");
       } finally {
         setIsLoading(false);
       }
@@ -121,9 +122,10 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
                       </div>
                     ))
                   : renderDefaultContent()}
+                {error && <div className="p-1 text-red-500">{error}</div>}
               </div>
             }
-            {error && <div className="mt-3 text-center text-red-500">{error}</div>}
+            {uploadError && <div className="mt-3 text-center text-red-500">{uploadError}</div>}
             <div className="mt-4 flex justify-center">
               <label
                 htmlFor="file-upload"
