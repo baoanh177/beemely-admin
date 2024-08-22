@@ -40,7 +40,7 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
       });
       return;
     }
-    if (type === "pending") return toast(messages)
+    if (type === "pending") return toast(messages);
     // @ts-ignore
     toast[type](messages);
   };

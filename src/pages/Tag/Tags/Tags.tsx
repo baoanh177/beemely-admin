@@ -19,6 +19,7 @@ import FormSwitch from "@/components/form/FormSwitch";
 import { handleConvertTags } from "../helpers/convertTags";
 import { ITag } from "@/services/store/tag/tag.model";
 import { EActiveStatus } from "@/shared/enums/status";
+import { IoSearchOutline } from "react-icons/io5";
 
 const Tags = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Tags = () => {
     input: {
       type: "text",
       name: "name",
+      icon: IoSearchOutline,
       onChange: (value) => {
         dispatch(setFilter({ ...state.filter, name: value }));
       },
@@ -58,7 +60,8 @@ const Tags = () => {
     {
       type: "text",
       name: "parent_id",
-      placeholder: "Tìm theo parent",
+      icon: IoSearchOutline,
+      placeholder: "Tìm theo parent...",
       onChange: (value) => {
         dispatch(setFilter({ ...state.filter, parent_id: value }));
       },

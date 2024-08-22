@@ -14,9 +14,9 @@ import { RootStateType } from "@/services/reducers";
 import { useNavigate } from "react-router-dom";
 
 const Accounts = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { state, dispatch, selector } = useArchive<IAccountInitialState>("account");
-  const { profile } = selector((state: RootStateType) => state.auth)
+  const { profile } = selector((state: RootStateType) => state.auth);
 
   const { getAllAccountLoading } = useAsyncEffect(
     (async) => {
@@ -25,8 +25,8 @@ const Accounts = () => {
     [state.filter],
   );
 
-  const buttons = getGridButtons(dispatch)
-  const columns = getColumnsData()
+  const buttons = getGridButtons(dispatch);
+  const columns = getColumnsData();
   const accounts: ITableData[] = useMemo(() => getAccountsData(state.accounts, profile!), [state.accounts]);
 
   useFetchStatus({
@@ -52,7 +52,7 @@ const Accounts = () => {
             text: "Tạo mới Tài khoản",
             icon: <FaPlus className="text-[18px]" />,
             onClick() {
-              navigate("/accounts/create")
+              navigate("/accounts/create");
             },
             permission: EPermissions.CREATE_ACCOUNT,
           },

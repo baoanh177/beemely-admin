@@ -59,15 +59,15 @@ const accountSlice = createSlice({
     // ? Delete account
     builder
       .addCase(deleteAccount.pending, (state) => {
-        state.status = EFetchStatus.PENDING
+        state.status = EFetchStatus.PENDING;
       })
       .addCase(deleteAccount.fulfilled, (state, { payload }) => {
         state.accounts = state.accounts.filter((acc) => acc.id !== payload);
-        state.status = EFetchStatus.FULFILLED
+        state.status = EFetchStatus.FULFILLED;
       })
       .addCase(deleteAccount.rejected, (state) => {
-        state.status = EFetchStatus.REJECTED
-      })
+        state.status = EFetchStatus.REJECTED;
+      });
   },
 });
 export const { setFilter, resetStatus } = accountSlice.actions;

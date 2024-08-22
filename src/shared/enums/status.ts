@@ -7,10 +7,10 @@ export enum EFetchStatus {
 
 export enum EActiveStatus {
   ACTIVE = 1,
-  INACTIVE = 0
+  INACTIVE = 0,
 }
 
 export enum EStatusName {
   ACTIVE = "Đã kích hoạt",
-  INACTIVE = "Chưa kích hoạt"
+  INACTIVE = "Chưa kích hoạt",
 }

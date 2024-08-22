@@ -33,7 +33,7 @@ export const updateAccount = createAsyncThunk("account/update-account", async (p
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
-})
+});
 
 export const deleteAccount = createAsyncThunk("account/delete-account", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
@@ -42,7 +42,7 @@ export const deleteAccount = createAsyncThunk("account/delete-account", async (p
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
-})
+});
 
 export const createAccount = createAsyncThunk("account/create-account", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
@@ -51,4 +51,4 @@ export const createAccount = createAsyncThunk("account/create-account", async (p
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
-})
+});

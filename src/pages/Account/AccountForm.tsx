@@ -2,12 +2,7 @@ import { IAccount } from "@/services/store/account/account.model";
 import { FormikRefType } from "@/shared/utils/shared-types";
 import { Col, Row } from "antd";
 import { Formik } from "formik";
-import {
-  getInitialValues,
-  getSubmitData,
-  getValidationSchema,
-  IAccountFormInitialValues,
-} from "./data/dataForm";
+import { getInitialValues, getSubmitData, getValidationSchema, IAccountFormInitialValues } from "./data/dataForm";
 import GeneralGroup from "./groups/GeneralGroup";
 import OtherGroup from "./groups/OtherGroup";
 import AvatarGroup from "./groups/AvatarGroup";
@@ -24,11 +19,11 @@ interface IAccountFormProps {
 }
 
 const AccountForm = ({ formikRef, type, account, isFormLoading }: IAccountFormProps) => {
-  account
-  isFormLoading
-  const validationSchema = getValidationSchema()
+  account;
+  isFormLoading;
+  const validationSchema = getValidationSchema();
   const initialValues = getInitialValues();
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <Formik
@@ -36,8 +31,8 @@ const AccountForm = ({ formikRef, type, account, isFormLoading }: IAccountFormPr
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(data) => {
-        if(type === "create") {
-          dispatch(createAccount({ body: getSubmitData(data) }))
+        if (type === "create") {
+          dispatch(createAccount({ body: getSubmitData(data) }));
         }
       }}
     >

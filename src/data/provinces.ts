@@ -1,20 +1,20 @@
 export interface ICommune {
   idCommune: string;
   idDistrict: string;
-  name: string
+  name: string;
 }
 
 export interface IDistrict {
   idDistrict: string;
   idProvince: string;
   name: string;
-  communes: ICommune[]
+  communes: ICommune[];
 }
 
 export interface IProvince {
   idProvince: string;
   name: string;
-  districts: IDistrict[]
+  districts: IDistrict[];
 }
 
 export const provinces: IProvince[] = [

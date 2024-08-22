@@ -32,7 +32,10 @@ const UpdatePermission = () => {
     },
   });
 
-  const { getPermissionByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getPermissionById({ param: id })), "getPermissionByIdLoading"), []);
+  const { getPermissionByIdLoading } = useAsyncEffect(
+    (async) => id && async(dispatch(getPermissionById({ param: id })), "getPermissionByIdLoading"),
+    [],
+  );
 
   return (
     <>

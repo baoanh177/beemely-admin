@@ -27,7 +27,7 @@ export const client = {
   ): Promise<ClientReturnType<IResponse<MetaDataType>>> {
     const { headers = {}, body, query = {}, param } = payload;
 
-    const completedPath = param ? `${path}/${param}` : path
+    const completedPath = param ? `${path}/${param}` : path;
 
     let queryParams = new URLSearchParams(query as Record<string, string>).toString();
     if (queryParams) queryParams = `?${queryParams}`;

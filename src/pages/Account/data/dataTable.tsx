@@ -38,7 +38,7 @@ export const getGridButtons = (dispatch: AppDispatch): IGridButton[] => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteAccount({ param: record.key }))
+        dispatch(deleteAccount({ param: record.key }));
       },
       permission: EPermissions.DELETE_ACCOUNT,
     },
@@ -82,7 +82,7 @@ export const getColumnsData = (): ColumnsType => {
 export const getAccountsData = (accounts: IAccount[], currentUser: IUserProfile) => {
   return accounts.map((acc) => {
     const isSuperAdmin = acc.roles.some((role) => role.name === SUPER_ADMIN_NAME);
-    const isCurrentUser = acc.id === currentUser.id
+    const isCurrentUser = acc.id === currentUser.id;
     return {
       key: acc.id,
       info: <ImageTable title={acc.fullName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : "Không rõ"} />,

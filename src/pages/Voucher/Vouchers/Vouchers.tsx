@@ -18,6 +18,7 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+import { IoSearchOutline } from "react-icons/io5";
 const Vouchers = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IVoucherInitialState>("voucher");
@@ -37,6 +38,7 @@ const Vouchers = () => {
     input: {
       type: "text",
       name: "name",
+      icon: IoSearchOutline,
       onChange: (value) => {
         dispatch(setFilter({ ...state.filter, name: value }));
       },

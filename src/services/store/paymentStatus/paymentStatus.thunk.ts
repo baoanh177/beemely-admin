@@ -22,14 +22,17 @@ export const getAllPaymentStatuses = createAsyncThunk(
   },
 );
 
-export const getPaymentStatusById = createAsyncThunk("paymentStatus/getPaymentStatusById", async (payload: IThunkPayload, { rejectWithValue }) => {
-  try {
-    const { response, data } = await client.get<IPaymentStatus>(prefix, payload);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
-  } catch (error: any) {
-    return rejectWithValue(messageCreator(error.response.data, dataKeys));
-  }
-});
+export const getPaymentStatusById = createAsyncThunk(
+  "paymentStatus/getPaymentStatusById",
+  async (payload: IThunkPayload, { rejectWithValue }) => {
+    try {
+      const { response, data } = await client.get<IPaymentStatus>(prefix, payload);
+      return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+    } catch (error: any) {
+      return rejectWithValue(messageCreator(error.response.data, dataKeys));
+    }
+  },
+);
 
 export const createPaymentStatus = createAsyncThunk("paymentStatus/createPaymentStatus", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
