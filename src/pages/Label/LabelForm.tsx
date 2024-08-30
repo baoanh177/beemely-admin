@@ -8,6 +8,7 @@ import lodash from "lodash";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import { EActiveStatus } from "@/shared/enums/status";
+import Label from "@/components/form/Label";
 interface ILabelFormProps {
   formikRef?: FormikRefType<ILabelFormInitialValues>;
   type: "create" | "update";
@@ -50,8 +51,8 @@ const LabelForm = ({ formikRef, type, label, isFormLoading = false }: ILabelForm
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên nhãn" isRequired />
           <FormInput
-            label="Tên nhãn"
             placeholder="Nhập tên nhãn ở đây..."
             name="name"
             value={values.name}
@@ -59,8 +60,8 @@ const LabelForm = ({ formikRef, type, label, isFormLoading = false }: ILabelForm
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
+          <Label text="Mô tả" />
           <FormInput
-            label="Mô tả"
             placeholder="Nhập mô tả ở đây..."
             name="description"
             value={values.description}

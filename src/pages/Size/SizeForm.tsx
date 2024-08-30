@@ -8,6 +8,7 @@ import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import FormSelect from "@/components/form/FormSelect";
 import { ISize } from "@/services/store/size/size.model";
+import Label from "@/components/form/Label";
 
 interface ISizeFormProps {
   formikRef?: FormikRefType<ISizeFormInitialValues>;
@@ -55,8 +56,8 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên Kích cỡ" isRequired />
           <FormInput
-            label="Tên Kích cỡ"
             placeholder="Nhập tên Kích cỡ ở đây..."
             name="name"
             value={values.name}
@@ -64,6 +65,7 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
+          <Label text="Giới tính" isRequired />
           <FormSelect
             label="Danh mục"
             placeholder="Chọn danh mục..."
