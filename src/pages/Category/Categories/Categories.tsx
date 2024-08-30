@@ -67,14 +67,14 @@ const Categories = () => {
       onClick(record) {
         navigate(`/categories/update/${record?.key}`);
       },
-      permission: EPermissions.CREATE_GENDER,
+      permission: EPermissions.CREATE_CATEGORY,
     },
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
         dispatch(deleteCategory({ param: record.key }));
       },
-      permission: EPermissions.DELETE_GENDER,
+      permission: EPermissions.DELETE_CATEGORY,
     },
   ];
 
@@ -86,7 +86,7 @@ const Categories = () => {
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_GENDER,
+            permission: EPermissions.CREATE_CATEGORY,
             text: "Tạo mới Danh mục",
             onClick: () => navigate("/categories/create"),
           },

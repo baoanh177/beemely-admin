@@ -74,7 +74,7 @@ export const routes: IRoute[] = [
           },
           {
             path: "categories",
-            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_GENDER]} />,
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_CATEGORY]} />,
             pages: categoryRoutes,
           },
           {

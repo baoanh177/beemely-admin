@@ -93,7 +93,7 @@ export const menuItems: IMenuItem[] = [
         id: "3.4",
         label: "Danh mục",
         path: "categories",
-        permissions: EPermissions.READ_GENDER,
+        permissions: EPermissions.READ_CATEGORY,
       },
       {
         id: "3.5",
