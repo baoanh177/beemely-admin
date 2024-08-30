@@ -1,5 +1,6 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import { IPaymentTypeInitialState } from "@/services/store/paymentType/paymentType.slice";
 import { createPaymentType, updatePaymentType } from "@/services/store/paymentType/paymentType.thunk";
@@ -44,8 +45,8 @@ const PaymentTypeForm = ({ formikRef, type, paymentType, isFormLoading = false }
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên loại thanh toán" isRequired />
           <FormInput
-            label="Tên loại thanh toán"
             placeholder="Nhập tên loại thanh toán ở đây..."
             name="name"
             value={values.name}
