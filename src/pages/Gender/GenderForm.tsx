@@ -1,5 +1,6 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import { IGenderInitialState } from "@/services/store/gender/gender.slice";
 import { createGender, updateGender } from "@/services/store/gender/gender.thunk";
@@ -44,8 +45,8 @@ const GenderForm = ({ formikRef, type, gender, isFormLoading = false }: IGenderF
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên giới tính" isRequired />
           <FormInput
-            label="Tên giới tính"
             placeholder="Nhập tên giới tính ở đây..."
             name="name"
             value={values.name}

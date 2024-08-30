@@ -7,6 +7,7 @@ import { object, string } from "yup";
 import lodash from "lodash";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 
 interface IColorFormProps {
   formikRef?: FormikRefType<IColorFormInitialValues>;
@@ -52,8 +53,8 @@ const ColorForm = ({ formikRef, type, color, isFormLoading = false }: IColorForm
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên màu" isRequired />
           <FormInput
-            label="Tên màu"
             placeholder="Nhập tên màu ở đây..."
             name="name"
             value={values.name}
@@ -61,8 +62,8 @@ const ColorForm = ({ formikRef, type, color, isFormLoading = false }: IColorForm
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
+          <Label text="Giá trị màu" isRequired />
           <FormInput
-            label="Giá trị màu"
             placeholder="Nhập giá trị màu ở đây (ví dụ: #FF0000)..."
             name="value"
             value={values.value}
