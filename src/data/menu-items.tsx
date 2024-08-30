@@ -161,6 +161,12 @@ export const menuItems: IMenuItem[] = [
         path: "order-statuses",
         permissions: EPermissions.READ_ORDER_STATUS,
       },
+      {
+        id: "3.15",
+        label: "Quản lý hiển thị",
+        path: "flag-pages",
+        permissions: EPermissions.READ_FLAG_PAGE,
+      },
     ],
   },
   {
