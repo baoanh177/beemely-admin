@@ -1,52 +1,52 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "@/services/config/client";
 import { IThunkPayload } from "@/shared/utils/shared-interfaces";
-import { ICategory } from "./category.model";
 import { messageCreator } from "@/services/config/message-creator";
+import { IFlagPage } from "./flagPage.model";
 
-const dataKeys: { [key in keyof Omit<ICategory, "id">]: string } = {
-  name: "Tên danh mục",
+const dataKeys: { [key in keyof Omit<IFlagPage, "id">]: string } = {
+  name: "Tên trang quản lý hiển thị",
 };
 
-const prefix = "/api/genders";
+const prefix = "/api/flag-pages";
 
-export const getAllCategories = createAsyncThunk("category/get-all-categories", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const getAllFlagPage = createAsyncThunk("flag-pages/getAllFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<ICategory[]>(prefix, payload);
+    const { response, data } = await client.get<IFlagPage[]>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const getCategoryById = createAsyncThunk("category/get-category-by-id", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const getFlagPageById = createAsyncThunk("flag-pages/getFlagPageById", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<ICategory>(prefix, payload);
+    const { response, data } = await client.get<IFlagPage>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const createCategory = createAsyncThunk("category/create-category", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const createFlagPage = createAsyncThunk("flag-pages/createFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.post<ICategory[]>(prefix, payload);
+    const { response, data } = await client.post<IFlagPage>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const updateCategory = createAsyncThunk("category/update-category", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const updateFlagPage = createAsyncThunk("flag-pages/updateFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<ICategory[]>(prefix, payload);
+    const { response, data } = await client.patch<IFlagPage>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteCategory = createAsyncThunk("category/delete-category", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const deleteFlagPage = createAsyncThunk("flag-pages/deleteFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
     const { response, data } = await client.delete(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;

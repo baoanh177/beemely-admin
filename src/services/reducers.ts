@@ -6,16 +6,17 @@ import { brandSlice } from "./store/brand/brand.slice";
 import { categorySlice } from "./store/category/category.slice";
 import { colorSlice } from "./store/color/color.slice";
 import { labelSlice } from "./store/label/label.slice";
-import { orderStatusSlice } from "./store/orderStatus/orderStatus.slice";
-import { paymentStatuslice } from "./store/paymentStatus/paymentStatus.slice";
-import { paymentTypeSlice } from "./store/paymentType/paymentType.slice";
 import { permissionSlice } from "./store/permission/permission.slice";
 import { roleSlice } from "./store/role/role.slice";
-import { sizeSlice } from "./store/size/size.slice";
 import { tagSlice } from "./store/tag/tag.slice";
 import { userGenderSlice } from "./store/userGender/userGender.slice";
 import { voucherSlice } from "./store/voucher/voucher.slice";
 import { voucherTypeSlice } from "./store/voucherType/voucherType.slice";
+import { sizeSlice } from "./store/size/size.slice";
+import { paymentTypeSlice } from "./store/paymentType/paymentType.slice";
+import { paymentStatuslice } from "./store/paymentStatus/paymentStatus.slice";
+import { orderStatusSlice } from "./store/orderStatus/orderStatus.slice";
+import { flagPageSlice } from "./store/flagPage/flagPage.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -35,6 +36,7 @@ export const reducers = combineReducers({
   paymentType: paymentTypeSlice.reducer,
   paymentStatus: paymentStatuslice.reducer,
   orderStatus: orderStatusSlice.reducer,
+  flagPage: flagPageSlice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;

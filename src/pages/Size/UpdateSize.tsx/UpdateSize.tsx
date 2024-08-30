@@ -18,7 +18,7 @@ const UpdateSize = () => {
   const formikRef = useRef<FormikProps<ISizeFormInitialValues>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<ISizeInitialState>("size");
-  const { state: genderState } = useArchive<ICategoryInitialState>("category");
+  const { state: categoryState } = useArchive<ICategoryInitialState>("category");
   useFetchStatus({
     module: "size",
     reset: resetStatus,
@@ -51,14 +51,14 @@ const UpdateSize = () => {
     }
   }, [state.activeSize]);
 
-  const genderOptions = useMemo(() => {
-    const options = genderState.categorys.map((gender) => ({
-      value: gender.id,
-      label: gender.name,
+  const categoryOptions = useMemo(() => {
+    const options = categoryState.categories.map((category) => ({
+      value: category.id,
+      label: category.name,
     }));
 
     return options;
-  }, [state.genders]);
+  }, [state.categories]);
 
   return (
     <>
@@ -92,7 +92,7 @@ const UpdateSize = () => {
           isFormLoading={getSizeByIdLoading ?? true}
           formikRef={formikRef}
           size={state.activeSize}
-          genders={genderOptions}
+          categories={categoryOptions}
         />
       )}
     </>

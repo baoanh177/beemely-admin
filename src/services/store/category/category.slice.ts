@@ -6,14 +6,14 @@ import { ICategory } from "./category.model";
 import { createCategory, deleteCategory, getAllCategories, getCategoryById, updateCategory } from "./category.thunk";
 
 export interface ICategoryInitialState extends IInitialState {
-  categorys: ICategory[];
+  categories: ICategory[];
   activeCategory: ICategory | undefined;
 }
 
 const initialState: ICategoryInitialState = {
   status: EFetchStatus.IDLE,
   message: "",
-  categorys: [],
+  categories: [],
   activeCategory: undefined,
   totalRecords: 0,
   filter: {
@@ -31,7 +31,7 @@ const categorySlice = createSlice({
   extraReducers(builder) {
     // Get all categories
     builder.addCase(getAllCategories.fulfilled, (state, { payload }: PayloadAction<IResponse<ICategory[]>>) => {
-      state.categorys = payload.metaData;
+      state.categories = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
     // Get category by id
@@ -72,7 +72,7 @@ const categorySlice = createSlice({
       .addCase(deleteCategory.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
         state.message = "Deleted successfully";
-        state.categorys = state.categorys.filter((category) => category.id !== payload);
+        state.categories = state.categories.filter((category) => category.id !== payload);
       })
       .addCase(deleteCategory.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;

@@ -39,13 +39,13 @@ const CreateSize = () => {
       formikRef.current.handleSubmit();
     }
   };
-  const genderOptions = useMemo(
+  const categoryOptions = useMemo(
     () =>
-      categoryState.categorys.map((gender) => ({
-        value: gender.id,
-        label: gender.name,
+      categoryState.categories.map((category) => ({
+        value: category.id,
+        label: category.name,
       })),
-    [categoryState.genders],
+    [categoryState.categories],
   );
   return (
     <>
@@ -69,7 +69,7 @@ const CreateSize = () => {
           },
         ]}
       />
-      <SizeForm type="create" genders={genderOptions} formikRef={formikRef} />
+      <SizeForm type="create" categories={categoryOptions} formikRef={formikRef} />
     </>
   );
 };

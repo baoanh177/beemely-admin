@@ -1,4 +1,4 @@
-export interface ICategory {
+export interface IFlagPage {
   id: string;
   name: string;
 }

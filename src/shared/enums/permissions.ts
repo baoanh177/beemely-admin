@@ -96,4 +96,10 @@ export enum EPermissions {
   CREATE_ACCOUNT = "Create_User",
   UPDATE_ACCOUNT = "Update_User",
   DELETE_ACCOUNT = "Delete_User",
+
+  // ? Flag Page
+  READ_FLAG_PAGE = "Read_FlagPage",
+  CREATE_FLAG_PAGE = "Create_FlagPage",
+  UPDATE_FLAG_PAGE = "Update_FlagPage",
+  DELETE_FLAG_PAGE = "Delete_FlagPage",
 }

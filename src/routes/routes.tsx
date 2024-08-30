@@ -12,12 +12,9 @@ import Orders from "@/pages/Order/Orders/Orders";
 import Products from "@/pages/Product/Products/Products";
 import { EPermissions } from "@/shared/enums/permissions";
 import { ReactNode } from "react";
-import { accountRoutes } from "./account.route";
 import { brandRoutes } from "./brand.route";
-import { categoryRoutes } from "./category.route";
 import { colorRoutes } from "./color.router";
 import { labelRoutes } from "./label.router";
-import { orderStatusRoutes } from "./orderStatus";
 import { paymentStatusRoutes } from "./paymentStatus.route";
 import { paymentTypeRoutes } from "./paymentType.route";
 import { permissionRoutes } from "./permission.route";
@@ -27,6 +24,10 @@ import { tagRoutes } from "./tag.route";
 import { userGenderRouter } from "./userGender.route";
 import { voucherRoutes } from "./voucher.route";
 import { voucherTypeRoutes } from "./voucherType.route";
+import { orderStatusRoutes } from "./orderStatus";
+import { accountRoutes } from "./account.route";
+import { flagPageRoutes } from "./flagPage.route";
+import { categoryRoutes } from "./category.route";
 
 export interface IRoute {
   path: string;
@@ -140,6 +141,11 @@ export const routes: IRoute[] = [
             path: "accounts",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ACCOUNT]} />,
             pages: accountRoutes,
+          },
+          {
+            path: "flag-pages",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_FLAG_PAGE]} />,
+            pages: flagPageRoutes,
           },
         ],
       },

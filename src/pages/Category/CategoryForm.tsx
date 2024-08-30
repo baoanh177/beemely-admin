@@ -1,5 +1,6 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import { ICategoryInitialState } from "@/services/store/category/category.slice";
 import { createCategory, updateCategory } from "@/services/store/category/category.thunk";
@@ -44,8 +45,8 @@ const CategoryForm = ({ formikRef, type, category, isFormLoading = false }: ICat
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên danh mục" isRequired />
           <FormInput
-            label="Tên danh mục"
             placeholder="Nhập tên danh mục ở đây..."
             name="name"
             value={values.name}

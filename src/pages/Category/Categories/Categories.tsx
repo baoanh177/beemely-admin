@@ -16,7 +16,7 @@ import { FaPlus } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-const Categorys = () => {
+const Categories = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<ICategoryInitialState>("category");
   const defaultSearch: IDefaultSearchProps = {
@@ -39,8 +39,8 @@ const Categorys = () => {
     },
   });
 
-  const { getAllCategorysLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllCategories({ query: state.filter })), "getAllCategorysLoading"),
+  const { getAllCategoriesLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllCategories({ query: state.filter })), "getAllCategoriesLoading"),
     [JSON.stringify(state.filter)],
   );
 
@@ -52,14 +52,14 @@ const Categorys = () => {
   ];
 
   const data: ITableData[] = useMemo(() => {
-    if (state.categorys && state.categorys.length > 0) {
-      return state.categorys.map((category) => ({
+    if (state.categories && state.categories.length > 0) {
+      return state.categories.map((category) => ({
         key: category.id,
         name: category.name,
       }));
     }
     return [];
-  }, [state.categorys]);
+  }, [state.categories]);
 
   const buttons: IGridButton[] = [
     {
@@ -95,7 +95,7 @@ const Categorys = () => {
       <ManagementGrid
         columns={columns}
         data={data}
-        isTableLoading={getAllCategorysLoading ?? true}
+        isTableLoading={getAllCategoriesLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
@@ -105,4 +105,4 @@ const Categorys = () => {
   );
 };
 
-export default Categorys;
+export default Categories;
