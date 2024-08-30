@@ -15,7 +15,7 @@ interface ISizeFormProps {
   type: "create" | "update";
   size?: ISize;
   isFormLoading?: boolean;
-  genders?: { value: string; label: string }[];
+  categories?: { value: string; label: string }[];
 }
 
 export interface ISizeFormInitialValues {
@@ -24,7 +24,7 @@ export interface ISizeFormInitialValues {
   gender: string | null;
 }
 
-const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }: ISizeFormProps) => {
+const SizeForm = ({ formikRef, type, size, isFormLoading = false, categories = [] }: ISizeFormProps) => {
   const { dispatch } = useArchive<ISizeInitialState>("size");
   const initialValues: ISizeFormInitialValues = {
     name: size?.name || "",
@@ -33,7 +33,7 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
 
   const sizeSchema = object().shape({
     name: string().required("Vui lòng nhập tên Kích cỡ"),
-    gender: string().required("Vui lòng chọn giới tính"),
+    gender: string().required("Vui lòng chọn danh mục"),
   });
 
   return (
@@ -65,13 +65,13 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
-          <Label text="Giới tính" isRequired />
+          <Label text="Danh mục" isRequired />
           <FormSelect
-            placeholder="Chọn giới tính..."
+            placeholder="Chọn danh mục..."
             value={values.gender || undefined}
             error={touched.gender ? errors.gender : ""}
             onChange={(value) => setFieldValue("gender", value)}
-            options={genders}
+            options={categories}
           />
         </FormGroup>
       )}

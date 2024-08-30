@@ -1,28 +1,28 @@
 import { useEffect, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
+import CategoryForm, { ICategoryFormInitialValues } from "../CategoryForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
 import { EFetchStatus } from "@/shared/enums/status";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
+import { ICategoryInitialState, resetStatus } from "@/services/store/category/category.slice";
 import { useArchive } from "@/hooks/useArchive";
-import { getGenderById } from "@/services/store/gender/gender.thunk";
+import { getCategoryById } from "@/services/store/category/category.thunk";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 
-const UpdateGender = () => {
+const UpdateCategory = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
+  const formikRef = useRef<FormikProps<ICategoryFormInitialValues>>(null);
   const { id } = useParams();
-  const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+  const { state, dispatch } = useArchive<ICategoryInitialState>("category");
   useFetchStatus({
-    module: "gender",
+    module: "category",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/genders",
+        navigate: "/categories",
       },
       error: {
         message: state.message,
@@ -30,22 +30,25 @@ const UpdateGender = () => {
     },
   });
 
-  const { getGenderByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getGenderById({ param: id })), "getGenderByIdLoading"), [id]);
+  const { getCategoryByIdLoading } = useAsyncEffect(
+    (async) => id && async(dispatch(getCategoryById({ param: id })), "getCategoryByIdLoading"),
+    [id],
+  );
 
   useEffect(() => {
-    if (state.activeGender) {
+    if (state.activeCategory) {
       if (formikRef.current) {
         formikRef.current.setValues({
-          name: state.activeGender.name,
+          name: state.activeCategory.name,
         });
       }
     }
-  }, [state.activeGender]);
+  }, [state.activeCategory]);
 
   return (
     <>
       <Heading
-        title="Cập nhật Giới tính"
+        title="Cập nhật Danh mục"
         hasBreadcrumb
         buttons={[
           {
@@ -53,7 +56,7 @@ const UpdateGender = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/genders");
+              navigate("/categories");
             },
           },
           {
@@ -68,11 +71,11 @@ const UpdateGender = () => {
           },
         ]}
       />
-      {state.activeGender && (
-        <GenderForm type="update" isFormLoading={getGenderByIdLoading ?? true} formikRef={formikRef} gender={state.activeGender} />
+      {state.activeCategory && (
+        <CategoryForm type="update" isFormLoading={getCategoryByIdLoading ?? true} formikRef={formikRef} category={state.activeCategory} />
       )}
     </>
   );
 };
 
-export default UpdateGender;
+export default UpdateCategory;

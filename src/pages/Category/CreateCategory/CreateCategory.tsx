@@ -2,26 +2,26 @@ import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
+import CategoryForm, { ICategoryFormInitialValues } from "../CategoryForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
 import { EFetchStatus } from "@/shared/enums/status";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
+import { ICategoryInitialState, resetStatus } from "@/services/store/category/category.slice";
 import { useArchive } from "@/hooks/useArchive";
 
-const CreateGender = () => {
+const CreateCategory = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
-  const { state } = useArchive<IGenderInitialState>("gender");
+  const formikRef = useRef<FormikProps<ICategoryFormInitialValues>>(null);
+  const { state } = useArchive<ICategoryInitialState>("category");
 
   useFetchStatus({
-    module: "gender",
+    module: "category",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/genders",
+        navigate: "/categories",
       },
       error: {
         message: state.message,
@@ -38,7 +38,7 @@ const CreateGender = () => {
   return (
     <>
       <Heading
-        title="Tạo mới Giới tính"
+        title="Tạo mới Danh mục"
         hasBreadcrumb
         buttons={[
           {
@@ -46,20 +46,20 @@ const CreateGender = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/genders");
+              navigate("/categories");
             },
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Tạo mới Giới tính",
+            text: "Tạo mới Danh mục",
             icon: <FaPlus className="text-[18px]" />,
             onClick: handleSubmit,
           },
         ]}
       />
-      <GenderForm type="create" formikRef={formikRef} />
+      <CategoryForm type="create" formikRef={formikRef} />
     </>
   );
 };
 
-export default CreateGender;
+export default CreateCategory;

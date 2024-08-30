@@ -6,7 +6,7 @@ import { messageCreator } from "@/services/config/message-creator";
 
 const dataKeys: { [key in keyof Omit<ISize, "id">]: string } = {
   name: "Tên kích cỡ",
-  gender: "Giới tính",
+  gender: "Danh mục",
 };
 
 const prefix = "/api/sizes";

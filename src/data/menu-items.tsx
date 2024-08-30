@@ -47,12 +47,6 @@ export const menuItems: IMenuItem[] = [
         permissions: EPermissions.READ_TAG,
       },
       {
-        id: "2.3",
-        label: "Giới tính",
-        path: "genders",
-        permissions: EPermissions.READ_GENDER,
-      },
-      {
         id: "2.4",
         label: "Thương hiệu",
         path: "brands",
@@ -97,9 +91,9 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "3.4",
-        label: "Genders",
-        path: "genders",
-        permissions: EPermissions.READ_GENDER,
+        label: "Danh mục",
+        path: "categories",
+        permissions: EPermissions.READ_CATEGORY,
       },
       {
         id: "3.5",

@@ -4,12 +4,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ISize } from "./size.model";
 import { createSize, deleteSize, getAllSizes, getSizeById, updateSize } from "./size.thunk";
 import { EFetchStatus } from "@/shared/enums/status";
-import { IGender } from "../gender/gender.model";
+import { ICategory } from "../category/category.model";
 
 export interface ISizeInitialState extends IInitialState {
   sizes: ISize[];
   activeSize: ISize | undefined;
-  genders: IGender[];
+  categories: ICategory[];
 }
 const initialState: ISizeInitialState = {
   status: EFetchStatus.IDLE,
@@ -21,7 +21,7 @@ const initialState: ISizeInitialState = {
     size: 10,
     page: 1,
   },
-  genders: [],
+  categories: [],
 };
 
 const sizeSlice = createSlice({
