@@ -163,7 +163,7 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "3.15",
-        label: "FlagPage",
+        label: "Quản lý hiển thị",
         path: "flag-pages",
         permissions: EPermissions.READ_FLAG_PAGE,
       },

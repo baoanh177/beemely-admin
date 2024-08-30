@@ -5,7 +5,7 @@ import { messageCreator } from "@/services/config/message-creator";
 import { IFlagPage } from "./flagPage.model";
 
 const dataKeys: { [key in keyof Omit<IFlagPage, "id">]: string } = {
-  name: "Tên trang đánh dấu",
+  name: "Tên trang quản lý hiển thị",
 };
 
 const prefix = "/api/flag-pages";

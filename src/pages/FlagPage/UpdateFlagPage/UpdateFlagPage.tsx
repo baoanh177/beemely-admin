@@ -38,7 +38,7 @@ const UpdateFlagPage = () => {
   return (
     <>
       <Heading
-        title="Cập nhật Trang đánh dấu"
+        title="Cập nhật Trang quản lý hiển thị"
         hasBreadcrumb
         buttons={[
           {

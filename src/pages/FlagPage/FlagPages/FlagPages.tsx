@@ -81,13 +81,13 @@ const FlagPages = () => {
   return (
     <>
       <Heading
-        title="Trang đánh dấu"
+        title="Trang quản lý hiển thị"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_FLAG_PAGE,
-            text: "Tạo mới Trang đánh dấu",
+            text: "Tạo mới Trang quản lý hiển thị",
             onClick: () => navigate("/flag-pages/create"),
           },
         ]}

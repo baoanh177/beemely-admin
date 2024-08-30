@@ -1,5 +1,6 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import { createFlagPage, updateFlagPage } from "@/services/store/flagPage/flagPage.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
@@ -25,11 +26,12 @@ const FlagPageForm = ({ formikRef, type, flagPage, isFormLoading = false }: IFla
   };
 
   const flagPageSchema = object().shape({
-    name: string().required("Vui lòng nhập tên Trang đánh dấu"),
+    name: string().required("Vui lòng nhập tên Trang quản lý hiển thị"),
   });
 
   return (
     <Formik
+      enableReinitialize
       innerRef={formikRef}
       initialValues={initialValues}
       validationSchema={flagPageSchema}
@@ -43,9 +45,9 @@ const FlagPageForm = ({ formikRef, type, flagPage, isFormLoading = false }: IFla
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label isRequired text="Tên Trang quản lý hiển thị" />
           <FormInput
-            label="Tên Trang đánh dấu"
-            placeholder="Nhập tên Trang đánh dấu ở đây..."
+            placeholder="Nhập tên Trang quản lý hiển thị ở đây..."
             name="name"
             value={values.name}
             error={touched.name ? errors.name : ""}

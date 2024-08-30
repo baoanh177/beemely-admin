@@ -38,7 +38,7 @@ const CreateFlagPage = () => {
   return (
     <>
       <Heading
-        title="Tạo mới Trang đánh dấu"
+        title="Tạo mới Trang quản lý hiển thị"
         hasBreadcrumb
         buttons={[
           {
@@ -51,7 +51,7 @@ const CreateFlagPage = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Tạo mới Trang đánh dấu",
+            text: "Tạo mới Trang quản lý hiển thị",
             icon: <FaPlus className="text-[18px]" />,
             onClick: handleSubmit,
           },
