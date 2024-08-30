@@ -51,7 +51,7 @@ const Sizes = () => {
     },
     {
       dataIndex: "gender",
-      title: "Giới tính",
+      title: "Danh mục",
     },
   ];
 

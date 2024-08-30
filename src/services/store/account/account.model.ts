@@ -1,6 +1,6 @@
 import { EActiveStatus } from "@/shared/enums/status";
 import { IRole } from "../role/role.model";
-import { IGender } from "../gender/gender.model";
+import { IGender } from "../category/category.model";
 
 export interface IAccount {
   id: string;

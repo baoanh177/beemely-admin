@@ -10,15 +10,15 @@ import { useEffect, useMemo, useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import SizeForm, { ISizeFormInitialValues } from "../SizeForm";
-import { getAllGenders } from "@/services/store/gender/gender.thunk";
-import { IGenderInitialState } from "@/services/store/gender/gender.slice";
+import { getAllCategories } from "@/services/store/category/category.thunk";
+import { ICategoryInitialState } from "@/services/store/category/category.slice";
 
 const UpdateSize = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<ISizeFormInitialValues>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<ISizeInitialState>("size");
-  const { state: genderState } = useArchive<IGenderInitialState>("gender");
+  const { state: genderState } = useArchive<ICategoryInitialState>("category");
   useFetchStatus({
     module: "size",
     reset: resetStatus,
@@ -37,7 +37,7 @@ const UpdateSize = () => {
 
   useEffect(() => {
     dispatch(getAllSizes({}));
-    dispatch(getAllGenders({}));
+    dispatch(getAllCategories({}));
   }, [dispatch]);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const UpdateSize = () => {
   }, [state.activeSize]);
 
   const genderOptions = useMemo(() => {
-    const options = genderState.genders.map((gender) => ({
+    const options = genderState.categorys.map((gender) => ({
       value: gender.id,
       label: gender.name,
     }));

@@ -48,8 +48,8 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "2.3",
-        label: "Giới tính",
-        path: "genders",
+        label: "Danh mục",
+        path: "categories",
         permissions: EPermissions.READ_GENDER,
       },
       {
@@ -97,8 +97,8 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "3.4",
-        label: "Genders",
-        path: "genders",
+        label: "Danh mục",
+        path: "categories",
         permissions: EPermissions.READ_GENDER,
       },
       {

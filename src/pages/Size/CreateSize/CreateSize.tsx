@@ -9,14 +9,14 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import { useArchive } from "@/hooks/useArchive";
 import { ISizeInitialState, resetStatus } from "@/services/store/size/size.slice";
 import { EFetchStatus } from "@/shared/enums/status";
-import { getAllGenders } from "@/services/store/gender/gender.thunk";
-import { IGenderInitialState } from "@/services/store/gender/gender.slice";
+import { getAllCategories } from "@/services/store/category/category.thunk";
+import { ICategoryInitialState } from "@/services/store/category/category.slice";
 
 const CreateSize = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<ISizeFormInitialValues>>(null);
   const { state, dispatch } = useArchive<ISizeInitialState>("size");
-  const { state: genderState } = useArchive<IGenderInitialState>("gender");
+  const { state: categoryState } = useArchive<ICategoryInitialState>("category");
 
   useFetchStatus({
     module: "size",
@@ -32,7 +32,7 @@ const CreateSize = () => {
     },
   });
   useEffect(() => {
-    dispatch(getAllGenders({}));
+    dispatch(getAllCategories({}));
   }, [dispatch]);
   const handleSubmit = () => {
     if (formikRef.current) {
@@ -41,11 +41,11 @@ const CreateSize = () => {
   };
   const genderOptions = useMemo(
     () =>
-      genderState.genders.map((gender) => ({
+      categoryState.categorys.map((gender) => ({
         value: gender.id,
         label: gender.name,
       })),
-    [genderState.genders],
+    [categoryState.genders],
   );
   return (
     <>

@@ -32,7 +32,7 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
 
   const sizeSchema = object().shape({
     name: string().required("Vui lòng nhập tên Kích cỡ"),
-    gender: string().required("Vui lòng chọn giới tính"),
+    gender: string().required("Vui lòng chọn danh mục"),
   });
 
   return (
@@ -65,8 +65,8 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
             onBlur={handleBlur}
           />
           <FormSelect
-            label="Giới tính"
-            placeholder="Chọn giới tính..."
+            label="Danh mục"
+            placeholder="Chọn danh mục..."
             value={values.gender || undefined}
             error={touched.gender ? errors.gender : ""}
             onChange={(value) => setFieldValue("gender", value)}
