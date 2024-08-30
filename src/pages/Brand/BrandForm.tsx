@@ -1,6 +1,7 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import FormInputArea from "@/components/form/FormInputArea";
+import Label from "@/components/form/Label";
 import UploadImage from "@/components/form/UploadImage";
 import { useArchive } from "@/hooks/useArchive";
 import { IBrand } from "@/services/store/brand/brand.model";
@@ -54,9 +55,9 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFo
         <Row gutter={[24, 24]}>
           <Col xs={24} md={6} lg={6}>
             <FormGroup title="Ảnh đại diện" isLoading={isFormLoading}>
+              <Label text="Ảnh" isRequired />
               <UploadImage
                 isMultiple={false}
-                label="Ảnh"
                 onImageUpload={handleImageUpload}
                 currentImageUrl={values.image}
                 error={touched.image ? errors.image : ""}
@@ -65,8 +66,8 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFo
           </Col>
           <Col xs={24} md={18} lg={18}>
             <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+              <Label text="Tên thương hiệu" isRequired />
               <FormInput
-                label="Tên thương hiệu"
                 placeholder="Nhập tên thương hiệu ở đây..."
                 name="name"
                 value={values.name}
@@ -74,8 +75,8 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFo
                 onChange={(e) => setFieldValue("name", e)}
                 onBlur={handleBlur}
               />
+              <Label text="Mô tả" />
               <FormInputArea
-                label="Mô tả"
                 placeholder="Nhập mô tả ở đây..."
                 name="description"
                 value={values.description}

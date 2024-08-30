@@ -1,5 +1,6 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import { IPaymentStatusInitialState } from "@/services/store/paymentStatus/paymentStatus.slice";
 import { createPaymentStatus, updatePaymentStatus } from "@/services/store/paymentStatus/paymentStatus.thunk";
@@ -44,8 +45,8 @@ const PaymentStatusForm = ({ formikRef, type, paymentStatus, isFormLoading = fal
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên trạng thái thanh toán" isRequired />
           <FormInput
-            label="Tên trạng thái thanh toán"
             placeholder="Nhập tên trạng thái thanh toán ở đây..."
             name="name"
             value={values.name}

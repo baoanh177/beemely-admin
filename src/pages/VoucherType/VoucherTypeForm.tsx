@@ -1,5 +1,6 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import { createVoucherType, updateVoucherType } from "@/services/store/voucherType/voucherType.thunk";
 import { FormikRefType } from "@/shared/utils/shared-types";
@@ -43,8 +44,8 @@ const VoucherTypeForm = ({ formikRef, type, voucherType, isFormLoading = false }
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên loại mã giảm giá" isRequired />
           <FormInput
-            label="Tên loại mã giảm giá"
             placeholder="Nhập tên loại mã giảm giá ở đây..."
             name="name"
             value={values.name}
