@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { FaCaretUp } from "react-icons/fa";
-import { IoPieChartOutline } from "react-icons/io5";
+import { IoRadioButtonOffSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import { IMenuItem } from "@/data/menu-items";
@@ -63,7 +63,7 @@ const MenuItem = ({
             )}
           />
         )}
-        {isChild && <IoPieChartOutline className="invisible text-2xl" />}
+        {isChild && <IoRadioButtonOffSharp className="text-xs" />}
         <span
           className={clsx(
             "text-m-semibold shrink-0 text-black-400 group-hover:text-primary-500",
