@@ -14,6 +14,7 @@ import { FormikRefType } from "@/shared/utils/shared-types";
 import { Col, Row } from "antd";
 import { EActiveStatus } from "@/shared/enums/status";
 import FormTreeSelect from "@/components/form/FormTreeSelect";
+import Label from "@/components/form/Label";
 
 interface ITagFormProps {
   formikRef?: FormikRefType<ITagFormInitialValues>;
@@ -87,10 +88,10 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <Row gutter={[24, 24]}>
           <Col xs={24} md={6} lg={6}>
-            <FormGroup title="Ảnh">
+            <FormGroup title="Ảnh thẻ">
+              <Label text="Ảnh" isRequired />
               <UploadImage
                 isMultiple={false}
-                label="Ảnh"
                 onImageUpload={(imageURL) => {
                   const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
                   setFieldValue("image", url);
@@ -102,8 +103,8 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
           </Col>
           <Col xs={24} md={18} lg={18}>
             <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+              <Label text="Tên thẻ" isRequired />
               <FormInput
-                label="Tên thẻ"
                 placeholder="Nhập tên thẻ ở đây..."
                 name="name"
                 value={values.name}
@@ -111,8 +112,8 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
                 onChange={(e) => setFieldValue("name", e)}
                 onBlur={handleBlur}
               />
+              <Label text="Thẻ gốc" />
               <FormTreeSelect
-                label="Parent Tag"
                 value={values.parentId || ""}
                 error={touched.parentId ? errors.parentId : ""}
                 onChange={(value) => setFieldValue("parentId", value)}
@@ -122,8 +123,8 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
               {type === "update" && (
                 <FormSwitch uncheckedText="" checked={values.status === EActiveStatus.ACTIVE} onChange={(e) => setFieldValue("status", e)} />
               )}
+              <Label text="Mô tả" />
               <FormInput
-                label="Mô tả"
                 placeholder="Nhập mô tả ở đây..."
                 name="description"
                 value={values.description}

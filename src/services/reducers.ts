@@ -2,20 +2,21 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { accountSlice } from "./store/account/account.slice";
 import { appSlice } from "./store/app/app.slice";
 import { authSlice } from "./store/auth/auth.slice";
-import { roleSlice } from "./store/role/role.slice";
-import { permissionSlice } from "./store/permission/permission.slice";
-import { tagSlice } from "./store/tag/tag.slice";
-import { genderSlice } from "./store/gender/gender.slice";
 import { brandSlice } from "./store/brand/brand.slice";
-import { labelSlice } from "./store/label/label.slice";
+import { categorySlice } from "./store/category/category.slice";
 import { colorSlice } from "./store/color/color.slice";
-import { voucherTypeSlice } from "./store/voucherType/voucherType.slice";
+import { labelSlice } from "./store/label/label.slice";
+import { permissionSlice } from "./store/permission/permission.slice";
+import { roleSlice } from "./store/role/role.slice";
+import { tagSlice } from "./store/tag/tag.slice";
 import { userGenderSlice } from "./store/userGender/userGender.slice";
 import { voucherSlice } from "./store/voucher/voucher.slice";
+import { voucherTypeSlice } from "./store/voucherType/voucherType.slice";
 import { sizeSlice } from "./store/size/size.slice";
 import { paymentTypeSlice } from "./store/paymentType/paymentType.slice";
 import { paymentStatuslice } from "./store/paymentStatus/paymentStatus.slice";
 import { orderStatusSlice } from "./store/orderStatus/orderStatus.slice";
+import { flagPageSlice } from "./store/flagPage/flagPage.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -24,7 +25,7 @@ export const reducers = combineReducers({
   role: roleSlice.reducer,
   permission: permissionSlice.reducer,
   tag: tagSlice.reducer,
-  gender: genderSlice.reducer,
+  category: categorySlice.reducer,
   brand: brandSlice.reducer,
   label: labelSlice.reducer,
   color: colorSlice.reducer,
@@ -35,6 +36,7 @@ export const reducers = combineReducers({
   paymentType: paymentTypeSlice.reducer,
   paymentStatus: paymentStatuslice.reducer,
   orderStatus: orderStatusSlice.reducer,
+  flagPage: flagPageSlice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;

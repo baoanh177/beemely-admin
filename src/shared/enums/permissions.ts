@@ -26,11 +26,11 @@ export enum EPermissions {
   UPDATE_TAG = "Update_Tag",
   DELETE_TAG = "Delete_Tag",
 
-  // ? Gender
-  READ_GENDER = "Read_Gender",
-  CREATE_GENDER = "Create_Gender",
-  UPDATE_GENDER = "Update_Gender",
-  DELETE_GENDER = "Delete_Gender",
+  // ? Category
+  READ_CATEGORY = "Read_Gender",
+  CREATE_CATEGORY = "Create_Gender",
+  UPDATE_CATEGORY = "Update_Gender",
+  DELETE_CATEGORY = "Delete_Gender",
 
   // ? Brand
   READ_BRAND = "Read_Brand",
@@ -96,4 +96,10 @@ export enum EPermissions {
   CREATE_ACCOUNT = "Create_User",
   UPDATE_ACCOUNT = "Update_User",
   DELETE_ACCOUNT = "Delete_User",
+
+  // ? Flag Page
+  READ_FLAG_PAGE = "Read_FlagPage",
+  CREATE_FLAG_PAGE = "Create_FlagPage",
+  UPDATE_FLAG_PAGE = "Update_FlagPage",
+  DELETE_FLAG_PAGE = "Delete_FlagPage",
 }

@@ -5,7 +5,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { LoadingOutlined } from "@ant-design/icons";
 interface UploadImageProps {
   isMultiple?: boolean;
-  label: string;
+  label?: string;
   onImageUpload?: (imageURL: string | string[]) => void;
   currentImageUrl?: string;
   error?: string;

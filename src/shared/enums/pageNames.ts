@@ -2,7 +2,7 @@
 export enum EPageNames {
   dashboard = "Bảng điều khiển",
   products = "Sản phẩm",
-  categories = "Chuyên mục",
+  categories = "Danh mục",
   orders = "Đơn đặt hàng",
   customers = "Khách hàng",
   create = "Tạo mới",
@@ -11,7 +11,6 @@ export enum EPageNames {
   roles = "Vai trò",
   permissions = "Quyền",
   brands = "Thương hiệu",
-  genders = "Giới tính",
   colors = "Màu",
   voucherTypes = "Loại mã giảm giá",
   "user-genders" = "Giới tính người dùng",
@@ -21,4 +20,5 @@ export enum EPageNames {
   "payment-statuses" = "Trạng thái thanh toán",
   "order-statuses" = "Trạng thái đơn hàng",
   accounts = "Tài khoản",
+  "flag-pages" = "Quản lý hiển thị",
 }

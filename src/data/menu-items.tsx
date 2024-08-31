@@ -85,9 +85,9 @@ export const menuItems: IMenuItem[] = [
       },
       {
         id: "3.5",
-        label: "Giới tính",
-        path: "genders",
-        permissions: EPermissions.READ_GENDER,
+        label: "Danh mục",
+        path: "categories",
+        permissions: EPermissions.READ_CATEGORY,
       },
       {
         id: "3.6",
@@ -137,6 +137,11 @@ export const menuItems: IMenuItem[] = [
         label: "Đơn hàng",
         path: "orders",
         permissions: EPermissions.READ_ORDER,
+      }
+        id: "3.15",
+        label: "Quản lý hiển thị",
+        path: "flag-pages",
+        permissions: EPermissions.READ_FLAG_PAGE,
       },
     ],
   },

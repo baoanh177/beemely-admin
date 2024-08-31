@@ -2,26 +2,26 @@ import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
 import { EFetchStatus } from "@/shared/enums/status";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
 import { useArchive } from "@/hooks/useArchive";
+import FlagPageForm, { IFlagPageFormInitialValues } from "../FlagPageForm";
+import { IFlagPageInitialState, resetStatus } from "@/services/store/flagPage/flagPage.slice";
 
-const CreateGender = () => {
+const CreateFlagPage = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
-  const { state } = useArchive<IGenderInitialState>("gender");
+  const formikRef = useRef<FormikProps<IFlagPageFormInitialValues>>(null);
+  const { state } = useArchive<IFlagPageInitialState>("flagPage");
 
   useFetchStatus({
-    module: "gender",
+    module: "flagPage",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/genders",
+        navigate: "/flag-pages",
       },
       error: {
         message: state.message,
@@ -38,7 +38,7 @@ const CreateGender = () => {
   return (
     <>
       <Heading
-        title="Tạo mới Giới tính"
+        title="Tạo mới Trang quản lý hiển thị"
         hasBreadcrumb
         buttons={[
           {
@@ -46,20 +46,20 @@ const CreateGender = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/genders");
+              navigate("/flag-pages");
             },
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Tạo mới Giới tính",
+            text: "Tạo mới Trang quản lý hiển thị",
             icon: <FaPlus className="text-[18px]" />,
             onClick: handleSubmit,
           },
         ]}
       />
-      <GenderForm type="create" formikRef={formikRef} />
+      <FlagPageForm type="create" formikRef={formikRef} />
     </>
   );
 };
 
-export default CreateGender;
+export default CreateFlagPage;

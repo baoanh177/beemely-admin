@@ -2,6 +2,7 @@ import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import FormSelect from "@/components/form/FormSelect";
 import FormSwitch from "@/components/form/FormSwitch";
+import Label from "@/components/form/Label";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IPermission } from "@/services/store/permission/permission.model";
@@ -76,8 +77,8 @@ const PermissionForm = ({ formikRef, type, permission, isFormLoading = false }: 
           <Row gutter={[24, 24]}>
             <Col xl={{ span: 8 }} xs={{ span: 24 }}>
               <FormGroup title="Module" isLoading={(getAllModulesLoading || isFormLoading) ?? true}>
+                <Label text="Module mới" />
                 <FormSwitch
-                  label="Module mới"
                   onChange={(value) => {
                     setNewModule(value);
                     setFieldValue("module", "");
@@ -85,30 +86,34 @@ const PermissionForm = ({ formikRef, type, permission, isFormLoading = false }: 
                 />
 
                 {newModule ? (
-                  <FormInput
-                    label="Module quyền"
-                    placeholder="Nhập module quyền ở đây..."
-                    onChange={(value) => setFieldValue("module", value)}
-                    value={values.module}
-                    error={touched.module ? errors.module : ""}
-                  />
+                  <>
+                    <Label text="Module quyền" isRequired />
+                    <FormInput
+                      placeholder="Nhập module quyền ở đây..."
+                      onChange={(value) => setFieldValue("module", value)}
+                      value={values.module}
+                      error={touched.module ? errors.module : ""}
+                    />
+                  </>
                 ) : (
-                  <FormSelect
-                    value={values.availableModule}
-                    onChange={(value) => setFieldValue("availableModule", value)}
-                    options={state.modules.map((module) => ({ label: module, value: module }))}
-                    label="Module quyền"
-                    error={touched.availableModule ? errors.availableModule : ""}
-                    placeholder="Chọn module quyền..."
-                  />
+                  <>
+                    <Label text="Module quyền" isRequired />
+                    <FormSelect
+                      value={values.availableModule}
+                      onChange={(value) => setFieldValue("availableModule", value)}
+                      options={state.modules.map((module) => ({ label: module, value: module }))}
+                      error={touched.availableModule ? errors.availableModule : ""}
+                      placeholder="Chọn module quyền..."
+                    />
+                  </>
                 )}
               </FormGroup>
             </Col>
             <Col xl={{ span: 16 }} xs={{ span: 24 }}>
               <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+                <Label text="Tên quyền" isRequired />
                 <FormInput
                   value={values.label}
-                  label="Tên quyền"
                   error={touched.label ? errors.label : ""}
                   placeholder="Nhập tên quyền ở đây..."
                   onBlur={handleBlur}
@@ -116,9 +121,9 @@ const PermissionForm = ({ formikRef, type, permission, isFormLoading = false }: 
                     setFieldValue("label", value);
                   }}
                 />
+                <Label text="Giá trị" isRequired />
                 <FormInput
                   value={values.name}
-                  label="Giá trị"
                   error={touched.name ? errors.name : ""}
                   placeholder="Nhập giá trị ở đây..."
                   onBlur={handleBlur}

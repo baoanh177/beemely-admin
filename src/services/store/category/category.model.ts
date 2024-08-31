@@ -1,4 +1,4 @@
-export interface IGender {
+export interface ICategory {
   id: string;
   name: string;
 }
