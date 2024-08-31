@@ -137,11 +137,6 @@ export const menuItems: IMenuItem[] = [
         label: "Đơn hàng",
         path: "orders",
         permissions: EPermissions.READ_ORDER,
-      }
-        id: "3.15",
-        label: "Quản lý hiển thị",
-        path: "flag-pages",
-        permissions: EPermissions.READ_FLAG_PAGE,
       },
     ],
   },
@@ -153,6 +148,12 @@ export const menuItems: IMenuItem[] = [
       {
         id: "5.1",
         label: "Cài đặt chung",
+      },
+      {
+        id: "3.15",
+        label: "Quản lý hiển thị",
+        path: "flag-pages",
+        permissions: EPermissions.READ_FLAG_PAGE,
       },
     ],
   },
