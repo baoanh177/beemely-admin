@@ -7,6 +7,7 @@ import lodash from "lodash";
 import { createProductType, updateProductType } from "@/services/store/productType/productType.thunk";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 
 interface IProductTypeFormProps {
   formikRef?: FormikRefType<IProductTypeFormInitialValues>;
@@ -47,8 +48,8 @@ const ProductTypeForm = ({ formikRef, type, productType, isFormLoading = false }
       >
         {({ values, errors, touched, handleBlur, setFieldValue }) => (
           <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+            <Label text="Tên loại sản phẩm" />
             <FormInput
-              label="Tên loại sản phẩm"
               placeholder="Nhập tên loại sản phẩm ở đây..."
               name="name"
               value={values.name}
