@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Heading from "@/components/layout/Heading";
 import { useArchive } from "@/hooks/useArchive";
@@ -6,7 +6,6 @@ import { IProductTypeInitialState, resetStatus } from "@/services/store/productT
 import { EFetchStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import { useRef } from "react";
-import { FaPlus } from "react-icons/fa";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import ProductTypeForm, { IProductTypeFormInitialValues } from "../ProductTypeForm";
 import useFetchStatus from "@/hooks/useFetchStatus";
