@@ -9,7 +9,6 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 import GoogleCallback from "@/pages/GoogleCallback/GoogleCallback";
 import Login from "@/pages/Login/Login";
 import Orders from "@/pages/Order/Orders/Orders";
-import Products from "@/pages/Product/Products/Products";
 import { EPermissions } from "@/shared/enums/permissions";
 import { ReactNode } from "react";
 import { brandRoutes } from "./brand.route";
@@ -28,6 +27,8 @@ import { orderStatusRoutes } from "./orderStatus";
 import { accountRoutes } from "./account.route";
 import { flagPageRoutes } from "./flagPage.route";
 import { categoryRoutes } from "./category.route";
+import { productRoutes } from "./product.route";
+import { productTypeRoutes } from "./productType.route";
 
 export interface IRoute {
   path: string;
@@ -57,7 +58,12 @@ export const routes: IRoute[] = [
           },
           {
             path: "products",
-            element: () => <Products />,
+            // middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,
+            pages: productRoutes,
+          },
+          {
+            path: "product-types",
+            pages: productTypeRoutes,
           },
           {
             path: "orders",

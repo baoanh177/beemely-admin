@@ -4,7 +4,7 @@ import { Tooltip } from "antd";
 import { IoEyeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { PiNotePencilLight } from "react-icons/pi";
 
-const ActionButtons: React.FC<{ record: ITableData }> = () => (
+export const ActionButtons: React.FC<{ record: ITableData }> = () => (
   <div className="flex cursor-pointer gap-3">
     <Tooltip title="View">
       <IoEyeOutline className="text-[18px] text-blue-500" />
