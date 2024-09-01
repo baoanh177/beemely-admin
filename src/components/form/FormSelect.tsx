@@ -3,7 +3,7 @@ import clsx from "clsx";
 interface IFormSelect {
   label?: string;
   placeholder?: string;
-  options: { value: string; label: string }[];
+  options: { value: string | undefined; label: string }[];
   defaultValue?: string | string[];
   isMultiple?: boolean;
   error?: string;
