@@ -1,54 +1,52 @@
-import { client } from "@/services/config/client";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { client } from "@/services/config/client";
 import { IThunkPayload } from "@/shared/utils/shared-interfaces";
-import { ISize } from "./size.model";
 import { messageCreator } from "@/services/config/message-creator";
+import { IFlagPage } from "./flagPage.model";
 
-const dataKeys: { [key in keyof Omit<ISize, "id">]: string } = {
-  name: "Tên kích cỡ",
-  gender: "Danh mục",
+const dataKeys: { [key in keyof Omit<IFlagPage, "id">]: string } = {
+  name: "Tên trang quản lý hiển thị",
 };
 
-const prefix = "/api/sizes";
+const prefix = "/api/flag-pages";
 
-export const getAllSizes = createAsyncThunk("size/get-all-sizes", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const getAllFlagPage = createAsyncThunk("flag-pages/getAllFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<ISize[]>(prefix, payload);
+    const { response, data } = await client.get<IFlagPage[]>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const getSizeById = createAsyncThunk("size/get-size-by-id", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const getFlagPageById = createAsyncThunk("flag-pages/getFlagPageById", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<ISize>(prefix, payload);
+    const { response, data } = await client.get<IFlagPage>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const createSize = createAsyncThunk("size/create-size", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const createFlagPage = createAsyncThunk("flag-pages/createFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.post<ISize>(prefix, payload);
-
+    const { response, data } = await client.post<IFlagPage>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const updateSize = createAsyncThunk("size/update-size", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const updateFlagPage = createAsyncThunk("flag-pages/updateFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.patch<ISize>(prefix, payload);
+    const { response, data } = await client.patch<IFlagPage>(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
 
-export const deleteSize = createAsyncThunk("size/delete-size", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const deleteFlagPage = createAsyncThunk("flag-pages/deleteFlagPage", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
     const { response, data } = await client.delete(prefix, payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;

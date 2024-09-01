@@ -8,13 +8,14 @@ import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
 import FormSelect from "@/components/form/FormSelect";
 import { ISize } from "@/services/store/size/size.model";
+import Label from "@/components/form/Label";
 
 interface ISizeFormProps {
   formikRef?: FormikRefType<ISizeFormInitialValues>;
   type: "create" | "update";
   size?: ISize;
   isFormLoading?: boolean;
-  genders?: { value: string; label: string }[];
+  categories?: { value: string; label: string }[];
 }
 
 export interface ISizeFormInitialValues {
@@ -23,7 +24,7 @@ export interface ISizeFormInitialValues {
   gender: string | null;
 }
 
-const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }: ISizeFormProps) => {
+const SizeForm = ({ formikRef, type, size, isFormLoading = false, categories = [] }: ISizeFormProps) => {
   const { dispatch } = useArchive<ISizeInitialState>("size");
   const initialValues: ISizeFormInitialValues = {
     name: size?.name || "",
@@ -32,7 +33,7 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
 
   const sizeSchema = object().shape({
     name: string().required("Vui lòng nhập tên Kích cỡ"),
-    gender: string().required("Vui lòng chọn giới tính"),
+    gender: string().required("Vui lòng chọn danh mục"),
   });
 
   return (
@@ -55,8 +56,8 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên Kích cỡ" isRequired />
           <FormInput
-            label="Tên Kích cỡ"
             placeholder="Nhập tên Kích cỡ ở đây..."
             name="name"
             value={values.name}
@@ -64,13 +65,13 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, genders = [] }
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
+          <Label text="Danh mục" isRequired />
           <FormSelect
-            label="Giới tính"
-            placeholder="Chọn giới tính..."
+            placeholder="Chọn danh mục..."
             value={values.gender || undefined}
             error={touched.gender ? errors.gender : ""}
             onChange={(value) => setFieldValue("gender", value)}
-            options={genders}
+            options={categories}
           />
         </FormGroup>
       )}

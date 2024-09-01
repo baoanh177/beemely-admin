@@ -5,8 +5,8 @@ import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { ISizeInitialState, resetStatus, setFilter } from "@/services/store/size/size.slice";
-import { deleteSize, getAllSizes } from "@/services/store/size/size.thunk";
+import { ICategoryInitialState, resetStatus, setFilter } from "@/services/store/category/category.slice";
+import { deleteCategory, getAllCategories } from "@/services/store/category/category.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
@@ -16,9 +16,9 @@ import { FaPlus } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-const Sizes = () => {
+const Categories = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useArchive<ISizeInitialState>("size");
+  const { state, dispatch } = useArchive<ICategoryInitialState>("category");
   const defaultSearch: IDefaultSearchProps = {
     input: {
       type: "text",
@@ -31,7 +31,7 @@ const Sizes = () => {
     },
   };
   useFetchStatus({
-    module: "size",
+    module: "category",
     reset: resetStatus,
     actions: {
       success: { message: state.message },
@@ -39,8 +39,8 @@ const Sizes = () => {
     },
   });
 
-  const { getAllSizesLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllSizes({ query: state.filter })), "getAllSizesLoading"),
+  const { getAllCategoriesLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllCategories({ query: state.filter })), "getAllCategoriesLoading"),
     [JSON.stringify(state.filter)],
   );
 
@@ -49,59 +49,53 @@ const Sizes = () => {
       dataIndex: "name",
       title: "Tên",
     },
-    {
-      dataIndex: "gender",
-      title: "Danh mục",
-    },
   ];
 
   const data: ITableData[] = useMemo(() => {
-    if (state.sizes && state.sizes.length > 0) {
-      return state.sizes.map((size) => ({
-        key: size.id,
-        name: size.name,
-        gender: size.gender.name,
+    if (state.categories && state.categories.length > 0) {
+      return state.categories.map((category) => ({
+        key: category.id,
+        name: category.name,
       }));
     }
-
     return [];
-  }, [state.sizes]);
+  }, [state.categories]);
 
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.UPDATE,
       onClick(record) {
-        navigate(`/sizes/update/${record?.key}`);
+        navigate(`/categories/update/${record?.key}`);
       },
-      permission: EPermissions.UPDATE_SIZE,
+      permission: EPermissions.CREATE_CATEGORY,
     },
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteSize({ param: record.key }));
+        dispatch(deleteCategory({ param: record.key }));
       },
-      permission: EPermissions.DELETE_SIZE,
+      permission: EPermissions.DELETE_CATEGORY,
     },
   ];
 
   return (
     <>
       <Heading
-        title="Kích cỡ"
+        title="Danh mục"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_SIZE,
-            text: "Tạo mới Kích cỡ",
-            onClick: () => navigate("/sizes/create"),
+            permission: EPermissions.CREATE_CATEGORY,
+            text: "Tạo mới Danh mục",
+            onClick: () => navigate("/categories/create"),
           },
         ]}
       />
       <ManagementGrid
         columns={columns}
         data={data}
-        isTableLoading={getAllSizesLoading ?? true}
+        isTableLoading={getAllCategoriesLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
@@ -111,4 +105,4 @@ const Sizes = () => {
   );
 };
 
-export default Sizes;
+export default Categories;

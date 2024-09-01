@@ -7,6 +7,7 @@ import { object, string } from "yup";
 import lodash from "lodash";
 import FormGroup from "@/components/form/FormGroup";
 import FormInput from "@/components/form/FormInput";
+import Label from "@/components/form/Label";
 
 interface IUserGenderFormProps {
   formikRef?: FormikRefType<IUserGenderFormInitialValues>;
@@ -50,8 +51,8 @@ const UserGenderForm = ({ formikRef, type, userGender, isFormLoading = false }: 
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => (
         <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+          <Label text="Tên giới tính" isRequired />
           <FormInput
-            label="Tên giới tính"
             placeholder="Nhập tên giới tính ở đây..."
             name="name"
             value={values.name}
@@ -59,8 +60,8 @@ const UserGenderForm = ({ formikRef, type, userGender, isFormLoading = false }: 
             onChange={(e) => setFieldValue("name", e)}
             onBlur={handleBlur}
           />
+          <Label text="Mô tả" />
           <FormInput
-            label="Mô tả"
             placeholder="Nhập mô tả ở đây..."
             name="description"
             value={values.description}

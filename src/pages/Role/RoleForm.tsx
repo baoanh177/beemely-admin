@@ -15,6 +15,7 @@ import { IRole } from "@/services/store/role/role.model";
 import lodash from "lodash";
 import { Col, Row } from "antd";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import Label from "@/components/form/Label";
 
 interface IActiveRole extends Omit<IRole, "permissions"> {
   permissions: string[];
@@ -104,10 +105,10 @@ const RoleForm = ({ formikRef, type, role, isFormLoading = false }: IRoleFormPro
             </Col>
             <Col xl={{ span: 18, order: 2 }} xs={{ span: 24, order: 1 }}>
               <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
+                <Label text="Tên vai trò" isRequired />
                 <FormInput
                   type="text"
                   isDisabled={type === "view"}
-                  label="Tên vai trò"
                   value={values.name}
                   name="name"
                   error={touched.name ? errors.name : ""}

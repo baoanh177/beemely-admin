@@ -1,28 +1,28 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { IoClose, IoSaveOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
 import { FormikProps } from "formik";
 import Heading from "@/components/layout/Heading";
 import { EFetchStatus } from "@/shared/enums/status";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
 import { useArchive } from "@/hooks/useArchive";
-import { getGenderById } from "@/services/store/gender/gender.thunk";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import FlagPageForm, { IFlagPageFormInitialValues } from "../FlagPageForm";
+import { IFlagPageInitialState, resetStatus } from "@/services/store/flagPage/flagPage.slice";
+import { getFlagPageById } from "@/services/store/flagPage/flagPage.thunk";
 
-const UpdateGender = () => {
+const UpdateFlagPage = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
+  const formikRef = useRef<FormikProps<IFlagPageFormInitialValues>>(null);
   const { id } = useParams();
-  const { state, dispatch } = useArchive<IGenderInitialState>("gender");
+  const { state, dispatch } = useArchive<IFlagPageInitialState>("flagPage");
   useFetchStatus({
-    module: "gender",
+    module: "flagPage",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/genders",
+        navigate: "/flag-pages",
       },
       error: {
         message: state.message,
@@ -30,22 +30,15 @@ const UpdateGender = () => {
     },
   });
 
-  const { getGenderByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getGenderById({ param: id })), "getGenderByIdLoading"), [id]);
-
-  useEffect(() => {
-    if (state.activeGender) {
-      if (formikRef.current) {
-        formikRef.current.setValues({
-          name: state.activeGender.name,
-        });
-      }
-    }
-  }, [state.activeGender]);
+  const { getFlagPageByIdLoading } = useAsyncEffect(
+    (async) => id && async(dispatch(getFlagPageById({ param: id })), "getFlagPageByIdLoading"),
+    [id],
+  );
 
   return (
     <>
       <Heading
-        title="Cập nhật Giới tính"
+        title="Cập nhật Trang quản lý hiển thị"
         hasBreadcrumb
         buttons={[
           {
@@ -53,7 +46,7 @@ const UpdateGender = () => {
             text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/genders");
+              navigate("/flag-pages");
             },
           },
           {
@@ -68,11 +61,11 @@ const UpdateGender = () => {
           },
         ]}
       />
-      {state.activeGender && (
-        <GenderForm type="update" isFormLoading={getGenderByIdLoading ?? true} formikRef={formikRef} gender={state.activeGender} />
+      {state.activeFlagPage && (
+        <FlagPageForm type="update" isFormLoading={getFlagPageByIdLoading ?? true} formikRef={formikRef} flagPage={state.activeFlagPage} />
       )}
     </>
   );
 };
 
-export default UpdateGender;
+export default UpdateFlagPage;
