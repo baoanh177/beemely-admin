@@ -25,10 +25,10 @@ import { voucherRoutes } from "./voucher.route";
 import { voucherTypeRoutes } from "./voucherType.route";
 import { orderStatusRoutes } from "./orderStatus";
 import { accountRoutes } from "./account.route";
-import { flagPageRoutes } from "./flagPage.route";
-import { categoryRoutes } from "./category.route";
 import { productRoutes } from "./product.route";
 import { productTypeRoutes } from "./productType.route";
+import { flagPageRoutes } from "./flagPage.route";
+import { categoryRoutes } from "./category.route";
 
 export interface IRoute {
   path: string;
