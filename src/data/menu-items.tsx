@@ -161,6 +161,12 @@ export const menuItems: IMenuItem[] = [
         path: "order-statuses",
         permissions: EPermissions.READ_ORDER_STATUS,
       },
+      {
+        id: "3.15",
+        label: "Loại sản phẩm",
+        path: "product-types",
+        permissions: EPermissions.READ_PRODUCT_TYPE,
+      },
     ],
   },
   {
