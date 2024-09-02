@@ -1,6 +1,6 @@
 import { message, Spin } from "antd";
 import imageError from "@/assets/images/imgError.jpg";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import { LoadingOutlined } from "@ant-design/icons";
 interface UploadImageProps {
@@ -9,13 +9,15 @@ interface UploadImageProps {
   onImageUpload?: (imageURL: string | string[]) => void;
   currentImageUrl?: string;
   error?: string;
+  id?: string;
 }
 
-const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "", error }) => {
+const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "", error, id }) => {
   const [fileList, setFileList] = useState<File[]>([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>(currentImageUrl ? [currentImageUrl] : []);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const inputId = useMemo(() => id || `file-upload-${Math.random().toString(36).substring(2, 15)}`, [id]);
 
   useEffect(() => {
     if (currentImageUrl) {
@@ -128,12 +130,12 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
             {uploadError && <div className="mt-3 text-center text-red-500">{uploadError}</div>}
             <div className="mt-4 flex justify-center">
               <label
-                htmlFor="file-upload"
+                htmlFor={inputId}
                 className="text-m-medium inline-block cursor-pointer rounded bg-primary-50 px-[14px] py-[10px] text-primary-500"
               >
                 {isMultiple ? "Thêm ảnh" : uploadedImageUrls.length > 0 ? "Thay đổi ảnh" : "Thêm ảnh"}
               </label>
-              <input id="file-upload" type="file" onChange={handleFileChange} multiple={isMultiple} className="hidden" />
+              <input id={inputId} type="file" onChange={handleFileChange} multiple={isMultiple} className="hidden" />
             </div>
           </div>
         </div>
