@@ -59,7 +59,7 @@ const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFo
               <UploadImage
                 isMultiple={false}
                 onImageUpload={handleImageUpload}
-                currentImageUrl={values.image}
+                currentImageUrl={Array.isArray(values.image) ? values.image : [values.image]}
                 error={touched.image ? errors.image : ""}
               />
             </FormGroup>

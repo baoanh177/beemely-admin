@@ -96,7 +96,7 @@ const TagForm = ({ formikRef, type, tag, isFormLoading = false }: ITagFormProps)
                   const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
                   setFieldValue("image", url);
                 }}
-                currentImageUrl={values.image}
+                currentImageUrl={values.image ? [values.image] : []}
                 error={touched.image ? errors.image : ""}
               />
             </FormGroup>

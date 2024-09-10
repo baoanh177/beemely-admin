@@ -7,30 +7,31 @@ interface UploadImageProps {
   isMultiple?: boolean;
   label?: string;
   onImageUpload?: (imageURL: string | string[]) => void;
-  currentImageUrl?: string;
+  currentImageUrl?: string[];
   error?: string;
   id?: string;
 }
 
 const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "", error, id }) => {
   const [fileList, setFileList] = useState<File[]>([]);
-  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>(currentImageUrl ? [currentImageUrl] : []);
+  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const inputId = useMemo(() => id || `file-upload-${Math.random().toString(36).substring(2, 15)}`, [id]);
 
   useEffect(() => {
     if (currentImageUrl) {
-      const fakeFile: File = new File([new Blob()], "currentImage.png", { type: "image/png" });
-      setFileList([fakeFile]);
-      setUploadedImageUrls([currentImageUrl]);
+      const initialUrls = Array.isArray(currentImageUrl) ? currentImageUrl : [currentImageUrl];
+      const fakeFiles: File[] = initialUrls.map((index) => new File([new Blob()], `currentImage${index}.png`, { type: "image/png" }));
+      setFileList(fakeFiles);
+      setUploadedImageUrls(initialUrls);
     }
   }, [currentImageUrl]);
 
-  const handleDeleteImage = (fileName: string) => {
-    const updatedFileList = fileList.filter((file) => file.name !== fileName);
+  const handleDeleteImage = (index: number) => {
+    const updatedFileList = fileList.filter((_, i) => i !== index);
     setFileList(updatedFileList);
-    const updatedImageUrls = uploadedImageUrls.slice(0, updatedFileList.length);
+    const updatedImageUrls = uploadedImageUrls.filter((_, i) => i !== index);
     setUploadedImageUrls(updatedImageUrls);
     onImageUpload?.(isMultiple ? updatedImageUrls : updatedImageUrls[0] || "");
   };
@@ -118,7 +119,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
                   ? uploadedImageUrls.map((url, index) => (
                       <div key={index} className="relative mx-2 inline-block text-center">
                         {renderFileIcon(url)}
-                        <button onClick={() => handleDeleteImage(fileList[index]?.name || "")}>
+                        <button onClick={() => handleDeleteImage(index)}>
                           <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
                         </button>
                       </div>
