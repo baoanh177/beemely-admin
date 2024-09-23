@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 const ProductTypes = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IProductTypeInitialState>("productType");
+  console.log(state);
   const { getAllProductTypesLoading } = useAsyncEffect(
     (async) => async(dispatch(getAllProductTypes({ query: state.filter })), "getAllProductTypesLoading"),
     [JSON.stringify(state.filter)],

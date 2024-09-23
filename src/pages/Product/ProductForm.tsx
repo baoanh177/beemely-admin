@@ -1,35 +1,16 @@
-import React, { useState } from "react";
-import { FormikProps, Formik } from "formik";
-import * as Yup from "yup";
 import { useArchive } from "@/hooks/useArchive";
-import { createProduct, updateProduct } from "@/services/store/product/product.thunk";
-import FormGroup from "@/components/form/FormGroup";
-import FormInput from "@/components/form/FormInput";
-import FormSelect from "@/components/form/FormSelect";
 import { IProduct, IProductInitialState } from "@/services/store/product/product.model";
-import UploadImage from "@/components/form/UploadImage";
-import FormInputArea from "@/components/form/FormInputArea";
-import { Button, InputNumber, Table } from "antd";
-import { TiDeleteOutline, TiPlusOutline } from "react-icons/ti";
-import { Checkbox } from "antd";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { getAllSizes } from "@/services/store/size/size.thunk";
-import { getAllColors } from "@/services/store/color/color.thunk";
-import { ISizeInitialState } from "@/services/store/size/size.slice";
-import { ISize } from "@/services/store/size/size.model";
-import { IColor } from "@/services/store/color/color.model";
-import ButtonGhost from "../../components/common/Button";
-import { IColorInitialState } from "@/services/store/color/color.slice";
-import { IProductTypeInitialState } from "@/services/store/productType/productType.slice";
-import { IBrandInitialState } from "@/services/store/brand/brand.slice";
-import { IGenderInitialState } from "@/services/store/gender/gender.slice";
-import { getAllProductTypes } from "@/services/store/productType/productType.thunk";
-import { getAllBrands } from "@/services/store/brand/brand.thunk";
-import { getAllGenders } from "@/services/store/gender/gender.thunk";
-import { ILabelInitialState } from "@/services/store/label/label.slice";
-import { getAllLabels } from "@/services/store/label/label.thunk";
-import { ITagInitialState } from "@/services/store/tag/tag.slice";
-import { getAllTags } from "@/services/store/tag/tag.thunk";
+import { createProduct, updateProduct } from "@/services/store/product/product.thunk";
+import { IProductColor } from "@/services/store/productColor/productColor.model";
+import { IVariant } from "@/services/store/variant/variant.model";
+import { Formik, FormikProps } from "formik";
+import React from "react";
+import * as Yup from "yup";
+import InfoGroup from "./groups/InfoGroup";
+import LabelsGroup from "./groups/LabelsGroup";
+import MediaGroup from "./groups/MediaGroup";
+import PriceGroup from "./groups/PriceGroup";
+import VariantGroup from "./groups/VariantGroup";
 
 export interface IProductFormInitialValues {
   name: string;
@@ -38,432 +19,131 @@ export interface IProductFormInitialValues {
   thumbnail: string;
   images: string[];
   discountPrice: number;
-  product_colors: { color_id: string; image_url: string }[];
-  product_type: string;
-  product_sizes: string[];
+  productColors: string[];
+  productSizes: string[];
   gender: string;
   brand: string;
   tags: string[];
-  label: string[];
-  variants: { color: string; size: string; price: number; quantity: number }[];
+  labels: string[];
+  variants: IVariant[];
+  productType: string;
 }
 
 interface IProductFormProps {
-  formikRef: React.RefObject<FormikProps<IProductFormInitialValues>>;
+  FormikRefType: React.RefObject<FormikProps<IProductFormInitialValues>>;
   type: "create" | "update" | "view";
   product?: IProduct;
   isFormLoading?: boolean;
 }
 
-const ProductForm: React.FC<IProductFormProps> = ({ formikRef, type, product, isFormLoading = false }) => {
+const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product, isFormLoading = false }) => {
   const { dispatch } = useArchive<IProductInitialState>("product");
-
-  const [variantTypes, setVariantTypes] = useState<{ name: string; options: string[] }[]>([]);
 
   const initialValues: IProductFormInitialValues = {
     name: product?.name || "",
     description: product?.description || "",
-    thumbnail: "",
-    gender: "",
-    brand: "",
-    product_colors: [],
-    images: [],
-    tags: [],
-    label: [],
-    product_type: "",
-    product_sizes: [],
+    thumbnail: product?.thumbnail || "",
+    gender: product?.gender?.id || "",
+    brand: product?.brand?.id || "",
+    productColors: product?.productColors || [],
+    images: product?.images || [],
+    tags: product?.tags?.map((tag) => tag.id) || [],
+    labels: product?.labels?.map((label) => label.id) || [],
+    productType: product?.productType || "",
+    productSizes: product?.productSizes?.map((size) => size.id) || [],
     regularPrice: product?.regularPrice || 0,
     discountPrice: product?.discountPrice || 0,
-    variants: [],
+    variants: product?.variants || [],
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Tên sản phẩm là bắt buộc"),
+    description: Yup.string().required("Mô tả là bắt buộc"),
     regularPrice: Yup.number().min(0, "Giá không thể âm").required("Giá bán là bắt buộc"),
-    // Add more validation rules as needed
+    thumbnail: Yup.string().url("URL không hợp lệ").required("Ảnh đại diện là bắt buộc"),
+    images: Yup.array().of(Yup.string().url("URL không hợp lệ")).min(1, "Ít nhất một ảnh là bắt buộc"),
+    discountPrice: Yup.number().min(0, "Giá không thể âm").required("Giá khuyến mãi là bắt buộc"),
+    productColors: Yup.array().of(Yup.string()).min(1, "Ít nhất một màu là bắt buộc"),
+    productSizes: Yup.array().of(Yup.string()).min(1, "Ít nhất một kích thước là bắt buộc"),
+    gender: Yup.string().required("Giới tính là bắt buộc"),
+    brand: Yup.string().required("Thương hiệu là bắt buộc"),
+    productType: Yup.string().required("Loại sản phẩm là bắt buộc"),
+    tags: Yup.array().of(Yup.string()).min(1, "Ít nhất một thẻ là bắt buộc"),
+    labels: Yup.array().of(Yup.string()).min(1, "Ít nhất một nhãn hiệu là bắt buộc").max(3, "Nhiều nhất là 3 nhãn hiệu"),
+    variants: Yup.array().of(
+      Yup.object().shape({
+        id: Yup.string(),
+        size: Yup.string().required("Cỡ là bắt buộc"),
+        color: Yup.string().required("Màu là bắt buộc"),
+        price: Yup.number().required("Giá là bắt buộc"),
+        stock: Yup.number().required("Số lượng là bắt buộc").required("Biến thể là bắt buộc"),
+      }),
+    ),
   });
 
   const handleSubmit = (values: IProductFormInitialValues) => {
+    console.log("creating product");
+    const transformedData = {
+      name: values.name,
+      description: values.description,
+      thumbnail: values.thumbnail,
+      gender: values.gender,
+      brand: values.brand,
+      product_colors: values.productColors,
+      images: values.images,
+      tags: values.tags,
+      labels: values.labels,
+      product_type: values.productType,
+      product_sizes: values.productSizes,
+      regular_price: values.regularPrice,
+      discount_price: values.discountPrice,
+      variants: values.variants,
+    };
+
     if (type === "create") {
-      dispatch(createProduct({ body: values }));
-    } else if (type === "update" && product) {
-      dispatch(updateProduct({ param: product.id, body: values }));
-    }
-  };
-
-  const { state: stateSize, dispatch: dispatchSize } = useArchive<ISizeInitialState>("size");
-  const { getAllSizesLoading } = useAsyncEffect(
-    (async) => async(dispatchSize(getAllSizes({ query: stateSize.filter })), "getAllSizesLoading"),
-    [JSON.stringify(stateSize.filter)],
-  );
-
-  const { state: stateColor, dispatch: dispatchColor } = useArchive<IColorInitialState>("color");
-  const { getallcolorsloading } = useAsyncEffect(
-    (async) => async(dispatchColor(getAllColors({ query: stateColor.filter })), "getAllColorsLoading"),
-    [JSON.stringify(stateColor.filter)],
-  );
-
-  const { state: stateProductType } = useArchive<IProductTypeInitialState>("productType");
-  const { getAllProductTypesLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllProductTypes({ query: stateProductType.filter })), "getAllProductTypesLoading"),
-    [JSON.stringify(stateProductType.filter)],
-  );
-
-  const { state: stateBrand } = useArchive<IBrandInitialState>("brand");
-  const { getAllBrandsLoading } = useAsyncEffect(
-    (async) => {
-      async(dispatch(getAllBrands({ query: stateBrand.filter })), "getAllBrandsLoading");
-    },
-    [JSON.stringify(stateBrand.filter)],
-  );
-  const { state: stateGender } = useArchive<IGenderInitialState>("gender");
-  const { getAllGendersLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllGenders({ query: stateGender.filter })), "getAllGendersLoading"),
-    [JSON.stringify(stateGender.filter)],
-  );
-
-  const { state: stateLabel } = useArchive<ILabelInitialState>("label");
-  const { getAllLabelsLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllLabels({ query: stateLabel.filter })), "getAllLabelsLoading"),
-    [JSON.stringify(stateLabel.filter)],
-  );
-
-  const { state: stateTag } = useArchive<ITagInitialState>("tag");
-  const { getAllTagsLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllTags({ query: { _pagination: false, ...stateTag.filter } })), "getAllTagsLoading"),
-    [JSON.stringify(stateTag.filter)],
-  );
-  const variantOptions = {
-    color: stateColor.colors,
-    size: stateSize.sizes,
-  };
-  const variantTypesOptions = [
-    { value: "color", label: "Màu sắc" },
-    { value: "size", label: "Kích thước" },
-  ];
-
-  type VariantOptionKey = keyof typeof variantOptions;
-
-  const generateVariantCombinations = (variants: any[]) => {
-    if (variants.length === 0) return [];
-
-    const [first, ...rest] = variants;
-    if (rest.length === 0) {
-      return first.options.map((optionId: string) => {
-        const option = variantOptions[first.name as VariantOptionKey].find((opt) => opt.id === optionId);
+      const formatProductColor = values.productColors.map((c) => {
         return {
-          [first.name]: option ? option.name : optionId,
-          [`${first.name}Id`]: optionId,
+          color_id: c.colorId,
+          image_url: c.imageUrl,
         };
       });
+      transformedData.product_colors = formatProductColor;
+      dispatch(createProduct({ body: transformedData }));
+    } else if (type === "update" && product) {
+      console.log("helo");
+      const formatVariant: IVariant[] = values.variants.map((v) => {
+        if (typeof v === "object")
+          return {
+            ...v,
+            color: v.color!.id ? v.color!.id : v.color,
+            size: v.size.id ? v.size.id : v.size,
+          };
+      });
+      const formatProductColor: IProductColor[] = values.productColors.map((c) => {
+        return {
+          color_id: c.colorId.id ? c.colorId.id : c.colorId,
+          image_url: c.imageUrl,
+        };
+      });
+      transformedData.variants = formatVariant;
+      transformedData.product_colors = formatProductColor;
+      dispatch(updateProduct({ param: product.id, body: transformedData }));
     }
-
-    const subCombinations = generateVariantCombinations(rest);
-
-    return first.options.flatMap((optionId: string) => {
-      const option = variantOptions[first.name as VariantOptionKey].find((opt) => opt.id === optionId);
-      return subCombinations.map((subCombo) => ({
-        [first.name]: option ? option.name : optionId,
-        [`${first.name}Id`]: optionId,
-        ...subCombo,
-      }));
-    });
   };
 
   return (
-    <Formik innerRef={formikRef} initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-      {({ values, errors, touched, handleBlur, setFieldValue }) => {
+    <Formik innerRef={FormikRefType} initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      {(formikData) => {
         return (
           <>
-            <div className="grid w-full grid-cols-2 gap-4">
-              <FormGroup
-                title="Thông tin sản phẩm"
-                isLoading={isFormLoading || getAllBrandsLoading || getAllGendersLoading || getAllProductTypesLoading}
-              >
-                <div className="grid grid-rows-2 gap-8">
-                  <FormInput
-                    label="Tên sản phẩm"
-                    className="w-full"
-                    name="name"
-                    value={values.name}
-                    error={touched.name ? errors.name : ""}
-                    onChange={(value) => setFieldValue("name", value)}
-                    onBlur={handleBlur}
-                    placeholder="Nhập tên sản phẩm..."
-                  />
-                  <div className="grid grid-cols-2 gap-4">
-                    <FormSelect
-                      options={stateProductType?.productTypes.map((type) => ({ value: type.id, label: type.name }))}
-                      label={`Loại sản phẩm`}
-                      placeholder="Chọn loại sản phẩm"
-                      value={values.product_type || undefined}
-                      onChange={(value) => {
-                        setFieldValue("product_type", value);
-                      }}
-                    />
-                    <FormSelect
-                      options={stateBrand?.brands.map((brand) => ({ value: brand.id, label: brand.name }))}
-                      label={` Thương hiệu`}
-                      placeholder="Chọn Thương hiệu"
-                      value={values.brand || undefined}
-                      onChange={(value) => {
-                        setFieldValue("brand", value);
-                      }}
-                    />
-                  </div>
-                  <FormSelect
-                    options={stateGender?.genders.map((gender) => ({ value: gender.id, label: gender.name }))}
-                    label={`Giới tính`}
-                    placeholder="Chọn Giới tính"
-                    value={values.gender || undefined}
-                    onChange={(value) => {
-                      setFieldValue("gender", value);
-                    }}
-                  />
-                </div>
-              </FormGroup>
+            <InfoGroup {...formikData} />
+            <MediaGroup {...formikData} />
+            <LabelsGroup {...formikData} />
+            <PriceGroup {...formikData} />
+            <VariantGroup {...formikData} product={product} type={type} />
+            {/*
 
-              <FormGroup title="Thông tin chi tiết sản phẩm" isLoading={isFormLoading}>
-                <UploadImage
-                  isMultiple={false}
-                  label="Thumbnail"
-                  onImageUpload={(imageURL) => {
-                    const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
-                    setFieldValue("thumbnail", url);
-                  }}
-                  currentImageUrl={values.thumbnail}
-                  error={touched.thumbnail ? errors.thumbnail : ""}
-                />
-                <FormInputArea
-                  label="Mô tả"
-                  placeholder="Nhập mô tả ở đây..."
-                  name="description"
-                  value={values.description}
-                  error={touched.description ? errors.description : ""}
-                  onChange={(e) => setFieldValue("description", e)}
-                />
-              </FormGroup>
-            </div>
-
-            <FormGroup title="Media" isLoading={isFormLoading}>
-              <UploadImage
-                isMultiple={false}
-                label="Ảnh"
-                onImageUpload={(imageURL) => {
-                  const url = Array.isArray(imageURL) ? imageURL[0] : imageURL;
-                  setFieldValue("image", url);
-                }}
-                currentImageUrl={values.thumbnail}
-                error={touched.thumbnail ? errors.thumbnail : ""}
-              />
-            </FormGroup>
-            <div className="grid grid-cols-2 gap-4">
-              <FormGroup title="Nhãn hiệu" isLoading={isFormLoading || getAllLabelsLoading}>
-                <div>
-                  <label className="mb-2 block text-[14px]"> Chọn Nhãn hiệu</label>
-                  <Checkbox.Group
-                    options={stateLabel?.labels.map((label) => ({ value: label.id, label: label.name }))}
-                    value={values.label}
-                    onChange={(checkedValues) => setFieldValue("label", checkedValues)}
-                  />
-                </div>
-              </FormGroup>
-              <FormGroup title="Thẻ" isLoading={isFormLoading || getAllTagsLoading}>
-                <div>
-                  <label className="mb-2 block text-[14px]"> Chọn thẻ</label>
-                  <Checkbox.Group
-                    options={stateTag?.tags.map((tag) => ({ value: tag.id, label: tag.name }))}
-                    value={values.tags}
-                    onChange={(checkedValues) => setFieldValue("tags", checkedValues)}
-                  />
-                </div>
-              </FormGroup>
-            </div>
-            <FormGroup title="Giá sản phẩm" isLoading={isFormLoading}>
-              <FormInput
-                label="Giá bán thông thường"
-                name="regularPrice"
-                value={values.regularPrice}
-                error={touched.regularPrice ? errors.regularPrice : ""}
-                onChange={(value) => setFieldValue("regularPrice", value)}
-                onBlur={handleBlur}
-                type="number"
-                placeholder="Nhập giá bán..."
-              />
-              <FormInput
-                label="Giá bán giảm giá"
-                name="discountPrice"
-                value={values.discountPrice}
-                error={touched.discountPrice ? errors.discountPrice : ""}
-                onChange={(value) => setFieldValue("regularPrice", value)}
-                onBlur={handleBlur}
-                type="number"
-                placeholder="Nhập giá bán..."
-              />
-            </FormGroup>
-            <FormGroup title="Biến thể sản phẩm" isLoading={isFormLoading || getAllSizesLoading || getallcolorsloading}>
-              {variantTypes.map((variantType, index) => {
-                return (
-                  <div key={index} className="mb-4">
-                    <div className="flex flex-wrap gap-4 [&>*]:grow [&>*]:basis-64">
-                      <div className="flex flex-col">
-                        <FormSelect
-                          options={variantTypesOptions}
-                          label={`Loại biến thể ${index + 1}`}
-                          placeholder="Chọn loại biến thể"
-                          value={variantType.name || undefined}
-                          onChange={(value) => {
-                            const newVariantTypes = [...variantTypes];
-                            newVariantTypes[index] = { name: value, options: [] };
-                            setVariantTypes(newVariantTypes);
-                          }}
-                        />
-                        <Button
-                          className="mt-1 max-w-40"
-                          type="text"
-                          icon={<TiDeleteOutline />}
-                          onClick={() => {
-                            const newVariants = [...variantTypes];
-                            newVariants.splice(index, 1);
-                            setVariantTypes(newVariants);
-                          }}
-                        >
-                          Xóa biến thể
-                        </Button>
-                      </div>
-                      {variantType.name === "color" ? (
-                        <div>
-                          <label className="mb-2 block text-[14px]">Tùy chọn biến thể {index + 1}</label>
-                          <div className="flex flex-wrap gap-2">
-                            {(variantOptions[variantType.name as VariantOptionKey] as Array<IColor>).map((opt: IColor) => (
-                              <label key={opt.id} className="flex items-center">
-                                <input
-                                  type="checkbox"
-                                  className="hidden"
-                                  value={opt.id}
-                                  checked={variantType.options.includes(opt.id)}
-                                  onChange={(e) => {
-                                    const newOptions = e.target.checked
-                                      ? [...variantType.options, opt.id]
-                                      : variantType.options.filter((id) => id !== opt.id);
-                                    const newVariantTypes = [...variantTypes];
-                                    newVariantTypes[index] = { ...variantType, options: newOptions };
-                                    setVariantTypes(newVariantTypes);
-                                  }}
-                                />
-                                <span
-                                  className={`rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 ease-in-out ${
-                                    variantType.options.includes(opt.id)
-                                      ? "bg-[#883DCF] text-white"
-                                      : "text-gray-700 bg-[#F9F9FC] hover:bg-gray-200"
-                                  } ${variantType.name === "color" ? "flex items-center" : ""} `}
-                                >
-                                  {variantType.name === "color" && (
-                                    <span className="mr-2 h-5 w-5 border border-gray-300 shadow-inner" style={{ backgroundColor: opt.value }} />
-                                  )}
-                                  {opt.name}
-                                </span>
-                              </label>
-                            ))}
-                            <Button type="dashed" icon={<TiPlusOutline />} onClick={() => {}}>
-                              Thêm màu
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <label className="mb-2 block text-[14px]">Tùy chọn biến thể {index + 1}</label>
-
-                          <Checkbox.Group
-                            options={(variantOptions[variantType.name as VariantOptionKey] as Array<ISize>)?.map((opt: ISize) => ({
-                              label: opt.name,
-                              value: opt.id,
-                            }))}
-                            value={variantType.options}
-                            onChange={(checkedValues) => {
-                              const newVariantTypes = [...variantTypes];
-                              newVariantTypes[index] = { ...variantType, options: checkedValues };
-                              setVariantTypes(newVariantTypes);
-                            }}
-                          />
-                          <Button className="" type="dashed" icon={<TiPlusOutline />} onClick={() => {}}>
-                            Thêm cỡ
-                          </Button>
-                        </div>
-                      )}{" "}
-                    </div>
-                  </div>
-                );
-              })}
-              <ButtonGhost
-                type="ghost"
-                icon={<TiPlusOutline />}
-                text="Thêm biến thể"
-                onClick={() => setVariantTypes([...variantTypes, { name: "", options: [] }])}
-              />
-
-              {variantTypes.length > 0 && (
-                <div className="mt-4">
-                  <h3 className="mb-2 font-medium">Bảng giá và số lượng cho biến thể</h3>
-                  <Table
-                    dataSource={generateVariantCombinations(variantTypes)}
-                    columns={[
-                      ...variantTypes.map((v) => ({
-                        title: v.name,
-                        dataIndex: v.name,
-                        key: v.name,
-                      })),
-                      {
-                        title: "Giá",
-                        key: "price",
-                        render: (_, record, index) => (
-                          <InputNumber
-                            min={0}
-                            value={values.variants[index]?.price}
-                            onChange={(value) => {
-                              const newVariants = [...values.variants];
-                              newVariants[index] = { ...newVariants[index], color: record.color, size: record.size, price: value };
-                              setFieldValue("variants", newVariants);
-                            }}
-                          />
-                        ),
-                      },
-                      {
-                        title: "Số lượng",
-                        key: "quantity",
-                        render: (_, record, index) => (
-                          <InputNumber
-                            min={0}
-                            value={values.variants[index]?.quantity}
-                            onChange={(value) => {
-                              const newVariants = [...values.variants];
-                              newVariants[index] = { ...newVariants[index], color: record.color, size: record.size, quantity: value };
-                              setFieldValue("variants", newVariants);
-                            }}
-                          />
-                        ),
-                      },
-                      {
-                        title: "Hành động",
-                        key: "action",
-                        render: (_, record) => (
-                          <Button
-                            icon={<TiDeleteOutline />}
-                            onClick={() => {
-                              const newVariants = values.variants.filter(
-                                (_, i) => !Object.keys(record).every((key) => record[key] === generateVariantCombinations(variantTypes)[i][key]),
-                              );
-                              setFieldValue("variants", newVariants);
-                            }}
-                          />
-                        ),
-                      },
-                    ]}
-                    pagination={false}
-                  />
-                </div>
-              )}
-            </FormGroup>
+            */}
           </>
         );
       }}

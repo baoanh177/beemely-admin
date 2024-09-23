@@ -1,28 +1,27 @@
-import Heading from "@/components/layout/Heading";
-import { EPermissions } from "@/shared/enums/permissions";
+import { useRef } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import ProductForm, { IProductFormInitialValues } from "../ProductForm";
-import { useRef } from "react";
+import GenderForm, { IGenderFormInitialValues } from "../GenderForm";
 import { FormikProps } from "formik";
+import Heading from "@/components/layout/Heading";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { resetStatus } from "@/services/store/product/product.slice";
 import { useArchive } from "@/hooks/useArchive";
-import { IProductInitialState } from "@/services/store/product/product.model";
+import { IGenderInitialState, resetStatus } from "@/services/store/gender/gender.slice";
+import { EFetchStatus } from "@/shared/enums/status";
 
-const CreateProduct = () => {
+const CreateGender = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IProductFormInitialValues>>(null);
-  const { state } = useArchive<IProductInitialState>("product");
+  const formikRef = useRef<FormikProps<IGenderFormInitialValues>>(null);
+  const { state } = useArchive<IGenderInitialState>("gender");
 
   useFetchStatus({
-    module: "product",
+    module: "gender",
     reset: resetStatus,
     actions: {
       success: {
         message: state.message,
-        navigate: "/products",
+        navigate: "/genders",
       },
       error: {
         message: state.message,
@@ -39,29 +38,28 @@ const CreateProduct = () => {
   return (
     <>
       <Heading
-        title="Thêm mới sản phẩm"
+        title="Tạo mới Giới tính"
         hasBreadcrumb
         buttons={[
           {
-            text: "Quay lại",
             type: "secondary",
+            text: "Quay lại",
             icon: <IoClose className="text-[18px]" />,
             onClick: () => {
-              navigate("/products");
+              navigate("/genders");
             },
           },
           {
-            text: "Tạo mới Sản phẩm",
+            isLoading: state.status === EFetchStatus.PENDING,
+            text: "Tạo mới Giới tính",
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_PRODUCT,
             onClick: handleSubmit,
           },
         ]}
       />
-
-      <ProductForm type="create" FormikRefType={formikRef} />
+      <GenderForm type="create" formikRef={formikRef} />
     </>
   );
 };
 
-export default CreateProduct;
+export default CreateGender;

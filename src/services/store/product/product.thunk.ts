@@ -49,7 +49,12 @@ const dataKeys: { [key in keyof Omit<IProduct, "id">]: string | number | any } =
     },
   ],
   labels: ["label 1"],
-  brand: null,
+  brand: {
+    id: "6682d2dfdb7ce5829febf548",
+    name: "Adidas",
+    image: "https://res.cloudinary.com/dpc58j5gw/image/upload/v1721275094/Demo-upload/ihlacekb65mpxdafkbo2.jpg",
+    description: "Adidas",
+  },
   productColors: [
     {
       id: "66b379480911194fead18eb3",

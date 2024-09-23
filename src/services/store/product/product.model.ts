@@ -24,7 +24,7 @@ export interface IProduct {
   brand: IBrand;
   productColors: IProductColor[];
   productSizes: ISize[];
-  productType: IProductType;
+  productType: string;
   status: number;
 }
 

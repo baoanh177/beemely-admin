@@ -106,6 +106,12 @@ export enum EPermissions {
   UPDATE_ACCOUNT = "Update_User",
   DELETE_ACCOUNT = "Delete_User",
 
+  // ? Gender Page
+  READ_GENDER = "Read_Gender",
+  CREATE_GENDER = "Create_Gender",
+  UPDATE_GENDER = "Update_Gender",
+  DELETE_GENDER = "Delete_Gender",
+
   // ? Flag Page
   READ_FLAG_PAGE = "Read_FlagPage",
   CREATE_FLAG_PAGE = "Create_FlagPage",

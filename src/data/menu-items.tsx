@@ -113,6 +113,12 @@ export const menuItems: IMenuItem[] = [
         path: "product-types",
         permissions: EPermissions.READ_PRODUCT_TYPE,
       },
+      {
+        id: "3.10",
+        label: "Giới tính",
+        path: "genders",
+        permissions: EPermissions.READ_GENDER,
+      },
     ],
   },
   {
