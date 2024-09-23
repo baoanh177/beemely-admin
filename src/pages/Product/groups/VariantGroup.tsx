@@ -82,14 +82,10 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
     }
   }, [product, type]);
 
-  console.log(values);
   if (!getAllSizesLoading && !getAllColorsLoading)
     return (
       <FormGroup title="Biến thể sản phẩm" isLoading={getAllSizesLoading || getAllColorsLoading}>
         {variantTypes.map((variantType, index) => {
-          // useEffect(() => {
-          //   console.log(values);
-          // }, [values]);
           return (
             <div key={index} className="mb-4">
               <div className="flex flex-wrap gap-4 [&>*]:grow [&>*]:basis-64">

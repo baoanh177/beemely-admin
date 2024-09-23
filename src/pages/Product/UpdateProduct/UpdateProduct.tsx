@@ -69,7 +69,6 @@ const UpdateProduct = () => {
 
   const handleSubmit = () => {
     if (formikRef.current) {
-      console.log(formikRef);
       formikRef.current.handleSubmit();
     }
   };

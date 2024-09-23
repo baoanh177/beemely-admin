@@ -30,7 +30,7 @@ const CreateProduct = () => {
     },
   });
 
-  const handleSubmit = () => {
+  const handleSubmit2 = () => {
     if (formikRef.current) {
       formikRef.current.handleSubmit();
     }
@@ -54,7 +54,7 @@ const CreateProduct = () => {
             text: "Tạo mới Sản phẩm",
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_PRODUCT,
-            onClick: handleSubmit,
+            onClick: handleSubmit2,
           },
         ]}
       />
