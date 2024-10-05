@@ -87,7 +87,7 @@ const BannerForm: React.FC<IBannerFormProps> = ({ formikRef, type, banner, isFor
               <FormGroup title="Thông tin chung" isLoading={isFormLoading || isSubmitting}>
                 <Label text="Tiêu đề" isRequired />
                 <FormInput
-                  placeholder="Nhập tiêu đề banner ở đây..."
+                  placeholder="Nhập tiêu đề ở đây..."
                   name="title"
                   value={values.title}
                   error={touched.title && errors.title ? errors.title : ""}

@@ -45,7 +45,7 @@ const bannerSlice = createSlice({
       })
       .addCase(createBanner.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createBanner.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -58,7 +58,7 @@ const bannerSlice = createSlice({
       })
       .addCase(updateBanner.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateBanner.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -71,7 +71,7 @@ const bannerSlice = createSlice({
       })
       .addCase(deleteBanner.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.banners = state.banners.filter((banner) => banner.id !== payload);
       })
       .addCase(deleteBanner.rejected, (state, { payload }: PayloadAction<any>) => {

@@ -39,7 +39,7 @@ const CreateBanner = () => {
   return (
     <>
       <Heading
-        title="Tạo mới Banner"
+        title="Tạo mới Mục hiển thị"
         hasBreadcrumb
         buttons={[
           {
@@ -52,7 +52,7 @@ const CreateBanner = () => {
           },
           {
             isLoading: state.status === EFetchStatus.PENDING,
-            text: "Tạo mới Banner",
+            text: "Tạo mới Mục hiển thị",
             icon: <FaPlus className="text-[18px]" />,
             onClick: handleSubmit,
           },

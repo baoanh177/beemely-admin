@@ -58,7 +58,7 @@ const UpdateBanner: React.FC = () => {
   return (
     <>
       <Heading
-        title="Cập nhật Banner"
+        title="Cập nhật Mục hiển thị"
         hasBreadcrumb
         buttons={[
           {

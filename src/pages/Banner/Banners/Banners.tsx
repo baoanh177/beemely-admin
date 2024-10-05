@@ -113,13 +113,13 @@ const Banners = () => {
   return (
     <>
       <Heading
-        title="Banner"
+        title="Quản lý Mục hiển thị"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
             permission: EPermissions.CREATE_BANNER,
-            text: "Tạo mới Banner",
+            text: "Tạo mới Mục hiển thị",
             onClick: () => navigate("/banners/create"),
           },
         ]}
