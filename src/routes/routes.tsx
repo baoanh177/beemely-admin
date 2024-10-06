@@ -28,6 +28,7 @@ import { orderStatusRoutes } from "./orderStatus";
 import { accountRoutes } from "./account.route";
 import { flagPageRoutes } from "./flagPage.route";
 import { categoryRoutes } from "./category.route";
+import { bannerRoutes } from "./banner.route";
 
 export interface IRoute {
   path: string;
@@ -146,6 +147,11 @@ export const routes: IRoute[] = [
             path: "flag-pages",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_FLAG_PAGE]} />,
             pages: flagPageRoutes,
+          },
+          {
+            path: "banners",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_BANNER]} />,
+            pages: bannerRoutes,
           },
         ],
       },

@@ -11,14 +11,12 @@ interface UploadImageProps {
   error?: string;
   id?: string;
 }
-
 const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "", error, id }) => {
   const [fileList, setFileList] = useState<File[]>([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const inputId = useMemo(() => id || `file-upload-${Math.random().toString(36).substring(2, 15)}`, [id]);
-
   useEffect(() => {
     if (currentImageUrl) {
       const initialUrls = Array.isArray(currentImageUrl) ? currentImageUrl : [currentImageUrl];
@@ -27,7 +25,6 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
       setUploadedImageUrls(initialUrls);
     }
   }, [currentImageUrl]);
-
   const handleDeleteImage = (index: number) => {
     const updatedFileList = fileList.filter((_, i) => i !== index);
     setFileList(updatedFileList);

@@ -155,6 +155,12 @@ export const menuItems: IMenuItem[] = [
         path: "flag-pages",
         permissions: EPermissions.READ_FLAG_PAGE,
       },
+      {
+        id: "3.16",
+        label: "Quản lý mục hiển thị",
+        path: "banners",
+        permissions: EPermissions.READ_BANNER,
+      },
     ],
   },
   {

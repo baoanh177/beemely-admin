@@ -17,6 +17,7 @@ const ImageTable: React.FC<ImageTableProps> = ({ imageSrc, title, description })
     } else {
       setImgSrc(imageSrc);
     }
+    
   }, [imageSrc]);
 
   const handleError = () => {
