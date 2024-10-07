@@ -17,7 +17,7 @@ export const ActionButtons: React.FC<{ record: ITableData }> = () => (
     </Tooltip>
   </div>
 );
-export const tableColumns: TableColumnsType<ITableData> = [
+export const tableColumns: TableColumnsType<any> = [
   {
     title: "Product",
     dataIndex: "product",

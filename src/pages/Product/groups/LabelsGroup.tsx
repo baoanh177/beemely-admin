@@ -3,6 +3,7 @@ import { Checkbox } from "antd";
 import { FormikProps } from "formik";
 import { IProductFormInitialValues } from "../ProductForm";
 import { useHookDataProductForm } from "../utils/dataProductForm";
+import FormSelect from "@/components/form/FormSelect";
 
 interface ILabelsGroupProps extends FormikProps<IProductFormInitialValues> {}
 const LabelsGroup = ({ values, errors, touched, setFieldValue }: ILabelsGroupProps) => {
@@ -13,6 +14,14 @@ const LabelsGroup = ({ values, errors, touched, setFieldValue }: ILabelsGroupPro
         <div>
           <label className="mb-2 block text-[14px]"> Chọn Nhãn hiệu</label>
           <Checkbox.Group
+            options={stateLabel?.labels.map((label) => ({ value: label.id, label: label.name }))}
+            value={values.labels}
+            onChange={(checkedValues) => setFieldValue("labels", checkedValues)}
+          />
+
+          <FormSelect
+            placeholder="Đây là select multiple"
+            isMultiple
             options={stateLabel?.labels.map((label) => ({ value: label.id, label: label.name }))}
             value={values.labels}
             onChange={(checkedValues) => setFieldValue("labels", checkedValues)}

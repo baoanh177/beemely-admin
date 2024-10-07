@@ -1,7 +1,6 @@
 import { useArchive } from "@/hooks/useArchive";
 import { IProduct, IProductInitialState } from "@/services/store/product/product.model";
 import { createProduct, updateProduct } from "@/services/store/product/product.thunk";
-import { IProductColor } from "@/services/store/productColor/productColor.model";
 import { IVariant } from "@/services/store/variant/variant.model";
 import { Formik, FormikProps } from "formik";
 import React from "react";
@@ -11,6 +10,7 @@ import LabelsGroup from "./groups/LabelsGroup";
 import MediaGroup from "./groups/MediaGroup";
 import PriceGroup from "./groups/PriceGroup";
 import VariantGroup from "./groups/VariantGroup";
+import { IProductColor } from "@/services/store/productColor/productColor.model";
 
 export interface IProductFormInitialValues {
   name: string;
@@ -19,7 +19,7 @@ export interface IProductFormInitialValues {
   thumbnail: string;
   images: string[];
   discountPrice: number;
-  productColors: string[];
+  productColors: IProductColor[];
   productSizes: string[];
   gender: string;
   brand: string;
@@ -36,7 +36,7 @@ interface IProductFormProps {
   isFormLoading?: boolean;
 }
 
-const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product, isFormLoading = false }) => {
+const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product }) => {
   const { dispatch } = useArchive<IProductInitialState>("product");
 
   const initialValues: IProductFormInitialValues = {
@@ -108,7 +108,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
       transformedData.product_colors = formatProductColor;
       dispatch(createProduct({ body: transformedData }));
     } else if (type === "update" && product) {
-      const formatVariant: IVariant[] = values.variants.map((v) => {
+      const formatVariant: any[] = values.variants.map((v) => {
         if (typeof v === "object")
           return {
             ...v,
@@ -116,7 +116,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
             size: v.size.id ? v.size.id : v.size,
           };
       });
-      const formatProductColor: IProductColor[] = values.productColors.map((c) => {
+      const formatProductColor: any[] = values.productColors.map((c: any) => {
         return {
           color_id: c.colorId.id ? c.colorId.id : c.colorId,
           image_url: c.imageUrl,
