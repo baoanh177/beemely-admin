@@ -108,4 +108,10 @@ export enum EPermissions {
   CREATE_BANNER = "Create_Banner",
   UPDATE_BANNER = "Update_Banner",
   DELETE_BANNER = "Delete_Banner",
+
+  // ? Shipping Method
+  READ_SHIPPING_METHOD = "Read_ShippingMethod",
+  CREATE_SHIPPING_METHOD = "Create_ShippingMethod",
+  UPDATE_ShIPPING_METHOD = "Update_ShippingMethod",
+  DELETE_SHIPPING_METHOD = "Delete_ShippingMethod",
 }

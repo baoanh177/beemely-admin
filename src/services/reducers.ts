@@ -18,6 +18,7 @@ import { paymentStatuslice } from "./store/paymentStatus/paymentStatus.slice";
 import { orderStatusSlice } from "./store/orderStatus/orderStatus.slice";
 import { flagPageSlice } from "./store/flagPage/flagPage.slice";
 import { bannerSlice } from "./store/banner/banner.slice";
+import { shippingMethodSlice } from "./store/shippingMethod/shippingMethod.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -39,6 +40,7 @@ export const reducers = combineReducers({
   orderStatus: orderStatusSlice.reducer,
   flagPage: flagPageSlice.reducer,
   banner: bannerSlice.reducer,
+  shippingMethod: shippingMethodSlice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;

@@ -138,6 +138,12 @@ export const menuItems: IMenuItem[] = [
         path: "orders",
         permissions: EPermissions.READ_ORDER,
       },
+      {
+        id: "4.5",
+        label: "Phương thức vận chuyển",
+        path: "shipping-methods",
+        permissions: EPermissions.READ_SHIPPING_METHOD,
+      },
     ],
   },
   {
