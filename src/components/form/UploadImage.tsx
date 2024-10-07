@@ -7,7 +7,7 @@ interface UploadImageProps {
   isMultiple?: boolean;
   label?: string;
   onImageUpload?: (imageURL: string | string[]) => void;
-  currentImageUrl?: string[];
+  currentImageUrl?: string[] | string;
   error?: string;
   id?: string;
 }

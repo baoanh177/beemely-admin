@@ -4,21 +4,14 @@ import UploadImage from "@/components/form/UploadImage";
 import { IColor } from "@/services/store/color/color.model";
 import { IProduct } from "@/services/store/product/product.model";
 import { ISize } from "@/services/store/size/size.model";
-import { IVariant } from "@/services/store/variant/variant.model";
 import { Button, Checkbox, InputNumber, Modal, Table } from "antd";
 import { FormikProps } from "formik";
 import { useEffect, useState } from "react";
 import { TiDeleteOutline, TiPlusOutline } from "react-icons/ti";
 import ButtonGhost from "../../../components/common/Button";
 import { IProductFormInitialValues } from "../ProductForm";
-import { generateVariantCombinations } from "../utils/generateVariantCombinations";
-import { useArchive } from "@/hooks/useArchive";
-import { IColorInitialState } from "@/services/store/color/color.slice";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { getAllColors } from "@/services/store/color/color.thunk";
-import { ISizeInitialState } from "@/services/store/size/size.slice";
-import { getAllSizes } from "@/services/store/size/size.thunk";
 import { useHookDataProductForm } from "../utils/dataProductForm";
+import { generateVariantCombinations } from "../utils/generateVariantCombinations";
 
 interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
   product: IProduct | undefined;
@@ -27,7 +20,7 @@ interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
 const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }: IVariantGroupProps) => {
   const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = useHookDataProductForm();
 
-  const [variantOptions, setVariantOptions] = useState({ size: [], color: [] });
+  const [variantOptions, setVariantOptions] = useState<any>({ size: [], color: [] });
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -38,7 +31,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
     });
   }, [stateSize, stateColor]);
 
-  const [variantTypes, setVariantTypes] = useState<{ name: string; options: string[] }[]>([]);
+  const [variantTypes, setVariantTypes] = useState<any>([]);
 
   const variantTypesOptions = [
     { value: "color", label: "Màu sắc" },
@@ -46,8 +39,8 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
   ];
   type VariantOptionKey = keyof typeof variantOptions;
 
-  let newDataVariants;
-  const [dataVariants, setDataVariants] = useState<IVariant[] | undefined>();
+  let newDataVariants: any;
+  const [dataVariants, setDataVariants] = useState<any>();
   useEffect(() => {
     if (variantOptions.color?.length > 0 && variantOptions.size?.length > 0)
       newDataVariants = generateVariantCombinations(variantTypes, variantOptions);
@@ -85,7 +78,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
   if (!getAllSizesLoading && !getAllColorsLoading)
     return (
       <FormGroup title="Biến thể sản phẩm" isLoading={getAllSizesLoading || getAllColorsLoading}>
-        {variantTypes.map((variantType, index) => {
+        {variantTypes.map((variantType: any, index: number) => {
           return (
             <div key={index} className="mb-4">
               <div className="flex flex-wrap gap-4 [&>*]:grow [&>*]:basis-64">
@@ -95,7 +88,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                     label={`Loại biến thể ${index + 1}`}
                     placeholder="Chọn loại biến thể"
                     value={variantType.name || undefined}
-                    error={touched.variants ? errors.variants : ""}
+                    error={touched.variants ? (errors.variants as string) : ""}
                     onChange={(value) => {
                       const newVariantTypes = [...variantTypes];
                       newVariantTypes[index] = { name: value, options: [] };
@@ -129,7 +122,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                             onChange={(e) => {
                               const newOptions = e.target.checked
                                 ? [...variantType.options, opt.id]
-                                : variantType.options.filter((id) => id !== opt.id);
+                                : variantType.options.filter((id: any) => id !== opt.id);
                               const newVariantTypes = [...variantTypes];
                               newVariantTypes[index] = { ...variantType, options: newOptions };
                               setVariantTypes(newVariantTypes);
@@ -162,7 +155,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                                 const productColor = { colorId: selectedColor, imageUrl: imageURL };
                                 setFieldValue("productColors", [...values.productColors, productColor]);
                               }}
-                              currentImageUrl={values.productColors.find((pic) => pic.colorId?.id === opt.id)?.imageUrl}
+                              currentImageUrl={values.productColors.find((pic: any) => pic.colorId?.id === opt.id)?.imageUrl}
                               // error={touched.productColors? errors.productColors : ""}
                             />
                           </Modal>
@@ -212,7 +205,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
             <Table
               dataSource={dataVariants}
               columns={[
-                ...variantTypes.map((v) => ({
+                ...variantTypes.map((v: any) => ({
                   title: v.name === "color" ? "Màu sắc" : " Cỡ",
                   dataIndex: v.name,
                   key: v.name,
@@ -224,7 +217,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                     <InputNumber
                       min={0}
                       value={values.variants[index]?.price}
-                      onChange={(value) => {
+                      onChange={(value: any) => {
                         const newVariants = [...values.variants];
                         newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, price: value };
                         setFieldValue("variants", newVariants);
@@ -239,7 +232,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                     <InputNumber
                       min={0}
                       value={values.variants[index]?.stock}
-                      onChange={(value) => {
+                      onChange={(value: any) => {
                         const newVariants = [...values.variants];
                         newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, stock: value };
                         setFieldValue("variants", newVariants);
@@ -258,7 +251,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                           (_, i) => !Object.keys(record).every((key) => record[key] === dataVariants[i][key]),
                         );
                         const newDataVariants = dataVariants?.filter(
-                          (variant) => !Object.keys(record).every((key) => record[key] === variant[key]),
+                          (variant: any) => !Object.keys(record).every((key) => record[key] === variant[key]),
                         );
 
                         setFieldValue("variants", newVariants);

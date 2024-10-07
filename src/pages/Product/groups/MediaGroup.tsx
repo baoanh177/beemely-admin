@@ -18,7 +18,7 @@ const MediaGroup = ({ values, errors, touched, setFieldValue }: IMediaGroupProps
           }
         }}
         currentImageUrl={values.images}
-        error={touched.images ? errors.images : ""}
+        error={touched.images ? (errors.images as string) : ""}
       />
     </FormGroup>
   );

@@ -19,7 +19,7 @@ export interface IProductFormInitialValues {
   thumbnail: string;
   images: string[];
   discountPrice: number;
-  productColors: IProductColor[];
+  productColors: IProductColor[] | any;
   productSizes: string[];
   gender: string;
   brand: string;
@@ -81,7 +81,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
   });
 
   const handleSubmit = (values: IProductFormInitialValues) => {
-    const transformedData = {
+    const transformedData: any = {
       name: values.name,
       description: values.description,
       thumbnail: values.thumbnail,
@@ -99,7 +99,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
     };
 
     if (type === "create") {
-      const formatProductColor = values.productColors.map((c) => {
+      const formatProductColor = values.productColors.map((c: any) => {
         return {
           color_id: c.colorId,
           image_url: c.imageUrl,
