@@ -6,30 +6,43 @@ import { IProduct } from "@/services/store/product/product.model";
 import { ISize } from "@/services/store/size/size.model";
 import { Button, Checkbox, InputNumber, Modal, Table } from "antd";
 import { FormikProps } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TiDeleteOutline, TiPlusOutline } from "react-icons/ti";
 import ButtonGhost from "../../../components/common/Button";
 import { IProductFormInitialValues } from "../ProductForm";
 import { useHookDataProductForm } from "../utils/dataProductForm";
 import { generateVariantCombinations } from "../utils/generateVariantCombinations";
+import ColorForm, { IColorFormInitialValues } from "@/pages/Color/ColorForm";
 
 interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
   product: IProduct | undefined;
   type: string;
+  size: any;
 }
-const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }: IVariantGroupProps) => {
+const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, size }: IVariantGroupProps) => {
   const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = useHookDataProductForm();
+  const [filterSize, setFilterSize] = useState<any>();
+
+  useEffect(() => {
+    const filter = stateSize.sizes.filter((s: any) => {
+      return s.gender?.id === size;
+    });
+    setFilterSize(filter);
+  }, [size]);
 
   const [variantOptions, setVariantOptions] = useState<any>({ size: [], color: [] });
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
+
+  const formikRef = useRef<FormikProps<IColorFormInitialValues>>(null);
 
   useEffect(() => {
     setVariantOptions({
       color: stateColor.colors,
-      size: stateSize.sizes,
+      size: filterSize,
     });
-  }, [stateSize, stateColor]);
+  }, [filterSize, stateColor]);
 
   const [variantTypes, setVariantTypes] = useState<any>([]);
 
@@ -161,9 +174,18 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type }:
                           </Modal>
                         </label>
                       ))}
-                      <Button type="dashed" icon={<TiPlusOutline />} onClick={() => {}}>
+                      <Button
+                        type="dashed"
+                        icon={<TiPlusOutline />}
+                        onClick={() => {
+                          setIsModalVisible2(true);
+                        }}
+                      >
                         Thêm màu
                       </Button>
+                      <Modal open={isModalVisible2} onOk={() => setIsModalVisible2(false)} onCancel={() => setIsModalVisible2(false)}>
+                        <ColorForm formikRef={formikRef} type="create" />
+                      </Modal>
                     </div>
                   </div>
                 ) : (

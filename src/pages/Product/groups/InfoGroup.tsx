@@ -8,8 +8,10 @@ import FormInputArea from "@/components/form/FormInputArea";
 import { FormikProps } from "formik";
 import { IProductFormInitialValues } from "../ProductForm";
 
-interface IInfoGroupProps extends FormikProps<IProductFormInitialValues> {}
-const InfoGroup = ({ values, errors, touched, handleBlur, setFieldValue }: IInfoGroupProps) => {
+interface IInfoGroupProps extends FormikProps<IProductFormInitialValues> {
+  setSize: any;
+}
+const InfoGroup = ({ values, errors, touched, handleBlur, setFieldValue, setSize }: IInfoGroupProps) => {
   const { getAllBrandsLoading, getAllGendersLoading, getAllProductTypesLoading, stateBrand, stateGender, stateProductType } =
     useHookDataProductForm();
   return (
@@ -56,6 +58,7 @@ const InfoGroup = ({ values, errors, touched, handleBlur, setFieldValue }: IInfo
             error={touched.gender ? errors.gender : ""}
             onChange={(value) => {
               setFieldValue("gender", value);
+              setSize(value);
             }}
           />
         </div>

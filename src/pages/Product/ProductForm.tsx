@@ -3,7 +3,7 @@ import { IProduct, IProductInitialState } from "@/services/store/product/product
 import { createProduct, updateProduct } from "@/services/store/product/product.thunk";
 import { IVariant } from "@/services/store/variant/variant.model";
 import { Formik, FormikProps } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import InfoGroup from "./groups/InfoGroup";
 import LabelsGroup from "./groups/LabelsGroup";
@@ -128,16 +128,17 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
     }
   };
 
+  const [size, setSize] = useState<any>();
   return (
     <Formik innerRef={FormikRefType} initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {(formikData) => {
         return (
           <>
-            <InfoGroup {...formikData} />
+            <InfoGroup {...formikData} setSize={setSize} />
             <MediaGroup {...formikData} />
             <LabelsGroup {...formikData} />
             <PriceGroup {...formikData} />
-            <VariantGroup {...formikData} product={product} type={type} />
+            <VariantGroup {...formikData} product={product} type={type} size={size} />
             {/*
 
             */}

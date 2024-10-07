@@ -7,7 +7,6 @@ interface IPriceGroupProps extends FormikProps<IProductFormInitialValues> {}
 const PriceGroup = ({ values, errors, handleBlur, touched, setFieldValue }: IPriceGroupProps) => {
   return (
     <FormGroup title="Giá sản phẩm">
-      {/* TODO */}
       <FormInput
         label="Giá bán thông thường"
         name="regularPrice"
