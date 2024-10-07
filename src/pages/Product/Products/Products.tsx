@@ -1,27 +1,23 @@
+import StatusBadge from "@/components/common/StatusBadge";
 import Heading from "@/components/layout/Heading";
-import { GoDownload } from "react-icons/go";
-import { FaPlus } from "react-icons/fa6";
-import { EPermissions } from "@/shared/enums/permissions";
-import { useNavigate } from "react-router-dom";
-import { useArchive } from "@/hooks/useArchive";
-import { IProductInitialState } from "@/services/store/product/product.model";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { deleteProduct, getAllProducts } from "@/services/store/product/product.thunk";
-import { ColumnsType } from "antd/es/table";
 import ImageTable from "@/components/table/ImageTable";
-import { useMemo } from "react";
-import { resetStatus, setFilter } from "@/services/store/product/product.slice";
-import FormSwitch from "@/components/form/FormSwitch";
 import PrimaryTable, { ITableData } from "@/components/table/PrimaryTable";
-import { Tooltip } from "antd";
-import { IoTrashBinOutline } from "react-icons/io5";
-import { HiOutlinePencil } from "react-icons/hi";
+import { useArchive } from "@/hooks/useArchive";
+import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
-
-// interface IProductTableData {
-//   key: string | number;
-//   name: string;
-// }
+import { IProductInitialState } from "@/services/store/product/product.model";
+import { resetStatus, setFilter } from "@/services/store/product/product.slice";
+import { deleteProduct, getAllProducts } from "@/services/store/product/product.thunk";
+import { EPermissions } from "@/shared/enums/permissions";
+import { EActiveStatus, EStatusName } from "@/shared/enums/status";
+import { Tooltip } from "antd";
+import { ColumnsType } from "antd/es/table";
+import { useMemo } from "react";
+import { FaPlus } from "react-icons/fa6";
+import { GoDownload } from "react-icons/go";
+import { HiOutlinePencil } from "react-icons/hi";
+import { IoTrashBinOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -86,8 +82,12 @@ const Products = () => {
       title: "Status",
       dataIndex: "status",
       sorter: (a, b) => String(a.status).localeCompare(String(b.status)),
-      render: () => {
-        return <FormSwitch />;
+      render: (_, record) => {
+        return record.status === EActiveStatus.ACTIVE ? (
+          <StatusBadge text={EStatusName.ACTIVE} color="green" />
+        ) : (
+          <StatusBadge text={EStatusName.INACTIVE} color="red" />
+        );
       },
     },
     {
