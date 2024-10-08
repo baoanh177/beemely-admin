@@ -21,14 +21,22 @@ interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
 }
 const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, size }: IVariantGroupProps) => {
   const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = useHookDataProductForm();
-  const [filterSize, setFilterSize] = useState<any>();
+  if (type === "create") {
+    const [filterSize, setFilterSize] = useState<any>();
 
-  useEffect(() => {
-    const filter = stateSize.sizes.filter((s: any) => {
-      return s.gender?.id === size;
-    });
-    setFilterSize(filter);
-  }, [size]);
+    useEffect(() => {
+      const filter = stateSize.sizes.filter((s: any) => {
+        return s.gender?.id === size;
+      });
+      setFilterSize(filter);
+    }, [size]);
+    useEffect(() => {
+      setVariantOptions({
+        color: stateColor.colors,
+        size: filterSize,
+      });
+    }, [filterSize, stateColor]);
+  }
 
   const [variantOptions, setVariantOptions] = useState<any>({ size: [], color: [] });
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -37,12 +45,14 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
 
   const formikRef = useRef<FormikProps<IColorFormInitialValues>>(null);
 
-  useEffect(() => {
-    setVariantOptions({
-      color: stateColor.colors,
-      size: filterSize,
-    });
-  }, [filterSize, stateColor]);
+  if (type === "update") {
+    useEffect(() => {
+      setVariantOptions({
+        color: stateColor.colors,
+        size: stateSize.sizes,
+      });
+    }, [stateSize.sizes, stateColor]);
+  }
 
   const [variantTypes, setVariantTypes] = useState<any>([]);
 

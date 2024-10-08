@@ -5,80 +5,22 @@ import { IProduct } from "./product.model";
 import { messageCreator } from "@/services/config/message-creator";
 
 const dataKeys: { [key in keyof Omit<IProduct, "id">]: string | number | any } = {
-  name: "product 6",
-  slug: "product-6",
-  description: "description",
-  regularPrice: 22,
-  discountPrice: 10,
-  thumbnail: "product thumb",
-  images: ["image 01", "image 02"],
-  tags: [],
-  gender: {
-    id: "669a0f2922d845db49664259",
-    name: "Other",
-  },
-  variants: [
-    {
-      id: "66b379480911194fead18eb6",
-      color: {
-        id: "66b0f71d158d4e5fd613361c",
-        name: "White",
-        value: "#FFFFFF",
-      },
-      stock: 222,
-      price: 12,
-      size: null,
-    },
-    {
-      id: "66b379480911194fead18eb7",
-      color: null,
-      stock: 456,
-      price: 123,
-      size: null,
-    },
-    {
-      id: "66b379480911194fead18eb8",
-      color: {
-        id: "66a8e9a74df2b4ab82aa8fc0",
-        name: "Pink",
-        value: "#FFB6C1",
-      },
-      stock: 456,
-      price: 123,
-      size: null,
-    },
-  ],
-  labels: ["label 1"],
-  brand: {
-    id: "6682d2dfdb7ce5829febf548",
-    name: "Adidas",
-    image: "https://res.cloudinary.com/dpc58j5gw/image/upload/v1721275094/Demo-upload/ihlacekb65mpxdafkbo2.jpg",
-    description: "Adidas",
-  },
-  productColors: [
-    {
-      id: "66b379480911194fead18eb3",
-      colorId: null,
-      imageUrl: "image url",
-    },
-    {
-      id: "66b379480911194fead18eb4",
-      colorId: null,
-      imageUrl: "image url",
-    },
-    {
-      id: "66b379480911194fead18eb5",
-      colorId: {
-        id: "66a8e9a74df2b4ab82aa8fc0",
-        name: "Pink",
-        value: "#FFB6C1",
-      },
-      imageUrl: "image url",
-    },
-  ],
-  productSizes: [],
-  productType: "66a8f79b58de8799c0b1a812",
-  status: 1,
+  name: "Tên sản phẩm",
+  slug: "Đường dẫn",
+  description: "Mô tả",
+  regularPrice: "Giá bình thường",
+  discountPrice: "Giá giảm",
+  thumbnail: "Hình thu nhỏ",
+  images: "Hình ảnh",
+  tags: "Thẻ",
+  gender: "Giới tính",
+  variants: "Biến thể",
+  labels: "Nhãn",
+  brand: "Thương hiệu",
+  productColors: "Màu sản phẩm",
+  productSizes: "Kích thước sản phẩm",
+  productType: "Loại sản phẩm",
+  status: "Trạng thái",
 };
 
 const prefix = "/api/products";

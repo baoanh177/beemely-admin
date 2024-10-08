@@ -21,6 +21,7 @@ import { productTypeSlice } from "./store/productType/productType.slice";
 import { flagPageSlice } from "./store/flagPage/flagPage.slice";
 import { bannerSlice } from "./store/banner/banner.slice";
 import { shippingMethodSlice } from "./store/shippingMethod/shippingMethod.slice";
+import { genderSlice } from "./store/gender/gender.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -35,6 +36,7 @@ export const reducers = combineReducers({
   color: colorSlice.reducer,
   voucherType: voucherTypeSlice.reducer,
   userGender: userGenderSlice.reducer,
+  gender: genderSlice.reducer,
   voucher: voucherSlice.reducer,
   size: sizeSlice.reducer,
   paymentType: paymentTypeSlice.reducer,
