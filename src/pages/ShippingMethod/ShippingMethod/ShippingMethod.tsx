@@ -5,8 +5,8 @@ import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IVoucherTypeInitialState, resetStatus, setFilter } from "@/services/store/voucherType/voucherType.slice";
-import { deleteVoucherType, getAllVoucherTypes } from "@/services/store/voucherType/voucherType.thunk";
+import { IShippingMethodInitialState, resetStatus, setFilter } from "@/services/store/shippingMethod/shippingMethod.slice";
+import { deleteShippingMethod, getAllShippingMethod } from "@/services/store/shippingMethod/shippingMethod.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
@@ -16,9 +16,9 @@ import { FaPlus } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-const VoucherTypes = () => {
+const ShippingMethod = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useArchive<IVoucherTypeInitialState>("voucherType");
+  const { state, dispatch } = useArchive<IShippingMethodInitialState>("shippingMethod");
   const defaultSearch: IDefaultSearchProps = {
     input: {
       type: "text",
@@ -31,7 +31,7 @@ const VoucherTypes = () => {
     },
   };
   useFetchStatus({
-    module: "voucherType",
+    module: "shippingMethod",
     reset: resetStatus,
     actions: {
       success: { message: state.message },
@@ -39,8 +39,10 @@ const VoucherTypes = () => {
     },
   });
 
-  const { getAllVoucherTypesLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllVoucherTypes({ query: state.filter })), "getAllVoucherTypesLoading"),
+  const { getAllShippingMethodLoading } = useAsyncEffect(
+    (async) => {
+      async(dispatch(getAllShippingMethod({ query: state.filter })), "getAllShippingMethodLoading");
+    },
     [JSON.stringify(state.filter)],
   );
 
@@ -49,53 +51,65 @@ const VoucherTypes = () => {
       dataIndex: "name",
       title: "Tên",
     },
+    {
+      dataIndex: "cost",
+      title: "Giá",
+    },
+    {
+      dataIndex: "estimatedDeliveryTime",
+      title: "Thời gian giao hàng ước tính",
+    },
   ];
 
   const data: ITableData[] = useMemo(() => {
-    if (state.voucherTypes && state.voucherTypes.length > 0) {
-      return state.voucherTypes.map((voucherType) => ({
-        key: voucherType.id!,
-        name: voucherType.name,
-      }));
+    if (Array.isArray(state.shippingMethod)) {
+      return state.shippingMethod
+        .filter((item) => item.id)
+        .map((item) => ({
+          key: item.id ?? "default-key",
+          name: item.name,
+          cost: item.cost,
+          estimatedDeliveryTime: item.estimatedDeliveryTime,
+        }));
     }
     return [];
-  }, [state.voucherTypes]);
+  }, [state.shippingMethod]);
 
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.UPDATE,
       onClick(record) {
-        navigate(`/voucherTypes/update/${record?.key}`);
+        navigate(`/shipping-methods/update/${record?.key}`);
       },
-      permission: EPermissions.UPDATE_VOUCHER_TYPE,
+      permission: EPermissions.UPDATE_ShIPPING_METHOD,
     },
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteVoucherType({ param: record.key }));
+        dispatch(deleteShippingMethod({ param: record.key }));
       },
-      permission: EPermissions.DELETE_VOUCHER_TYPE,
+      permission: EPermissions.DELETE_SHIPPING_METHOD,
     },
   ];
 
   return (
     <>
       <Heading
-        title="Loại mã giảm giá"
+        title="Danh sách Phương thức vận chuyển"
         hasBreadcrumb
         buttons={[
           {
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_VOUCHER_TYPE,
-            text: "Tạo mới Loại mã giảm giá",
-            onClick: () => navigate("/voucherTypes/create"),
+            permission: EPermissions.CREATE_SHIPPING_METHOD,
+            text: "Tạo mới Phương thức vận chuyển",
+            onClick: () => navigate("/shipping-methods/create"),
           },
         ]}
       />
       <ManagementGrid
-        columns={columns}
+        columns={columns as ColumnsType<any>}
         data={data}
-        isTableLoading={getAllVoucherTypesLoading ?? true}
+        isTableLoading={getAllShippingMethodLoading ?? true}
         pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
         setFilter={setFilter}
         buttons={buttons}
@@ -105,4 +119,4 @@ const VoucherTypes = () => {
   );
 };
 
-export default VoucherTypes;
+export default ShippingMethod;
