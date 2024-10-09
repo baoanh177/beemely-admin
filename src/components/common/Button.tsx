@@ -33,13 +33,13 @@ const Button = ({ type = "primary", text, isDisabled = false, isLoading = false,
       className={clsx(
         "text-m-semibold flex shrink-0 items-center justify-center gap-1 rounded-[8px] px-[14px] py-[10px] transition-opacity",
         typeClass[type],
-        className,
         {
           "cursor-not-allowed opacity-65": isDisabled,
           "opacity-65": isLoading,
           "cursor-pointer hover:opacity-95": !isDisabled && !isLoading,
         },
         size === "full" && "w-full",
+        className,
       )}
     >
       {isLoading ? <div className={clsx(`${typeLoading[type]} h-4 w-4 animate-spin rounded-full border-2`)} /> : icon}

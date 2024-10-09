@@ -7,9 +7,10 @@ export interface IRoundIcon {
   size: "large" | "medium";
   shape: "circle" | "square";
   onClick?: () => void;
+  className?: string;
 }
 
-const RoundedIcon = ({ icon: ItemIcon, color, size, shape, onClick }: IRoundIcon) => {
+const RoundedIcon = ({ icon: ItemIcon, color, size, shape, onClick, className }: IRoundIcon) => {
   let colorClasses;
   switch (color) {
     case "orange":
@@ -39,6 +40,7 @@ const RoundedIcon = ({ icon: ItemIcon, color, size, shape, onClick }: IRoundIcon
         colorClasses,
         size === "large" && "h-[40px] w-[40px]",
         size === "medium" && "h-[36px] w-[36px]",
+        className
       )}
       onClick={onClick}
     >

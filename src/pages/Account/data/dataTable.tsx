@@ -10,8 +10,9 @@ import { EPermissions } from "@/shared/enums/permissions";
 import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
+import { NavigateFunction } from "react-router-dom";
 
-export const getGridButtons = (dispatch: AppDispatch): IGridButton[] => {
+export const getGridButtons = (dispatch: AppDispatch, navigate: NavigateFunction): IGridButton[] => {
   return [
     {
       type: EButtonTypes.ACTIVE,
@@ -27,12 +28,16 @@ export const getGridButtons = (dispatch: AppDispatch): IGridButton[] => {
     },
     {
       type: EButtonTypes.VIEW,
-      onClick() {},
+      onClick(record) {
+        navigate(`/accounts/detail/${record.key}`)
+      },
       permission: EPermissions.READ_ACCOUNT,
     },
     {
       type: EButtonTypes.UPDATE,
-      onClick() {},
+      onClick(record) {
+        navigate(`/accounts/update/${record.key}`)
+      },
       permission: EPermissions.UPDATE_ACCOUNT,
     },
     {
@@ -50,6 +55,7 @@ export const getColumnsData = (): ColumnsType => {
     {
       dataIndex: "info",
       title: "Thông tin",
+      width: 800
     },
     {
       dataIndex: "email",
@@ -67,7 +73,6 @@ export const getColumnsData = (): ColumnsType => {
       dataIndex: "status",
       title: "Trạng thái",
       align: "center",
-      width: 200,
       render(_, record) {
         return record.status === EActiveStatus.ACTIVE ? (
           <StatusBadge text={EStatusName.ACTIVE} color="green" />
@@ -85,10 +90,10 @@ export const getAccountsData = (accounts: IAccount[], currentUser: IUserProfile)
     const isCurrentUser = acc.id === currentUser.id;
     return {
       key: acc.id,
-      info: <ImageTable title={acc.fullName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : "Không rõ"} />,
+      info: <ImageTable title={acc.fullName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : ""} />,
       email: acc.email,
       phone: acc.phone,
-      roles: acc.roles.map((role, index) => <div key={index}>{role.name}</div>),
+      roles: acc.roles.map((role, index) => <div key={index} className="text-nowrap">{role.name}</div>),
       status: acc.status,
       actions: {
         hides: {

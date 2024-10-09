@@ -3,24 +3,24 @@ import { IResponse } from "@/shared/utils/shared-interfaces";
 type TErrorCases = "empty" | "duplicate" | "invalid";
 
 const errorCases = {
-  empty: "không được để trống",
-  duplicate: "đã tồn tại",
+  empty: "không hợp lệ",
+  duplicate: "không hợp lệ",
   invalid: "không hợp lệ",
 };
 
 const errorsToMessages = (
   errorKey: TErrorCases,
-  errors: { [key: string]: string },
-  dataKeys: { [key: string]: string },
-): { [key: string]: string } => {
-  const messages: { [key: string]: string } = {};
+  errors:  Record<string, string>,
+  dataKeys:  Record<string, string>,
+):  Record<string, string> => {
+  const messages:  Record<string, string> = {};
   Object.keys(errors).forEach((key) => {
     messages[key] = `${dataKeys[key]} ${errorCases[errorKey]}`;
   });
   return messages;
 };
 
-export const messageCreator = (responseData: IResponse<unknown>, dataKeys: { [key: string]: string }) => {
+export const messageCreator = (responseData: IResponse<unknown>, dataKeys:  Record<string, string>) => {
   const { statusCode, errors } = responseData;
   const responseWithMessages = { ...responseData };
 

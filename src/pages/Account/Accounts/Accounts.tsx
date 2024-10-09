@@ -25,7 +25,7 @@ const Accounts = () => {
     [state.filter],
   );
 
-  const buttons = getGridButtons(dispatch);
+  const buttons = getGridButtons(dispatch, navigate);
   const columns = getColumnsData();
   const accounts: ITableData[] = useMemo(() => getAccountsData(state.accounts, profile!), [state.accounts]);
 

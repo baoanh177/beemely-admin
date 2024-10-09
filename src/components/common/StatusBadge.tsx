@@ -30,7 +30,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color }) => {
       break;
   }
 
-  return <div className={clsx(className, "text-m-semibold inline-block rounded-lg border-none px-[10px] py-1 text-center")}>{text}</div>;
+  return <div className={clsx(className, "text-m-semibold inline-block rounded-lg border-none px-[10px] py-1 text-center text-nowrap")}>{text}</div>;
 };
 
 export default StatusBadge;
