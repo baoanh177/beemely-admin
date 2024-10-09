@@ -1,4 +1,4 @@
 export interface IVoucherType {
-  id: string;
+  id?: string;
   name: string;
 }

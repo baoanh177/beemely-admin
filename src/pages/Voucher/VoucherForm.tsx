@@ -16,7 +16,8 @@ import { useEffect } from "react";
 import { getAllVoucherTypes } from "@/services/store/voucherType/voucherType.thunk";
 import { IVoucherTypeInitialState } from "@/services/store/voucherType/voucherType.slice";
 import { IVoucherType } from "@/services/store/voucherType/voucherType.model";
-
+import { date, number, object, string } from "yup";
+import * as yup from "yup";
 interface IVoucherFormProps {
   formikRef?: FormikRefType<IVoucherFormInitialValues>;
   type: "create" | "update" | "view";
@@ -42,11 +43,22 @@ export interface IVoucherFormInitialValues {
 const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVoucherFormProps) => {
   const { dispatch } = useArchive<IVoucherInitialState>("voucher");
   const { state } = useArchive<IVoucherTypeInitialState>("voucherType");
+  const voucherSchema = object().shape({
+    name: string().required("Vui lòng nhập tên mã giảm giá"),
+    code: string().required("Vui lòng nhập mã giảm giá"),
+    maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
+    duration: number().min(1, "Thời gian sử dụng phải lớn hơn 0"),
+    discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
+    minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
+    startDate: date().required("Vui lòng chọn ngày bắt đầu và ngày kết thúc").min(dayjs().startOf("day"), "Ngày bắt đầu phải từ hôm nay trở đi"),
+    endDate: date().min(yup.ref("startDate"), "Ngày kết thúc phải sau ngày bắt đầu"),
+  });
+
   useEffect(() => {
     dispatch(getAllVoucherTypes({}));
   }, [dispatch]);
   const voucherTypes = state.voucherTypes || [];
-
+  const defaultVoucherType = state.voucherTypes.find((vt) => vt.name === "deadline");
   const initialValues: IVoucherFormInitialValues = {
     name: voucher?.name || "",
     code: voucher?.code || "",
@@ -55,7 +67,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     discount: voucher?.discount || 0,
     discountTypes: voucher?.discountTypes || "percentage",
     minimumOrderPrice: voucher?.minimumOrderPrice || 0,
-    voucherType: voucher?.voucherType || { id: "", name: "" },
+    voucherType: voucher?.voucherType || defaultVoucherType || { name: "deadline" },
     startDate: voucher?.startDate ? dayjs(voucher.startDate) : null,
     endDate: voucher?.endDate ? dayjs(voucher.endDate) : null,
     status: voucher?.status || EActiveStatus.INACTIVE,
@@ -65,6 +77,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     <Formik
       innerRef={formikRef}
       enableReinitialize={true}
+      validationSchema={voucherSchema}
       initialValues={initialValues}
       onSubmit={(data) => {
         const transformedData = {
@@ -89,7 +102,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
       {({ values, errors, touched, handleBlur, setFieldValue }) => {
         const voucherTypeOptions = voucherTypes.map((vt) => ({
           label: vt.name,
-          value: vt.id,
+          value: vt.id!,
         }));
 
         return (
@@ -120,7 +133,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               placeholder="Nhập số lần sử dụng tối đa..."
               name="maxUsage"
               value={values.maxUsage}
-              error={touched.maxUsage ? errors.maxUsage : ""}
+              error={touched.maxUsage && errors.maxUsage ? errors.maxUsage : ""}
               onChange={(e) => setFieldValue("maxUsage", e)}
               onBlur={handleBlur}
               type="number"
@@ -184,13 +197,14 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               }}
             />
             <FormDateRangePicker
-              disabled={type === "view"}
               label="Ngày bắt đầu và kết thúc"
               value={[values.startDate, values.endDate]}
               onChange={(dates) => {
                 setFieldValue("startDate", dates[0]);
                 setFieldValue("endDate", dates[1]);
               }}
+              error={touched.startDate && errors.startDate ? errors.startDate : ""}
+              disabled={type === "view"}
             />
           </FormGroup>
         );

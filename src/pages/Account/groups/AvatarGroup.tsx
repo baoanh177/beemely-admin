@@ -22,7 +22,7 @@ const AvatarGroup = ({ values, errors, touched, setFieldValue, isFormLoading, ty
         onImageUpload={(url: string | string[]) => {
           setFieldValue("avatar_url", Array.isArray(url) ? url.at(0) : url);
         }}
-        currentImageUrl={values.avatar_url}
+        currentImageUrl={[values.avatar_url]}
         error={touched.avatar_url ? errors.avatar_url : ""}
       />
       {type === "view" ? (
