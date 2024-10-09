@@ -1,5 +1,6 @@
 import { ConfigProvider, Select } from "antd";
 import clsx from "clsx";
+import Label from "./Label";
 interface IFormSelect {
   label?: string;
   placeholder?: string;
@@ -9,10 +10,11 @@ interface IFormSelect {
   error?: string;
   isDisabled?: boolean;
   value?: string | string[] | undefined;
+  isRequired?: boolean;
   onChange?: (value: string | string[]) => void;
 }
 
-const FormSelect = ({ label, value, isDisabled, placeholder, options, error, defaultValue, isMultiple, onChange }: IFormSelect) => {
+const FormSelect = ({ label, value, isDisabled, placeholder, options, error, defaultValue, isMultiple, onChange, isRequired }: IFormSelect) => {
   const handleChange = (value: string | string[]) => {
     if (onChange) {
       onChange(value);
@@ -32,7 +34,7 @@ const FormSelect = ({ label, value, isDisabled, placeholder, options, error, def
         }}
       >
         <div className="flex flex-col gap-1">
-          <div className="text-m-medium text-black-300">{label}</div>
+          <Label text={label} isRequired={isRequired}/>
           <Select
             allowClear
             maxTagCount={"responsive"}

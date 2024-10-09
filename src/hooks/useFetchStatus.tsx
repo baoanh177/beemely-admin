@@ -11,7 +11,7 @@ type ActionType =
   | Function
   | {
       navigate?: string;
-      message?: string;
+      message?: string | Record<string, string>;
     };
 
 interface IUseFetchStatusProps {
@@ -28,7 +28,7 @@ const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUs
   const { state, dispatch } = useArchive<S>(module);
   const navigate = useNavigate();
 
-  const showMessage = (messages: string | { [key: string]: string } | undefined, type: "success" | "error" | "pending") => {
+  const showMessage = (messages: string | Record<string, string> | undefined, type: "success" | "error" | "pending") => {
     if (!messages) return;
     if (typeof messages === "object") {
       Object.keys(messages).forEach((key) => {

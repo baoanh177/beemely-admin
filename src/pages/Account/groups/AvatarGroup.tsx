@@ -1,57 +1,46 @@
-import FormCheck from "@/components/form/FormCheck";
 import FormGroup from "@/components/form/FormGroup";
 import FormSwitch from "@/components/form/FormSwitch";
-import Label from "@/components/form/Label";
 import UploadImage from "@/components/form/UploadImage";
 import { EActiveStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import { IAccountFormInitialValues } from "../data/dataForm";
-import { useArchive } from "@/hooks/useArchive";
-import { IUserGenderInitialState } from "@/services/store/userGender/userGender.slice";
-import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { getAllUserGenders } from "@/services/store/userGender/userGender.thunk";
+import StatusBadge from "@/components/common/StatusBadge";
 
-interface IAvatarGroupProps extends FormikProps<IAccountFormInitialValues> {}
+interface IAvatarGroupProps extends FormikProps<IAccountFormInitialValues> {
+  isFormLoading?: boolean;
+  type: "create" | "update" | "view";
+  isCustomer?: boolean;
+}
 
-const AvatarGroup = ({ values, errors, touched, setFieldValue }: IAvatarGroupProps) => {
-  const { state, dispatch } = useArchive<IUserGenderInitialState>("userGender");
-  errors;
-  touched;
-
-  const { getAllUserGendersLoading } = useAsyncEffect((async) => {
-    async(dispatch(getAllUserGenders({ query: { _pagination: false } })), "getAllUserGendersLoading");
-  }, []);
+const AvatarGroup = ({ values, errors, touched, setFieldValue, isFormLoading, type, isCustomer }: IAvatarGroupProps) => {
 
   return (
-    <FormGroup title="Khác" isLoading={getAllUserGendersLoading}>
-      <UploadImage label="Ảnh đại diện" />
-      <FormSwitch
-        label="Trạng thái hoạt động"
-        name="status"
-        uncheckedText="Tắt"
-        checked={values.status === EActiveStatus.ACTIVE}
-        checkedText="Bật"
-        onChange={(checked) => setFieldValue("status", checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE)}
+    <FormGroup title="Khác" isLoading={isFormLoading} className="h-full">
+      <UploadImage
+        isDisabled={type === "view" || isCustomer}
+        label="Ảnh đại diện"
+        onImageUpload={(url: string | string[]) => {
+          setFieldValue("avatar_url", Array.isArray(url) ? url.at(0) : url);
+        }}
+        currentImageUrl={values.avatar_url}
+        error={touched.avatar_url ? errors.avatar_url : ""}
       />
-      <div className="">
-        <Label text="Giới tính" isRequired />
-        <div className="flex gap-4">
-          {state.userGenders.map((gender, index) => {
-            return (
-              <FormCheck
-                key={index}
-                type="radio"
-                label={gender.name}
-                name="gender"
-                isDefaultChecked
-                checked={values.gender === gender.id}
-                value={gender.id}
-                onChange={(checked) => setFieldValue("gender", checked ? gender.id : "")}
-              />
-            );
-          })}
-        </div>
-      </div>
+      {type === "view" ? (
+        values.status === EActiveStatus.ACTIVE ? (
+          <StatusBadge text="Đang hoạt động" color="green" />
+        ) : (
+          <StatusBadge text="Ngừng hoạt động" color="red" />
+        )
+      ) : (
+        <FormSwitch
+          label="Trạng thái hoạt động"
+          name="status"
+          uncheckedText="Tắt"
+          checked={values.status === EActiveStatus.ACTIVE}
+          checkedText="Bật"
+          onChange={(checked) => setFieldValue("status", checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE)}
+        />
+      )}
     </FormGroup>
   );
 };

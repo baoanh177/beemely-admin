@@ -1,17 +1,19 @@
 import { ConfigProvider, Switch } from "antd";
 import { SwitchChangeEventHandler } from "antd/es/switch";
+import Label from "./Label";
 
 export interface IFormSwitchProps {
   checkedText?: string;
   uncheckedText?: string;
   onChange?: SwitchChangeEventHandler;
-  idDisabled?: boolean;
   label?: string;
   name?: string;
+  isRequired?: boolean;
+  isDisabled?: boolean;
   checked?: boolean;
 }
 
-const FormSwitch = ({ checkedText, uncheckedText, checked, idDisabled, label, onChange }: IFormSwitchProps) => {
+const FormSwitch = ({ checkedText, isDisabled, isRequired, uncheckedText, checked, label, onChange }: IFormSwitchProps) => {
   return (
     <ConfigProvider
       theme={{
@@ -23,9 +25,9 @@ const FormSwitch = ({ checkedText, uncheckedText, checked, idDisabled, label, on
         },
       }}
     >
-      <div className="flex flex-col items-start">
-        {label && <div className="text-m-medium mb-1 text-black-300">{label}</div>}
-        <Switch checked={checked} unCheckedChildren={uncheckedText} checkedChildren={checkedText} disabled={idDisabled} onChange={onChange} />
+      <div className="flex flex-col gap-1 items-start">
+        <Label text={label} isRequired={isRequired} />
+        <Switch checked={checked}  unCheckedChildren={uncheckedText} checkedChildren={checkedText} disabled={isDisabled} onChange={onChange} />
       </div>
     </ConfigProvider>
   );

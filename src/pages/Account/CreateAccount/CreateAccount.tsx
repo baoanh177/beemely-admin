@@ -6,10 +6,24 @@ import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import AccountForm from "../AccountForm";
 import { IAccountFormInitialValues } from "../data/dataForm";
+import useFetchStatus from "@/hooks/useFetchStatus";
+import { IAccountInitialState, resetStatus } from "@/services/store/account/account.slice";
+import { useArchive } from "@/hooks/useArchive";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
   const formikRef = useRef<FormikProps<IAccountFormInitialValues>>(null);
+  const { state } = useArchive<IAccountInitialState>("account")
+
+  useFetchStatus({ module: "account", reset: resetStatus, actions: {
+    error: {
+      message: state.message
+    },
+    success: {
+      message: state.message,
+      navigate: "/accounts"
+    }
+  }})
 
   return (
     <>
