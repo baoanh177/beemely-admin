@@ -20,7 +20,7 @@ export const defaultSearch: IDefaultSearchProps = {
     type: "text",
     name: "123",
     icon: IoSearchOutline,
-    placeholder: "Search ordersss. . .",
+    placeholder: "Tim kiếm theo tên. . .",
   },
 };
 const Roles = () => {

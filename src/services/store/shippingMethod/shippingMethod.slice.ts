@@ -51,7 +51,7 @@ const shippingMethodSlice = createSlice({
       })
       .addCase(createShippingMethod.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createShippingMethod.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -64,7 +64,7 @@ const shippingMethodSlice = createSlice({
       })
       .addCase(updateShippingMethod.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateShippingMethod.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -78,7 +78,7 @@ const shippingMethodSlice = createSlice({
       })
       .addCase(deleteShippingMethod.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.shippingMethod = state.shippingMethod.filter((item) => item.id !== payload);
       })
       .addCase(deleteShippingMethod.rejected, (state, { payload }: PayloadAction<any>) => {

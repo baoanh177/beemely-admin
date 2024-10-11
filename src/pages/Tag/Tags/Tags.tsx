@@ -93,7 +93,7 @@ const Tags = () => {
     },
     {
       dataIndex: "image",
-      title: "Image",
+      title: "Ảnh",
       render: (image) => <ImageTable imageSrc={image} />,
     },
     {
@@ -102,7 +102,7 @@ const Tags = () => {
     },
     {
       dataIndex: "status",
-      title: "Status",
+      title: "Trạng thái",
       render: (status, record) => {
         return <FormSwitch checked={status === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />;
       },

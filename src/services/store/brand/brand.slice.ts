@@ -45,7 +45,7 @@ const brandSlice = createSlice({
       })
       .addCase(createBrand.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createBrand.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -58,7 +58,7 @@ const brandSlice = createSlice({
       })
       .addCase(updateBrand.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateBrand.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -72,7 +72,7 @@ const brandSlice = createSlice({
       })
       .addCase(deleteBrand.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.brands = state.brands.filter((brand) => brand.id !== payload);
       })
       .addCase(deleteBrand.rejected, (state, { payload }: PayloadAction<any>) => {

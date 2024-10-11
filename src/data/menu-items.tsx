@@ -46,12 +46,12 @@ export const menuItems: IMenuItem[] = [
         path: "permissions",
         permissions: EPermissions.READ_PERMISSION,
       },
-      {
-        id: "2.4",
-        label: "Giới tính người dùng",
-        path: "user-genders",
-        permissions: EPermissions.READ_USER_GENDER,
-      },
+      // {
+      //   id: "2.4",
+      //   label: "Giới tính người dùng",
+      //   path: "user-genders",
+      //   permissions: EPermissions.READ_USER_GENDER,
+      // },
     ],
   },
   {
@@ -95,12 +95,12 @@ export const menuItems: IMenuItem[] = [
         path: "colors",
         permissions: EPermissions.READ_COLOR,
       },
-      {
-        id: "3.7",
-        label: "Loại phiếu giảm giá",
-        path: "voucherTypes",
-        permissions: EPermissions.READ_VOUCHER_TYPE,
-      },
+      // {
+      //   id: "3.7",
+      //   label: "Loại phiếu giảm giá",
+      //   path: "voucherTypes",
+      //   permissions: EPermissions.READ_VOUCHER_TYPE,
+      // },
       {
         id: "3.8",
         label: "Phiếu giảm giá",
@@ -114,24 +114,24 @@ export const menuItems: IMenuItem[] = [
     label: "Quản lý đơn hàng",
     icon: { component: IoBagCheckOutline },
     items: [
-      {
-        id: "4.1",
-        label: "Phương thức thanh toán",
-        path: "payment-types",
-        permissions: EPermissions.READ_PAYMENT_TYPE,
-      },
+      // {
+      //   id: "4.1",
+      //   label: "Phương thức thanh toán",
+      //   path: "payment-types",
+      //   permissions: EPermissions.READ_PAYMENT_TYPE,
+      // },
       {
         id: "4.2",
         label: "Trạng thái thanh toán",
         path: "payment-statuses",
         permissions: EPermissions.READ_PAYMENT_STATUS,
       },
-      {
-        id: "4.3",
-        label: "Trạng thái đơn hàng",
-        path: "order-statuses",
-        permissions: EPermissions.READ_ORDER_STATUS,
-      },
+      // {
+      //   id: "4.3",
+      //   label: "Trạng thái đơn hàng",
+      //   path: "order-statuses",
+      //   permissions: EPermissions.READ_ORDER_STATUS,
+      // },
       {
         id: "4.4",
         label: "Đơn hàng",
