@@ -54,7 +54,7 @@ const VoucherTypes = () => {
   const data: ITableData[] = useMemo(() => {
     if (state.voucherTypes && state.voucherTypes.length > 0) {
       return state.voucherTypes.map((voucherType) => ({
-        key: voucherType.id,
+        key: voucherType.id!,
         name: voucherType.name,
       }));
     }
