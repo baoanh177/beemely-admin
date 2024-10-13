@@ -80,7 +80,7 @@ const Tags = () => {
     },
     {
       dataIndex: "image",
-      title: "Image",
+      title: "Ảnh",
       render: (image) => <ImageTable imageSrc={image} />,
     },
     {
@@ -93,7 +93,7 @@ const Tags = () => {
     },
     {
       dataIndex: "status",
-      title: "Status",
+      title: "Trạng thái",
       render(_, record) {
         return record.status === EActiveStatus.ACTIVE ? (
           <StatusBadge text={EStatusName.ACTIVE} color="green" />

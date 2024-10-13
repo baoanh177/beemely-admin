@@ -69,7 +69,7 @@ const permissionSlice = createSlice({
       })
       .addCase(updatePermission.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updatePermission.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -91,7 +91,7 @@ const permissionSlice = createSlice({
       })
       .addCase(deletePermission.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.permissions = state.permissions.filter((permission) => permission.id !== payload);
       })
       .addCase(deletePermission.rejected, (state, { payload }: PayloadAction<any>) => {

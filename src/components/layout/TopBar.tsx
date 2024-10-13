@@ -19,7 +19,7 @@ const TopBar = () => {
         <input
           type="text"
           className="placeholder:text-m-medium text-m-medium peer h-full w-full bg-transparent py-2 placeholder-gray-400 outline-none"
-          placeholder="Search"
+          placeholder="Tìm kiếm..."
         />
         <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div>
       </div>

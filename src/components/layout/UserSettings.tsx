@@ -17,7 +17,7 @@ const UserSettings = () => {
       label: (
         <Link to="/profile" className="flex items-center gap-1">
           <AiOutlineUser className="text-xl" />
-          <span>Profile</span>
+          <span>Hồ sơ</span>
         </Link>
       ),
       key: "0",
@@ -29,7 +29,7 @@ const UserSettings = () => {
       label: (
         <div className="flex items-center gap-1 text-red-500">
           <IoLogOutOutline className="text-xl" />
-          Logout
+          Đăng xuất
         </div>
       ),
       onClick() {
@@ -37,11 +37,11 @@ const UserSettings = () => {
           title: (
             <div className="flex items-center gap-2">
               <IoWarning className="text-2xl text-yellow-500" />
-              <span>Log out?</span>
+              <span>Đăng xuất?</span>
             </div>
           ),
           icon: null,
-          content: "Are you sure you want to log out?",
+          content: "Bạn có chắc chắn muốn đăng xuất không?",
           onOk() {
             return dispatch(logout());
           },

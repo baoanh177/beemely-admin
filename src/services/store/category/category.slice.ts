@@ -45,7 +45,7 @@ const categorySlice = createSlice({
       })
       .addCase(createCategory.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createCategory.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -58,7 +58,7 @@ const categorySlice = createSlice({
       })
       .addCase(updateCategory.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateCategory.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -71,7 +71,7 @@ const categorySlice = createSlice({
       })
       .addCase(deleteCategory.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.categories = state.categories.filter((category) => category.id !== payload);
       })
       .addCase(deleteCategory.rejected, (state, { payload }: PayloadAction<any>) => {
