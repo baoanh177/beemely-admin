@@ -8,50 +8,67 @@ import OtherGroup from "./groups/OtherGroup";
 import AvatarGroup from "./groups/AvatarGroup";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/services/store";
-import { createAccount } from "@/services/store/account/account.thunk";
+import { createAccount, updateAccount } from "@/services/store/account/account.thunk";
+import AddressGroup from "./groups/AddressGroup";
 
 interface IActiveAccount extends IAccount {}
-interface IAccountFormProps {
+export interface IAccountFormProps {
   formikRef?: FormikRefType<IAccountFormInitialValues>;
   type: "create" | "view" | "update";
   account?: IActiveAccount;
   isFormLoading?: boolean;
+  isCustomer?: boolean;
 }
 
-const AccountForm = ({ formikRef, type, account, isFormLoading }: IAccountFormProps) => {
-  account;
-  isFormLoading;
-  const validationSchema = getValidationSchema();
-  const initialValues = getInitialValues();
+const AccountForm = ({ formikRef, type, account, isFormLoading, isCustomer }: IAccountFormProps) => {
+  const validationSchema = getValidationSchema(type);
+  const initialValues = getInitialValues(account);
   const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <Formik
-      innerRef={formikRef}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(data) => {
-        if (type === "create") {
-          dispatch(createAccount({ body: getSubmitData(data) }));
-        }
-      }}
-    >
-      {(formikData) => {
-        return (
-          <Row gutter={[24, 24]}>
-            <Col xl={{ span: 18 }}>
-              <div className="flex flex-col gap-6">
-                <GeneralGroup {...formikData} />
-                <OtherGroup {...formikData} />
-              </div>
-            </Col>
-            <Col xl={{ span: 6 }}>
-              <AvatarGroup {...formikData} />
-            </Col>
-          </Row>
-        );
-      }}
-    </Formik>
+    <>
+      <Formik
+        enableReinitialize
+        innerRef={formikRef}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(data) => {
+          if (type === "create") {
+            dispatch(createAccount({ body: getSubmitData(data) }));
+          } else if (type === "update") {
+            dispatch(
+              updateAccount({
+                body: getSubmitData(data, isCustomer),
+                param: account?.id,
+              }),
+            );
+          }
+        }}
+      >
+        {(formikData) => {
+          return (
+            <Row gutter={[24, 24]}>
+              <Col span={24}>
+                <div className="flex flex-col gap-6">
+                  <Row gutter={[24, 24]}>
+                    <Col xxl={{ span: 18, order: 2 }} xl={{ span: 16, order: 2 }} xs={{ span: 24, order: 1 }} className="h-full">
+                      <GeneralGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                    </Col>
+                    <Col xxl={{ span: 6, order: 2 }} xl={{ span: 8, order: 2 }} xs={{ span: 24, order: 1 }}>
+                      <AvatarGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                    </Col>
+                  </Row>
+                  {!(type === "view" || isCustomer) && formikData.values.addresses.length !== 0 && (
+                    <AddressGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                  )}
+                  <OtherGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                </div>
+              </Col>
+            </Row>
+          );
+        }}
+      </Formik>
+    </>
   );
 };
 

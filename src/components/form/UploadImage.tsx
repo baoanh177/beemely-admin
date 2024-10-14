@@ -3,6 +3,7 @@ import imageError from "@/assets/images/imgError.jpg";
 import React, { useState, useEffect, useMemo } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import { LoadingOutlined } from "@ant-design/icons";
+import Label from "./Label";
 interface UploadImageProps {
   isMultiple?: boolean;
   label?: string;
@@ -10,8 +11,20 @@ interface UploadImageProps {
   currentImageUrl?: string[] | string;
   error?: string;
   id?: string;
+  isRequired?: boolean;
+  isDisabled?: boolean;
 }
-const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, onImageUpload, currentImageUrl = "", error, id }) => {
+
+const UploadImage: React.FC<UploadImageProps> = ({
+  isMultiple = false,
+  isDisabled,
+  isRequired,
+  label,
+  onImageUpload,
+  currentImageUrl = "",
+  error,
+  id,
+}) => {
   const [fileList, setFileList] = useState<File[]>([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -106,7 +119,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
 
   return (
     <div className="flex flex-col gap-1">
-      {label && <label className="text-m-medium text-black-300">{label}</label>}
+      <Label text={label} isRequired={isRequired} />
       <Spin indicator={<LoadingOutlined spin />} className="text-primary-300" size="large" spinning={isLoading}>
         <div className="custom-upload flex h-[260px] items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
           <div className="flex-col items-center gap-4">
@@ -116,9 +129,11 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
                   ? uploadedImageUrls.map((url, index) => (
                       <div key={index} className="relative mx-2 inline-block text-center">
                         {renderFileIcon(url)}
-                        <button onClick={() => handleDeleteImage(index)}>
+                        {!isDisabled && (
+                          <button onClick={() => handleDeleteImage(index)}>
                           <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
                         </button>
+                        )}
                       </div>
                     ))
                   : renderDefaultContent()}
@@ -127,12 +142,14 @@ const UploadImage: React.FC<UploadImageProps> = ({ isMultiple = false, label, on
             }
             {uploadError && <div className="mt-3 text-center text-red-500">{uploadError}</div>}
             <div className="mt-4 flex justify-center">
-              <label
-                htmlFor={inputId}
-                className="text-m-medium inline-block cursor-pointer rounded bg-primary-50 px-[14px] py-[10px] text-primary-500"
-              >
-                {isMultiple ? "Thêm ảnh" : uploadedImageUrls.length > 0 ? "Thay đổi ảnh" : "Thêm ảnh"}
-              </label>
+              {!isDisabled && (
+                <label
+                  htmlFor={inputId}
+                  className="text-m-medium inline-block cursor-pointer rounded bg-primary-50 px-[14px] py-[10px] text-primary-500"
+                >
+                  {isMultiple ? "Thêm ảnh" : uploadedImageUrls.length > 0 ? "Thay đổi ảnh" : "Thêm ảnh"}
+                </label>
+              )}
               <input id={inputId} type="file" onChange={handleFileChange} multiple={isMultiple} className="hidden" />
             </div>
           </div>

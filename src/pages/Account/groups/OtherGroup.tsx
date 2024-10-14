@@ -8,12 +8,13 @@ import { useMemo } from "react";
 import { getAllRoles } from "@/services/store/role/role.thunk";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 
-interface IOtherGroupProps extends FormikProps<IAccountFormInitialValues> {}
+interface IOtherGroupProps extends FormikProps<IAccountFormInitialValues> {
+  isFormLoading?: boolean;
+  type: "create" | "update" | "view";
+  isCustomer?: boolean;
+}
 
-const OtherGroup = ({ values, errors, touched, setFieldValue }: IOtherGroupProps) => {
-  values;
-  errors;
-  touched;
+const OtherGroup = ({ values, errors, touched, setFieldValue, isFormLoading, type, isCustomer }: IOtherGroupProps) => {
   const { state: roleState, dispatch } = useArchive<IRoleInitialState>("role");
 
   const roleOptions = useMemo(() => getRoleOptions(roleState.roles), [roleState.roles]);
@@ -23,15 +24,19 @@ const OtherGroup = ({ values, errors, touched, setFieldValue }: IOtherGroupProps
   }, []);
 
   return (
-    <FormGroup title="Thông tin khác" isLoading={getAllRolesLoading}>
+    <FormGroup title="Thông tin khác" isLoading={getAllRolesLoading || isFormLoading}>
       <FormSelect
         label="Vai trò"
         placeholder="Chọn vai trò..."
         isMultiple
+        isRequired
+        isDisabled={type == "view"}
         options={roleOptions}
+        value={values.roles}
         onChange={(value) => {
           setFieldValue("roles", value);
         }}
+        error={touched.roles ? (errors.roles as string) : ""}
       />
     </FormGroup>
   );

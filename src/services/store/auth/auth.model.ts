@@ -3,7 +3,7 @@ import { IRole } from "../role/role.model";
 
 export interface IUserData {
   id: string;
-  userName: string;
+  fullName: string;
   email: string;
   roles: string[];
   permissions: EPermissions[];
@@ -12,7 +12,7 @@ export interface IUserData {
 
 export interface IUserProfile {
   id: string;
-  userName: string;
+  fullName: string;
   email: string;
   listNamePermission: EPermissions[];
   listNameRole: string[];

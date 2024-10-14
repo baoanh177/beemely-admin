@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
@@ -15,11 +15,10 @@ import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import ImageTable from "@/components/table/ImageTable";
-import FormSwitch from "@/components/form/FormSwitch";
-import { handleConvertTags } from "../helpers/convertTags";
 import { ITag } from "@/services/store/tag/tag.model";
-import { EActiveStatus } from "@/shared/enums/status";
+import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { IoSearchOutline } from "react-icons/io5";
+import StatusBadge from "@/components/common/StatusBadge";
 
 const Tags = () => {
   const navigate = useNavigate();
@@ -72,18 +71,6 @@ const Tags = () => {
     (async) => async(dispatch(getAllTags({ query: { _pagination: false, ...state.filter } })), "getAllTagsLoading"),
     [JSON.stringify(state.filter)],
   );
-  const handleStatusChange = useCallback(
-    (checked: boolean, record: ITag) => {
-      const updatedTag = {
-        name: record.name,
-        image: record.image,
-        description: record.description,
-        status: checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE,
-      };
-      dispatch(updateTag({ body: updatedTag, param: record.id }));
-    },
-    [dispatch],
-  );
 
   const columns: ColumnsType<ITag> = [
     {
@@ -93,7 +80,7 @@ const Tags = () => {
     },
     {
       dataIndex: "image",
-      title: "Image",
+      title: "Ảnh",
       render: (image) => <ImageTable imageSrc={image} />,
     },
     {
@@ -101,19 +88,60 @@ const Tags = () => {
       title: "Mô tả",
     },
     {
+      render: (record) => (record.parent_id ? record.parent_id.name : ""),
+      title: "Thẻ cha",
+    },
+    {
       dataIndex: "status",
-      title: "Status",
-      render: (status, record) => {
-        return <FormSwitch checked={status === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />;
+      title: "Trạng thái",
+      render(_, record) {
+        return record.status === EActiveStatus.ACTIVE ? (
+          <StatusBadge text={EStatusName.ACTIVE} color="green" />
+        ) : (
+          <StatusBadge text={EStatusName.INACTIVE} color="red" />
+        );
       },
     },
   ];
+  const data: ITableData[] = useMemo(() => {
+    if (state.tags && state.tags.length > 0) {
+      return state.tags.map((tag) => ({
+        id: tag.id,
+        key: tag.id,
+        name: tag.name,
+        image: tag.image,
+        status: tag.status,
+        description: tag.description,
+        parent_id: tag.parentId,
+      }));
+    }
 
-  const treeTags: ITableData[] = useMemo(() => {
-    return handleConvertTags(state.tags).map((tag) => ({ key: tag.id, ...tag }));
+    return [];
   }, [state.tags]);
 
   const buttons: IGridButton[] = [
+    {
+      type: EButtonTypes.ACTIVE,
+      onClick: (record) => {
+        const updatedTag = {
+          name: record.name,
+          image: record.image,
+          description: record.description,
+          parentId: record.parentId,
+          status: record.status === EActiveStatus.ACTIVE ? EActiveStatus.INACTIVE : EActiveStatus.ACTIVE,
+        };
+
+        console.log("Updated Tag:", updatedTag);
+
+        dispatch(
+          updateTag({
+            body: updatedTag,
+            param: record.id,
+          }),
+        );
+      },
+      permission: EPermissions.UPDATE_TAG,
+    },
     {
       type: EButtonTypes.UPDATE,
       onClick: (record) => navigate(`/tags/update/${record?.key}`),
@@ -144,7 +172,7 @@ const Tags = () => {
         advancedSearch={advancedSearch}
         columns={columns}
         isTableLoading={getAllTagsLoading}
-        data={treeTags}
+        data={data}
         setFilter={setFilter}
         search={defaultSearch}
         buttons={buttons}

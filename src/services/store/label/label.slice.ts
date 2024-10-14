@@ -45,7 +45,7 @@ const labelSlice = createSlice({
       })
       .addCase(createLabel.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createLabel.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -59,7 +59,7 @@ const labelSlice = createSlice({
       .addCase(updateLabel.fulfilled, (state, { payload }: PayloadAction<any>) => {
         state.labels = state.labels.map((label) => (label.id === payload.metaData.id ? payload.metaData : label));
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateLabel.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -72,7 +72,7 @@ const labelSlice = createSlice({
       })
       .addCase(deleteLabel.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.labels = state.labels.filter((label) => label.id !== payload);
       })
       .addCase(deleteLabel.rejected, (state, { payload }: PayloadAction<any>) => {
