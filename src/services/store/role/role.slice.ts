@@ -44,7 +44,7 @@ const roleSlice = createSlice({
       })
       .addCase(createRole.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Created successfully";
+        state.message = "Tạo mới thành công";
       })
       .addCase(createRole.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -58,7 +58,7 @@ const roleSlice = createSlice({
       .addCase(updateRole.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
         state.activeRole = payload.metaData;
-        state.message = "Updated successfully";
+        state.message = "Cập nhật thành công";
       })
       .addCase(updateRole.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
@@ -71,7 +71,7 @@ const roleSlice = createSlice({
       })
       .addCase(deleteRole.fulfilled, (state, { payload }) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Deleted successfully";
+        state.message = "Xóa thành công";
         state.roles = state.roles.filter((role) => role.id !== payload);
       })
       .addCase(deleteRole.rejected, (state, { payload }: PayloadAction<any>) => {

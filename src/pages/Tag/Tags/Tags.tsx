@@ -80,7 +80,7 @@ const Tags = () => {
     },
     {
       dataIndex: "image",
-      title: "Image",
+      title: "Ảnh",
       render: (image) => <ImageTable imageSrc={image} />,
     },
     {
