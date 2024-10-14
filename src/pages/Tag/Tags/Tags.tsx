@@ -93,7 +93,7 @@ const Tags = () => {
     },
     {
       dataIndex: "status",
-      title: "Status",
+      title: "Trạng thái",
       render(_, record) {
         return record.status === EActiveStatus.ACTIVE ? (
           <StatusBadge text={EStatusName.ACTIVE} color="green" />
@@ -130,8 +130,6 @@ const Tags = () => {
           parentId: record.parentId,
           status: record.status === EActiveStatus.ACTIVE ? EActiveStatus.INACTIVE : EActiveStatus.ACTIVE,
         };
-
-        console.log("Updated Tag:", updatedTag);
 
         dispatch(
           updateTag({

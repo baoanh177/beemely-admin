@@ -1,4 +1,3 @@
-import FormSwitch from "@/components/form/FormSwitch";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { ITableData } from "@/components/table/PrimaryTable";
@@ -10,15 +9,16 @@ import { IVoucherInitialState, resetStatus, setFilter } from "@/services/store/v
 import { deleteVoucher, getAllVouchers, updateVoucher } from "@/services/store/voucher/voucher.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
-import { EActiveStatus } from "@/shared/enums/status";
+import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useCallback, useMemo } from "react";
+import {  useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import { IoSearchOutline } from "react-icons/io5";
+import StatusBadge from "@/components/common/StatusBadge";
 const Vouchers = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IVoucherInitialState>("voucher");
@@ -45,19 +45,6 @@ const Vouchers = () => {
       placeholder: "Tìm kiếm theo tên. . .",
     },
   };
-  const handleStatusChange = useCallback(
-    (checked: boolean, record: IVoucher) => {
-      const updatedVoucher = {
-        minimum_order_price: record.minimumOrderPrice,
-        voucher_type: record.voucherType.id,
-        start_date: record.startDate,
-        end_date: record.endDate,
-        status: checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE,
-      };
-      dispatch(updateVoucher({ body: updatedVoucher, param: record.id }));
-    },
-    [dispatch],
-  );
 
   useFetchStatus({
     module: "voucher",
@@ -102,9 +89,13 @@ const Vouchers = () => {
     },
     {
       dataIndex: "status",
-      title: "Status",
-      render: (status, record) => {
-        return <FormSwitch checked={status === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />;
+      title: "Trạng thái",
+      render(_, record) {
+        return record.status === EActiveStatus.ACTIVE ? (
+          <StatusBadge text={EStatusName.ACTIVE} color="green" />
+        ) : (
+          <StatusBadge text={EStatusName.INACTIVE} color="red" />
+        );
       },
     },
   ];
@@ -113,13 +104,34 @@ const Vouchers = () => {
     if (state.vouchers && state.vouchers.length > 0) {
       return state.vouchers.map((voucher) => ({
         ...voucher,
-        voucherTypeName: voucher.voucherType.name,
+        voucherTypeName: voucher.voucherType,
         key: voucher.id,
       }));
     }
     return [];
   }, [state.vouchers]);
   const buttons: IGridButton[] = [
+    {
+      type: EButtonTypes.ACTIVE,
+      onClick: (record) => {
+        const updatedVoucher = {
+          minimum_order_price: record.minimumOrderPrice,
+          voucher_type: record.voucherType,
+          start_date: record.startDate,
+          end_date: record.endDate,
+          duration: record.duration,
+          status: record.status === EActiveStatus.ACTIVE ? EActiveStatus.INACTIVE : EActiveStatus.ACTIVE,
+        };
+
+        dispatch(
+          updateVoucher({
+            body: updatedVoucher,
+            param: record.id,
+          }),
+        );
+      },
+      permission: EPermissions.UPDATE_TAG,
+    },
     {
       type: EButtonTypes.VIEW,
       onClick(record) {
