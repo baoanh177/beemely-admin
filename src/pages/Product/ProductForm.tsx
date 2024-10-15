@@ -97,35 +97,12 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
     thumbnail: Yup.string().url("URL không hợp lệ").required("Ảnh đại diện là bắt buộc"),
     images: Yup.array().of(Yup.string().url("URL không hợp lệ")).min(1, "Ít nhất một ảnh là bắt buộc"),
     discountPrice: Yup.number().min(0, "Giá không thể âm").required("Giá khuyến mãi là bắt buộc"),
-    product_colors: Yup.array().of(Yup.string()).min(1, "Ít nhất một màu là bắt buộc"),
-    product_sizes: Yup.array().of(Yup.string()).min(1, "Ít nhất một kích thước là bắt buộc"),
+    productSizes: Yup.array().of(Yup.string()).min(1, "Ít nhất một kích thước là bắt buộc"),
     gender: Yup.string().required("Giới tính là bắt buộc"),
     brand: Yup.string().required("Thương hiệu là bắt buộc"),
     productType: Yup.string().required("Loại sản phẩm là bắt buộc"),
     tags: Yup.array().of(Yup.string()).min(1, "Ít nhất một thẻ là bắt buộc"),
     labels: Yup.array().of(Yup.string()).min(1, "Ít nhất một nhãn hiệu là bắt buộc").max(3, "Nhiều nhất là 3 nhãn hiệu"),
-    variants: Yup.array()
-      .of(
-        Yup.object().shape({
-          color: Yup.object()
-            .shape({
-              id: Yup.string().required("Mã màu là bắt buộc"),
-              name: Yup.string().required("Tên màu là bắt buộc"),
-              value: Yup.string().required("Giá trị màu là bắt buộc"),
-            })
-            .required("Màu là bắt buộc"),
-          size: Yup.object()
-            .shape({
-              id: Yup.string().required("Mã cỡ là bắt buộc"),
-              name: Yup.string().required("Tên cỡ là bắt buộc"),
-              gender: Yup.string().required("Giới tính là bắt buộc"),
-            })
-            .required("Màu là bắt buộc"),
-          price: Yup.number().min(0, "Giá không thể âm").required("Giá là bắt buộc"),
-          stock: Yup.number().min(0, "Số lượng không thể âm").required("Số lượng là bắt buộc"),
-        }),
-      )
-      .min(1, "Ít nhất một biến thể là bắt buộc"),
   });
 
   const handleSubmit = (values: IProductFormInitialValues) => {
