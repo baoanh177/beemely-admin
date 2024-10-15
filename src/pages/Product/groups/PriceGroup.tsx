@@ -5,8 +5,6 @@ import { IProductFormInitialValues } from "../ProductForm";
 
 interface IPriceGroupProps extends FormikProps<IProductFormInitialValues> {}
 const PriceGroup = ({ values, errors, handleBlur, touched, setFieldValue }: IPriceGroupProps) => {
-  console.log("touched", touched);
-  console.log("error", errors);
   return (
     <FormGroup title="Giá sản phẩm">
       <FormInput

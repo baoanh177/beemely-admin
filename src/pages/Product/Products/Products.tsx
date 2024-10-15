@@ -16,15 +16,35 @@ import { FaPlus } from "react-icons/fa6";
 import { GoDownload } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { getGridButtons } from "../utils/dataTable";
+import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+import { IoSearchOutline } from "react-icons/io5";
 
 const Products = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IProductInitialState>("product");
+  const defaultSearch: IDefaultSearchProps = {
+    filterOptions: {
+      name: "status",
+      options: [
+        { label: "Kích hoạt", value: String(EActiveStatus.ACTIVE) },
+        { label: "Chưa kích hoạt", value: String(EActiveStatus.INACTIVE) },
+      ],
+      onChange: (selectedOption) => {
+        const statusValue = selectedOption.value;
+        dispatch(setFilter({ ...state.filter, status: statusValue }));
+      },
+    },
+    input: {
+      type: "text",
+      name: "name",
+      icon: IoSearchOutline,
+      onChange: (value) => {
+        dispatch(setFilter({ ...state.filter, name: value }));
+      },
+      placeholder: "Tìm kiếm theo tên. . .",
+    },
+  };
 
-  const { getAllProductsLoading } = useAsyncEffect(
-    (async) => async(dispatch(getAllProducts({ query: { _pagination: false, ...state.filter } })), "getAllProductsLoading"),
-    [JSON.stringify(state.filter)],
-  );
   useFetchStatus({
     module: "product",
     reset: resetStatus,
@@ -34,6 +54,10 @@ const Products = () => {
     },
   });
 
+  const { getAllProductsLoading } = useAsyncEffect(
+    (async) => async(dispatch(getAllProducts({ query: { _pagination: false, ...state.filter } })), "getAllProductsLoading"),
+    [JSON.stringify(state.filter)],
+  );
   const data: ITableData[] = useMemo(() => {
     return (
       state.products?.map((product) => ({
@@ -122,6 +146,7 @@ const Products = () => {
         isTableLoading={getAllProductsLoading}
         columns={tableColumns}
         data={data}
+        search={defaultSearch}
         setFilter={setFilter}
         buttons={buttons}
         pagination={{ current: state.filter._page ?? 1, pageSize: state.filter._limit ?? 10, total: state.totalRecords }}

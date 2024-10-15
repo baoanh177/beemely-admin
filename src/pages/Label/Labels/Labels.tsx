@@ -58,6 +58,7 @@ const Labels = () => {
     (async) => async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading"),
     [JSON.stringify(state.filter)],
   );
+  console.log(state.labels);
   const handleStatusChange = useCallback(
     (checked: boolean, record: ILabel) => {
       const updatedLabel = {
