@@ -118,14 +118,6 @@ const Products = () => {
           },
         ]}
       />
-      {/* <PrimaryTable
-        columns={tableColumns}
-        data={data}
-        button={buttons}
-        isTableLoading={getAllProductsLoading ?? true}
-        pagination={{ current: state.filter._page!, pageSize: state.filter._limit!, total: state.totalRecords }}
-        setFilter={setFilter}
-      /> */}
       <ManagementGrid
         isTableLoading={getAllProductsLoading}
         columns={tableColumns}

@@ -27,6 +27,7 @@ interface IUseFetchStatusProps {
 const useFetchStatus = <S extends IInitialState>({ module, reset, actions }: IUseFetchStatusProps) => {
   const { state, dispatch } = useArchive<S>(module);
   const navigate = useNavigate();
+  console.log("action", actions);
 
   const showMessage = (messages: string | Record<string, string> | undefined, type: "success" | "error" | "pending") => {
     if (!messages) return;

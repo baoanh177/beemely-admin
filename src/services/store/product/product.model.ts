@@ -1,12 +1,11 @@
 import { IInitialState } from "@/shared/utils/shared-interfaces";
+import { IBrand } from "../brand/brand.model";
 import { IGender } from "../gender/gender.model";
+import { ILabel } from "../label/label.model";
 import { IProductColor } from "../productColor/productColor.model";
-import { IVariant } from "../variant/variant.model";
 import { ISize } from "../size/size.model";
 import { ITag } from "../tag/tag.model";
-import { ILabel } from "../label/label.model";
-import { IBrand } from "../brand/brand.model";
-import { IProductType } from "../productType/productType.model";
+import { IVariant } from "../variant/variant.model";
 
 export interface IProduct {
   id: string;

@@ -39,7 +39,7 @@ const productSlice = createSlice({
     });
     builder.addCase(createProduct.fulfilled, (state) => {
       state.status = EFetchStatus.FULFILLED;
-      state.message = "Created successfully";
+      state.message = "Tạo mới thành công";
     });
     builder.addCase(createProduct.rejected, (state, { payload }: PayloadAction<any>) => {
       state.status = EFetchStatus.REJECTED;
@@ -52,7 +52,7 @@ const productSlice = createSlice({
     builder.addCase(updateProduct.fulfilled, (state, { payload }: PayloadAction<any>) => {
       state.products = state.products.map((prod) => (prod.id === payload.metaData.id ? payload.metaData : prod));
       state.status = EFetchStatus.FULFILLED;
-      state.message = "Updated successfully";
+      state.message = "Cập nhật thành công";
     });
     builder.addCase(updateProduct.rejected, (state, { payload }: PayloadAction<any>) => {
       state.status = EFetchStatus.REJECTED;
@@ -65,7 +65,7 @@ const productSlice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, { payload }: PayloadAction<any>) => {
       state.products = state.products.filter((prod) => prod.id !== payload);
       state.status = EFetchStatus.FULFILLED;
-      state.message = "Deleted successfully";
+      state.message = "Xóa thành công";
     });
     builder.addCase(deleteProduct.rejected, (state, { payload }: PayloadAction<any>) => {
       state.status = EFetchStatus.REJECTED;

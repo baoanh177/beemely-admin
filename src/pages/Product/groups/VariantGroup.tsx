@@ -111,7 +111,6 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                     label={`Loại biến thể ${index + 1}`}
                     placeholder="Chọn loại biến thể"
                     value={variantType.name || undefined}
-                    error={touched.variants ? (errors.variants as string) : ""}
                     onChange={(value) => {
                       const newVariantTypes = [...variantTypes];
                       newVariantTypes[index] = { name: value, options: [] };
@@ -297,6 +296,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
             />
           </div>
         )}
+        {touched.variants?.length === 0 && <span className="m-auto text-red-500">{errors.variants}</span>}
       </FormGroup>
     );
 };
