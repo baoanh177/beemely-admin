@@ -60,10 +60,14 @@ export const updateProduct = createAsyncThunk("product/update-product", async (p
   }
 });
 
-export const deleteProduct = createAsyncThunk("product/delete-product", async (payload: IThunkPayload, { rejectWithValue }) => {
+export const deleteProduct = createAsyncThunk("product/delete-product", async (payload: IThunkPayload, { rejectWithValue, dispatch }) => {
   try {
     const { response, data } = await client.delete<IProduct>(prefix, payload);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+    if (response.status >= 400) {
+      return rejectWithValue(messageCreator(data, dataKeys));
+    }
+    await dispatch(getAllProducts({ query: payload.query }));
+    return data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

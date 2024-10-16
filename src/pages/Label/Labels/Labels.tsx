@@ -57,21 +57,6 @@ const Labels = () => {
     (async) => async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading"),
     [JSON.stringify(state.filter)],
   );
-<<<<<<< HEAD
-  console.log(state.labels);
-  const handleStatusChange = useCallback(
-    (checked: boolean, record: ILabel) => {
-      const updatedLabel = {
-        name: record.name,
-        description: record.description,
-        status: checked ? EActiveStatus.ACTIVE : EActiveStatus.INACTIVE,
-      };
-      dispatch(updateLabel({ body: updatedLabel, param: record.id }));
-    },
-    [dispatch],
-  );
-=======
->>>>>>> dev
 
   const columns: ColumnsType = [
     {
