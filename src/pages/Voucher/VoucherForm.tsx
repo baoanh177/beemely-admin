@@ -12,12 +12,9 @@ import { EActiveStatus } from "@/shared/enums/status";
 import { Dayjs } from "dayjs";
 import { IVoucher } from "@/services/store/voucher/voucher.model";
 import FormDateRangePicker from "@/components/form/FormDateRangePicker";
-import { useEffect } from "react";
-import { getAllVoucherTypes } from "@/services/store/voucherType/voucherType.thunk";
-import { IVoucherTypeInitialState } from "@/services/store/voucherType/voucherType.slice";
-import { IVoucherType } from "@/services/store/voucherType/voucherType.model";
 import { date, number, object, string } from "yup";
 import * as yup from "yup";
+import { EVoucherType } from "@/shared/enums/voucherType";
 interface IVoucherFormProps {
   formikRef?: FormikRefType<IVoucherFormInitialValues>;
   type: "create" | "update" | "view";
@@ -34,7 +31,7 @@ export interface IVoucherFormInitialValues {
   discount: number;
   discountTypes: "percentage" | "fixed";
   minimumOrderPrice: number;
-  voucherType: IVoucherType;
+  voucherType: EVoucherType;
   status: EActiveStatus;
   startDate: Dayjs | null;
   endDate: Dayjs | null;
@@ -42,7 +39,6 @@ export interface IVoucherFormInitialValues {
 
 const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVoucherFormProps) => {
   const { dispatch } = useArchive<IVoucherInitialState>("voucher");
-  const { state } = useArchive<IVoucherTypeInitialState>("voucherType");
   const voucherSchema = object().shape({
     name: string().required("Vui lòng nhập tên mã giảm giá"),
     code: string().required("Vui lòng nhập mã giảm giá"),
@@ -54,11 +50,6 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     endDate: date().min(yup.ref("startDate"), "Ngày kết thúc phải sau ngày bắt đầu"),
   });
 
-  useEffect(() => {
-    dispatch(getAllVoucherTypes({}));
-  }, [dispatch]);
-  const voucherTypes = state.voucherTypes || [];
-  const defaultVoucherType = state.voucherTypes.find((vt) => vt.name === "deadline");
   const initialValues: IVoucherFormInitialValues = {
     name: voucher?.name || "",
     code: voucher?.code || "",
@@ -67,7 +58,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     discount: voucher?.discount || 0,
     discountTypes: voucher?.discountTypes || "percentage",
     minimumOrderPrice: voucher?.minimumOrderPrice || 0,
-    voucherType: voucher?.voucherType || defaultVoucherType || { name: "deadline" },
+    voucherType: voucher?.voucherType || EVoucherType.FREE_SHIPPING,
     startDate: voucher?.startDate ? dayjs(voucher.startDate) : null,
     endDate: voucher?.endDate ? dayjs(voucher.endDate) : null,
     status: voucher?.status || EActiveStatus.INACTIVE,
@@ -84,7 +75,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
           max_usage: data.maxUsage,
           discount_types: data.discountTypes,
           minimum_order_price: data.minimumOrderPrice,
-          voucher_type: data.voucherType.id,
+          voucher_type: data.voucherType,
           start_date: data.startDate ? dayjs(data.startDate) : null,
           end_date: data.endDate ? dayjs(data.endDate) : null,
           name: data.name,
@@ -100,10 +91,6 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => {
-        const voucherTypeOptions = voucherTypes.map((vt) => ({
-          label: vt.name,
-          value: vt.id!,
-        }));
 
         return (
           <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
@@ -187,15 +174,14 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               isDisabled={type === "view"}
               label="Loại mã giảm giá"
               placeholder="Chọn loại mã giảm giá..."
-              options={voucherTypeOptions}
-              value={values.voucherType.id}
-              onChange={(value) => {
-                const selectedType = voucherTypes.find((vt) => vt.id === value);
-                if (selectedType) {
-                  setFieldValue("voucherType", { id: selectedType.id, name: selectedType.name });
-                }
-              }}
+              options={Object.values(EVoucherType).map((type) => ({
+                label: type,
+                value: type,
+              }))}
+              value={values.voucherType}
+              onChange={(value) => setFieldValue("voucherType", value as EVoucherType)}
             />
+
             <FormDateRangePicker
               label="Ngày bắt đầu và kết thúc"
               value={[values.startDate, values.endDate]}

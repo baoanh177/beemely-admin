@@ -131,8 +131,6 @@ const Tags = () => {
           status: record.status === EActiveStatus.ACTIVE ? EActiveStatus.INACTIVE : EActiveStatus.ACTIVE,
         };
 
-        console.log("Updated Tag:", updatedTag);
-
         dispatch(
           updateTag({
             body: updatedTag,

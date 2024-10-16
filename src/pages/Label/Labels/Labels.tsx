@@ -1,4 +1,4 @@
-import FormSwitch from "@/components/form/FormSwitch";
+import StatusBadge from "@/components/common/StatusBadge";
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
@@ -6,15 +6,14 @@ import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { ILabel } from "@/services/store/label/label.model";
 import { ILabelInitialState, resetStatus, setFilter } from "@/services/store/label/label.slice";
 import { deleteLabel, getAllLabels, updateLabel } from "@/services/store/label/label.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
-import { EActiveStatus } from "@/shared/enums/status";
+import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +57,7 @@ const Labels = () => {
     (async) => async(dispatch(getAllLabels({ query: state.filter })), "getAllLabelsLoading"),
     [JSON.stringify(state.filter)],
   );
+<<<<<<< HEAD
   console.log(state.labels);
   const handleStatusChange = useCallback(
     (checked: boolean, record: ILabel) => {
@@ -70,6 +70,8 @@ const Labels = () => {
     },
     [dispatch],
   );
+=======
+>>>>>>> dev
 
   const columns: ColumnsType = [
     {
@@ -83,8 +85,12 @@ const Labels = () => {
     {
       dataIndex: "status",
       title: "Trạng thái",
-      render: (status, record) => {
-        return <FormSwitch checked={status === EActiveStatus.ACTIVE} onChange={(checked) => handleStatusChange(checked, record)} />;
+      render(_, record) {
+        return record.status === EActiveStatus.ACTIVE ? (
+          <StatusBadge text={EStatusName.ACTIVE} color="green" />
+        ) : (
+          <StatusBadge text={EStatusName.INACTIVE} color="red" />
+        );
       },
     },
   ];
@@ -101,6 +107,23 @@ const Labels = () => {
     return [];
   }, [state.labels]);
   const buttons: IGridButton[] = [
+    {
+      type: EButtonTypes.ACTIVE,
+      onClick: (record) => {
+        const updatedLabel = {
+          name: record.name,
+          description: record.description,
+          status: record.status === EActiveStatus.ACTIVE ? EActiveStatus.INACTIVE : EActiveStatus.ACTIVE,
+        };
+        dispatch(
+          updateLabel({
+            body: updatedLabel,
+            param: record.id,
+          }),
+        );
+      },
+      permission: EPermissions.UPDATE_TAG,
+    },
     {
       type: EButtonTypes.UPDATE,
       onClick(record) {
