@@ -16,9 +16,12 @@ import { sizeSlice } from "./store/size/size.slice";
 import { paymentTypeSlice } from "./store/paymentType/paymentType.slice";
 import { paymentStatuslice } from "./store/paymentStatus/paymentStatus.slice";
 import { orderStatusSlice } from "./store/orderStatus/orderStatus.slice";
+import { productSlice } from "./store/product/product.slice";
+import { productTypeSlice } from "./store/productType/productType.slice";
 import { flagPageSlice } from "./store/flagPage/flagPage.slice";
 import { bannerSlice } from "./store/banner/banner.slice";
 import { shippingMethodSlice } from "./store/shippingMethod/shippingMethod.slice";
+import { genderSlice } from "./store/gender/gender.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -33,11 +36,14 @@ export const reducers = combineReducers({
   color: colorSlice.reducer,
   voucherType: voucherTypeSlice.reducer,
   userGender: userGenderSlice.reducer,
+  gender: genderSlice.reducer,
   voucher: voucherSlice.reducer,
   size: sizeSlice.reducer,
   paymentType: paymentTypeSlice.reducer,
   paymentStatus: paymentStatuslice.reducer,
   orderStatus: orderStatusSlice.reducer,
+  product: productSlice.reducer,
+  productType: productTypeSlice.reducer,
   flagPage: flagPageSlice.reducer,
   banner: bannerSlice.reducer,
   shippingMethod: shippingMethodSlice.reducer,

@@ -107,6 +107,18 @@ export const menuItems: IMenuItem[] = [
         path: "vouchers",
         permissions: EPermissions.READ_VOUCHER,
       },
+      {
+        id: "3.9",
+        label: "Loại sản phẩm",
+        path: "product-types",
+        permissions: EPermissions.READ_PRODUCT_TYPE,
+      },
+      {
+        id: "3.10",
+        label: "Giới tính",
+        path: "genders",
+        permissions: EPermissions.READ_GENDER,
+      },
     ],
   },
   {
