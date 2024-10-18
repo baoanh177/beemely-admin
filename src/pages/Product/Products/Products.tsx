@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { getGridButtons } from "../utils/dataTable";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import { IoSearchOutline } from "react-icons/io5";
+import { max } from "lodash";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -60,26 +61,33 @@ const Products = () => {
   );
   const data: ITableData[] = useMemo(() => {
     return (
-      state.products?.map((product) => ({
-        key: product.id,
-        name: product.name,
-        thumbnail: product.thumbnail,
-        brand: product.brand?.name,
-        status: product.status,
-        stock: product.variants[0].stock,
-        price: product.variants[0].price,
-        discountPrice: product.variants[0].discountPrice,
-        variants: product.variants.length,
-        productBody: product,
-        variantsBody: product.variants.map((v) => ({
-          id: v.id,
-          color: v.color?.id,
-          size: v.size?.id,
-          price: v.price,
-          stock: v.stock,
-          discountPrice: v.discountPrice || 0,
-        })),
-      })) || []
+      state.products?.map((product) => {
+        let minPrice = Infinity;
+        let maxPrice = -Infinity;
+        return {
+          key: product.id,
+          name: product.name,
+          thumbnail: product.thumbnail,
+          brand: product.brand?.name,
+          status: product.status,
+          stock: product.variants[0].stock,
+          price: product.variants[0].price,
+          discountPrice: product.variants[0].discountPrice,
+          variants: product.variants.length,
+          productBody: product,
+          variantsBody: product.variants.map((v) => {
+            minPrice = Math.min(v.price, minPrice);
+            maxPrice = Math.max(v.price, maxPrice);
+            if (minPrice === maxPrice) {
+              return { minPrice: 0, maxPrice };
+            }
+            return {
+              minPrice,
+              maxPrice,
+            };
+          }),
+        };
+      }) || []
     );
   }, [state.products]);
 
@@ -106,9 +114,15 @@ const Products = () => {
     },
     {
       title: "Price",
-      dataIndex: "price",
-      sorter: (a: any, b: any) => Number(a.price) - Number(b.price),
-      render: (price: number) => <span> {price}.000 VND </span>,
+      dataIndex: "variantsBody",
+      sorter: (a: any, b: any) => Number(a.minPrice) - Number(b.minPrice),
+      render: (_: any, variant: any) => (
+        <span>
+          {" "}
+          {variant.variantsBody[variant.variantsBody.length - 1].minPrice}.000 VND -{" "}
+          {variant.variantsBody[variant.variantsBody.length - 1].maxPrice}.000 VND
+        </span>
+      ),
     },
     {
       title: "Status",
