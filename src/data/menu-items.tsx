@@ -119,6 +119,12 @@ export const menuItems: IMenuItem[] = [
         path: "genders",
         permissions: EPermissions.READ_GENDER,
       },
+      {
+        id: "3.11",
+        label: " Cỡ",
+        path: "sizes",
+        permissions: EPermissions.READ_SIZE,
+      },
     ],
   },
   {

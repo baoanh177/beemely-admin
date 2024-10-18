@@ -6,5 +6,6 @@ export interface IVariant {
   color?: IColor;
   stock: number;
   price: number;
+  discountPrice: number;
   size: ISize;
 }

@@ -1,6 +1,7 @@
 import FormGroup from "@/components/form/FormGroup";
 import FormSelect from "@/components/form/FormSelect";
 import UploadImage from "@/components/form/UploadImage";
+import ColorForm, { IColorFormInitialValues } from "@/pages/Color/ColorForm";
 import { IColor } from "@/services/store/color/color.model";
 import { IProduct } from "@/services/store/product/product.model";
 import { ISize } from "@/services/store/size/size.model";
@@ -12,7 +13,6 @@ import ButtonGhost from "../../../components/common/Button";
 import { IProductFormInitialValues } from "../ProductForm";
 import { useHookDataProductForm } from "../utils/dataProductForm";
 import { generateVariantCombinations } from "../utils/generateVariantCombinations";
-import ColorForm, { IColorFormInitialValues } from "@/pages/Color/ColorForm";
 
 interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
   product: IProduct | undefined;
@@ -251,6 +251,21 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                       onChange={(value: any) => {
                         const newVariants = [...values.variants];
                         newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, price: value };
+                        setFieldValue("variants", newVariants);
+                      }}
+                    />
+                  ),
+                },
+                {
+                  title: "Giá giảm giá",
+                  key: "discount_price",
+                  render: (_, record, index) => (
+                    <InputNumber
+                      min={0}
+                      value={values.variants[index]?.discountPrice}
+                      onChange={(value: any) => {
+                        const newVariants = [...values.variants];
+                        newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, discountPrice: value };
                         setFieldValue("variants", newVariants);
                       }}
                     />

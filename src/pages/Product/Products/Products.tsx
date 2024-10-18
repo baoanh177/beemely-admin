@@ -63,19 +63,21 @@ const Products = () => {
       state.products?.map((product) => ({
         key: product.id,
         name: product.name,
-        regularPrice: product.regularPrice,
         thumbnail: product.thumbnail,
         brand: product.brand?.name,
         status: product.status,
         stock: product.variants[0].stock,
+        price: product.variants[0].price,
+        discountPrice: product.variants[0].discountPrice,
         variants: product.variants.length,
         productBody: product,
         variantsBody: product.variants.map((v) => ({
           id: v.id,
           color: v.color?.id,
-          size: v.size.id,
+          size: v.size?.id,
           price: v.price,
           stock: v.stock,
+          discountPrice: v.discountPrice || 0,
         })),
       })) || []
     );
@@ -104,9 +106,9 @@ const Products = () => {
     },
     {
       title: "Price",
-      dataIndex: "regularPrice",
+      dataIndex: "price",
       sorter: (a: any, b: any) => Number(a.price) - Number(b.price),
-      render: (price: any) => <span> {price}.000 VND </span>,
+      render: (price: number) => <span> {price}.000 VND </span>,
     },
     {
       title: "Status",
