@@ -60,7 +60,7 @@ const Sizes = () => {
       return state.sizes.map((size) => ({
         key: size.id,
         name: size.name,
-        gender: size.gender.name,
+        gender: size.gender?.name ?? "Không xác định",
       }));
     }
 
