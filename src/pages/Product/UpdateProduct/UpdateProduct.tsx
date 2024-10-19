@@ -46,8 +46,6 @@ const UpdateProduct = () => {
           name: state.activeProduct.name,
           thumbnail: state.activeProduct.thumbnail,
           description: state.activeProduct.description,
-          regularPrice: state.activeProduct.regularPrice,
-          discountPrice: state.activeProduct.discountPrice,
           brand: state.activeProduct.brand?.id || "",
           gender: state.activeProduct.gender?.id || "",
           tags: state.activeProduct.tags.map((tag) => tag.id) || [],

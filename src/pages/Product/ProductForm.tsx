@@ -120,7 +120,6 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
             <InfoGroup {...formikData} setSize={setSize} />
             <MediaGroup {...formikData} />
             <LabelsGroup {...formikData} />
-            {/* <PriceGroup {...formikData} /> */}
             <VariantGroup {...formikData} product={product} type={type} size={size} />
             {/*
 
