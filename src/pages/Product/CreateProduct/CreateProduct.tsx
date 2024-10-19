@@ -32,7 +32,6 @@ const CreateProduct = () => {
 
   const handleSubmit2 = () => {
     if (formikRef.current) {
-      console.log("prod", formikRef);
       formikRef.current.handleSubmit();
     }
   };
