@@ -21,38 +21,27 @@ interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
 }
 const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, size }: IVariantGroupProps) => {
   const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = useHookDataProductForm();
-  if (type === "create") {
-    const [filterSize, setFilterSize] = useState<any>();
-
-    useEffect(() => {
-      const filter = stateSize.sizes.filter((s: any) => {
-        return s.gender?.id === size;
-      });
-      setFilterSize(filter);
-    }, [size]);
-    useEffect(() => {
-      setVariantOptions({
-        color: stateColor.colors,
-        size: filterSize,
-      });
-    }, [filterSize, stateColor]);
-  }
-
   const [variantOptions, setVariantOptions] = useState<any>({ size: [], color: [] });
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
-
   const formikRef = useRef<FormikProps<IColorFormInitialValues>>(null);
 
-  if (type === "update") {
-    useEffect(() => {
-      setVariantOptions({
-        color: stateColor.colors,
-        size: stateSize.sizes,
-      });
-    }, [stateSize.sizes, stateColor]);
-  }
+  const [filterSize, setFilterSize] = useState<any>();
+
+  useEffect(() => {
+    const filter = stateSize.sizes.filter((s: any) => {
+      if (size) return s.gender?.id === size;
+      else return s.gender?.id === product?.gender?.id;
+    });
+    setFilterSize(filter);
+  }, [size, product?.gender]);
+  useEffect(() => {
+    setVariantOptions({
+      color: stateColor.colors,
+      size: filterSize,
+    });
+  }, [filterSize, stateColor]);
 
   const [variantTypes, setVariantTypes] = useState<any>([]);
 
@@ -134,7 +123,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                   <div>
                     <label className="mb-2 block text-[14px]">Tùy chọn biến thể {index + 1}</label>
                     <div className="flex flex-wrap gap-2">
-                      {(variantOptions[variantType.name as VariantOptionKey] as Array<IColor>).map((opt: IColor) => (
+                      {(variantOptions[variantType.name as VariantOptionKey] as Array<IColor>)?.map((opt: IColor) => (
                         <label key={opt.id} className="flex items-center">
                           <input
                             type="checkbox"
@@ -223,12 +212,14 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
             </div>
           );
         })}
-        <ButtonGhost
-          type="ghost"
-          icon={<TiPlusOutline />}
-          text="Thêm biến thể"
-          onClick={() => setVariantTypes([...variantTypes, { name: "", options: [] }])}
-        />
+        {variantTypes.length < 2 ? (
+          <ButtonGhost
+            type="ghost"
+            icon={<TiPlusOutline />}
+            text="Thêm biến thể"
+            onClick={() => setVariantTypes([...variantTypes, { name: "", options: [] }])}
+          />
+        ) : null}
 
         {(variantTypes.length > 0 || dataVariants) && (
           <div className="mt-4">
@@ -247,10 +238,17 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                   render: (_, record, index) => (
                     <InputNumber
                       min={0}
-                      value={values.variants[index]?.price}
+                      value={values.variants[index]?.price || 0}
                       onChange={(value: any) => {
                         const newVariants = [...values.variants];
-                        newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, price: value };
+                        newVariants[index] = {
+                          ...newVariants[index],
+                          color: record.colorId,
+                          size: record.sizeId,
+                          stock: record?.stock || 50,
+                          discountPrice: record?.discountPrice || 0,
+                          price: value,
+                        };
                         setFieldValue("variants", newVariants);
                       }}
                     />
@@ -262,7 +260,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                   render: (_, record, index) => (
                     <InputNumber
                       min={0}
-                      value={values.variants[index]?.discountPrice}
+                      value={values.variants[index]?.discountPrice || 0}
                       onChange={(value: any) => {
                         const newVariants = [...values.variants];
                         newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, discountPrice: value };
@@ -277,7 +275,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                   render: (_, record, index) => (
                     <InputNumber
                       min={0}
-                      value={values.variants[index]?.stock}
+                      value={values.variants[index]?.stock || 50}
                       onChange={(value: any) => {
                         const newVariants = [...values.variants];
                         newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, stock: value };

@@ -121,7 +121,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
     <div className="flex flex-col gap-1">
       <Label text={label} isRequired={isRequired} />
       <Spin indicator={<LoadingOutlined spin />} className="text-primary-300" size="large" spinning={isLoading}>
-        <div className="custom-upload flex h-[260px] items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
+        <div className="custom-upload flex h-auto items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
           <div className="flex-col items-center gap-4">
             {
               <div className="flex flex-wrap justify-center">
@@ -131,8 +131,8 @@ const UploadImage: React.FC<UploadImageProps> = ({
                         {renderFileIcon(url)}
                         {!isDisabled && (
                           <button onClick={() => handleDeleteImage(index)}>
-                          <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
-                        </button>
+                            <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
+                          </button>
                         )}
                       </div>
                     ))
