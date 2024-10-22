@@ -36,6 +36,7 @@ export const getGridButtons = (dispatch: AppDispatch): IGridButton[] => {
             size: v.size.id,
             price: v.price,
             stock: v.stock,
+            discount_price: v.discountPrice,
           })),
 
           status: record.status === EActiveStatus.ACTIVE ? EActiveStatus.INACTIVE : EActiveStatus.ACTIVE,
