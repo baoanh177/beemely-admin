@@ -63,6 +63,7 @@ const Products = () => {
       state.products?.map((product) => {
         let minPrice = Infinity;
         let maxPrice = -Infinity;
+        console.log(product.variants);
         return {
           key: product.id,
           name: product.name,
@@ -70,7 +71,7 @@ const Products = () => {
           brand: product.brand?.name,
           status: product.status,
           stock: product.variants.reduce((acc, v) => acc + v.stock, 0),
-          price: product.variants[0].price,
+          price: product.variants[0]?.price,
           discountPrice: product.variants[0].discountPrice,
           variants: product.variants.length,
           productBody: product,

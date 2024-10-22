@@ -6,6 +6,7 @@ import { IProductColor } from "../productColor/productColor.model";
 import { ISize } from "../size/size.model";
 import { ITag } from "../tag/tag.model";
 import { IVariant } from "../variant/variant.model";
+import { IProductType } from "../productType/productType.model";
 
 export interface IProduct {
   id: string;
@@ -23,7 +24,7 @@ export interface IProduct {
   brand: IBrand;
   productColors: IProductColor[];
   productSizes: ISize[];
-  productType: string;
+  productType: IProductType;
   status: number;
 }
 

@@ -20,7 +20,7 @@ export const getGridButtons = (dispatch: AppDispatch): IGridButton[] => {
           images: record.productBody.images,
           thumbnail: record.productBody.thumbnail,
           brand: record.productBody.brand.id,
-          product_type: record.productBody.productType,
+          product_type: record.productBody.productType.id,
           gender: record.productBody.gender.id,
           labels: record.productBody.labels.map((l: any) => l.id),
           product_colors: record.productBody.productColors.map((c: any) => ({

@@ -59,7 +59,7 @@ const UpdateProduct = () => {
             };
           }),
           productSizes: state.activeProduct.productSizes.map((size) => size.id),
-          productType: state.activeProduct.productType,
+          productType: state.activeProduct.productType.id,
         });
       }
     }

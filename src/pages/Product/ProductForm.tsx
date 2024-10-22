@@ -46,7 +46,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
     images: product?.images || [],
     tags: product?.tags?.map((tag) => tag.id) || [],
     labels: product?.labels?.map((label) => label.id) || [],
-    productType: product?.productType || "",
+    productType: product?.productType?.id || "",
     productSizes: product?.productSizes?.map((size) => size.id) || [],
     variants: product?.variants || [],
   };
