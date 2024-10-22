@@ -88,7 +88,6 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
     }
   }, [product, type]);
 
-  console.log(dataVariants);
   if (!getAllSizesLoading && !getAllColorsLoading)
     return (
       <FormGroup title="Biến thể sản phẩm" isLoading={getAllSizesLoading || getAllColorsLoading}>
