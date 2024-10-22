@@ -54,9 +54,10 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
   let newDataVariants: any;
   const [dataVariants, setDataVariants] = useState<any>();
   useEffect(() => {
-    if (variantOptions.color?.length > 0 && variantOptions.size?.length > 0)
+    if (variantOptions.color?.length > 0 && variantOptions.size?.length > 0) {
       newDataVariants = generateVariantCombinations(variantTypes, variantOptions);
-    setDataVariants(newDataVariants);
+      setDataVariants(newDataVariants);
+    }
   }, [variantTypes, variantOptions]);
   useEffect(() => {
     if (type === "update" && product) {
@@ -87,6 +88,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
     }
   }, [product, type]);
 
+  console.log(dataVariants);
   if (!getAllSizesLoading && !getAllColorsLoading)
     return (
       <FormGroup title="Biến thể sản phẩm" isLoading={getAllSizesLoading || getAllColorsLoading}>
