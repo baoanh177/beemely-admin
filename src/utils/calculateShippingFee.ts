@@ -25,6 +25,5 @@ export const calculateOrderShippingFee = (dimensions: IDimensions): number => {
     return level.PRICE;
   }
 
-  // If weight exceeds maximum level, calculate with extra charge
   return MAX_LEVEL.PRICE + calculateExtraCharge(finalWeight);
 };
