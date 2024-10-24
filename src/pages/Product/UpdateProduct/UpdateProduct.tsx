@@ -46,6 +46,10 @@ const UpdateProduct = () => {
           name: state.activeProduct.name,
           thumbnail: state.activeProduct.thumbnail,
           description: state.activeProduct.description,
+          sortDescription:
+            state.activeProduct.sortDescription ||
+            // eslint-disable-next-line max-len
+            "Công nghệ Air mang tính cách mạng lần đầu tiên xuất hiện trên giày Nike vào năm 1978. Năm 1987, Air Max 1 ra mắt với công nghệ Air có thể nhìn thấy ở gót giày, mang đến cho người hâm mộ nhiều hơn là cảm giác đệm Air—đột nhiên họ có thể nhìn thấy nó. Kể từ đó, giày Air Max thế hệ tiếp theo đã trở thành hit với các vận động viên và nhà sưu tập bằng cách cung cấp các kết hợp màu sắc nổi bật và đệm nhẹ, đáng tin cậy.",
           brand: state.activeProduct.brand?.id || "",
           gender: state.activeProduct.gender?.id || "",
           tags: state.activeProduct.tags.map((tag) => tag.id) || [],
@@ -60,6 +64,10 @@ const UpdateProduct = () => {
           }),
           productSizes: state.activeProduct.productSizes.map((size) => size.id),
           productType: state.activeProduct.productType.id,
+          height: state.activeProduct?.dimensions?.height || 0,
+          weight: state.activeProduct?.dimensions?.weight || 0,
+          length: state.activeProduct?.dimensions?.length || 0,
+          width: state.activeProduct?.dimensions?.width || 0,
         });
       }
     }

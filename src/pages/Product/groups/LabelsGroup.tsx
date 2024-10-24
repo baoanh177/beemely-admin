@@ -9,7 +9,7 @@ const LabelsGroup = ({ values, errors, touched, setFieldValue }: ILabelsGroupPro
   const { stateLabel, getAllLabelsLoading, stateTag, getAllTagsLoading } = useHookDataProductForm();
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid gap-4 md:grid-cols-2">
       <FormGroup title="Nhãn hiệu" isLoading={getAllLabelsLoading}>
         <div>
           <label className="mb-2 block text-[14px]"> Chọn Nhãn hiệu</label>

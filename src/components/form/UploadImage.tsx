@@ -124,20 +124,22 @@ const UploadImage: React.FC<UploadImageProps> = ({
         <div className="custom-upload flex h-auto items-center justify-center rounded-lg bg-gray-25 px-3 py-6">
           <div className="flex-col items-center gap-4">
             {
-              <div className="flex flex-wrap justify-center">
-                {uploadedImageUrls.length > 0
-                  ? uploadedImageUrls.map((url, index) => (
-                      <div key={index} className="relative mx-2 inline-block text-center">
-                        {renderFileIcon(url)}
-                        {!isDisabled && (
-                          <button onClick={() => handleDeleteImage(index)}>
-                            <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
-                          </button>
-                        )}
-                      </div>
-                    ))
-                  : renderDefaultContent()}
-                {error && <div className="p-1 text-red-500">{error}</div>}
+              <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-wrap">
+                  {uploadedImageUrls.length > 0
+                    ? uploadedImageUrls.map((url, index) => (
+                        <div key={index} className="relative mx-2 inline-block text-center">
+                          {renderFileIcon(url)}
+                          {!isDisabled && (
+                            <button onClick={() => handleDeleteImage(index)}>
+                              <IoIosCloseCircle className="absolute right-1 top-1 h-[24px] w-[24px] rounded-circle text-green-100" />
+                            </button>
+                          )}
+                        </div>
+                      ))
+                    : renderDefaultContent()}
+                </div>
+                {error && <div className="p-1 text-sm text-red-500">{error}</div>}
               </div>
             }
             {uploadError && <div className="mt-3 text-center text-red-500">{uploadError}</div>}
