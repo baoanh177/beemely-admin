@@ -10,9 +10,11 @@ import MediaGroup from "./groups/MediaGroup";
 import VariantGroup from "./groups/VariantGroup";
 import { IProductColor } from "@/services/store/productColor/productColor.model";
 import { validationSchema, validationUpdateSchema } from "./utils/validation";
+import ShippingGroup from "./groups/ShippingGroup";
 
 export interface IProductFormInitialValues {
   name: string;
+  sortDescription: string;
   description: string;
   images: string[];
   thumbnail: string;
@@ -24,6 +26,10 @@ export interface IProductFormInitialValues {
   labels: string[];
   variants: IVariant[];
   productType: string;
+  weight: number;
+  length: number;
+  width: number;
+  height: number;
 }
 
 interface IProductFormProps {
@@ -39,6 +45,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
   const initialValues: IProductFormInitialValues = {
     name: product?.name || "",
     description: product?.description || "",
+    sortDescription: product?.sortDescription || "",
     thumbnail: product?.thumbnail || "",
     gender: product?.gender?.id || "",
     brand: product?.brand?.id || "",
@@ -49,11 +56,16 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
     productType: product?.productType?.id || "",
     productSizes: product?.productSizes?.map((size) => size.id) || [],
     variants: product?.variants || [],
+    weight: product?.dimensions?.weight || 0,
+    length: product?.dimensions?.length || 0,
+    width: product?.dimensions?.width || 0,
+    height: product?.dimensions?.height || 0,
   };
 
   const handleSubmit = (values: IProductFormInitialValues) => {
     const transformedData: any = {
       name: values.name,
+      sort_description: values.sortDescription,
       description: values.description,
       thumbnail: values.thumbnail,
       gender: values.gender,
@@ -71,6 +83,12 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
           discount_price: discountPrice,
         };
       }),
+      dimensions: {
+        weight: values.weight,
+        length: values.length,
+        width: values.width,
+        height: values.height,
+      },
     };
 
     if (type === "create") {
@@ -121,9 +139,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
             <MediaGroup {...formikData} />
             <LabelsGroup {...formikData} />
             <VariantGroup {...formikData} product={product} type={type} size={size} />
-            {/*
-
-            */}
+            <ShippingGroup {...formikData} />
           </>
         );
       }}

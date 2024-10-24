@@ -25,7 +25,6 @@ export const useHookDataProductForm = () => {
   const { state: stateLabel, dispatch: dispatchLabel } = useArchive<ILabelInitialState>("label");
   const { state: stateTag, dispatch: dispatchTag } = useArchive<ITagInitialState>("tag");
 
-  const [variantOptions, setVariantOptions] = useState({ color: [], size: [] });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -42,6 +41,7 @@ export const useHookDataProductForm = () => {
           dispatchTag(getAllTags({ query: stateTag.filter })),
         ]);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);

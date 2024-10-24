@@ -12,6 +12,7 @@ export interface IProduct {
   id: string;
   name: string;
   slug: string;
+  sortDescription: string;
   description: string;
   regularPrice: number;
   discountPrice: number;
@@ -26,6 +27,14 @@ export interface IProduct {
   productSizes: ISize[];
   productType: IProductType;
   status: number;
+  dimensions: IDimensions;
+}
+
+export interface IDimensions {
+  weight: number;
+  height: number;
+  width: number;
+  length: number;
 }
 
 export interface IProductFilter {

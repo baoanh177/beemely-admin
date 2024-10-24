@@ -21,6 +21,7 @@ interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
 }
 const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, size }: IVariantGroupProps) => {
   const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = useHookDataProductForm();
+
   const [variantOptions, setVariantOptions] = useState<any>({ size: [], color: [] });
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -310,7 +311,11 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
             />
           </div>
         )}
-        {touched.variants?.length === 0 && <span className="m-auto text-red-500">{errors.variants}</span>}
+        {touched.variants?.length === 0 && (
+          <span className="m-auto text-sm text-red-500">
+            {typeof errors.variants === "string" ? errors.variants : Array.isArray(errors.variants) ? errors.variants.join(", ") : "Variant"}
+          </span>
+        )}
       </FormGroup>
     );
 };

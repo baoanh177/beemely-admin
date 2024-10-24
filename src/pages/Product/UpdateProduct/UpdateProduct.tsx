@@ -46,6 +46,7 @@ const UpdateProduct = () => {
           name: state.activeProduct.name,
           thumbnail: state.activeProduct.thumbnail,
           description: state.activeProduct.description,
+          sortDescription: state.activeProduct.sortDescription || "",
           brand: state.activeProduct.brand?.id || "",
           gender: state.activeProduct.gender?.id || "",
           tags: state.activeProduct.tags.map((tag) => tag.id) || [],
@@ -60,6 +61,10 @@ const UpdateProduct = () => {
           }),
           productSizes: state.activeProduct.productSizes.map((size) => size.id),
           productType: state.activeProduct.productType.id,
+          height: state.activeProduct?.dimensions?.height || 0,
+          weight: state.activeProduct?.dimensions?.weight || 0,
+          length: state.activeProduct?.dimensions?.length || 0,
+          width: state.activeProduct?.dimensions?.width || 0,
         });
       }
     }
