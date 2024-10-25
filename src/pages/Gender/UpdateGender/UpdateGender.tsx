@@ -38,6 +38,8 @@ const UpdateGender = () => {
       if (formikRef.current) {
         formikRef.current.setValues({
           name: state.activeGender.name,
+          imageUrl: state.activeGender.imageUrl,
+          path: state.activeGender.path || `http://localhost:3000/gender/${state.activeGender?.slug}`,
         });
       }
     }
