@@ -7,6 +7,8 @@ import { IGender } from "./gender.model";
 const dataKeys: { [key in keyof Omit<IGender, "id">]: string } = {
   name: "Tên giới tính",
   slug: "Slug",
+  imageUrl: "Hình ảnh",
+  path: "Đường dẫn",
 };
 
 const prefix = "/api/genders";

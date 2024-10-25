@@ -1,6 +1,7 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
+import ImageTable from "@/components/table/ImageTable";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
@@ -53,6 +54,17 @@ const Genders = () => {
       dataIndex: "slug",
       title: "Slug",
     },
+    {
+      title: "Ảnh",
+      dataIndex: "imageUrl",
+      render: (imageUrl) => {
+        return <ImageTable imageSrc={imageUrl} />;
+      },
+    },
+    {
+      dataIndex: "path",
+      title: "Đường dẫn chuyển hướng",
+    },
   ];
 
   const data: ITableData[] = useMemo(() => {
@@ -61,6 +73,8 @@ const Genders = () => {
         key: gender.id ?? "default-key",
         name: gender.name,
         slug: gender.slug,
+        imageUrl: gender.imageUrl,
+        path: gender.path,
       }));
     }
     return [];
