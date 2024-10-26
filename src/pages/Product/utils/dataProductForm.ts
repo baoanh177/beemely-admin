@@ -32,8 +32,8 @@ export const useHookDataProductForm = () => {
       setLoading(true);
       try {
         await Promise.all([
-          dispatchSize(getAllSizes({ query: stateSize.filter })),
-          dispatchColor(getAllColors({ query: stateColor.filter })),
+          dispatchSize(getAllSizes({ query: { _limit: 100, page: 1 } })),
+          dispatchColor(getAllColors({ query: { _limit: 100, page: 1 } })),
           dispatchProductType(getAllProductTypes({ query: stateProductType.filter })),
           dispatchBrand(getAllBrands({ query: stateBrand.filter })),
           dispatchGender(getAllGenders({ query: stateGender.filter })),

@@ -33,10 +33,11 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
   useEffect(() => {
     const filter = stateSize.sizes.filter((s: any) => {
       if (size) return s.gender?.id === size;
-      else return s.gender?.id === product?.gender?.id;
+      else if (product) return s.gender?.id === product?.gender?.id;
+      return false;
     });
     setFilterSize(filter);
-  }, [size, product?.gender]);
+  }, [size, product?.gender, stateSize.sizes]);
   useEffect(() => {
     setVariantOptions({
       color: stateColor.colors,
