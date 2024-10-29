@@ -144,17 +144,17 @@ export const menuItems: IMenuItem[] = [
         path: "payment-statuses",
         permissions: EPermissions.READ_PAYMENT_STATUS,
       },
-      // {
-      //   id: "4.3",
-      //   label: "Trạng thái đơn hàng",
-      //   path: "order-statuses",
-      //   permissions: EPermissions.READ_ORDER_STATUS,
-      // },
+      {
+        id: "4.3",
+        label: "Trạng thái đơn hàng",
+        path: "order-statuses",
+        permissions: EPermissions.READ_ORDER_STATUS,
+      },
       {
         id: "4.4",
         label: "Đơn hàng",
         path: "orders",
-        permissions: EPermissions.READ_ORDER,
+        // permissions: EPermissions.READ_ORDER,
       },
       {
         id: "4.5",

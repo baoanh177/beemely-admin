@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-export type StatusBadgeColors = "blue" | "green" | "orange" | "gray" | "red";
+export type StatusBadgeColors = "blue" | "green" | "orange" | "gray" | "red" | "yellow" | "green-capital";
 export interface StatusBadgeProps {
   text: string;
   color: StatusBadgeColors;
@@ -19,18 +19,26 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color }) => {
     case "green":
       className = "bg-green-50 text-green-600";
       break;
+    case "green-capital":
+      className = "bg-green-50 text-green-600 capitalize";
+      break;
     case "gray":
       className = "bg-gray-50 text-gray-500";
       break;
     case "red":
       className = "bg-red-50 text-red-500";
       break;
+    case "yellow":
+      className = "capitalize bg-yellow-50 text-yellow-500";
+      break;
     default:
       className = "";
       break;
   }
 
-  return <div className={clsx(className, "text-m-semibold inline-block rounded-lg border-none px-[10px] py-1 text-center text-nowrap")}>{text}</div>;
+  return (
+    <div className={clsx(className, "text-m-semibold inline-block text-nowrap rounded-lg border-none px-[10px] py-1 text-center")}>{text}</div>
+  );
 };
 
 export default StatusBadge;
