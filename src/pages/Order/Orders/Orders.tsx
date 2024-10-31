@@ -1,4 +1,5 @@
 import Heading from "@/components/layout/Heading";
+import { format } from "date-fns";
 import { GoDownload } from "react-icons/go";
 import { FaPlus } from "react-icons/fa6";
 import { EPermissions } from "@/shared/enums/permissions";
@@ -10,13 +11,10 @@ import { getAllOrder } from "@/services/store/order/order.thunk";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useMemo } from "react";
 import ManagementGrid from "@/components/grid/ManagementGrid";
-import { EActiveStatus } from "@/shared/enums/status";
 import { IoSearchOutline } from "react-icons/io5";
-import StatusBadge from "@/components/common/StatusBadge";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
-import { Image } from "antd";
-import imgZaloPay from "@/assets/images/ZaloPayLogo.png";
-import imgVnPay from "@/assets/images/vnpay.webp";
+import { getGridButtons, tableColumns } from "../utils/dataTable";
+import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
   const { state, dispatch } = useArchive<IOrderInitialState>("order");
@@ -38,12 +36,16 @@ const Orders = () => {
     filterOptions: {
       name: "status",
       options: [
-        { label: "Kích hoạt", value: String(EActiveStatus.ACTIVE) },
-        { label: "Chưa kích hoạt", value: String(EActiveStatus.INACTIVE) },
+        { label: "Đã hoàn thành", value: "success" },
+        { label: "Đang chờ", value: "pending" },
+        { label: "Đang tiến hành", value: "processing" },
+        { label: "Thất bại", value: "cancelled" },
+        { label: "Đang giao hàng", value: "shipped" },
+        { label: "Giao thành công", value: "delivered" },
       ],
       onChange: (selectedOption: any) => {
         const statusValue = selectedOption.value;
-        dispatch(setFilter({ ...state.filter, status: statusValue }));
+        dispatch(setFilter({ ...state.filter, order_status: statusValue }));
       },
     },
     input: {
@@ -51,7 +53,7 @@ const Orders = () => {
       name: "name",
       icon: IoSearchOutline,
       onChange: (value) => {
-        dispatch(setFilter({ ...state.filter, name: value }));
+        dispatch(setFilter({ ...state.filter, order_id: value }));
       },
       placeholder: "Tìm kiếm theo tên. . .",
     },
@@ -60,59 +62,25 @@ const Orders = () => {
   const data: ITableData[] = useMemo(() => {
     return (
       state.orders?.map((order) => {
-        const date = new Date(order.createdAt);
-        const formattedDate = new Intl.DateTimeFormat("en-CA", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          timeZone: "America/New_York",
-        }).format(date);
+        const formattedDate = format(new Date(order.createdAt), "dd/MM/yyyy, hh:mm a");
+
         return {
           key: order.id,
+          orderStatus: order.orderStatus,
           paymentType: order.paymentType,
           paymentStatus: order.paymentStatus,
           totalPrice: order.totalPrice,
           shippingAddress: order.shippingAddress,
           createdAt: formattedDate,
+          user: order.user,
         };
       }) || []
     );
-  }, [state.products]);
+  }, [state.orders]);
 
-  console.log(state.orders);
-  const tableColumns: any = [
-    {
-      title: "Ngày đặt hàng",
-      dataIndex: "createdAt",
-    },
-    {
-      title: "Địa chỉ giao hàng",
-      dataIndex: "shippingAddress",
-    },
-    {
-      title: "Phương thức giao hàng",
-      dataIndex: "paymentType",
-      render: (paymentType: string) => (
-        <>
-          {paymentType === "zalopay" ? (
-            <Image width={90} height={30} preview={false} src={imgZaloPay} />
-          ) : (
-            <Image width={90} height={20} preview={false} src={imgVnPay} />
-          )}{" "}
-        </>
-      ),
-    },
-    {
-      title: "Trạng thái đơn hàng",
-      dataIndex: "paymentStatus",
-      render: (status: string) => (
-        <>{status === "pending" ? <StatusBadge text={status} color="yellow" /> : <StatusBadge text={status} color="green-capital" />} </>
-      ),
-    },
-  ];
-
+  const navigate = useNavigate();
   // const a = "";
-  // const buttons = getGridButtons(dispatch);
+  const buttons = getGridButtons(dispatch, navigate);
   return (
     <>
       <Heading
@@ -138,7 +106,7 @@ const Orders = () => {
         data={data}
         search={defaultSearch}
         setFilter={setFilter}
-        buttons={[]}
+        buttons={buttons}
         pagination={{ current: state.filter._page ?? 1, pageSize: state.filter._limit ?? 10, total: state.totalRecords }}
       />
     </>

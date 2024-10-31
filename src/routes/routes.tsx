@@ -32,6 +32,7 @@ import { categoryRoutes } from "./category.route";
 import { bannerRoutes } from "./banner.route";
 import { shippingMethodRoutes } from "./shippingMethod.route";
 import { genderRoutes } from "./gender.route";
+import { orderRoutes } from "./order.route";
 
 export interface IRoute {
   path: string;
@@ -70,7 +71,7 @@ export const routes: IRoute[] = [
           },
           {
             path: "orders",
-            element: () => <Orders />,
+            pages: orderRoutes,
           },
           {
             path: "components",
