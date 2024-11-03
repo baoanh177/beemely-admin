@@ -5,23 +5,24 @@ import { messageCreator } from "@/services/config/message-creator";
 import { IOrder } from "./order.model";
 
 const dataKeys: { [key in keyof Omit<IOrder, "id">]: string } = {
+  uniqueId: "Mã đơn hàng",
   user: "Người dùng",
   items: "Các sản phẩm",
   totalPrice: "Tổng giá",
   regularTotalPrice: "Tổng giá thường",
   shippingAddress: "Địa chỉ giao hàng",
-  orderStatus: "Trạng thái đơn hàng",
+  order_status: "Trạng thái đơn hàng",
   phoneNumber: "Số điện thoại",
   paymentType: "Loại thanh toán",
   paymentStatus: "Trạng thái thanh toán",
   userName: "Tên người dùng",
   shippingFee: "Phí vận chuyển",
   userEmail: "Email người dùng",
-  createAt: "Ngày tạo ",
-  updateAt: "Ngày cập nhật ",
+  createdAt: "Ngày tạo ",
+  updatedAt: "Ngày cập nhật ",
 };
 
-const prefix = "/api/client/order";
+const prefix = "/api/orders";
 
 export const getAllOrder = createAsyncThunk("order/get-all-order", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {

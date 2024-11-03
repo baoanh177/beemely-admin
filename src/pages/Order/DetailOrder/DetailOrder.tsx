@@ -4,10 +4,9 @@ import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IOrderInitialState, resetStatus } from "@/services/store/order/order.slice";
 import { getOrderById } from "@/services/store/order/order.thunk";
-import { EFetchStatus } from "@/shared/enums/status";
 import { FormikProps } from "formik";
 import { useRef } from "react";
-import { IoClose, IoSaveOutline } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import AddressGroup from "../groups/AddressGroup";
 import InfoGroup from "../groups/InfoGroup";
@@ -16,7 +15,6 @@ import "./index.css";
 
 const DetailOrder = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<any>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<IOrderInitialState>("order");
 

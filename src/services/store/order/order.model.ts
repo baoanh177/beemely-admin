@@ -6,7 +6,7 @@ export interface IOrder {
   regularTotalPrice: number;
   shippingAddress: string;
   phoneNumber: string;
-  orderStatus: string;
+  order_status: string;
   paymentStatus: string;
   paymentType: string;
   userName: string;
@@ -14,4 +14,5 @@ export interface IOrder {
   userEmail: string;
   createdAt: string;
   updatedAt: string;
+  uniqueId: string;
 }

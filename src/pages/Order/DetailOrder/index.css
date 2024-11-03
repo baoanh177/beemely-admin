@@ -1,7 +1,7 @@
-.search-bar-ui {
+.tho .search-bar-ui {
   display: none !important;
 }
 
-.ant-table-cell:nth-child(3) {
+.tho .ant-table-cell:nth-child(3) {
   text-align: end !important;
 }

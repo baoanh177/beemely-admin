@@ -39,13 +39,12 @@ const ItemsGroup = ({ items, order }: any) => {
 
   return (
     <FormGroup title="">
-      <ManagementGrid isTableLoading={false} columns={tableColumns} data={data} search={{}} buttons={[]} />
+      <div className="tho">
+        <ManagementGrid isTableLoading={false} columns={tableColumns} data={data} search={{}} buttons={[]} />
+      </div>
       <div className="mr-4 inline-flex flex-col items-end gap-2 font-[ps-Bold] text-[14px] font-medium">
         <p>
           Phí vận chuyển: <span className="text-[#677085]">{order.shippingFee.toLocaleString()} VND</span>
-        </p>
-        <p className="">
-          Subtotal <span></span>
         </p>
         <p style={{ borderTop: "1px solid black", paddingTop: "1rem" }}>
           Tổng tiền: <span className="text-[#677085]">{total.toLocaleString()} VND</span>

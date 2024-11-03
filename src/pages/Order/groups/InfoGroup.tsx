@@ -1,14 +1,11 @@
 import StatusBadge from "@/components/common/StatusBadge";
 import FormGroup from "@/components/form/FormGroup";
-import { Image } from "antd";
 import { format } from "date-fns";
-import React from "react";
-import imgCorner from "@/assets/images/Haikeiscatter.svg";
 
 const InfoGroup = ({ order }: any) => {
   const formattedDate = format(new Date(order.createdAt), "dd/MM/yyyy, hh:mm a");
   return (
-    <FormGroup className="bg-red-40" title={`Order Details: ${order.id}`}>
+    <FormGroup className="bg-red-40" title={`Order Details: #${order.uniqueId}`}>
       <div className="mt-[-0.5rem] flex flex-col gap-6">
         <div className="font-[13.3px] text-[#5e6e82]">{formattedDate}</div>
         <div className="flex flex-row gap-4">

@@ -29,14 +29,14 @@ export const getGridButtons = (dispatch: AppDispatch, navigate: NavigateFunction
     {
       type: EButtonTypes.VIEW,
       onClick(record) {
-        navigate(`/accounts/detail/${record.key}`)
+        navigate(`/accounts/detail/${record.key}`);
       },
       permission: EPermissions.READ_ACCOUNT,
     },
     {
       type: EButtonTypes.UPDATE,
       onClick(record) {
-        navigate(`/accounts/update/${record.key}`)
+        navigate(`/accounts/update/${record.key}`);
       },
       permission: EPermissions.UPDATE_ACCOUNT,
     },
@@ -55,7 +55,7 @@ export const getColumnsData = (): ColumnsType => {
     {
       dataIndex: "info",
       title: "Thông tin",
-      width: 800
+      width: 800,
     },
     {
       dataIndex: "email",
@@ -93,7 +93,11 @@ export const getAccountsData = (accounts: IAccount[], currentUser: IUserProfile)
       info: <ImageTable title={acc.fullName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : ""} />,
       email: acc.email,
       phone: acc.phone,
-      roles: acc.roles.map((role, index) => <div key={index} className="text-nowrap">{role.name}</div>),
+      roles: acc.roles.map((role, index) => (
+        <div key={index} className="text-nowrap">
+          {role.name}
+        </div>
+      )),
       status: acc.status,
       actions: {
         hides: {
