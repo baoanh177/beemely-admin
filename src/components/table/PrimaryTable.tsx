@@ -70,7 +70,7 @@ const PrimaryTable: React.FC<IPrimaryTableProps> = ({ advancedSearch = [], searc
       <div className="primary-table flex w-full flex-col gap-6">
         {search && (
           <div>
-            <div className="flex gap-4">
+            <div className="search-bar-ui flex gap-4">
               <DefaultSearch {...search} />
               {!!advancedSearch.length && (
                 <div

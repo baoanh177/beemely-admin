@@ -1,0 +1,7 @@
+.tho .search-bar-ui {
+  display: none !important;
+}
+
+.tho .ant-table-cell:nth-child(3) {
+  text-align: end !important;
+}

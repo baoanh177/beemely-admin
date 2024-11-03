@@ -8,19 +8,15 @@ const errorCases = {
   invalid: "không hợp lệ",
 };
 
-const errorsToMessages = (
-  errorKey: TErrorCases,
-  errors:  Record<string, string>,
-  dataKeys:  Record<string, string>,
-):  Record<string, string> => {
-  const messages:  Record<string, string> = {};
+const errorsToMessages = (errorKey: TErrorCases, errors: Record<string, string>, dataKeys: Record<string, string>): Record<string, string> => {
+  const messages: Record<string, string> = {};
   Object.keys(errors).forEach((key) => {
     messages[key] = `${dataKeys[key]} ${errorCases[errorKey]}`;
   });
   return messages;
 };
 
-export const messageCreator = (responseData: IResponse<unknown>, dataKeys:  Record<string, string>) => {
+export const messageCreator = (responseData: IResponse<unknown>, dataKeys: Record<string, string>) => {
   const { statusCode, errors } = responseData;
   const responseWithMessages = { ...responseData };
 

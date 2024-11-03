@@ -1,0 +1,7 @@
+.tho-border .ant-select-selector {
+  border: none !important;
+}
+
+.tho-border .ant-select .ant-select-selector .ant-select-selection-item {
+  height: auto;
+}
