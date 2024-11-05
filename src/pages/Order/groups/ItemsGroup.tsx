@@ -33,9 +33,6 @@ const ItemsGroup = ({ items, order }: any) => {
       render: (price: number) => <>{price} VND</>,
     },
   ];
-  const total = useMemo(() => {
-    return items.reduce((acc: number, item: any) => acc + item.price * item.quantity, 0);
-  }, [items]);
 
   return (
     <FormGroup title="">
@@ -46,8 +43,11 @@ const ItemsGroup = ({ items, order }: any) => {
         <p>
           Phí vận chuyển: <span className="text-[#677085]">{order.shippingFee.toLocaleString()} VND</span>
         </p>
+        <p>
+          Tổng phụ: <span className="text-[#677085]">{order.regularTotalPrice.toLocaleString()} VND</span>
+        </p>
         <p style={{ borderTop: "1px solid black", paddingTop: "1rem" }}>
-          Tổng tiền: <span className="text-[#677085]">{total.toLocaleString()} VND</span>
+          Tổng tiền: <span className="text-[#677085]">{order.totalPrice.toLocaleString()} VND</span>
         </p>
       </div>
     </FormGroup>

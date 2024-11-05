@@ -8,21 +8,19 @@ import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { Avatar, Image, Select } from "antd";
 import { IoEyeOutline } from "react-icons/io5";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 
 const { Option } = Select;
-// const { confirm } = Modal;
-const orderStatusOptions = [
-  { value: "pending", label: <StatusBadge text={"Đang chờ"} color="yellow" /> },
-  { value: "success", label: <StatusBadge text={"Đã hoàn thành"} color="green-capital" /> },
-  { value: "cancelled", label: <StatusBadge text={"Đã hủy"} color="red" /> },
-  { value: "processing", label: <StatusBadge text={"Đang tiến hành"} color="blue" /> },
-  { value: "shipped", label: <StatusBadge text={"Đang giao hàng"} color="black" /> },
-  { value: "delivered", label: <StatusBadge text={"Đã giao thành công"} color="green" /> },
-];
 
+const orderStatusOptions = [
+  { value: "pending", label: "Chờ xác nhận", color: "yellow" },
+  { value: "processing", label: "Đang chuẩn bị hàng", color: "blue" },
+  { value: "shipped", label: "Đang giao hàng", color: "black" },
+  { value: "delivered", label: "Giao hàng thành công", color: "green" },
+  { value: "success", label: "Nhận hàng thành công", color: "green-capital" },
+  { value: "cancelled", label: "Hủy đơn", color: "red" },
+];
 export const getTableColumns: any = (dispatch: any) => {
-  const navigate = useNavigate();
   return [
     {
       title: "Mã đơn hàng",
@@ -41,7 +39,7 @@ export const getTableColumns: any = (dispatch: any) => {
           <Avatar src={user.avatarUrl} />
           <span
             onClick={() => {
-              navigate(`/accounts/detail/${user.id}`);
+              window.location.href = `/accounts/detail/${user.id}`;
             }}
             className="flex cursor-pointer items-center justify-center gap-1"
           >
@@ -77,7 +75,22 @@ export const getTableColumns: any = (dispatch: any) => {
       title: "Trạng thái đơn hàng",
       dataIndex: "orderStatus",
       render: (_: any, record: any) => {
-        // const [currentStatus, setCurrentStatus] = useState(record.orderStatus);
+        const isDisabled = (status: string) => {
+          if (record.orderStatus === "pending" && status !== "processing") {
+            return true;
+          }
+          if (record.orderStatus === "processing" && status !== "shipped") {
+            return true;
+          }
+          if (record.orderStatus === "shipped" && status !== "delivered") {
+            return true;
+          }
+          if (record.orderStatus === "delivered" && status !== "success") {
+            return true;
+          }
+          return false;
+        };
+
         return (
           <Select
             className="tho-border"
@@ -92,7 +105,7 @@ export const getTableColumns: any = (dispatch: any) => {
             defaultValue={record.orderStatus}
             style={{ width: 200 }}
           >
-            {record.orderStatus === "pending" ? (
+            {/* {record.orderStatus === "pending" ? (
               <>
                 <Option key={record.id} value={"pending"}>
                   <StatusBadge text={"Đang chờ"} color="yellow" />
@@ -136,7 +149,25 @@ export const getTableColumns: any = (dispatch: any) => {
               <Option key={record.id} value={"cancelled"}>
                 <StatusBadge text={"Đã hủy"} color="red" />
               </Option>
-            )}
+            )} */}
+            <Option key={"pending"} value="pending" disabled={true}>
+              <StatusBadge text="Đang chờ" color="yellow" />
+            </Option>
+            <Option key={"processing"} value="processing" disabled={isDisabled("processing")}>
+              <StatusBadge text="Đang tiến hành" color="blue" />
+            </Option>
+            <Option key={"shipped"} value="shipped" disabled={isDisabled("shipped")}>
+              <StatusBadge text="Đang giao hàng" color="black" />
+            </Option>
+            <Option key={"delivered"} value="delivered" disabled={isDisabled("delivered")}>
+              <StatusBadge text="Đã giao thành công" color="green" />
+            </Option>
+            <Option key={"cancelled"} value="cancelled" disabled={isDisabled("cancelled")}>
+              <StatusBadge text="Đã hủy" color="red" />
+            </Option>
+            <Option key={"success"} value="success" disabled={isDisabled("success")}>
+              <StatusBadge text="Nhận hàng thành công" color="green" />
+            </Option>
           </Select>
         );
       },
