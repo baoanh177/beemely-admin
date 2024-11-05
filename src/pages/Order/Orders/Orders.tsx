@@ -1,7 +1,7 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
 import Heading from "@/components/layout/Heading";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
-import { IAdvancedSearch, ITableData } from "@/components/table/PrimaryTable";
+import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
@@ -13,11 +13,8 @@ import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { GoDownload } from "react-icons/go";
 import { IoSearchOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
 import { getTableColumns } from "../utils/dataTable";
 import "./index.css";
-import { DatePicker } from "antd";
-const { RangePicker } = DatePicker;
 
 const Orders = () => {
   const { state, dispatch } = useArchive<IOrderInitialState>("order");
@@ -67,7 +64,7 @@ const Orders = () => {
       name: "parent_id",
       icon: IoSearchOutline,
       placeholder: "Tìm theo thời gian...",
-      onChange: (dates) => {
+      onChange: (dates: any) => {
         const [startDate, endDate] = dates;
         dispatch(setFilter({ ...state.filter, start_date: startDate.format("YYYY-MM-DD"), end_date: endDate.format("YYYY-MM-DD") }));
       },

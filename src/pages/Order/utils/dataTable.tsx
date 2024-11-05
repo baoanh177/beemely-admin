@@ -7,7 +7,6 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { Avatar, Image, Select } from "antd";
-import { BsEye } from "react-icons/bs";
 import { IoEyeOutline } from "react-icons/io5";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
@@ -83,22 +82,6 @@ export const getTableColumns: any = (dispatch: any) => {
           <Select
             className="tho-border"
             onChange={(status: string) => {
-              // confirm({
-              //   title: "Xác nhận cập nhật trạng thái",
-              //   content: "Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này?",
-              //   onOk: () => {
-              //     dispatch(
-              //       updateOrder({
-              //         body: { order_status: status },
-              //         param: record.id,
-              //       }),
-              //     );
-              //     setCurrentStatus(status);
-              //   },
-              //   onCancel: () => {
-              //     setCurrentStatus(record.orderStatus);
-              //   },
-              // });
               dispatch(
                 updateOrder({
                   body: { order_status: status },
@@ -109,11 +92,51 @@ export const getTableColumns: any = (dispatch: any) => {
             defaultValue={record.orderStatus}
             style={{ width: 200 }}
           >
-            {orderStatusOptions.map((option) => (
-              <Option key={option.value} value={option.value}>
-                {option.label}
+            {record.orderStatus === "pending" ? (
+              <>
+                <Option key={record.id} value={"pending"}>
+                  <StatusBadge text={"Đang chờ"} color="yellow" />
+                </Option>
+                <Option key={record.id} value={"processing"}>
+                  <StatusBadge text={"Đang tiến hành"} color="blue" />
+                </Option>
+              </>
+            ) : record.orderStatus === "processing" ? (
+              <>
+                <Option key={record.id} value={"processing"}>
+                  <StatusBadge text={"Đang tiến hành"} color="blue" />
+                </Option>
+                <Option key={record.id} value={"shipped"}>
+                  <StatusBadge text={"Đang giao hàng"} color="black" />
+                </Option>
+              </>
+            ) : record.orderStatus === "shipped" ? (
+              <>
+                <Option key={record.id} value={"shipped"}>
+                  <StatusBadge text={"Đang giao hàng"} color="black" />
+                </Option>
+                <Option key={record.id} value={"delivered"}>
+                  <StatusBadge text={"Đã giao thành công"} color="green" />
+                </Option>
+              </>
+            ) : record.orderStatus === "delivered" ? (
+              <Option key={record.id} value={"delivered"}>
+                <StatusBadge text={"Đã giao thành công"} color="green" />
               </Option>
-            ))}
+            ) : record.orderStatus === "success" ? (
+              <>
+                <Option key={record.id} value={"success"}>
+                  <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
+                </Option>
+                <Option key={record.id} value={"cancelled"}>
+                  <StatusBadge text={"Đã hủy"} color="red" />
+                </Option>
+              </>
+            ) : (
+              <Option key={record.id} value={"cancelled"}>
+                <StatusBadge text={"Đã hủy"} color="red" />
+              </Option>
+            )}
           </Select>
         );
       },
