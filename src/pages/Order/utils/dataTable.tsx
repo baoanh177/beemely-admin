@@ -76,7 +76,7 @@ export const getTableColumns: any = (dispatch: any) => {
       dataIndex: "orderStatus",
       render: (_: any, record: any) => {
         const isDisabled = (status: string) => {
-          if (record.orderStatus === "pending" && status !== "processing") {
+          if (record.orderStatus === "pending" && status !== "processing" && status !== "cancelled") {
             return true;
           }
           if (record.orderStatus === "processing" && status !== "shipped") {
@@ -86,6 +86,9 @@ export const getTableColumns: any = (dispatch: any) => {
             return true;
           }
           if (record.orderStatus === "delivered" && status !== "success") {
+            return true;
+          }
+          if (record.orderStatus === "success") {
             return true;
           }
           return false;
@@ -165,7 +168,7 @@ export const getTableColumns: any = (dispatch: any) => {
             <Option key={"cancelled"} value="cancelled" disabled={isDisabled("cancelled")}>
               <StatusBadge text="Đã hủy" color="red" />
             </Option>
-            <Option key={"success"} value="success" disabled={isDisabled("success")}>
+            <Option key={"success"} value="success" disabled={true}>
               <StatusBadge text="Nhận hàng thành công" color="green" />
             </Option>
           </Select>

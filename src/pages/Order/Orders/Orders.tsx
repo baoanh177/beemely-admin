@@ -84,7 +84,7 @@ const Orders = () => {
           paymentStatus: order.paymentStatus,
           totalPrice: order.totalPrice,
           shippingAddress: order.shippingAddress,
-          createdAt: formattedDate,
+          createdAt: formattedDate || "",
           user: order.user,
         };
       }) || []

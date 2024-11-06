@@ -5,6 +5,7 @@ import FormGroup from "@/components/form/FormGroup";
 import { Image } from "antd";
 
 const AddressGroup = ({ order }: any) => {
+  console.log(order.paymentStatus);
   return (
     <FormGroup className="flex flex-col lg:flex-row" title="">
       <div className="flex flex-col gap-2">
@@ -29,16 +30,10 @@ const AddressGroup = ({ order }: any) => {
           )}{" "}
           {order.orderStatus === "pending" ? (
             <StatusBadge text={"Đang chờ"} color="yellow" />
-          ) : order.orderStatus === "success" ? (
+          ) : order.orderStatus === "completed" ? (
             <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
-          ) : order.orderStatus === "cancelled" ? (
-            <StatusBadge text={"Đã hủy"} color="red" />
-          ) : order.orderStatus === "processing" ? (
-            <StatusBadge text={" Đang tiến hành"} color="red" />
-          ) : order.orderStatus === "shipped" ? (
-            <StatusBadge text={"Đang giao hàng"} color="red" />
           ) : (
-            <StatusBadge text={" Đã giao thành công"} color="red" />
+            <StatusBadge text={"Thất bại"} color="red" />
           )}{" "}
         </div>
       </div>
