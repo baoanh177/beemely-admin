@@ -5,7 +5,6 @@ import FormGroup from "@/components/form/FormGroup";
 import { Image } from "antd";
 
 const AddressGroup = ({ order }: any) => {
-  console.log(order.paymentStatus);
   return (
     <FormGroup className="flex flex-col lg:flex-row" title="">
       <div className="flex flex-col gap-2">
@@ -28,9 +27,9 @@ const AddressGroup = ({ order }: any) => {
           ) : (
             <Image width={90} height={20} preview={false} src={imgVnPay} />
           )}{" "}
-          {order.orderStatus === "pending" ? (
+          {order.paymentStatus === "pending" ? (
             <StatusBadge text={"Đang chờ"} color="yellow" />
-          ) : order.orderStatus === "completed" ? (
+          ) : order.paymentStatus === "completed" ? (
             <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
           ) : (
             <StatusBadge text={"Thất bại"} color="red" />

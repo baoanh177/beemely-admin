@@ -57,6 +57,7 @@ export const getTableColumns: any = (dispatch: any) => {
     {
       title: "Địa chỉ giao hàng",
       dataIndex: "shippingAddress",
+      render: (address: string) => <span className="line-clamp-1">{address}</span>,
     },
     {
       title: "Phương thức giao hàng",
