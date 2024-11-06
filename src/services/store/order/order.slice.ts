@@ -55,7 +55,8 @@ const orderSlice = createSlice({
       .addCase(updateOrder.pending, (state) => {
         state.status = EFetchStatus.PENDING;
       })
-      .addCase(updateOrder.fulfilled, (state) => {
+      .addCase(updateOrder.fulfilled, (state, { payload }: PayloadAction<IResponse<IOrder>>) => {
+        state.orders = state.orders.map((order) => (order.id === payload.metaData.id ? payload.metaData : order));
         state.status = EFetchStatus.FULFILLED;
         state.message = "Cập nhật thành công";
       })

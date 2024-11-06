@@ -4,14 +4,15 @@ import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { IOrderInitialState, resetStatus } from "@/services/store/order/order.slice";
 import { getOrderById } from "@/services/store/order/order.thunk";
-import { FormikProps } from "formik";
 import { useRef } from "react";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoPrint } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import AddressGroup from "../groups/AddressGroup";
 import InfoGroup from "../groups/InfoGroup";
 import ItemsGroup from "../groups/ItemsGroup";
 import "./index.css";
+
+import { useReactToPrint } from "react-to-print";
 
 const DetailOrder = () => {
   const navigate = useNavigate();
@@ -38,7 +39,8 @@ const DetailOrder = () => {
     },
     [id],
   );
-  const handleSubmit = () => {};
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
   return (
     <>
       <Heading
@@ -53,10 +55,17 @@ const DetailOrder = () => {
               navigate("/orders");
             },
           },
+          {
+            text: "In",
+            type: "primary",
+            icon: <IoPrint className="text-[18px]" />,
+            onClick: reactToPrintFn,
+          },
         ]}
       />
+
       {state.activeOrder && (
-        <div className="flex flex-col gap-4">
+        <div ref={contentRef} className="flex flex-col gap-4">
           <InfoGroup order={state.activeOrder} /> <AddressGroup order={state.activeOrder} />{" "}
           <ItemsGroup items={state.activeOrder.items} order={state.activeOrder} />
         </div>

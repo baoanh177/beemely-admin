@@ -5,22 +5,23 @@ import FormGroup from "@/components/form/FormGroup";
 import { Image } from "antd";
 
 const AddressGroup = ({ order }: any) => {
+  console.log(order.paymentStatus);
   return (
     <FormGroup className="flex flex-col lg:flex-row" title="">
       <div className="flex flex-col gap-2">
-        <h4 className="text-xl-semibold text-black-500">Shipping Address</h4>
+        <h4 className="text-xl-semibold text-black-500"> Địa chỉ giao hàng</h4>
         <span className="capitalize">{order.user.fullName}</span>
         <span className="font-[13.3px] capitalize text-[#5e6e82]">{order.shippingAddress}</span>
-        <span className="capitalize">
+        <span className="">
           Email: <span className="cursor-pointer text-[#2C7BE5] hover:underline">{order.user.email}</span>
         </span>
         <span className="capitalize">
           {" "}
-          Phone: <span className="cursor-pointer text-[#2C7BE5] hover:underline">{order.user.phone}</span>
+          Số điện thoại: <span className="cursor-pointer text-[#2C7BE5] hover:underline">{order.user.phone}</span>
         </span>
       </div>
-      <div className="ml-64 flex flex-col gap-2">
-        <h4 className="text-xl-semibold text-black-500">Payment Method</h4>
+      <div className="mt-12 flex flex-col gap-2 lg:ml-64 lg:mt-0">
+        <h4 className="text-xl-semibold text-black-500"> Phương thức thanh toán</h4>
         <div className="flex flex-row items-center justify-start gap-2">
           {order.paymentType === "zalopay" ? (
             <Image width={90} height={30} preview={false} src={imgZaloPay} />
@@ -29,16 +30,10 @@ const AddressGroup = ({ order }: any) => {
           )}{" "}
           {order.orderStatus === "pending" ? (
             <StatusBadge text={"Đang chờ"} color="yellow" />
-          ) : order.orderStatus === "success" ? (
+          ) : order.orderStatus === "completed" ? (
             <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
-          ) : order.orderStatus === "cancelled" ? (
-            <StatusBadge text={"Đã hủy"} color="red" />
-          ) : order.orderStatus === "processing" ? (
-            <StatusBadge text={" Đang tiến hành"} color="red" />
-          ) : order.orderStatus === "shipped" ? (
-            <StatusBadge text={"Đang giao hàng"} color="red" />
           ) : (
-            <StatusBadge text={" Đã giao thành công"} color="red" />
+            <StatusBadge text={"Thất bại"} color="red" />
           )}{" "}
         </div>
       </div>
