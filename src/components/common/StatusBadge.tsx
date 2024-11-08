@@ -1,6 +1,17 @@
 import React from "react";
 import clsx from "clsx";
-export type StatusBadgeColors = "blue" | "green" | "orange" | "gray" | "red" | "yellow" | "green-capital" | "black";
+export type StatusBadgeColors =
+  | "blue"
+  | "green"
+  | "orange"
+  | "gray"
+  | "red"
+  | "yellow"
+  | "green-capital"
+  | "black"
+  | "purple"
+  | "lightblue"
+  | "darkgreen";
 export interface StatusBadgeProps {
   text: string;
   color: StatusBadgeColors;
@@ -20,7 +31,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color }) => {
       className = "bg-green-50 text-green-600";
       break;
     case "green-capital":
-      className = "bg-green-50 text-green-600 capitalize";
+      className = "bg-green-100 text-green-900 capitalize";
       break;
     case "gray":
       className = "bg-gray-50 text-gray-500";
@@ -33,6 +44,15 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color }) => {
       break;
     case "black":
       className = "capitalize bg-black-50 text-black-500";
+      break;
+    case "purple":
+      className = "capitalize bg-[#F4ECFB] text-[#883DCF]";
+      break;
+    case "lightblue":
+      className = "bg-blue-50 text-blue-500";
+      break;
+    case "darkgreen":
+      className = "bg-green-700 text-green-100";
       break;
     default:
       className = "";

@@ -52,7 +52,7 @@ const Orders = () => {
       type: "text",
       name: "name",
       icon: IoSearchOutline,
-      onChange: (value) => {
+      onChange: (value: any) => {
         dispatch(setFilter({ ...state.filter, order_id: value }));
       },
       placeholder: "Tìm kiếm theo tên. . .",

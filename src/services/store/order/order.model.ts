@@ -1,4 +1,5 @@
 export interface IOrder {
+  [x: string]: any;
   id: string;
   user: {};
   items: any[];
