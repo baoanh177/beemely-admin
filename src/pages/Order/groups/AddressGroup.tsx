@@ -1,4 +1,4 @@
-import imgZaloPay from "@/assets/images/ZaloPayLogo.png";
+import imgPayos from "@/assets/images/Payos Logo.svg";
 import imgVnPay from "@/assets/images/vnpay.webp";
 import StatusBadge from "@/components/common/StatusBadge";
 import FormGroup from "@/components/form/FormGroup";
@@ -22,8 +22,8 @@ const AddressGroup = ({ order }: any) => {
       <div className="mt-12 flex flex-col gap-2 lg:ml-64 lg:mt-0">
         <h4 className="text-xl-semibold text-black-500"> Phương thức thanh toán</h4>
         <div className="flex flex-row items-center justify-start gap-2">
-          {order.paymentType === "zalopay" ? (
-            <Image width={90} height={30} preview={false} src={imgZaloPay} />
+          {order.paymentType === "payos" ? (
+            <Image width={100} height={40} preview={false} src={imgPayos} />
           ) : (
             <Image width={90} height={20} preview={false} src={imgVnPay} />
           )}{" "}

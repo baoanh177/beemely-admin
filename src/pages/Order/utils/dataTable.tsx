@@ -1,4 +1,4 @@
-import imgZaloPay from "@/assets/images/ZaloPayLogo.png";
+import imgPayos from "@/assets/images/Payos Logo.svg";
 import imgVnPay from "@/assets/images/vnpay.webp";
 import StatusBadge from "@/components/common/StatusBadge";
 import { updateOrder } from "@/services/store/order/order.thunk";
@@ -35,7 +35,7 @@ export const getTableColumns: any = (dispatch: any) => {
             className="flex cursor-pointer items-center justify-center gap-1"
           >
             {user.fullName}
-            <IoEyeOutline className="cursor-pointer text-xl text-blue-500" />
+            <IoEyeOutline className="min-w-[20px] cursor-pointer text-xl text-blue-500" />
           </span>
         </div>
       ),
@@ -55,8 +55,8 @@ export const getTableColumns: any = (dispatch: any) => {
       dataIndex: "paymentType",
       render: (paymentType: string) => (
         <>
-          {paymentType === "zalopay" ? (
-            <Image width={90} height={30} preview={false} src={imgZaloPay} />
+          {paymentType === "payos" ? (
+            <Image width={100} height={40} preview={false} src={imgPayos} />
           ) : (
             <Image width={90} height={20} preview={false} src={imgVnPay} />
           )}{" "}
@@ -68,19 +68,22 @@ export const getTableColumns: any = (dispatch: any) => {
       dataIndex: "orderStatus",
       render: (_: any, record: any) => {
         const isDisabled = (status: string) => {
-          if (record.orderStatus === "pending" && status !== "processing" && status !== "cancelled") {
+          if (record.orderStatus === "pending" && status !== "processing" && status !== "cancelled" && status !== "pending") {
             return true;
           }
-          if (record.orderStatus === "processing" && status !== "delivering") {
+          if (record.orderStatus === "processing" && status !== "delivering" && status !== "processing") {
             return true;
           }
-          if (["delivering", "delivered", "success", "denied_return", "returned"].includes(record.orderStatus)) {
+          if (record.orderStatus === "delivering" && status !== "delivering" && status !== "delivered") {
             return true;
           }
-          if (record.orderStatus === "returning" && status !== "returned") {
+          if (["delivered", "success", "denied_return", "returned"].includes(record.orderStatus)) {
             return true;
           }
-          if (record.orderStatus === "cancelled" && status !== "processing" && status !== "pending") {
+          if (record.orderStatus === "returning" && status !== "returned" && status !== "returning") {
+            return true;
+          }
+          if (record.orderStatus === "cancelled" && status !== "processing" && status !== "pending" && status !== "cancelled") {
             return true;
           }
           return false;
@@ -113,43 +116,43 @@ export const getTableColumns: any = (dispatch: any) => {
             {record.orderStatus !== "request_return" ? (
               <>
                 <Option key={"pending"} value="pending" disabled={true}>
-                  <StatusBadge text="Đang chờ" color="yellow" />
+                  <StatusBadge text="Đang chờ" color="yellow" disabled={true} />
                 </Option>
 
                 <Option key={"processing"} value="processing" disabled={isDisabled("processing")}>
-                  <StatusBadge text="Đang tiến hành" color="blue" />
+                  <StatusBadge text="Đang tiến hành" color="blue" disabled={isDisabled("processing")} />
                 </Option>
 
                 <Option key={"delivering"} value="delivering" disabled={isDisabled("delivering")}>
-                  <StatusBadge text="Đang giao hàng" color="black" />
+                  <StatusBadge text="Đang giao hàng" color="black" disabled={isDisabled("delivering")} />
                 </Option>
 
-                <Option key={"delivered"} value="delivered" disabled={true}>
-                  <StatusBadge text="Đã giao hàng" color="green" />
+                <Option key={"delivered"} value="delivered" disabled={isDisabled("delivered")}>
+                  <StatusBadge text="Đã giao hàng" color="green" disabled={isDisabled("delivered")} />
                 </Option>
 
                 <Option key={"request_return"} value="request_return" disabled={true}>
-                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" />
+                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" disabled={true} />
                 </Option>
 
-                <Option key={"returning"} value="returning" disabled={true}>
-                  <StatusBadge text="Đang hoàn trả" color="lightblue" />
+                <Option key={"returning"} value="returning" disabled={isDisabled("returning")}>
+                  <StatusBadge text="Đang hoàn trả" color="lightblue" disabled={isDisabled("returning")} />
                 </Option>
 
                 <Option key={"denied_return"} value="denied_return" disabled={true}>
-                  <StatusBadge text="Hủy y/c hoàn trả" color="gray" />
+                  <StatusBadge text="Hủy y/c hoàn trả" color="gray" disabled={true} />
                 </Option>
 
                 <Option key={"returned"} value="returned" disabled={isDisabled("returned")}>
-                  <StatusBadge text="Đã hoàn trả" color="purple" />
+                  <StatusBadge text="Đã hoàn trả" color="purple" disabled={isDisabled("returned")} />
                 </Option>
 
                 <Option key={"cancelled"} value="cancelled" disabled={isDisabled("cancelled")}>
-                  <StatusBadge text="Đã hủy" color="red" />
+                  <StatusBadge text="Đã hủy" color="red" disabled={isDisabled("cancelled")} />
                 </Option>
 
                 <Option key={"success"} value="success" disabled={true}>
-                  <StatusBadge text="Nhận hàng thành công" color="darkgreen" />
+                  <StatusBadge text="Đã nhận hàng" color="darkgreen" disabled={true} />
                 </Option>
               </>
             ) : (
