@@ -40,8 +40,12 @@ const Orders = () => {
         { label: "Đang chờ", value: "pending" },
         { label: "Đang tiến hành", value: "processing" },
         { label: "Thất bại", value: "cancelled" },
-        { label: "Đang giao hàng", value: "shipped" },
+        { label: "Đang giao hàng", value: "delivering" },
         { label: "Giao thành công", value: "delivered" },
+        { label: "Yêu cầu hoàn trả", value: "request_return" },
+        { label: "Hủy yc hoàn trả", value: "denied_return" },
+        { label: "Đang hoàn trả", value: "returning" },
+        { label: "Nhận thành công", value: "success" },
       ],
       onChange: (selectedOption: any) => {
         const statusValue = selectedOption.value;
@@ -52,7 +56,7 @@ const Orders = () => {
       type: "text",
       name: "name",
       icon: IoSearchOutline,
-      onChange: (value) => {
+      onChange: (value: any) => {
         dispatch(setFilter({ ...state.filter, order_id: value }));
       },
       placeholder: "Tìm kiếm theo tên. . .",

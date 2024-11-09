@@ -5,3 +5,14 @@
 .tho-border .ant-select .ant-select-selector .ant-select-selection-item {
   height: auto;
 }
+
+.tho-scroll {
+  max-width: 850px;
+  overflow-x: scroll;
+}
+.tho-scroll .tho-status {
+  display: flex;
+  min-width: 150px;
+  align-items: center;
+  justify-content: center;
+}

@@ -23,11 +23,11 @@ const FilterTableStatus: React.FC<IFilterTableStatusProps> = ({ options, onChang
 
   return (
     <div>
-      <div className="flex h-[40px] cursor-pointer items-center rounded-lg border border-gray-100 bg-white p-1">
+      <div className="tho-scroll flex h-[40px] cursor-pointer items-center rounded-lg border border-gray-100 bg-white p-1">
         {fullOptions.map((option, index) => (
           <div
             key={index}
-            className={`text-m-medium h-full px-3 py-[6px] ${
+            className={`text-m-medium tho-status h-full px-3 py-[6px] ${
               selectedOption.value === option.value ? "text-m-semibold rounded-md bg-primary-50 text-primary-500" : "text-gray-500"
             } outline-none`}
             onClick={() => {
