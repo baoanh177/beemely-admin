@@ -27,7 +27,6 @@ export interface IVoucherFormInitialValues {
   name: string;
   code: string;
   maxUsage: number;
-  duration: number;
   discount: number;
   discountTypes: "percentage" | "fixed";
   minimumOrderPrice: number;
@@ -39,14 +38,24 @@ export interface IVoucherFormInitialValues {
 
 const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVoucherFormProps) => {
   const { dispatch } = useArchive<IVoucherInitialState>("voucher");
-  const voucherSchema = object().shape({
+
+  const createVoucherSchema = object().shape({
     name: string().required("Vui lòng nhập tên mã giảm giá"),
     code: string().required("Vui lòng nhập mã giảm giá"),
     maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
-    duration: number().min(1, "Thời gian sử dụng phải lớn hơn 0"),
     discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
     minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
     startDate: date().required("Vui lòng chọn ngày bắt đầu và ngày kết thúc").min(dayjs().startOf("day"), "Ngày bắt đầu phải từ hôm nay trở đi"),
+    endDate: date().min(yup.ref("startDate"), "Ngày kết thúc phải sau ngày bắt đầu"),
+  });
+
+  const updateVoucherSchema = object().shape({
+    name: string().required("Vui lòng nhập tên mã giảm giá"),
+    code: string().required("Vui lòng nhập mã giảm giá"),
+    maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
+    discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
+    minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
+    startDate: date().required("Vui lòng chọn ngày bắt đầu và ngày kết thúc"),
     endDate: date().min(yup.ref("startDate"), "Ngày kết thúc phải sau ngày bắt đầu"),
   });
 
@@ -54,11 +63,10 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     name: voucher?.name || "",
     code: voucher?.code || "",
     maxUsage: voucher?.maxUsage || 0,
-    duration: voucher?.duration || 0,
     discount: voucher?.discount || 0,
     discountTypes: voucher?.discountTypes || "percentage",
     minimumOrderPrice: voucher?.minimumOrderPrice || 0,
-    voucherType: voucher?.voucherType || EVoucherType.FREE_SHIPPING,
+    voucherType: voucher?.voucherType || EVoucherType.DEADLINE,
     startDate: voucher?.startDate ? dayjs(voucher.startDate) : null,
     endDate: voucher?.endDate ? dayjs(voucher.endDate) : null,
     status: voucher?.status || EActiveStatus.INACTIVE,
@@ -68,7 +76,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     <Formik
       innerRef={formikRef}
       enableReinitialize={true}
-      validationSchema={voucherSchema}
+      validationSchema={type === "create" ? createVoucherSchema : updateVoucherSchema}
       initialValues={initialValues}
       onSubmit={(data) => {
         const transformedData = {
@@ -80,7 +88,6 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
           end_date: data.endDate ? dayjs(data.endDate) : null,
           name: data.name,
           code: data.code,
-          duration: data.duration,
           discount: data.discount,
         };
         if (type === "create") {
@@ -91,7 +98,6 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
       }}
     >
       {({ values, errors, touched, handleBlur, setFieldValue }) => {
-
         return (
           <FormGroup title="Thông tin chung" isLoading={isFormLoading}>
             <FormInput
@@ -122,17 +128,6 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               value={values.maxUsage}
               error={touched.maxUsage && errors.maxUsage ? errors.maxUsage : ""}
               onChange={(e) => setFieldValue("maxUsage", e)}
-              onBlur={handleBlur}
-              type="number"
-            />
-            <FormInput
-              isDisabled={type === "view"}
-              label="Thời gian hiệu lực"
-              placeholder="Nhập thời gian hiệu lực..."
-              name="duration"
-              value={values.duration}
-              error={touched.duration ? errors.duration : ""}
-              onChange={(e) => setFieldValue("duration", e)}
               onBlur={handleBlur}
               type="number"
             />
