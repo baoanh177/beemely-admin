@@ -115,8 +115,8 @@ export const getTableColumns: any = (dispatch: any) => {
           >
             {record.orderStatus !== "request_return" ? (
               <>
-                <Option key={"pending"} value="pending" disabled={true}>
-                  <StatusBadge text="Đang chờ" color="yellow" disabled={true} />
+                <Option key={"pending"} value="pending" disabled={isDisabled("pending")}>
+                  <StatusBadge text="Đang chờ" color="yellow" disabled={isDisabled("pending")} />
                 </Option>
 
                 <Option key={"processing"} value="processing" disabled={isDisabled("processing")}>

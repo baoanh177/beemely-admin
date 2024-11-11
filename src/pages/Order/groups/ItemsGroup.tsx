@@ -4,6 +4,7 @@ import { ITableData } from "@/components/table/PrimaryTable";
 import { useMemo } from "react";
 
 const ItemsGroup = ({ items, order }: any) => {
+  console.log(order);
   const data: ITableData[] = useMemo(() => {
     return (
       items?.map((item: any) => {
@@ -42,6 +43,9 @@ const ItemsGroup = ({ items, order }: any) => {
       <div className="mr-4 inline-flex flex-col items-end gap-2 font-[ps-Bold] text-[14px] font-medium">
         <p>
           Phí vận chuyển: <span className="text-[#677085]">{order.shippingFee.toLocaleString()} VND</span>
+        </p>
+        <p>
+          Mã giảm giá: <span className="text-[#677085]">{order.voucher.name} </span>
         </p>
         <p>
           Tổng phụ: <span className="text-[#677085]">{order.regularTotalPrice.toLocaleString()} VND</span>
