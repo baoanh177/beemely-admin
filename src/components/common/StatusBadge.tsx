@@ -18,43 +18,10 @@ export interface StatusBadgeProps {
   disabled?: boolean;
 }
 
-const StatusBadge: React.FC<StatusBadgeProps> = ({ text, color, disabled = false }) => {
+const StatusBadge: React.FC<StatusBadgeProps | any> = ({ text, color, disabled = false }) => {
   let className = "";
 
   switch (color) {
-    // case "orange":
-    //   className = "bg-orange-50 text-orange-500";
-    //   break;
-    // case "blue":
-    //   className = "bg-cyan-50 text-cyan-500";
-    //   break;
-    // case "green":
-    //   className = "bg-green-50 text-green-600";
-    //   break;
-    // case "green-capital":
-    //   className = "bg-green-100 text-green-900 capitalize";
-    //   break;
-    // case "gray":
-    //   className = "bg-gray-50 text-gray-500";
-    //   break;
-    // case "red":
-    //   className = "bg-red-50 text-red-500";
-    //   break;
-    // case "yellow":
-    //   className = "capitalize bg-yellow-50 text-yellow-500";
-    //   break;
-    // case "black":
-    //   className = "capitalize bg-black-50 text-black-500";
-    //   break;
-    // case "purple":
-    //   className = "capitalize bg-[#F4ECFB] text-[#883DCF]";
-    //   break;
-    // case "lightblue":
-    //   className = "bg-blue-50 text-blue-500";
-    //   break;
-    // case "darkgreen":
-    //   className = "bg-green-700 text-green-100";
-    //   break;
     case "orange":
       className = disabled ? "bg-orange-100 text-orange-300" : "bg-orange-50 text-orange-500";
       break;
