@@ -6,6 +6,7 @@ import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { Avatar, Image, Select } from "antd";
+import toast from "react-hot-toast";
 import { IoEyeOutline } from "react-icons/io5";
 import { NavigateFunction } from "react-router-dom";
 
@@ -77,16 +78,55 @@ export const getTableColumns: any = (dispatch: any) => {
           if (record.orderStatus === "delivering" && status !== "delivering" && status !== "delivered") {
             return true;
           }
-          if (["delivered", "success", "denied_return", "returned"].includes(record.orderStatus)) {
-            return true;
-          }
           if (record.orderStatus === "returning" && status !== "returned" && status !== "returning") {
             return true;
           }
-          if (record.orderStatus === "cancelled" && status !== "processing" && status !== "pending" && status !== "cancelled") {
+          if (record.orderStatus === "cancelled" && status !== "cancelled") {
+            return true;
+          }
+          if (record.orderStatus === "delivered" && status !== "delivered") {
+            return true;
+          }
+          if (record.orderStatus === "success" && status !== "success") {
+            return true;
+          }
+          if (record.orderStatus === "denied_return" && status !== "denied_return") {
+            return true;
+          }
+          if (record.orderStatus === "returned" && status !== "returned") {
+            return true;
+          }
+          if (record.orderStatus === "request_return" && status !== "request_return") {
             return true;
           }
           return false;
+        };
+
+        const getStatusBadgeProps = (status: string) => {
+          switch (status) {
+            case "pending":
+              return { text: "Chờ xác nhận", color: "yellow" };
+            case "processing":
+              return { text: "Đang chuẩn bị hàng", color: "blue" };
+            case "delivering":
+              return { text: "Đang giao hàng", color: "black" };
+            case "delivered":
+              return { text: "Giao hàng thành công", color: "green" };
+            case "request_return":
+              return { text: "Yêu cầu hoàn trả", color: "orange" };
+            case "denied_return":
+              return { text: "Hủy y/c hoàn trả", color: "gray" };
+            case "returning":
+              return { text: "Đang hoàn trả", color: "lightblue" };
+            case "returned":
+              return { text: "Đã hoàn trả", color: "purple" };
+            case "cancelled":
+              return { text: "Hủy đơn", color: "red" };
+            case "success":
+              return { text: "Nhận hàng thành công", color: "darkgreen" };
+            default:
+              return { text: "Không xác định", color: "gray" };
+          }
         };
 
         return (
@@ -110,13 +150,20 @@ export const getTableColumns: any = (dispatch: any) => {
                 );
               }
             }}
+            onClick={() => {
+              if (record.paymentStatus !== "completed") {
+                toast.error("Đơn hàng chưa hoàn tất thanh toán. Không thể đổi trạng thái đơn hàng !");
+
+                return;
+              }
+            }}
             defaultValue={record.orderStatus}
             style={{ width: 200 }}
           >
-            {record.orderStatus !== "request_return" ? (
+            {record.orderStatus !== "request_return" && record.paymentStatus === "completed" ? (
               <>
-                <Option key={"pending"} value="pending" disabled={true}>
-                  <StatusBadge text="Đang chờ" color="yellow" disabled={true} />
+                <Option key={"pending"} value="pending" disabled={isDisabled("pending")}>
+                  <StatusBadge text="Đang chờ" color="yellow" disabled={isDisabled("pending")} />
                 </Option>
 
                 <Option key={"processing"} value="processing" disabled={isDisabled("processing")}>
@@ -131,16 +178,16 @@ export const getTableColumns: any = (dispatch: any) => {
                   <StatusBadge text="Đã giao hàng" color="green" disabled={isDisabled("delivered")} />
                 </Option>
 
-                <Option key={"request_return"} value="request_return" disabled={true}>
-                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" disabled={true} />
+                <Option key={"request_return"} value="request_return" disabled={isDisabled("request_return")}>
+                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" disabled={isDisabled("request_return")} />
                 </Option>
 
                 <Option key={"returning"} value="returning" disabled={isDisabled("returning")}>
                   <StatusBadge text="Đang hoàn trả" color="lightblue" disabled={isDisabled("returning")} />
                 </Option>
 
-                <Option key={"denied_return"} value="denied_return" disabled={true}>
-                  <StatusBadge text="Hủy y/c hoàn trả" color="gray" disabled={true} />
+                <Option key={"denied_return"} value="denied_return" disabled={isDisabled("denied_return")}>
+                  <StatusBadge text="Hủy y/c hoàn trả" color="gray" disabled={isDisabled("denied_return")} />
                 </Option>
 
                 <Option key={"returned"} value="returned" disabled={isDisabled("returned")}>
@@ -151,14 +198,14 @@ export const getTableColumns: any = (dispatch: any) => {
                   <StatusBadge text="Đã hủy" color="red" disabled={isDisabled("cancelled")} />
                 </Option>
 
-                <Option key={"success"} value="success" disabled={true}>
-                  <StatusBadge text="Đã nhận hàng" color="darkgreen" disabled={true} />
+                <Option key={"success"} value="success" disabled={isDisabled("success")}>
+                  <StatusBadge text="Đã nhận hàng" color="darkgreen" disabled={isDisabled("success")} />
                 </Option>
               </>
-            ) : (
+            ) : record.orderStatus === "request_return" ? (
               <>
-                <Option key={"request_return"} value="request_return" disabled={true}>
-                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" />
+                <Option key={"request_return"} value="request_return" disabled={isDisabled("request_return")}>
+                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" disabled={isDisabled("request_return")} />
                 </Option>
                 <Option key={"yes"} value="yes">
                   <StatusBadge text="Đồng ý" color="green" />
@@ -168,6 +215,10 @@ export const getTableColumns: any = (dispatch: any) => {
                   <StatusBadge text="Từ chối" color="red" />
                 </Option>
               </>
+            ) : (
+              <Option key={`${record.orderStatus}`} value={`${record.orderStatus}`}>
+                <StatusBadge {...getStatusBadgeProps(record.orderStatus)} />
+              </Option>
             )}
           </Select>
         );
