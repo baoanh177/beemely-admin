@@ -31,11 +31,11 @@ module.exports = {
     "jsx-a11y/alt-text": "error",
     "prefer-const": "error",
     "no-var": "error",
-    "max-len": ["error", { code: 150 }],
+    "max-len": ["error", { code: 200 }],
     "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
     "react/jsx-no-useless-fragment": "error",
     "react/react-in-jsx-scope": "off",
-    "eqeqeq": "error"
+    eqeqeq: "error",
   },
   settings: {
     react: {

@@ -15,17 +15,17 @@ const InfoGroup = ({ order }: any) => {
         <div className="flex flex-row gap-4">
           <span className="tracking-wide">Trạng thái: </span>
           {order.orderStatus === "pending" ? (
-            <StatusBadge text={"Đang chờ"} color="yellow" />
+            <StatusBadge text={"Chờ xác nhận"} color="yellow" />
           ) : order.orderStatus === "success" ? (
             <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
           ) : order.orderStatus === "cancelled" ? (
             <StatusBadge text={"Đã hủy"} color="red" />
           ) : order.orderStatus === "processing" ? (
-            <StatusBadge text={" Đang tiến hành"} color="red" />
+            <StatusBadge text={" Đang chuẩn bị hàng"} color="blue" />
           ) : order.orderStatus === "shipped" ? (
-            <StatusBadge text={"Đang giao hàng"} color="red" />
+            <StatusBadge text={"Đang giao hàng"} color="darkgreen" />
           ) : (
-            <StatusBadge text={" Đã giao thành công"} color="red" />
+            <StatusBadge text={" Đã giao thành công"} color="green-capital" />
           )}{" "}
         </div>
       </div>

@@ -28,7 +28,7 @@ const AddressGroup = ({ order }: any) => {
             <Image width={90} height={20} preview={false} src={imgVnPay} />
           )}{" "}
           {order.paymentStatus === "pending" ? (
-            <StatusBadge text={"Đang chờ"} color="yellow" />
+            <StatusBadge text={"Chờ xác nhận"} color="yellow" />
           ) : order.paymentStatus === "completed" ? (
             <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
           ) : (

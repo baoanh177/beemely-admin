@@ -1,6 +1,8 @@
 import imgPayos from "@/assets/images/Payos Logo.svg";
 import imgVnPay from "@/assets/images/vnpay.webp";
+import PaymentStatusBadge from "@/components/common/PaymentStatusBadge";
 import StatusBadge from "@/components/common/StatusBadge";
+import { EPaymentStatus } from "@/services/store/order/order.model";
 import { updateOrder } from "@/services/store/order/order.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
@@ -8,19 +10,20 @@ import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { Avatar, Image, Select } from "antd";
 import toast from "react-hot-toast";
 import { IoEyeOutline } from "react-icons/io5";
-import { NavigateFunction } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
 export const getTableColumns: any = (dispatch: any) => {
+  const navigate = useNavigate();
   return [
     {
       title: "Mã đơn hàng",
       dataIndex: "key",
       render: (_: any, record: any) => (
-        <a href={`orders/details/${record.id}`} className="cursor-pointer text-[#2C7BE5] underline">
+        <Link to={`/orders/details/${record.id}`} className="cursor-pointer text-[#2C7BE5] underline">
           #{record.key}
-        </a>
+        </Link>
       ),
     },
     {
@@ -28,14 +31,14 @@ export const getTableColumns: any = (dispatch: any) => {
       dataIndex: "user",
       render: (user: any) => (
         <div className="flex flex-row items-center justify-center gap-2">
-          <Avatar src={user.avatarUrl} />
+          <Avatar src={user?.avatarUrl} />
           <span
             onClick={() => {
-              window.location.href = `/accounts/detail/${user.id}`;
+              navigate(`/accounts/detail/${user.id}`);
             }}
             className="flex cursor-pointer items-center justify-center gap-1"
           >
-            {user.fullName}
+            {user?.fullName}
             <IoEyeOutline className="min-w-[20px] cursor-pointer text-xl text-blue-500" />
           </span>
         </div>
@@ -52,7 +55,7 @@ export const getTableColumns: any = (dispatch: any) => {
       render: (address: string) => <span className="line-clamp-1">{address}</span>,
     },
     {
-      title: "Phương thức giao hàng",
+      title: "Phương thức thanh toán",
       dataIndex: "paymentType",
       render: (paymentType: string) => (
         <>
@@ -63,6 +66,11 @@ export const getTableColumns: any = (dispatch: any) => {
           )}{" "}
         </>
       ),
+    },
+    {
+      title: "Trạng thái thanh toán",
+      dataIndex: "paymentStatus",
+      render: (status: EPaymentStatus) => <PaymentStatusBadge status={status} text={status} />,
     },
     {
       title: "Trạng thái đơn hàng",
@@ -163,11 +171,11 @@ export const getTableColumns: any = (dispatch: any) => {
             {record.orderStatus !== "request_return" && record.paymentStatus === "completed" ? (
               <>
                 <Option key={"pending"} value="pending" disabled={isDisabled("pending")}>
-                  <StatusBadge text="Đang chờ" color="yellow" disabled={isDisabled("pending")} />
+                  <StatusBadge text="Chờ xác nhận" color="yellow" disabled={isDisabled("pending")} />
                 </Option>
 
                 <Option key={"processing"} value="processing" disabled={isDisabled("processing")}>
-                  <StatusBadge text="Đang tiến hành" color="blue" disabled={isDisabled("processing")} />
+                  <StatusBadge text="Đang chuẩn bị hàng" color="blue" disabled={isDisabled("processing")} />
                 </Option>
 
                 <Option key={"delivering"} value="delivering" disabled={isDisabled("delivering")}>
