@@ -52,7 +52,7 @@ const Login = () => {
         <div className="w-full rounded-lg bg-white shadow sm:max-w-md md:mt-0 xl:p-0">
           <div className="flex flex-col gap-5 p-8">
             <h1 className="text-gray-900 display-m-bold md:text-xl-semibold">Đăng nhập</h1>
-            <Button
+            {/* <Button
               text="Đăng nhập với Google (Chỉ có ở trang Client)"
               type="ghost"
               onClick={() => {
@@ -60,7 +60,7 @@ const Login = () => {
                   .then((res) => res.json())
                   .then((data) => (window.location.href = data.metaData));
               }}
-            />
+            /> */}
             <Formik
               validationSchema={validateSchema}
               initialValues={loginFormInitialValues}

@@ -27,6 +27,7 @@ const AddressGroup = ({ values, errors, touched, setFieldValue, isFormLoading, t
     <>
       <AddressModal {...{ ...modal, values, setFieldValue, onClose: () => setModal({ ...modal, address: undefined, isOpen: false }) }} />
       <FormGroup title="Địa chỉ" isLoading={isFormLoading}>
+        {values.addresses.length === 0 && <div className="text-center">Chưa thêm địa chỉ</div>}
         {values.addresses.map((address) => {
           const city = getProvince(address.city) ?? { name: "" };
           const district = getDistrict(address.city, address.district) ?? { name: "" };

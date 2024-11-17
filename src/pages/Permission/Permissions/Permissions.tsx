@@ -15,18 +15,28 @@ import useFetchStatus from "@/hooks/useFetchStatus";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import { IoSearchOutline } from "react-icons/io5";
+import { debounce } from "lodash";
 
-export const defaultSearch: IDefaultSearchProps = {
-  input: {
-    type: "text",
-    name: "123",
-    icon: IoSearchOutline,
-    placeholder: "Tim kiếm theo tên. . .",
-  },
-};
 const Permissions = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IPermissionInitialState>("permission");
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((value) => {
+        dispatch(setFilter({ ...state.filter, label: value }));
+      }, 300),
+    [dispatch, state.filter],
+  );
+
+  const defaultSearch: IDefaultSearchProps = {
+    input: {
+      type: "text",
+      name: "title",
+      icon: IoSearchOutline,
+      onChange: debouncedSearch,
+      placeholder: "Tìm kiếm theo Nhãn. . .",
+    },
+  };
   const columns: ColumnsType = [
     {
       dataIndex: "label",

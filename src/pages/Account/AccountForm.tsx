@@ -58,9 +58,7 @@ const AccountForm = ({ formikRef, type, account, isFormLoading, isCustomer }: IA
                       <AvatarGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
                     </Col>
                   </Row>
-                  {!(type === "view" || isCustomer) && formikData.values.addresses.length !== 0 && (
-                    <AddressGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
-                  )}
+                  <AddressGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
                   <OtherGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
                 </div>
               </Col>

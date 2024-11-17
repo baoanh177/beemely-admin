@@ -3,6 +3,8 @@ import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { getProfile, login, logout } from "./auth.thunk";
 import { ILoginResponseData, IUserProfile } from "./auth.model";
+import { CUSTOMER_NAME } from "@/services/config/constants";
+import toast from "react-hot-toast";
 
 export interface IAuthInitialState extends Partial<IInitialState> {
   isLogin: boolean;
@@ -35,6 +37,14 @@ const authSlice = createSlice({
         state.status = EFetchStatus.PENDING;
       })
       .addCase(getProfile.fulfilled, (state, { payload }: PayloadAction<IResponse<IUserProfile>>) => {
+        const { listNameRole } = payload.metaData;
+        const isNotSystemAccount = listNameRole.includes(CUSTOMER_NAME) && listNameRole.length === 1;
+        if (isNotSystemAccount) {
+          toast.error("Bạn không cớ quyền truy cập hệ thống!");
+          state.isLogin = false;
+          state.status = EFetchStatus.REJECTED;
+          return;
+        }
         state.profile = payload.metaData;
         state.isLogin = true;
         state.status = EFetchStatus.FULFILLED;
