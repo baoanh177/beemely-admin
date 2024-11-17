@@ -47,9 +47,11 @@ const ItemsGroup = ({ items, order }: any) => {
         <p>
           Phí vận chuyển: <span className="text-[#677085]">{order.shippingFee.toLocaleString()} VND</span>
         </p>
-        <p>
-          Mã giảm giá: <span className="text-[#677085]">{order.voucher.name} </span>
-        </p>
+        {order.voucher && (
+          <p>
+            Mã giảm giá: <span className="text-[#677085]">{order.voucher.name} </span>
+          </p>
+        )}
         {order.discountPrice && (
           <p>
             Giá được giảm: <span className="text-[#677085]">-{order?.discountPrice.toLocaleString()} VND</span>
