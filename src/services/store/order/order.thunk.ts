@@ -2,7 +2,7 @@ import { client } from "@/services/config/client";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { messageCreator } from "@/services/config/message-creator";
-import { IOrder } from "./order.model";
+import { IOrder, IOrderLog } from "./order.model";
 
 const dataKeys: { [key in keyof Omit<IOrder, "id">]: string } = {
   uniqueId: "Mã đơn hàng",
@@ -41,6 +41,18 @@ export const getOrderById = createAsyncThunk("order/get-order-by-id", async (pay
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
+
+export const getOrderLogsByOrderId = createAsyncThunk(
+  "order/get-order-logs-by-order-id",
+  async (payload: IThunkPayload, { rejectWithValue }) => {
+    try {
+      const { response, data } = await client.get<IOrderLog[]>(`/api/order-logs/`, payload);
+      return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+    } catch (error: any) {
+      return rejectWithValue(messageCreator(error.response.data, dataKeys));
+    }
+  },
+);
 
 export const createOrder = createAsyncThunk("order/create-order", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {

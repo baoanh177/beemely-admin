@@ -13,6 +13,7 @@ import ItemsGroup from "../groups/ItemsGroup";
 import "./index.css";
 
 import { useReactToPrint } from "react-to-print";
+import OrderLogsGroup from "../groups/OrderLogsGroup";
 
 const DetailOrder = () => {
   const navigate = useNavigate();
@@ -41,6 +42,9 @@ const DetailOrder = () => {
   );
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
+
+  if (getOrderByIdLoading) return <div>Loading...</div>;
+
   return (
     <>
       <Heading
@@ -66,7 +70,7 @@ const DetailOrder = () => {
 
       {state.activeOrder && (
         <div ref={contentRef} className="flex flex-col gap-4">
-          <InfoGroup order={state.activeOrder} /> <AddressGroup order={state.activeOrder} />{" "}
+          <InfoGroup order={state.activeOrder} /> <OrderLogsGroup orderId={state.activeOrder.id} /> <AddressGroup order={state.activeOrder} />
           <ItemsGroup items={state.activeOrder.items} order={state.activeOrder} />
         </div>
       )}

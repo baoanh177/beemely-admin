@@ -2,18 +2,20 @@ import { commonStaticReducers } from "@/services/shared";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EFetchStatus } from "@/shared/enums/status";
-import { IOrder } from "./order.model";
-import { createOrder, deleteOrder, getAllOrder, getOrderById, updateOrder } from "./order.thunk";
+import { IOrder, IOrderLog } from "./order.model";
+import { createOrder, deleteOrder, getAllOrder, getOrderById, getOrderLogsByOrderId, updateOrder } from "./order.thunk";
 
 export interface IOrderInitialState extends IInitialState {
   orders: IOrder[];
   activeOrder: IOrder | undefined;
+  logs: IOrderLog[];
 }
 
 const initialState: IOrderInitialState = {
   status: EFetchStatus.IDLE,
   message: "",
   orders: [],
+  logs: [],
   activeOrder: undefined,
   totalRecords: 0,
   filter: {
@@ -36,6 +38,10 @@ const orderSlice = createSlice({
 
     builder.addCase(getOrderById.fulfilled, (state, { payload }: PayloadAction<IResponse<IOrder>>) => {
       state.activeOrder = payload.metaData;
+    });
+
+    builder.addCase(getOrderLogsByOrderId.fulfilled, (state, { payload }: PayloadAction<IResponse<IOrderLog[]>>) => {
+      state.logs = payload.metaData;
     });
 
     builder

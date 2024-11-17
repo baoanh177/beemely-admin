@@ -36,16 +36,15 @@ const Orders = () => {
     filterOptions: {
       name: "status",
       options: [
-        { label: "Đã hoàn thành", value: "success" },
-        { label: "Đang chờ", value: "pending" },
-        { label: "Đang tiến hành", value: "processing" },
-        { label: "Thất bại", value: "cancelled" },
+        { label: "Chờ xác nhận", value: "pending" },
+        { label: "Đang chuẩn bị hàng", value: "processing" },
         { label: "Đang giao hàng", value: "delivering" },
         { label: "Giao thành công", value: "delivered" },
+        { label: "Đã nhận hàng", value: "success" },
+        { label: "Đã hủy", value: "cancelled" },
         { label: "Yêu cầu hoàn trả", value: "request_return" },
         { label: "Hủy yc hoàn trả", value: "denied_return" },
         { label: "Đang hoàn trả", value: "returning" },
-        { label: "Nhận thành công", value: "success" },
       ],
       onChange: (selectedOption: any) => {
         const statusValue = selectedOption.value;

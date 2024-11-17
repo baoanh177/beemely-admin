@@ -42,6 +42,7 @@ const ManagementGrid = ({ advancedSearch, columns, data, search, buttons, pagina
             fixed: "right",
             align: "center",
             render(_, record) {
+              //@ts-ignore
               return <GridButtons buttons={buttons} record={record} hides={record?.actions?.hides ?? []} />;
             },
           },
