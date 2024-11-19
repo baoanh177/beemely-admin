@@ -1,0 +1,39 @@
+import { commonStaticReducers } from "@/services/shared";
+import { EFetchStatus } from "@/shared/enums/status";
+import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IResponseStat } from "./stat.model";
+import { getMostPurchasedSize } from "./stats.thunk";
+
+export interface IStatsInitialState extends IInitialState {
+  sizes: IResponseStat[];
+}
+
+const initialState: IStatsInitialState = {
+  status: EFetchStatus.IDLE,
+  message: "",
+  sizes: [],
+  totalRecords: 0,
+  filter: {
+    _limit: 10,
+    _page: 1,
+  },
+};
+
+const statSlice = createSlice({
+  name: "tag",
+  initialState,
+  reducers: {
+    ...commonStaticReducers<IStatsInitialState>(),
+  },
+  extraReducers(builder) {
+    // ? Get all tags
+    builder.addCase(getMostPurchasedSize.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
+      state.sizes = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
+    });
+  },
+});
+
+export const { resetStatus, setFilter } = statSlice.actions;
+export { statSlice };
