@@ -2,19 +2,19 @@ import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IResponseStat } from "@/services/store/stats/stat.model";
 import { IStatsInitialState } from "@/services/store/stats/stats.slice";
-import { getMostPurchasedColor } from "@/services/store/stats/stats.thunk";
+import { getMostPurchasedSize } from "@/services/store/stats/stats.thunk";
 import { Pie } from "@ant-design/plots";
 import { useEffect } from "react";
 
-const TopColor = () => {
+const TopSize = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
 
   useAsyncEffect(
-    (async) => async(dispatch(getMostPurchasedColor({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
+    (async) => async(dispatch(getMostPurchasedSize({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
     [JSON.stringify(state.filter)],
   );
-  const data = state.colors.map((s: IResponseStat) => ({
-    type: s.name,
+  const data = state.sizes.map((s: IResponseStat) => ({
+    type: "Cỡ " + s.name,
     value: s.total,
   }));
 
@@ -22,11 +22,8 @@ const TopColor = () => {
     const a = document.getElementsByClassName("g2-html-annotation");
     if (a.length > 0) {
       const e = a[0] as HTMLElement;
-      const w = a[2] as HTMLElement;
       e.innerHTML = "Tổng";
       e.style.paddingBlockEnd = "0.25rem";
-      w.innerHTML = "Tổng";
-      w.style.paddingBlockEnd = "0.25rem";
     }
   }, [state]);
   const config: any = {
@@ -64,4 +61,4 @@ const TopColor = () => {
   return <Pie {...config} />;
 };
 
-export default TopColor;
+export default TopSize;

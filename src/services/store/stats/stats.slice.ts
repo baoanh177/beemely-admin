@@ -3,16 +3,18 @@ import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseStat } from "./stat.model";
-import { getMostPurchasedSize } from "./stats.thunk";
+import { getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
+  colors: IResponseStat[];
 }
 
 const initialState: IStatsInitialState = {
   status: EFetchStatus.IDLE,
   message: "",
   sizes: [],
+  colors: [],
   totalRecords: 0,
   filter: {
     _limit: 10,
@@ -27,9 +29,14 @@ const statSlice = createSlice({
     ...commonStaticReducers<IStatsInitialState>(),
   },
   extraReducers(builder) {
-    // ? Get all tags
+    // ? Get most sizes
     builder.addCase(getMostPurchasedSize.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.sizes = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
+    });
+    // ? Get most colors
+    builder.addCase(getMostPurchasedColor.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
+      state.colors = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
   },
