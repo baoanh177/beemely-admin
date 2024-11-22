@@ -3,17 +3,19 @@ import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseStat } from "./stat.model";
-import { getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
+import { getAlmostOutStockProduct, getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
   colors: IResponseStat[];
+  products: any[];
 }
 
 const initialState: IStatsInitialState = {
   status: EFetchStatus.IDLE,
   message: "",
   sizes: [],
+  products: [],
   colors: [],
   totalRecords: 0,
   filter: {
@@ -37,6 +39,10 @@ const statSlice = createSlice({
     // ? Get most colors
     builder.addCase(getMostPurchasedColor.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.colors = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
+    });
+    builder.addCase(getAlmostOutStockProduct.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
+      state.products = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
   },

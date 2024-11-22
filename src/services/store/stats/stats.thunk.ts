@@ -27,3 +27,12 @@ export const getMostPurchasedColor = createAsyncThunk("stats/get-color", async (
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
+
+export const getAlmostOutStockProduct = createAsyncThunk("stats/almost-out-of-stock", async (payload: IThunkPayload, { rejectWithValue }) => {
+  try {
+    const { response, data } = await client.get<IResponseStat[]>(prefix + "/almost-out-of-stock", payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+  } catch (error: any) {
+    return rejectWithValue(messageCreator(error.response.data, dataKeys));
+  }
+});
