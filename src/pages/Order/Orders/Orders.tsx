@@ -85,6 +85,7 @@ const Orders = () => {
           orderStatus: order.orderStatus,
           paymentType: order.paymentType,
           paymentStatus: order.paymentStatus,
+          complaint: order.complaint,
           totalPrice: order.totalPrice,
           shippingAddress: order.shippingAddress,
           createdAt: formattedDate || "",

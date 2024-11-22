@@ -1,3 +1,4 @@
+import { IComplaint } from "../complaint/complaint.model";
 import { ITag } from "../tag/tag.model";
 import { IVoucher } from "../voucher/voucher.model";
 
@@ -10,7 +11,7 @@ export interface IOrder {
   regularTotalPrice: number;
   shippingAddress: string;
   phoneNumber: string;
-  order_status: string;
+  orderStatus: EStatusOrder;
   paymentStatus: EPaymentStatus;
   paymentType: string;
   userName: string;
@@ -19,6 +20,7 @@ export interface IOrder {
   createdAt: string;
   updatedAt: string;
   uniqueId: string;
+  complaint: IComplaint | null;
 }
 
 export enum EStatusOrder {

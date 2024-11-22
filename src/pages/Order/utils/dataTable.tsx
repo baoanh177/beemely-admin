@@ -2,19 +2,44 @@ import imgPayos from "@/assets/images/Payos Logo.svg";
 import imgVnPay from "@/assets/images/vnpay.webp";
 import PaymentStatusBadge from "@/components/common/PaymentStatusBadge";
 import StatusBadge from "@/components/common/StatusBadge";
+import { EComplaintStatus, IComplaint } from "@/services/store/complaint/complaint.model";
 import { EPaymentStatus } from "@/services/store/order/order.model";
 import { updateOrder } from "@/services/store/order/order.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import { Avatar, Image, Select } from "antd";
+import { Avatar, Image, message, Modal, Select } from "antd";
 import toast from "react-hot-toast";
 import { IoEyeOutline } from "react-icons/io5";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import ComplaintItem from "./ComplaintItem";
+import { useArchive } from "@/hooks/useArchive";
+import { updateOrderComplaint } from "@/services/store/complaint/complaint.thunk";
+import { IComplaintInitialState } from "@/services/store/complaint/complaint.slice";
+import { IoMdClose } from "react-icons/io";
+import clsx from "clsx";
+
+type ResolvedOrCancelled = EComplaintStatus.RESOLVED | EComplaintStatus.CANCELLED;
 
 const { Option } = Select;
-
+const { confirm, destroyAll } = Modal;
 export const getTableColumns: any = (dispatch: any) => {
+  const { dispatch: complaintDispatch } = useArchive<IComplaintInitialState>("complaints");
+
+  const handleChangeStatus = async (id: string, status: ResolvedOrCancelled) => {
+    await complaintDispatch(
+      updateOrderComplaint({
+        param: id,
+        body: {
+          status,
+        },
+      }),
+    ).then(() => {
+      message.success("Cập nhật trạng thái khiếu nại thành công!");
+      window.location.reload();
+      destroyAll();
+    });
+  };
   const navigate = useNavigate();
   return [
     {
@@ -142,13 +167,7 @@ export const getTableColumns: any = (dispatch: any) => {
             className="tho-border"
             onChange={(status: string) => {
               if (record.orderStatus === "request_return") {
-                dispatch(
-                  updateOrder({
-                    body: { order_status: status === "yes" ? "returning" : "denied_return" },
-                    param: record.id,
-                  }),
-                );
-                window.location.reload();
+                return;
               } else {
                 dispatch(
                   updateOrder({
@@ -168,7 +187,7 @@ export const getTableColumns: any = (dispatch: any) => {
             defaultValue={record.orderStatus}
             style={{ width: 200 }}
           >
-            {record.orderStatus !== "request_return" && record.paymentStatus === "completed" ? (
+            {record.paymentStatus === "completed" ? (
               <>
                 <Option key={"pending"} value="pending" disabled={isDisabled("pending")}>
                   <StatusBadge text="Chờ xác nhận" color="yellow" disabled={isDisabled("pending")} />
@@ -210,19 +229,6 @@ export const getTableColumns: any = (dispatch: any) => {
                   <StatusBadge text="Đã nhận hàng" color="darkgreen" disabled={isDisabled("success")} />
                 </Option>
               </>
-            ) : record.orderStatus === "request_return" ? (
-              <>
-                <Option key={"request_return"} value="request_return" disabled={isDisabled("request_return")}>
-                  <StatusBadge text="Yêu cầu hoàn trả" color="orange" disabled={isDisabled("request_return")} />
-                </Option>
-                <Option key={"yes"} value="yes">
-                  <StatusBadge text="Đồng ý" color="green" />
-                </Option>
-
-                <Option key={"no"} value="no">
-                  <StatusBadge text="Từ chối" color="red" />
-                </Option>
-              </>
             ) : (
               <Option key={`${record.orderStatus}`} value={`${record.orderStatus}`}>
                 <StatusBadge {...getStatusBadgeProps(record.orderStatus)} />
@@ -231,6 +237,44 @@ export const getTableColumns: any = (dispatch: any) => {
           </Select>
         );
       },
+    },
+    {
+      title: "Khiếu nại",
+      dataIndex: "complaint",
+      render: (complaint: IComplaint | null) => (
+        <div className="flex items-center justify-center">
+          {complaint ? (
+            <div
+              role="button"
+              onClick={() =>
+                confirm({
+                  footer: null,
+                  icon: null,
+                  closeIcon: <IoMdClose />,
+                  closable: true,
+                  content: (
+                    <ComplaintItem
+                      complaint={complaint}
+                      onCancel={() => handleChangeStatus(complaint.id!, EComplaintStatus.CANCELLED)}
+                      onOk={() => handleChangeStatus(complaint.id!, EComplaintStatus.RESOLVED)}
+                    />
+                  ),
+                })
+              }
+              className={clsx(
+                "text-nowrap rounded-3xl bg-opacity-45 px-3 py-1 text-sm font-thin capitalize",
+                complaint.status === EComplaintStatus.RESOLVED || complaint.status === EComplaintStatus.CANCELLED
+                  ? "bg-green-400 text-green-700"
+                  : "bg-red-400 text-red-600",
+              )}
+            >
+              {complaint.status === EComplaintStatus.RESOLVED || complaint.status === EComplaintStatus.CANCELLED ? "Đã xử lý" : "Chưa xử lý"}
+            </div>
+          ) : (
+            <div className="h-3 w-8 rounded-3xl bg-green-400 bg-opacity-20" />
+          )}
+        </div>
+      ),
     },
     {
       title: "Ngày đặt hàng",
