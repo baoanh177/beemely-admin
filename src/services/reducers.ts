@@ -24,6 +24,7 @@ import { shippingMethodSlice } from "./store/shippingMethod/shippingMethod.slice
 import { genderSlice } from "./store/gender/gender.slice";
 import { orderSlice } from "./store/order/order.slice";
 import { complaintSlice } from "./store/complaint/complaint.slice";
+import { statSlice } from "./store/stats/stats.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
@@ -51,6 +52,7 @@ export const reducers = combineReducers({
   shippingMethod: shippingMethodSlice.reducer,
   order: orderSlice.reducer,
   complaints: complaintSlice.reducer,
+  stats: statSlice.reducer,
 });
 
 export type RootStateType = ReturnType<typeof reducers>;
