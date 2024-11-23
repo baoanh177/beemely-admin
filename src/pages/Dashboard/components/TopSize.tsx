@@ -60,7 +60,7 @@ const TopSize = () => {
   };
   return (
     <div className="flex max-w-[400px] flex-col gap-2">
-      <p className="font-black">Màu được mua nhiều nhất</p>
+      <p className="font-black">Cỡ được mua nhiều nhất</p>
       <p className=""> Trong 7 ngày vừa qua </p>
       <Pie {...config} />
     </div>
