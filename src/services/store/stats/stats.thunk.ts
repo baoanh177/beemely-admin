@@ -36,3 +36,12 @@ export const getAlmostOutStockProduct = createAsyncThunk("stats/almost-out-of-st
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
+
+export const getLatestReviews = createAsyncThunk("stats/latest-reviews", async (payload: IThunkPayload, { rejectWithValue }) => {
+  try {
+    const { response, data } = await client.get<IResponseStat[]>(prefix + "/latest-reviews", payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+  } catch (error: any) {
+    return rejectWithValue(messageCreator(error.response.data, dataKeys));
+  }
+});

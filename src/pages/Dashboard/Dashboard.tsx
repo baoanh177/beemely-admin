@@ -3,6 +3,7 @@ import Heading from "@/components/layout/Heading";
 import TopSize from "./components/TopSize";
 import TopColor from "./components/TopColor";
 import AlmostOutStockProduct from "./components/AlmostOutStockProduct";
+import LatestReviewsStats from "./components/LatestReviewsStats";
 
 const Dashboard: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Dashboard: React.FC = () => {
       <AlmostOutStockProduct />
       <TopSize />
       <TopColor />
+      <LatestReviewsStats />
     </>
   );
 };

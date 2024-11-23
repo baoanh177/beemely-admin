@@ -11,7 +11,6 @@ const AlmostOutStockProduct = () => {
     (async) => async(dispatch(getAlmostOutStockProduct({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
     [JSON.stringify(state.filter)],
   );
-  console.log(state);
   return <div>AlmostOutStockProduct</div>;
 };
 
