@@ -7,7 +7,7 @@ export interface ComplaintStatusBadgeProps {
 }
 
 const CONVERT_STATUS: Record<EComplaintStatus, string> = {
-  WITHDRAWN: "Bạn đã rút khiếu nại",
+  WITHDRAWN: "Người dùng thu hồi khiếu nại",
   CANCELLED: "Đã bị từ chối",
   RESOLVED: "Đã giải quyết",
   PENDING: "Đang chờ giải quyết",
