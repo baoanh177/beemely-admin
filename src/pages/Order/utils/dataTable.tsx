@@ -263,12 +263,18 @@ export const getTableColumns: any = (dispatch: any) => {
               }
               className={clsx(
                 "text-nowrap rounded-3xl bg-opacity-45 px-3 py-1 text-sm font-thin capitalize",
-                complaint.status === EComplaintStatus.RESOLVED || complaint.status === EComplaintStatus.CANCELLED
+                complaint.status === EComplaintStatus.RESOLVED ||
+                  complaint.status === EComplaintStatus.CANCELLED ||
+                  complaint.status === EComplaintStatus.WITHDRAWN
                   ? "bg-green-400 text-green-700"
                   : "bg-red-400 text-red-600",
               )}
             >
-              {complaint.status === EComplaintStatus.RESOLVED || complaint.status === EComplaintStatus.CANCELLED ? "Đã xử lý" : "Chưa xử lý"}
+              {complaint.status === EComplaintStatus.RESOLVED ||
+              complaint.status === EComplaintStatus.CANCELLED ||
+              complaint.status === EComplaintStatus.WITHDRAWN
+                ? "Đã xử lý"
+                : "Chưa xử lý"}
             </div>
           ) : (
             <div className="h-3 w-8 rounded-3xl bg-green-400 bg-opacity-20" />
