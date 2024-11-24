@@ -8,7 +8,6 @@ import LatestReviewsStats from "./components/LatestReviewsStats";
 const Dashboard: React.FC = () => {
   return (
     <>
-      {" "}
       <Heading title="Bảng điều khiển" hasBreadcrumb />
       <AlmostOutStockProduct />
       <TopSize />

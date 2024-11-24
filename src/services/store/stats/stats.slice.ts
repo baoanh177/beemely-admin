@@ -4,11 +4,12 @@ import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseStat } from "./stat.model";
 import { getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
+import { IProduct } from "../product/product.model";
 
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
   colors: IResponseStat[];
-  products: any[];
+  products: IProduct[];
   reviews: any[];
 }
 
@@ -43,7 +44,7 @@ const statSlice = createSlice({
       state.colors = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
-    builder.addCase(getAlmostOutStockProduct.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
+    builder.addCase(getAlmostOutStockProduct.fulfilled, (state, { payload }: PayloadAction<IResponse<IProduct[]>>) => {
       state.products = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
