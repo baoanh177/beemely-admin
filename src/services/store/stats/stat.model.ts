@@ -1,3 +1,5 @@
+import { EStatusOrder } from "../order/order.model";
+
 export interface IResponseStat {
   id: string;
   name: string;
@@ -8,3 +10,5 @@ export interface IResponseTotalRevenue {
   totalRevenue: number;
   orderCount: number;
 }
+
+export type TResponseOrderStatusCount = Record<EStatusOrder, number>;

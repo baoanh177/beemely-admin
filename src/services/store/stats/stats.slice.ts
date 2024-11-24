@@ -4,10 +4,13 @@ import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseStat, IResponseTotalRevenue } from "./stat.model";
 import { getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize, getTotalRevenue } from "./stats.thunk";
+import { IResponseStat, TResponseOrderStatusCount } from "./stat.model";
+import { getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize, getOrderStatusCount } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
   colors: IResponseStat[];
+  orderCount: TResponseOrderStatusCount;
   products: any[];
   reviews: any[];
   totalRevenues: IResponseTotalRevenue[];
@@ -21,6 +24,7 @@ const initialState: IStatsInitialState = {
   colors: [],
   reviews: [],
   totalRevenues: [],
+  orderCount: {} as TResponseOrderStatusCount,
   totalRecords: 0,
   filter: {
     _limit: 10,
@@ -55,6 +59,8 @@ const statSlice = createSlice({
     });
     builder.addCase(getTotalRevenue.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseTotalRevenue[]>>) => {
       state.totalRevenues = payload.metaData;
+    builder.addCase(getOrderStatusCount.fulfilled, (state, { payload }: PayloadAction<IResponse<TResponseOrderStatusCount>>) => {
+      state.orderCount = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
   },
