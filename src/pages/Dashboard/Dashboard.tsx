@@ -7,7 +7,6 @@ import LatestReviewsStats from "./components/LatestReviewsStats";
 import RevenueChart from "./components/RevenueChart";
 import OrderStatusCount from "./components/OrderStatusCount";
 
-
 const Dashboard: React.FC = () => {
   return (
     <>
