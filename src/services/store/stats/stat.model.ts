@@ -5,5 +5,10 @@ export interface IResponseStat {
   name: string;
   total: number;
 }
+export interface IResponseTotalRevenue {
+  date: string;
+  totalRevenue: number;
+  orderCount: number;
+}
 
 export type TResponseOrderStatusCount = Record<EStatusOrder, number>;
