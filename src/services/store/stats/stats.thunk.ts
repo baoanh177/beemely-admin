@@ -2,6 +2,7 @@ import { client } from "@/services/config/client";
 import { messageCreator } from "@/services/config/message-creator";
 import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { IProduct } from "../product/product.model";
 import { IResponseStat, IResponseTotalRevenue, TResponseOrderStatusCount } from "./stat.model";
 
 const dataKeys: { [key in keyof Omit<IResponseStat, "id">]: string } = {
@@ -30,7 +31,7 @@ export const getMostPurchasedColor = createAsyncThunk("stats/get-color", async (
 
 export const getAlmostOutStockProduct = createAsyncThunk("stats/almost-out-of-stock", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
-    const { response, data } = await client.get<IResponseStat[]>(prefix + "/almost-out-of-stock", payload);
+    const { response, data } = await client.get<IProduct[]>(prefix + "/almost-out-of-stock", payload);
     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
@@ -49,7 +50,7 @@ export const getLatestReviews = createAsyncThunk("stats/latest-reviews", async (
 export const getTotalRevenue = createAsyncThunk("stats/total-revenue", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
     const { response, data } = await client.get<IResponseTotalRevenue[]>(prefix + "/total-revenue", payload);
-     return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

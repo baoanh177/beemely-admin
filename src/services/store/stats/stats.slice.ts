@@ -2,6 +2,7 @@ import { commonStaticReducers } from "@/services/shared";
 import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IProduct } from "../product/product.model";
 import { IResponseStat, IResponseTotalRevenue, TResponseOrderStatusCount } from "./stat.model";
 import {
   getAlmostOutStockProduct,
@@ -15,8 +16,8 @@ import {
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
   colors: IResponseStat[];
+  products: IProduct[];
   orderCount: TResponseOrderStatusCount;
-  products: any[];
   reviews: any[];
   totalRevenues: IResponseTotalRevenue[];
 }
@@ -54,7 +55,7 @@ const statSlice = createSlice({
       state.colors = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
-    builder.addCase(getAlmostOutStockProduct.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
+    builder.addCase(getAlmostOutStockProduct.fulfilled, (state, { payload }: PayloadAction<IResponse<IProduct[]>>) => {
       state.products = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
