@@ -2,14 +2,15 @@ import { commonStaticReducers } from "@/services/shared";
 import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IResponseStat } from "./stat.model";
-import { getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
+import { IResponseStat, IResponseTotalRevenue } from "./stat.model";
+import { getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize, getTotalRevenue } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
   colors: IResponseStat[];
   products: any[];
   reviews: any[];
+  totalRevenues: IResponseTotalRevenue[];
 }
 
 const initialState: IStatsInitialState = {
@@ -19,6 +20,7 @@ const initialState: IStatsInitialState = {
   products: [],
   colors: [],
   reviews: [],
+  totalRevenues: [],
   totalRecords: 0,
   filter: {
     _limit: 10,
@@ -49,6 +51,10 @@ const statSlice = createSlice({
     });
     builder.addCase(getLatestReviews.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.reviews = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
+    });
+    builder.addCase(getTotalRevenue.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseTotalRevenue[]>>) => {
+      state.totalRevenues = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
   },
