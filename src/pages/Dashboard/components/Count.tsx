@@ -1,5 +1,3 @@
-import React from "react";
-
 const Count = () => {
   return (
     <div className="flex flex-row items-center gap-4">

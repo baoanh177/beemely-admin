@@ -92,7 +92,7 @@ const LatestReviewsStats = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="font-bold"> Đánh giá gần đây nhất</div>
-      <ManagementGrid columns={columns} isTableLoading={loading} data={data} setFilter={setFilter} search={{}} buttons={[]} />;
+      <ManagementGrid columns={columns} isTableLoading={loading} data={data} setFilter={setFilter} search={{}} buttons={[]} />
     </div>
   );
 };

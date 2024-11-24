@@ -1,19 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       transitionProperty: {
         size: "width, height, padding, margin",
       },
       borderRadius: {
-        circle: "50%"
-      }
+        circle: "50%",
+      },
     },
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
+      transparent: "transparent",
+      current: "currentColor",
       primary: {
         50: "#F4ECFB",
         100: "#E7D8F5",
@@ -117,10 +117,22 @@ export default {
         200: "#C2C6CE",
         300: "#A3A9B6",
         400: "#858D9D",
-        500: "#667085"
+        500: "#667085",
       },
-      white: "#ffffff"
-    }
+      amber: {
+        50: "#FFFAE7",
+        100: "#FEF4CF",
+        200: "#FDE99F",
+        300: "#FBDE6E",
+        400: "#FAD33E",
+        500: "#F9C80E",
+        600: "#BB960B",
+        700: "#7D6407",
+        800: "#3E3204",
+        900: "#191401",
+      },
+      white: "#ffffff",
+    },
   },
   plugins: [],
 };
