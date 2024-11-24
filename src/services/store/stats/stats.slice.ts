@@ -55,6 +55,7 @@ const statSlice = createSlice({
       state.reviews = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
+    // ? Get most purchased users
     builder.addCase(getMostPurchasedUser.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.users = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
