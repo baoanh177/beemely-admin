@@ -11,6 +11,7 @@ import {
   getMostPurchasedSize,
   getOrderStatusCount,
   getTotalRevenue,
+  deleteReview,
 } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
@@ -62,6 +63,9 @@ const statSlice = createSlice({
     builder.addCase(getLatestReviews.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.reviews = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
+    });
+    builder.addCase(deleteReview.fulfilled, (state, { payload }: PayloadAction<IResponse<any>>) => {
+      state.reviews = state.reviews.filter((r) => r.id !== payload.metaData.docs.id);
     });
     builder.addCase(getTotalRevenue.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseTotalRevenue[]>>) => {
       state.totalRevenues = payload.metaData;
