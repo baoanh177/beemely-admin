@@ -44,7 +44,7 @@ const TopBuyers = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br to-gray-100 py-8">
-      <div className="mx-auto px-4 pb-10">
+      <div className="mx-auto px-0 pb-10">
         <div className="mb-8 text-center">
           <h1 className="mb-2 flex items-center justify-center gap-3 text-3xl font-bold text-black-500">
             <FaCrown className="text-yellow-500" />
