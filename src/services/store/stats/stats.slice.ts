@@ -12,6 +12,7 @@ import {
   getOrderStatusCount,
   getTotalRevenue,
   deleteReview,
+  getMostPurchasedUser,
 } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
@@ -20,6 +21,7 @@ export interface IStatsInitialState extends IInitialState {
   products: IProduct[];
   orderCount: TResponseOrderStatusCount;
   reviews: any[];
+  users: any[];
   totalRevenues: IResponseTotalRevenue[];
 }
 
@@ -30,6 +32,7 @@ const initialState: IStatsInitialState = {
   products: [],
   colors: [],
   reviews: [],
+  users: [],
   totalRevenues: [],
   orderCount: {} as TResponseOrderStatusCount,
   totalRecords: 0,
@@ -56,21 +59,30 @@ const statSlice = createSlice({
       state.colors = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
+    // ? Get almost out of stock products
     builder.addCase(getAlmostOutStockProduct.fulfilled, (state, { payload }: PayloadAction<IResponse<IProduct[]>>) => {
       state.products = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
+    // ? Get latest reviews
     builder.addCase(getLatestReviews.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.reviews = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
+    // ? Get most purchased users
+    builder.addCase(getMostPurchasedUser.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
+      state.users = payload.metaData;
+    });
+    // ? Delete review
     builder.addCase(deleteReview.fulfilled, (state, { payload }: PayloadAction<IResponse<any>>) => {
       state.reviews = state.reviews.filter((r) => r.id !== payload.metaData.docs.id);
     });
+    // ? Get total revenue
     builder.addCase(getTotalRevenue.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseTotalRevenue[]>>) => {
       state.totalRevenues = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;
     });
+    // ? Get order status count
     builder.addCase(getOrderStatusCount.fulfilled, (state, { payload }: PayloadAction<IResponse<TResponseOrderStatusCount>>) => {
       state.orderCount = payload.metaData;
       state.totalRecords = payload.totalDocs ?? 0;

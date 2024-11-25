@@ -47,6 +47,15 @@ export const getLatestReviews = createAsyncThunk("stats/latest-reviews", async (
   }
 });
 
+export const getMostPurchasedUser = createAsyncThunk("stats/most-orders", async (payload: IThunkPayload, { rejectWithValue }) => {
+  try {
+    const { response, data } = await client.get<IResponseStat[]>(prefix + "/most-orders", payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+  } catch (error: any) {
+    return rejectWithValue(messageCreator(error.response.data, dataKeys));
+  }
+});
+
 export const deleteReview = createAsyncThunk("review/delete-reviews", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
     const { response, data } = await client.delete<any[]>("/api/client/reviews/admin", payload);

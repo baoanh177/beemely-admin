@@ -14,7 +14,6 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import "../styles/index.css";
 import { EButtonTypes } from "@/shared/enums/button";
-import { EPermissions } from "@/shared/enums/permissions";
 
 const LatestReviewsStats = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
@@ -123,7 +122,6 @@ const LatestReviewsStats = () => {
           },
         ]}
       />
-      ;
     </div>
   );
 };
