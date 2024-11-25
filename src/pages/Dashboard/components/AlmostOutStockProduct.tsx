@@ -12,6 +12,7 @@ import { IVariant } from "@/services/store/variant/variant.model";
 import { ColumnsType } from "antd/es/table";
 import { EButtonTypes } from "@/shared/enums/button";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
+import { Card } from "antd";
 
 const AlmostOutStockProduct = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
@@ -92,17 +93,10 @@ const AlmostOutStockProduct = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <div className="font-bold">Các sản phẩm có tồn kho ít nhất</div>
-      <ManagementGrid
-        columns={columns}
-        isTableLoading={getAlmostOutStockProductLoading}
-        data={data}
-        setFilter={setFilter}
-        search={{}}
-        buttons={buttons}
-      />
-    </div>
+    <Card className="flex flex-col">
+      <div className="mb-6 text-lg font-medium md:text-2xl">Các sản phẩm có tồn kho ít nhất</div>
+      <ManagementGrid columns={columns} isTableLoading={getAlmostOutStockProductLoading} data={data} setFilter={setFilter} buttons={buttons} />
+    </Card>
   );
 };
 

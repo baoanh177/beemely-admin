@@ -11,12 +11,16 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <Heading title="Bảng điều khiển" hasBreadcrumb />
-      <RevenueChart />
       <OrderStatusCount />
-      <AlmostOutStockProduct />
-      <TopSize />
-      <TopColor />
-      <LatestReviewsStats />
+      <RevenueChart />
+      <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+        <TopSize />
+        <TopColor />
+      </div>
+      <div className="grid gap-8">
+        <AlmostOutStockProduct />
+        <LatestReviewsStats />
+      </div>
     </>
   );
 };

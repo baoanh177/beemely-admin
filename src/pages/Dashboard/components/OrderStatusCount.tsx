@@ -13,6 +13,7 @@ import { IconType } from "react-icons";
 import { EStatusOrder } from "@/services/store/order/order.model";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { Card } from "antd";
 
 const statusConfig: Record<keyof TResponseOrderStatusCount, { label: string; icon: IconType }> = {
   pending: {
@@ -79,19 +80,15 @@ const OrderStatusCount = () => {
         const Icon = config.icon;
 
         return (
-          <Link
-            to={`/orders`}
-            key={status}
-            className={clsx(
-              "flex flex-col items-center justify-center rounded-lg border border-primary-50 bg-white p-4 shadow-md transition-transform hover:scale-105",
-            )}
-          >
-            <Icon className={"h-6 w-6"} />
-            <div className="mt-2 text-center">
-              <h3 className={clsx("text-4xl font-bold text-primary-600")}>{count}</h3>
-              <p className={clsx("text-sm font-medium")}>{config.label}</p>
-            </div>
-          </Link>
+          <Card key={status}>
+            <Link to={`/orders`} className="flex flex-col items-center hover:text-primary-700">
+              <Icon className={"h-6 w-6"} />
+              <div className="mt-2 text-center">
+                <h3 className={clsx("text-4xl font-bold text-primary-600")}>{count}</h3>
+                <p className={clsx("text-sm font-medium")}>{config.label}</p>
+              </div>
+            </Link>
+          </Card>
         );
       })}
     </div>

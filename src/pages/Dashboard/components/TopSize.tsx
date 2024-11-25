@@ -4,6 +4,7 @@ import { IResponseStat } from "@/services/store/stats/stat.model";
 import { IStatsInitialState } from "@/services/store/stats/stats.slice";
 import { getMostPurchasedSize } from "@/services/store/stats/stats.thunk";
 import { Pie } from "@ant-design/plots";
+import { Card } from "antd";
 import { useEffect } from "react";
 
 const TopSize = () => {
@@ -61,11 +62,10 @@ const TopSize = () => {
     ],
   };
   return (
-    <div className="flex max-w-[400px] flex-col gap-2">
-      <p className="font-black">Cỡ được mua nhiều nhất</p>
-      <p className=""> Trong 7 ngày vừa qua </p>
+    <Card className="flex flex-col space-y-8">
+      <p className="mb-6 text-lg font-medium md:text-2xl">Kích cỡ được mua nhiều nhất trong 7 ngày vừa qua</p>
       <Pie {...config} />
-    </div>
+    </Card>
   );
 };
 

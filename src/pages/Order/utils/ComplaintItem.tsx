@@ -39,10 +39,10 @@ const ComplaintItem = ({ complaint, onCancel, onOk }: ComplaintItemProps) => {
           <p>
             Mô tả:<span className="font-semibold"> {complaint.description}</span>
           </p>
-          <p className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
             Trạng thái khiếu nại:
             <ComplaintStatusBadge status={complaint.status} />
-          </p>
+          </div>
 
           {complaint.status === EComplaintStatus.PENDING && (
             <div className="flex justify-end gap-2">

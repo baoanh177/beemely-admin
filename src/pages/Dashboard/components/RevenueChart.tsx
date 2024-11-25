@@ -69,7 +69,7 @@ const RevenueChart: React.FC = () => {
     <Card className="flex flex-col gap-5">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-medium">
+          <h3 className="text-lg font-medium md:text-2xl">
             Thống kê doanh thu theo {dateType === "day" ? `ngày` : dateType === "month" ? "tháng" : "năm"}
           </h3>
           <Select
@@ -83,8 +83,10 @@ const RevenueChart: React.FC = () => {
             ]}
           />
         </div>
-        <Column loading={loading} {...config} />
-        <Line {...orderCountConfig} />
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Column loading={loading} {...config} />
+          <Line {...orderCountConfig} />
+        </div>
       </div>
     </Card>
   );
