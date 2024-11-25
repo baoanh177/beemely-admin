@@ -6,6 +6,7 @@ import { messageCreator } from "@/services/config/message-creator";
 
 const dataKeys: { [key in keyof Omit<IProductType, "id">]: string } = {
   name: "Tên productTypes",
+  imageUrl: "Hình ảnh",
   slug: "Slug",
 };
 
