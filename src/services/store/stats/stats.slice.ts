@@ -3,7 +3,7 @@ import { EFetchStatus } from "@/shared/enums/status";
 import { IInitialState, IResponse } from "@/shared/utils/shared-interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseStat } from "./stat.model";
-import { getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
+import { deleteReview, getAlmostOutStockProduct, getLatestReviews, getMostPurchasedColor, getMostPurchasedSize } from "./stats.thunk";
 
 export interface IStatsInitialState extends IInitialState {
   sizes: IResponseStat[];
@@ -49,6 +49,10 @@ const statSlice = createSlice({
     });
     builder.addCase(getLatestReviews.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseStat[]>>) => {
       state.reviews = payload.metaData;
+      state.totalRecords = payload.totalDocs ?? 0;
+    });
+    builder.addCase(deleteReview.fulfilled, (state, { payload }: PayloadAction<IResponse<any>>) => {
+      state.reviews = state.reviews.filter((r) => r.id !== payload.metaData.docs.id);
       state.totalRecords = payload.totalDocs ?? 0;
     });
   },

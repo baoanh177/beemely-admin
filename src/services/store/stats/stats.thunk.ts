@@ -45,3 +45,12 @@ export const getLatestReviews = createAsyncThunk("stats/latest-reviews", async (
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }
 });
+
+export const deleteReview = createAsyncThunk("review/delete-reviews", async (payload: IThunkPayload, { rejectWithValue }) => {
+  try {
+    const { response, data } = await client.delete<any[]>("/api/client/reviews/admin", payload);
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+  } catch (error: any) {
+    return rejectWithValue(messageCreator(error.response.data, dataKeys));
+  }
+});

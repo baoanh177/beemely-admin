@@ -13,10 +13,12 @@ const TopSize = () => {
     (async) => async(dispatch(getMostPurchasedSize({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
     [JSON.stringify(state.filter)],
   );
-  const data = state.sizes.map((s: IResponseStat) => ({
-    type: "Cỡ " + s.name,
-    value: s.total,
-  }));
+  const data = state.sizes
+    .map((s: IResponseStat) => ({
+      type: "Cỡ " + s.name,
+      value: s.total,
+    }))
+    .filter((e) => !e.type.includes("undefined"));
 
   useEffect(() => {
     const a = document.getElementsByClassName("g2-html-annotation");

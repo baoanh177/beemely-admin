@@ -13,10 +13,13 @@ const TopColor = () => {
     (async) => async(dispatch(getMostPurchasedColor({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
     [JSON.stringify(state.filter)],
   );
-  const data = state.colors.map((s: IResponseStat) => ({
-    type: s.name,
-    value: s.total,
-  }));
+
+  const data = state.colors
+    .map((s: IResponseStat) => ({
+      type: s.name,
+      value: s.total,
+    }))
+    .filter((e) => e.type !== undefined);
 
   useEffect(() => {
     const a = document.getElementsByClassName("g2-html-annotation");
