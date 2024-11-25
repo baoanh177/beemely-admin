@@ -49,5 +49,5 @@ export const COMPLAINT_STATUS_CONVERT: Record<EComplaintStatus, string> = {
   PENDING: "Đang xử lý",
   RESOLVED: "Đã được chấp nhận",
   CANCELLED: "Bị từ chối",
-  WITHDRAWN: "Bạn đã thu hồi khiếu nại",
+  WITHDRAWN: "Người dùng thu hồi khiếu nại",
 };
