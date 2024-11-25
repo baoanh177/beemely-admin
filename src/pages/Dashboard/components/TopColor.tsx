@@ -4,6 +4,7 @@ import { IResponseStat } from "@/services/store/stats/stat.model";
 import { IStatsInitialState } from "@/services/store/stats/stats.slice";
 import { getMostPurchasedColor } from "@/services/store/stats/stats.thunk";
 import { Pie } from "@ant-design/plots";
+import { Card } from "antd";
 import { useEffect } from "react";
 
 const TopColor = () => {
@@ -65,11 +66,11 @@ const TopColor = () => {
     ],
   };
   return (
-    <div className="flex max-w-[400px] flex-col gap-2">
+    <Card className="flex max-h-[450px] min-w-[400px] flex-col gap-2">
       <p className="font-black">Màu được mua nhiều nhất</p>
       <p className=""> Trong 7 ngày vừa qua </p>
       <Pie {...config} />
-    </div>
+    </Card>
   );
 };
 

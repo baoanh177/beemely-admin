@@ -1,21 +1,27 @@
-import React from "react";
 import Heading from "@/components/layout/Heading";
-import TopSize from "./components/TopSize";
-import TopColor from "./components/TopColor";
+import React from "react";
 import AlmostOutStockProduct from "./components/AlmostOutStockProduct";
 import LatestReviewsStats from "./components/LatestReviewsStats";
-import RevenueChart from "./components/RevenueChart";
 import OrderStatusCount from "./components/OrderStatusCount";
+import RevenueChart from "./components/RevenueChart";
+import TopColor from "./components/TopColor";
+import TopSize from "./components/TopSize";
 
 const Dashboard: React.FC = () => {
   return (
     <>
       <Heading title="Bảng điều khiển" hasBreadcrumb />
-      <RevenueChart />
       <OrderStatusCount />
+      <div className="grid grid-cols-3 gap-8">
+        <div className="col-span-2">
+          <RevenueChart />
+        </div>
+        <div className="flex flex-col gap-8">
+          <TopSize />
+          <TopColor />
+        </div>
+      </div>
       <AlmostOutStockProduct />
-      <TopSize />
-      <TopColor />
       <LatestReviewsStats />
     </>
   );
