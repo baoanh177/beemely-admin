@@ -4,6 +4,7 @@ import { IResponseStat } from "@/services/store/stats/stat.model";
 import { IStatsInitialState } from "@/services/store/stats/stats.slice";
 import { getMostPurchasedSize } from "@/services/store/stats/stats.thunk";
 import { Pie } from "@ant-design/plots";
+import { Card } from "antd";
 import { useEffect } from "react";
 
 const TopSize = () => {
@@ -13,10 +14,12 @@ const TopSize = () => {
     (async) => async(dispatch(getMostPurchasedSize({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
     [JSON.stringify(state.filter)],
   );
-  const data = state.sizes.map((s: IResponseStat) => ({
-    type: "Cỡ " + s.name,
-    value: s.total,
-  }));
+  const data = state.sizes
+    .map((s: IResponseStat) => ({
+      type: "Cỡ " + s.name,
+      value: s.total,
+    }))
+    .filter((e) => !e.type.includes("undefined"));
 
   useEffect(() => {
     const a = document.getElementsByClassName("g2-html-annotation");
@@ -59,11 +62,11 @@ const TopSize = () => {
     ],
   };
   return (
-    <div className="flex max-w-[400px] flex-col gap-2">
+    <Card className="flex max-h-[450px] min-w-[400px] flex-col gap-2">
       <p className="font-black">Cỡ được mua nhiều nhất</p>
       <p className=""> Trong 7 ngày vừa qua </p>
       <Pie {...config} />
-    </div>
+    </Card>
   );
 };
 

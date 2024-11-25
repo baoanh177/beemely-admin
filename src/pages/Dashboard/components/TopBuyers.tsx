@@ -44,7 +44,7 @@ const TopBuyers = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br to-gray-100 py-8">
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto px-4 pb-10">
         <div className="mb-8 text-center">
           <h1 className="mb-2 flex items-center justify-center gap-3 text-3xl font-bold text-black-500">
             <FaCrown className="text-yellow-500" />
@@ -135,15 +135,15 @@ const TopBuyers = () => {
                     <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <div className="flex items-center gap-2">
                         <FaEnvelope className="text-gray-400" />
-                        <span className="text-sm text-gray-500">{user.email}</span>
+                        <span className="text-sm text-gray-500">{user.email || "Chưa có email"}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <FaPhone className="text-gray-400" />
-                        <span className="text-sm text-gray-500">{user.phone}</span>
+                        <span className="text-sm text-gray-500">{user.phone || "Chưa có SĐT"} </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <FaVenusMars className="text-gray-400" />
-                        <span className="text-sm text-gray-500">{user.gender}</span>
+                        <span className="text-sm text-gray-500">{user.gender || "Chưa có giới tính"}</span>
                       </div>
                     </div>
 

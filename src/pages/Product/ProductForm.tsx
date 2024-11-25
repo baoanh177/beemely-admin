@@ -109,6 +109,7 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
             color: v.color!.id ? v.color!.id : v.color,
             size: v.size.id ? v.size.id : v.size,
             discount_price: discountPrice,
+            stock: v.stock || 50,
           };
         }
       });

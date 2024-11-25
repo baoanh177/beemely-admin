@@ -55,12 +55,14 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
 
   let newDataVariants: any;
   const [dataVariants, setDataVariants] = useState<any>();
+
   useEffect(() => {
     if (variantOptions.color?.length > 0 && variantOptions.size?.length > 0) {
       newDataVariants = generateVariantCombinations(variantTypes, variantOptions);
       setDataVariants(newDataVariants);
     }
   }, [variantTypes, variantOptions]);
+
   useEffect(() => {
     if (type === "update" && product) {
       const newVariantTypes = [];
@@ -275,17 +277,19 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                 {
                   title: "Số lượng",
                   key: "stock",
-                  render: (_, record, index) => (
-                    <InputNumber
-                      min={0}
-                      value={values.variants[index]?.stock || 50}
-                      onChange={(value: any) => {
-                        const newVariants = [...values.variants];
-                        newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, stock: value };
-                        setFieldValue("variants", newVariants);
-                      }}
-                    />
-                  ),
+                  render: (_, record, index) => {
+                    return (
+                      <InputNumber
+                        min={0}
+                        value={values.variants[index]?.stock || 50}
+                        onChange={(value: any) => {
+                          const newVariants = [...values.variants];
+                          newVariants[index] = { ...newVariants[index], color: record.colorId, size: record.sizeId, stock: value };
+                          setFieldValue("variants", newVariants);
+                        }}
+                      />
+                    );
+                  },
                 },
                 {
                   title: "Hành động",
