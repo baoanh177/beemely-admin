@@ -4,15 +4,18 @@ import { IResponseStat } from "@/services/store/stats/stat.model";
 import { IStatsInitialState } from "@/services/store/stats/stats.slice";
 import { getMostPurchasedColor } from "@/services/store/stats/stats.thunk";
 import { Pie } from "@ant-design/plots";
-import { Card } from "antd";
-import { useEffect } from "react";
+import { Card, Select } from "antd";
+import { useEffect, useState } from "react";
 
+type TDateTypeQuery = "today" | "yesterday" | "this_week" | "last_week" | "this_month" | "last_month" | "this_year" | "last_year" | "all_time";
 const TopColor = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
+  const [dateType, setDateType] = useState<TDateTypeQuery>("this_week");
 
   useAsyncEffect(
-    (async) => async(dispatch(getMostPurchasedColor({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
-    [JSON.stringify(state.filter)],
+    (async) =>
+      async(dispatch(getMostPurchasedColor({ query: { _pagination: false, ...state.filter, period: dateType } })), "getMostPurchasedColor"),
+    [JSON.stringify(state.filter), dateType],
   );
 
   const data = state.colors
@@ -65,10 +68,33 @@ const TopColor = () => {
       },
     ],
   };
+  const handleChange = (value: TDateTypeQuery) => {
+    setDateType(value);
+  };
   return (
     <Card className="flex max-h-[450px] min-w-[400px] flex-col gap-2">
-      <p className="font-black">Màu được mua nhiều nhất</p>
-      <p className=""> Trong 7 ngày vừa qua </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-black">Màu được mua nhiều nhất</p>
+          <p>Trong 1 {dateType === "today" || dateType === "yesterday" ? "ngày" : dateType.includes("month") ? "tháng" : "năm"} gần nhất</p>
+        </div>
+        <Select
+          defaultValue="this_week"
+          style={{ width: 120 }}
+          onChange={handleChange}
+          options={[
+            { value: "today", label: "Hôm nay" },
+            { value: "yesterday", label: "Hôm qua" },
+            { value: "this_week", label: "Tuần này" },
+            { value: "last_week", label: "Tuần trước" },
+            { value: "this_month", label: "Tháng này" },
+            { value: "last_month", label: "Tháng trước" },
+            { value: "this_year", label: "Năm nay" },
+            { value: "last_year", label: "Năm trước" },
+            { value: "all_time", label: "Tất cả thời gian" },
+          ]}
+        />
+      </div>
       <Pie {...config} />
     </Card>
   );
