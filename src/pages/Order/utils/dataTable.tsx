@@ -19,14 +19,14 @@ import { IComplaintInitialState } from "@/services/store/complaint/complaint.sli
 import { IoMdClose } from "react-icons/io";
 import clsx from "clsx";
 
-type ResolvedOrCancelled = EComplaintStatus.RESOLVED | EComplaintStatus.CANCELLED;
+// type ResolvedOrCancelled = EComplaintStatus.RESOLVED | EComplaintStatus.REJECTED;
 
 const { Option } = Select;
 const { confirm, destroyAll } = Modal;
 export const getTableColumns: any = (dispatch: any) => {
   const { dispatch: complaintDispatch } = useArchive<IComplaintInitialState>("complaints");
 
-  const handleChangeStatus = async (id: string, status: ResolvedOrCancelled) => {
+  const handleChangeStatus = async (id: string, status: EComplaintStatus) => {
     await complaintDispatch(
       updateOrderComplaint({
         param: id,
@@ -252,26 +252,20 @@ export const getTableColumns: any = (dispatch: any) => {
                   icon: null,
                   closeIcon: <IoMdClose />,
                   closable: true,
-                  content: (
-                    <ComplaintItem
-                      complaint={complaint}
-                      onCancel={() => handleChangeStatus(complaint.id!, EComplaintStatus.CANCELLED)}
-                      onOk={() => handleChangeStatus(complaint.id!, EComplaintStatus.RESOLVED)}
-                    />
-                  ),
+                  content: <ComplaintItem complaint={complaint} onUpdateStatus={handleChangeStatus} />,
                 })
               }
               className={clsx(
                 "text-nowrap rounded-3xl bg-opacity-45 px-3 py-1 text-sm font-thin capitalize",
                 complaint.status === EComplaintStatus.RESOLVED ||
-                  complaint.status === EComplaintStatus.CANCELLED ||
+                  complaint.status === EComplaintStatus.REJECTED ||
                   complaint.status === EComplaintStatus.WITHDRAWN
                   ? "bg-green-400 text-green-700"
                   : "bg-red-400 text-red-600",
               )}
             >
               {complaint.status === EComplaintStatus.RESOLVED ||
-              complaint.status === EComplaintStatus.CANCELLED ||
+              complaint.status === EComplaintStatus.REJECTED ||
               complaint.status === EComplaintStatus.WITHDRAWN
                 ? "Đã xử lý"
                 : "Chưa xử lý"}
