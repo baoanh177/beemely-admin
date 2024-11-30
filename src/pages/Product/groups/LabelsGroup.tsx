@@ -2,11 +2,12 @@ import FormGroup from "@/components/form/FormGroup";
 import FormSelect from "@/components/form/FormSelect";
 import { FormikProps } from "formik";
 import { IProductFormInitialValues } from "../ProductForm";
-import { useHookDataProductForm } from "../utils/dataProductForm";
 
-interface ILabelsGroupProps extends FormikProps<IProductFormInitialValues> {}
-const LabelsGroup = ({ values, errors, touched, setFieldValue }: ILabelsGroupProps) => {
-  const { stateLabel, getAllLabelsLoading, stateTag, getAllTagsLoading } = useHookDataProductForm();
+interface ILabelsGroupProps extends FormikProps<IProductFormInitialValues> {
+  props: any;
+}
+const LabelsGroup = ({ values, errors, touched, setFieldValue, props }: ILabelsGroupProps) => {
+  const { stateLabel, getAllLabelsLoading, stateTag, getAllTagsLoading } = props;
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
@@ -17,7 +18,7 @@ const LabelsGroup = ({ values, errors, touched, setFieldValue }: ILabelsGroupPro
           <FormSelect
             placeholder="Nhấn vào đây để chọn nhãn hiệu"
             isMultiple
-            options={stateLabel?.labels.map((label) => ({ value: label.id, label: label.name }))}
+            options={stateLabel?.labels.map((label: any) => ({ value: label.id, label: label.name }))}
             value={values.labels}
             onChange={(checkedValues) => setFieldValue("labels", checkedValues)}
           />
@@ -30,7 +31,7 @@ const LabelsGroup = ({ values, errors, touched, setFieldValue }: ILabelsGroupPro
           <FormSelect
             placeholder="Nhấn vào đây để chọn thẻ"
             isMultiple
-            options={stateTag?.tags.map((tag) => ({ value: tag.id, label: tag.name }))}
+            options={stateTag?.tags.map((tag: any) => ({ value: tag.id, label: tag.name }))}
             value={values.tags}
             onChange={(checkedValues) => setFieldValue("tags", checkedValues)}
           />

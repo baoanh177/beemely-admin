@@ -11,6 +11,7 @@ import VariantGroup from "./groups/VariantGroup";
 import { IProductColor } from "@/services/store/productColor/productColor.model";
 import { validationSchema, validationUpdateSchema } from "./utils/validation";
 import ShippingGroup from "./groups/ShippingGroup";
+import { useHookDataProductForm } from "./utils/dataProductForm";
 
 export interface IProductFormInitialValues {
   name: string;
@@ -126,6 +127,23 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
   };
 
   const [size, setSize] = useState<any>();
+
+  const {
+    getAllBrandsLoading,
+    getAllGendersLoading,
+    getAllProductTypesLoading,
+    stateBrand,
+    stateGender,
+    stateProductType,
+    stateLabel,
+    getAllLabelsLoading,
+    stateTag,
+    getAllTagsLoading,
+    getAllColorsLoading,
+    getAllSizesLoading,
+    stateColor,
+    stateSize,
+  } = useHookDataProductForm();
   return (
     <Formik
       innerRef={FormikRefType}
@@ -136,10 +154,33 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
       {(formikData) => {
         return (
           <>
-            <InfoGroup {...formikData} setSize={setSize} />
+            <InfoGroup
+              {...formikData}
+              setSize={setSize}
+              props={{ getAllBrandsLoading, getAllGendersLoading, getAllProductTypesLoading, stateBrand, stateGender, stateProductType }}
+            />
             <MediaGroup {...formikData} />
-            <LabelsGroup {...formikData} />
-            <VariantGroup {...formikData} product={product} type={type} size={size} />
+            <LabelsGroup
+              {...formikData}
+              props={{
+                stateLabel,
+                getAllLabelsLoading,
+                stateTag,
+                getAllTagsLoading,
+              }}
+            />
+            <VariantGroup
+              {...formikData}
+              props={{
+                getAllColorsLoading,
+                getAllSizesLoading,
+                stateColor,
+                stateSize,
+              }}
+              product={product}
+              type={type}
+              size={size}
+            />
             <ShippingGroup {...formikData} />
           </>
         );
