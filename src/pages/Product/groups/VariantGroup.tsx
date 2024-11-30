@@ -11,16 +11,16 @@ import { useEffect, useRef, useState } from "react";
 import { TiDeleteOutline, TiPlusOutline } from "react-icons/ti";
 import ButtonGhost from "../../../components/common/Button";
 import { IProductFormInitialValues } from "../ProductForm";
-import { useHookDataProductForm } from "../utils/dataProductForm";
 import { generateVariantCombinations } from "../utils/generateVariantCombinations";
 
 interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
   product: IProduct | undefined;
   type: string;
   size: any;
+  props: any;
 }
-const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, size }: IVariantGroupProps) => {
-  const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = useHookDataProductForm();
+const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, size, props }: IVariantGroupProps) => {
+  const { getAllColorsLoading, getAllSizesLoading, stateColor, stateSize } = props;
 
   const [variantOptions, setVariantOptions] = useState<any>({ size: [], color: [] });
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
