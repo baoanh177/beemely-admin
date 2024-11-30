@@ -19,7 +19,7 @@ interface IAddressGroupProps extends FormikProps<IAccountFormInitialValues> {
 
 const { confirm } = Modal
 
-const AddressGroup = ({ values, errors, touched, setFieldValue, isFormLoading, type, isCustomer }: IAddressGroupProps) => {
+const AddressGroup = ({ values, setFieldValue, isFormLoading, type, isCustomer }: IAddressGroupProps) => {
   const [modal, setModal] = useState<IAddressModalProps>({ values, setFieldValue, isOpen: false, address: undefined, type: "view" });
   const isView = type === "view";
 
@@ -34,6 +34,7 @@ const AddressGroup = ({ values, errors, touched, setFieldValue, isFormLoading, t
           const completedAddress = `${address.detailAddress}, ${commune.name}, ${district.name}, ${city.name}`.replaceAll(",,", ",");
 
           return (
+            // eslint-disable-next-line react/jsx-key
             <div className="flex gap-4 [&>*:first-child]:grow">
               <FormInput isReadonly isDisabled value={completedAddress} />
               {!isCustomer && !isView && (

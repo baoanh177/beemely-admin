@@ -34,7 +34,6 @@ export interface IAddressFormInitialValues {
 }
 
 const AddressModal = ({ type = "create", address, isOpen, onClose, values, setFieldValue }: IAddressModalProps) => {
-  console.log("🦎 ~ AddressModal ~ address:", address)
   const formikRef = useRef<FormikProps<IAddressFormInitialValues>>(null);
   const provinceOptions = useMemo(getProvinceOptions, []);
   const title = type === "create" ? "Thêm mới Địa chỉ" : "Cập nhật Địa chỉ";
@@ -51,11 +50,7 @@ const AddressModal = ({ type = "create", address, isOpen, onClose, values, setFi
     onClose && onClose();
   };
 
-  // Todo: validate Address
-  // Todo: detail_address detailAddress
-
   return (
-    <>
       <Modal
         title={title}
         open={isOpen}
@@ -138,7 +133,6 @@ const AddressModal = ({ type = "create", address, isOpen, onClose, values, setFi
           }}
         </Formik>
       </Modal>
-    </>
   );
 };
 

@@ -156,7 +156,7 @@ const Products = () => {
           {
             text: "Tạo mới Sản phẩm",
             icon: <FaPlus className="text-[18px]" />,
-            permission: EPermissions.CREATE_PERMISSION,
+            permission: EPermissions.CREATE_PRODUCT,
             onClick: () => navigate("/products/create"),
           },
         ]}

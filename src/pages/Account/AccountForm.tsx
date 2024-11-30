@@ -26,49 +26,51 @@ const AccountForm = ({ formikRef, type, account, isFormLoading, isCustomer }: IA
   const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <>
-      <Formik
-        enableReinitialize
-        innerRef={formikRef}
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(data) => {
-          if (type === "create") {
-            dispatch(createAccount({ body: getSubmitData(data) }));
-          } else if (type === "update") {
-            dispatch(
-              updateAccount({
-                body: getSubmitData(data, isCustomer),
-                param: account?.id,
-              }),
-            );
-          }
-        }}
-      >
-        {(formikData) => {
-          return (
-            <Row gutter={[24, 24]}>
-              <Col span={24}>
-                <div className="flex flex-col gap-6">
-                  <Row gutter={[24, 24]}>
-                    <Col xxl={{ span: 18, order: 2 }} xl={{ span: 16, order: 2 }} xs={{ span: 24, order: 1 }} className="h-full">
-                      <GeneralGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
-                    </Col>
-                    <Col xxl={{ span: 6, order: 2 }} xl={{ span: 8, order: 2 }} xs={{ span: 24, order: 1 }}>
-                      <AvatarGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
-                    </Col>
-                  </Row>
-                  {!(type === "view" || isCustomer) && formikData.values.addresses.length !== 0 && (
-                    <AddressGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
-                  )}
-                  <OtherGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
-                </div>
-              </Col>
-            </Row>
+    <Formik
+      enableReinitialize
+      innerRef={formikRef}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(data) => {
+        if (type === "create") {
+          dispatch(createAccount({ body: getSubmitData(data) }));
+        } else if (type === "update") {
+          dispatch(
+            updateAccount({
+              body: getSubmitData(data, isCustomer),
+              param: account?.id,
+            }),
           );
-        }}
-      </Formik>
-    </>
+        }
+      }}
+    >
+      {(formikData) => {
+        let showAddressGroup = true
+        if(type === "view" || isCustomer) {
+          showAddressGroup = formikData.values.addresses.length !== 0
+        }
+        return (
+          <Row gutter={[24, 24]}>
+            <Col span={24}>
+              <div className="flex flex-col gap-6">
+                <Row gutter={[24, 24]}>
+                  <Col xxl={{ span: 18, order: 2 }} xl={{ span: 16, order: 2 }} xs={{ span: 24, order: 1 }} className="h-full">
+                    <GeneralGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                  </Col>
+                  <Col xxl={{ span: 6, order: 2 }} xl={{ span: 8, order: 2 }} xs={{ span: 24, order: 1 }}>
+                    <AvatarGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                  </Col>
+                </Row>
+                {showAddressGroup && (
+                  <AddressGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+                )}
+                <OtherGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
+              </div>
+            </Col>
+          </Row>
+        );
+      }}
+    </Formik>
   );
 };
 
