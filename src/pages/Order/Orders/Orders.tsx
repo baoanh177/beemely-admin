@@ -93,7 +93,7 @@ const Orders = () => {
         };
       }) || []
     );
-  }, [state]);
+  }, [state.orders]);
 
   const tableColumns = getTableColumns(dispatch);
   return (

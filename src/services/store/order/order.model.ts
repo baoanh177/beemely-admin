@@ -28,6 +28,8 @@ export enum EStatusOrder {
   PROCESSING = "processing",
   DELIVERING = "delivering",
   DELIVERED = "delivered",
+  COMPENSATING = "compensating",
+  COMPENSATED = "compensated",
   SUCCESS = "success",
   CANCELLED = "cancelled",
   REQUEST_RETURN = "request_return",

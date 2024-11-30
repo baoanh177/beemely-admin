@@ -1,19 +1,17 @@
 import ManagementGrid from "@/components/grid/ManagementGrid";
-import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import ImageTable from "@/components/table/ImageTable";
 import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IStatsInitialState, setFilter } from "@/services/store/stats/stats.slice";
 import { deleteReview, getLatestReviews } from "@/services/store/stats/stats.thunk";
-import { Avatar } from "antd";
+import { Avatar, Card } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { format } from "date-fns";
 import { useMemo } from "react";
-import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import "../styles/index.css";
 import { EButtonTypes } from "@/shared/enums/button";
+import "../styles/index.css";
 
 const LatestReviewsStats = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
@@ -43,17 +41,6 @@ const LatestReviewsStats = () => {
     return [];
   }, [state.reviews]);
 
-  const defaultSearch: IDefaultSearchProps = {
-    input: {
-      type: "text",
-      name: "name",
-      icon: IoSearchOutline,
-      onChange: (value) => {
-        dispatch(setFilter({ ...state.filter, name: value }));
-      },
-      placeholder: "Tìm kiếm theo tên. . .",
-    },
-  };
   const columns: ColumnsType<any> = [
     {
       dataIndex: "product",
@@ -105,14 +92,13 @@ const LatestReviewsStats = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-4">
-      <div className="font-bold"> Đánh giá gần đây nhất</div>
+    <Card>
+      <p className="mb-6 text-base font-medium md:text-2xl">Đánh giá gần đây nhất</p>
       <ManagementGrid
         columns={columns}
         isTableLoading={loading}
         data={data}
         setFilter={setFilter}
-        search={defaultSearch}
         buttons={[
           {
             type: EButtonTypes.DELETE,
@@ -122,7 +108,7 @@ const LatestReviewsStats = () => {
           },
         ]}
       />
-    </div>
+    </Card>
   );
 };
 

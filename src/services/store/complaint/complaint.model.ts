@@ -5,6 +5,7 @@ export interface IComplaint {
   reason: EComplaintReason;
   description: string;
   images: string[];
+  rejectReason?: string;
   status: EComplaintStatus;
 }
 export enum EComplaintReason {
@@ -18,8 +19,10 @@ export enum EComplaintReason {
 export enum EComplaintStatus {
   PENDING = "PENDING",
   RESOLVED = "RESOLVED",
-  CANCELLED = "CANCELLED",
+  REJECTED = "REJECTED",
   WITHDRAWN = "WITHDRAWN",
+  PROCESSING = "PROCESSING",
+  COMPENSATE = "COMPENSATE",
 }
 
 export const COMPLAINT_REASONS = [
@@ -39,15 +42,18 @@ export const COMPLAINT_REASONS_CONVERT: Record<EComplaintReason, string> = {
 };
 
 export const COMPLAINT_STATUS = [
-  { value: EComplaintStatus.PENDING, label: "Đang xử lý" },
+  { value: EComplaintStatus.PENDING, label: "Đang chờ xử lý" },
+  { value: EComplaintStatus.PROCESSING, label: "Đang xử lý" },
   { value: EComplaintStatus.RESOLVED, label: "Đã xử lý" },
-  { value: EComplaintStatus.CANCELLED, label: "Đã hủy" },
+  { value: EComplaintStatus.REJECTED, label: "Đã hủy" },
   { value: EComplaintStatus.WITHDRAWN, label: "Đã rút lại" },
 ];
 
 export const COMPLAINT_STATUS_CONVERT: Record<EComplaintStatus, string> = {
-  PENDING: "Đang xử lý",
+  PENDING: "Đang chờ xử lý",
   RESOLVED: "Đã được chấp nhận",
-  CANCELLED: "Bị từ chối",
+  REJECTED: "Bị từ chối",
   WITHDRAWN: "Người dùng thu hồi khiếu nại",
+  PROCESSING: "Đang chờ xử lý",
+  COMPENSATE: "Gửi bù hàng",
 };

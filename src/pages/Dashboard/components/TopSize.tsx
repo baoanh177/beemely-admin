@@ -67,12 +67,9 @@ const TopSize = () => {
     setDateType(value);
   };
   return (
-    <Card className="flex max-h-[450px] min-w-[400px] flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="font-black">Màu được mua nhiều nhất</p>
-          <p>Trong 1 {dateType === "today" || dateType === "yesterday" ? "ngày" : dateType.includes("month") ? "tháng" : "năm"} gần nhất</p>
-        </div>
+    <Card className="flex flex-col">
+      <div className="mb-6 flex items-center justify-between">
+        <p className="text-base font-medium md:text-2xl">Màu được mua nhiều nhất</p>
         <Select
           defaultValue="this_week"
           style={{ width: 120 }}

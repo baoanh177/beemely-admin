@@ -1,33 +1,28 @@
 import { EComplaintStatus } from "@/services/store/complaint/complaint.model";
 import clsx from "clsx";
 
-export interface ComplaintStatusBadgeProps {
+export const COMPLAINT_STATUS_CONVERT: Record<EComplaintStatus, { text: string; colorClass: string }> = {
+  PENDING: { text: "Đang chờ xử lý", colorClass: "bg-yellow-400 text-yellow-700" },
+  PROCESSING: { text: "Đang xử lý", colorClass: "bg-blue-400 text-blue-700" },
+  RESOLVED: { text: "Đã xử lý", colorClass: "bg-green-400 text-green-700" },
+  REJECTED: { text: "Bị từ chối", colorClass: "bg-red-400 text-red-600" },
+  WITHDRAWN: { text: "Người dùng thu hồi khiếu nại", colorClass: "bg-gray-400 text-gray-700" },
+  COMPENSATE: { text: "Đã xử lý", colorClass: "bg-green-400 text-green-700" },
+};
+
+interface ComplaintStatusBadgeProps {
   status: EComplaintStatus;
-  disabled?: boolean;
 }
 
-const CONVERT_STATUS: Record<EComplaintStatus, string> = {
-  WITHDRAWN: "Người dùng thu hồi khiếu nại",
-  CANCELLED: "Đã bị từ chối",
-  RESOLVED: "Đã giải quyết",
-  PENDING: "Đang chờ giải quyết",
-};
-
-const ComplaintStatusBadge: React.FC<ComplaintStatusBadgeProps> = ({ status, disabled = false }) => {
-  const colorMapping: Record<EComplaintStatus, string> = {
-    [EComplaintStatus.PENDING]: disabled ? "bg-orange-100 text-orange-300" : "bg-orange-50 text-orange-500",
-    [EComplaintStatus.RESOLVED]: disabled ? "bg-green-100 text-green-300" : "bg-green-50 text-green-600",
-    [EComplaintStatus.CANCELLED]: disabled ? "bg-red-100 text-red-300" : "bg-red-50 text-red-500",
-    [EComplaintStatus.WITHDRAWN]: disabled ? "bg-yellow-100 text-yellow-300" : "bg-yellow-50 text-yellow-500",
-  };
-
-  const className = colorMapping[status] || "bg-gray-50 text-gray-500";
-
-  return (
-    <div className={clsx(className, "inline-block text-nowrap rounded-lg border-none px-[10px] py-1 text-center text-sm font-normal")}>
-      {CONVERT_STATUS[status]}
+const ComplaintStatusBadge = ({ status }: ComplaintStatusBadgeProps) => (
+  <div className="flex items-center justify-center">
+    <div
+      role="button"
+      className={clsx("text-nowrap rounded-lg bg-opacity-45 px-3 py-1 text-sm capitalize", COMPLAINT_STATUS_CONVERT[status].colorClass)}
+    >
+      {COMPLAINT_STATUS_CONVERT[status].text}
     </div>
-  );
-};
+  </div>
+);
 
 export default ComplaintStatusBadge;
