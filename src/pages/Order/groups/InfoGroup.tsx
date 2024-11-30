@@ -1,6 +1,6 @@
-import StatusBadge from "@/components/common/StatusBadge";
 import FormGroup from "@/components/form/FormGroup";
 import { format } from "date-fns";
+import OrderStatusBadge from "./OrderStatusBadge";
 
 const InfoGroup = ({ order }: any) => {
   const formattedDate = format(new Date(order.createdAt), "dd/MM/yyyy, hh:mm a");
@@ -14,19 +14,7 @@ const InfoGroup = ({ order }: any) => {
         <div className="font-[13.3px] text-[#5e6e82]">{formattedDate}</div>
         <div className="flex flex-row gap-4">
           <span className="tracking-wide">Trạng thái: </span>
-          {order.orderStatus === "pending" ? (
-            <StatusBadge text={"Chờ xác nhận"} color="yellow" />
-          ) : order.orderStatus === "success" ? (
-            <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
-          ) : order.orderStatus === "cancelled" ? (
-            <StatusBadge text={"Đã hủy"} color="red" />
-          ) : order.orderStatus === "processing" ? (
-            <StatusBadge text={" Đang chuẩn bị hàng"} color="blue" />
-          ) : order.orderStatus === "shipped" ? (
-            <StatusBadge text={"Đang giao hàng"} color="darkgreen" />
-          ) : (
-            <StatusBadge text={" Đã giao thành công"} color="green-capital" />
-          )}{" "}
+          <OrderStatusBadge status={order.orderStatus} color={order.orderStatus} />
         </div>
       </div>
     </FormGroup>

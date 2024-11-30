@@ -1,14 +1,12 @@
-import imgPayos from "@/assets/images/Payos Logo.svg";
-import imgVnPay from "@/assets/images/vnpay.webp";
 import PaymentStatusBadge from "@/components/common/PaymentStatusBadge";
 import StatusBadge from "@/components/common/StatusBadge";
 import { EComplaintStatus, IComplaint } from "@/services/store/complaint/complaint.model";
-import { EPaymentStatus } from "@/services/store/order/order.model";
+import { EPaymentStatus, EStatusOrder } from "@/services/store/order/order.model";
 import { updateOrder } from "@/services/store/order/order.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import { Avatar, Image, message, Modal, Select } from "antd";
+import { Avatar, message, Modal, Select } from "antd";
 import toast from "react-hot-toast";
 import { IoEyeOutline } from "react-icons/io5";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
@@ -18,20 +16,21 @@ import { updateOrderComplaint } from "@/services/store/complaint/complaint.thunk
 import { IComplaintInitialState } from "@/services/store/complaint/complaint.slice";
 import { IoMdClose } from "react-icons/io";
 import clsx from "clsx";
-
-// type ResolvedOrCancelled = EComplaintStatus.RESOLVED | EComplaintStatus.REJECTED;
+import ComplaintStatusBadge from "./ComplaintStatusBadge";
 
 const { Option } = Select;
 const { confirm, destroyAll } = Modal;
 export const getTableColumns: any = (dispatch: any) => {
   const { dispatch: complaintDispatch } = useArchive<IComplaintInitialState>("complaints");
+  const navigate = useNavigate();
 
-  const handleChangeStatus = async (id: string, status: EComplaintStatus) => {
+  const handleChangeStatus = async (id: string, status: EComplaintStatus, reason: string | undefined) => {
     await complaintDispatch(
       updateOrderComplaint({
         param: id,
         body: {
           status,
+          reject_reason: reason,
         },
       }),
     ).then(() => {
@@ -40,7 +39,36 @@ export const getTableColumns: any = (dispatch: any) => {
       destroyAll();
     });
   };
-  const navigate = useNavigate();
+
+  const getStatusBadgeProps = (status: EStatusOrder) => {
+    switch (status) {
+      case "pending":
+        return { text: "Chờ xác nhận", color: "yellow" };
+      case "processing":
+        return { text: "Đang chuẩn bị hàng", color: "blue" };
+      case "delivering":
+        return { text: "Đang giao hàng", color: "black" };
+      case "compensating":
+        return { text: "Gửi bù hàng", color: "black" };
+      case "compensated":
+        return { text: "Đã giao bù hàng", color: "green" };
+      case "request_return":
+        return { text: "Yêu cầu hoàn trả", color: "orange" };
+      case "denied_return":
+        return { text: "Hủy y/c hoàn trả", color: "gray" };
+      case "returning":
+        return { text: "Đang hoàn trả", color: "lightblue" };
+      case "returned":
+        return { text: "Đã hoàn trả", color: "purple" };
+      case "cancelled":
+        return { text: "Hủy đơn", color: "red" };
+      case "success":
+        return { text: "Nhận hàng thành công", color: "darkgreen" };
+      default:
+        return { text: "Không xác định", color: "gray" };
+    }
+  };
+
   return [
     {
       title: "Mã đơn hàng",
@@ -80,19 +108,6 @@ export const getTableColumns: any = (dispatch: any) => {
       render: (address: string) => <span className="line-clamp-1">{address}</span>,
     },
     {
-      title: "Phương thức thanh toán",
-      dataIndex: "paymentType",
-      render: (paymentType: string) => (
-        <>
-          {paymentType === "payos" ? (
-            <Image width={100} height={40} preview={false} src={imgPayos} />
-          ) : (
-            <Image width={90} height={20} preview={false} src={imgVnPay} />
-          )}{" "}
-        </>
-      ),
-    },
-    {
       title: "Trạng thái thanh toán",
       dataIndex: "paymentStatus",
       render: (status: EPaymentStatus) => <PaymentStatusBadge status={status} text={status} />,
@@ -102,7 +117,14 @@ export const getTableColumns: any = (dispatch: any) => {
       dataIndex: "orderStatus",
       render: (_: any, record: any) => {
         const isDisabled = (status: string) => {
-          if (record.orderStatus === "pending" && status !== "processing" && status !== "cancelled" && status !== "pending") {
+          if (
+            record.orderStatus === "pending" &&
+            record.orderStatus === "compensating" &&
+            status !== "compensated" &&
+            status !== "processing" &&
+            status !== "cancelled" &&
+            status !== "pending"
+          ) {
             return true;
           }
           if (record.orderStatus === "processing" && status !== "delivering" && status !== "processing") {
@@ -120,6 +142,12 @@ export const getTableColumns: any = (dispatch: any) => {
           if (record.orderStatus === "delivered" && status !== "delivered") {
             return true;
           }
+          if (record.orderStatus === "compensating" && status !== "compensated") {
+            return true;
+          }
+          if (record.orderStatus === "compensated" && status !== "compensated") {
+            return true;
+          }
           if (record.orderStatus === "success" && status !== "success") {
             return true;
           }
@@ -135,41 +163,14 @@ export const getTableColumns: any = (dispatch: any) => {
           return false;
         };
 
-        const getStatusBadgeProps = (status: string) => {
-          switch (status) {
-            case "pending":
-              return { text: "Chờ xác nhận", color: "yellow" };
-            case "processing":
-              return { text: "Đang chuẩn bị hàng", color: "blue" };
-            case "delivering":
-              return { text: "Đang giao hàng", color: "black" };
-            case "delivered":
-              return { text: "Giao hàng thành công", color: "green" };
-            case "request_return":
-              return { text: "Yêu cầu hoàn trả", color: "orange" };
-            case "denied_return":
-              return { text: "Hủy y/c hoàn trả", color: "gray" };
-            case "returning":
-              return { text: "Đang hoàn trả", color: "lightblue" };
-            case "returned":
-              return { text: "Đã hoàn trả", color: "purple" };
-            case "cancelled":
-              return { text: "Hủy đơn", color: "red" };
-            case "success":
-              return { text: "Nhận hàng thành công", color: "darkgreen" };
-            default:
-              return { text: "Không xác định", color: "gray" };
-          }
-        };
-
         return (
           <Select
             className="tho-border"
-            onChange={(status: string) => {
+            onChange={async (status: string) => {
               if (record.orderStatus === "request_return") {
                 return;
               } else {
-                dispatch(
+                await dispatch(
                   updateOrder({
                     body: { order_status: status },
                     param: record.id,
@@ -187,7 +188,7 @@ export const getTableColumns: any = (dispatch: any) => {
             defaultValue={record.orderStatus}
             style={{ width: 200 }}
           >
-            {record.paymentStatus === "completed" ? (
+            {record.paymentStatus === "completed" && record.orderStatus !== "compensating" ? (
               <>
                 <Option key={"pending"} value="pending" disabled={isDisabled("pending")}>
                   <StatusBadge text="Chờ xác nhận" color="yellow" disabled={isDisabled("pending")} />
@@ -213,12 +214,16 @@ export const getTableColumns: any = (dispatch: any) => {
                   <StatusBadge text="Đang hoàn trả" color="lightblue" disabled={isDisabled("returning")} />
                 </Option>
 
+                <Option key={"returned"} value="returned" disabled={isDisabled("returned")}>
+                  <StatusBadge text="Đã hoàn trả" color="purple" disabled={isDisabled("returned")} />
+                </Option>
+
                 <Option key={"denied_return"} value="denied_return" disabled={isDisabled("denied_return")}>
                   <StatusBadge text="Hủy y/c hoàn trả" color="gray" disabled={isDisabled("denied_return")} />
                 </Option>
 
-                <Option key={"returned"} value="returned" disabled={isDisabled("returned")}>
-                  <StatusBadge text="Đã hoàn trả" color="purple" disabled={isDisabled("returned")} />
+                <Option key={"compensated"} value="compensated" disabled={isDisabled("compensated")}>
+                  <StatusBadge text="Đã gửi bù hàng" color="green" disabled={isDisabled("compensated")} />
                 </Option>
 
                 <Option key={"cancelled"} value="cancelled" disabled={isDisabled("cancelled")}>
@@ -227,6 +232,16 @@ export const getTableColumns: any = (dispatch: any) => {
 
                 <Option key={"success"} value="success" disabled={isDisabled("success")}>
                   <StatusBadge text="Đã nhận hàng" color="darkgreen" disabled={isDisabled("success")} />
+                </Option>
+              </>
+            ) : record.orderStatus === "compensating" ? (
+              <>
+                <Option key={"compensating"} value="compensating" disabled={isDisabled("compensating")}>
+                  <StatusBadge text="Gửi bù hàng" color="lightblue" disabled={isDisabled("compensating")} />
+                </Option>
+
+                <Option key={"compensated"} value="compensated" disabled={isDisabled("compensated")}>
+                  <StatusBadge text="Đã gửi bù hàng" color="green" disabled={isDisabled("compensated")} />
                 </Option>
               </>
             ) : (
@@ -255,20 +270,9 @@ export const getTableColumns: any = (dispatch: any) => {
                   content: <ComplaintItem complaint={complaint} onUpdateStatus={handleChangeStatus} />,
                 })
               }
-              className={clsx(
-                "text-nowrap rounded-3xl bg-opacity-45 px-3 py-1 text-sm font-thin capitalize",
-                complaint.status === EComplaintStatus.RESOLVED ||
-                  complaint.status === EComplaintStatus.REJECTED ||
-                  complaint.status === EComplaintStatus.WITHDRAWN
-                  ? "bg-green-400 text-green-700"
-                  : "bg-red-400 text-red-600",
-              )}
+              className={clsx("text-nowrap rounded-3xl bg-opacity-45 px-3 py-1 text-sm font-thin capitalize")}
             >
-              {complaint.status === EComplaintStatus.RESOLVED ||
-              complaint.status === EComplaintStatus.REJECTED ||
-              complaint.status === EComplaintStatus.WITHDRAWN
-                ? "Đã xử lý"
-                : "Chưa xử lý"}
+              <ComplaintStatusBadge status={complaint.status} />
             </div>
           ) : (
             <div className="h-3 w-8 rounded-3xl bg-green-400 bg-opacity-20" />

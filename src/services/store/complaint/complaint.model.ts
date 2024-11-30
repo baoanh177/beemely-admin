@@ -5,6 +5,7 @@ export interface IComplaint {
   reason: EComplaintReason;
   description: string;
   images: string[];
+  rejectReason?: string;
   status: EComplaintStatus;
 }
 export enum EComplaintReason {
@@ -54,5 +55,5 @@ export const COMPLAINT_STATUS_CONVERT: Record<EComplaintStatus, string> = {
   REJECTED: "Bị từ chối",
   WITHDRAWN: "Người dùng thu hồi khiếu nại",
   PROCESSING: "Đang chờ xử lý",
-  COMPENSATE: "Đang gửi bù hàng",
+  COMPENSATE: "Gửi bù hàng",
 };
