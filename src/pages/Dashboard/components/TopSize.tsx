@@ -69,7 +69,7 @@ const TopSize = () => {
   return (
     <Card className="flex flex-col">
       <div className="mb-6 flex items-center justify-between">
-        <p className="text-base font-medium md:text-2xl">Màu được mua nhiều nhất</p>
+        <p className="text-base font-medium md:text-2xl">Cỡ được mua nhiều nhất</p>
         <Select
           defaultValue="this_week"
           style={{ width: 120 }}
