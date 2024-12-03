@@ -28,7 +28,7 @@ const SizeForm = ({ formikRef, type, size, isFormLoading = false, categories = [
   const { dispatch } = useArchive<ISizeInitialState>("size");
   const initialValues: ISizeFormInitialValues = {
     name: size?.name || "",
-    gender: size?.gender.id || null,
+    gender: size?.gender?.id || null,
   };
 
   const sizeSchema = object().shape({

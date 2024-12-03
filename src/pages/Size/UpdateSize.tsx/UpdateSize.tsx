@@ -45,7 +45,7 @@ const UpdateSize = () => {
       if (formikRef.current) {
         formikRef.current.setValues({
           name: state.activeSize.name,
-          gender: state.activeSize.gender.id,
+          gender: state.activeSize?.gender?.id,
         });
       }
     }

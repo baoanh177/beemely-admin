@@ -117,14 +117,7 @@ export const getTableColumns: any = (dispatch: any) => {
       dataIndex: "orderStatus",
       render: (_: any, record: any) => {
         const isDisabled = (status: string) => {
-          if (
-            record.orderStatus === "pending" &&
-            record.orderStatus === "compensating" &&
-            status !== "compensated" &&
-            status !== "processing" &&
-            status !== "cancelled" &&
-            status !== "pending"
-          ) {
+          if (record.orderStatus === "pending" && status !== "processing" && status !== "cancelled" && status !== "pending") {
             return true;
           }
           if (record.orderStatus === "processing" && status !== "delivering" && status !== "processing") {
