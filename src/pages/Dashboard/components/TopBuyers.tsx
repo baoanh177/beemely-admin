@@ -16,6 +16,7 @@ import {
   FaCalendarAlt,
   FaVenusMars,
 } from "react-icons/fa";
+import DefaultAvatar from "@/assets/images/avatar.png";
 
 const TopBuyers = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
@@ -105,7 +106,7 @@ const TopBuyers = () => {
                 <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
                   <div className="relative">
                     <div className="h-20 w-20 overflow-hidden rounded-full border-4 border-gray-100 shadow-inner">
-                      <img src={user.avatarUrl || "null"} alt={user.fullName} className="h-full w-full object-cover" />
+                      <img src={user.avatarUrl || DefaultAvatar} alt={user.fullName} className="h-full w-full object-cover" />
                     </div>
                     {index === 0 && <FaStar className="absolute -right-2 -top-2 h-6 w-6 text-yellow-400" />}
                   </div>
