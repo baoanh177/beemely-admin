@@ -3,6 +3,7 @@ export interface IBrand {
   name: string;
   image: string;
   description?: string;
+  productCount: number;
 }
 export interface IBrandResponse {
   message: string;

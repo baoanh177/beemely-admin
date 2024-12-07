@@ -5,4 +5,5 @@ export interface ILabel {
   name: string;
   description?: string;
   status: EActiveStatus;
+  productCount: number;
 }

@@ -30,6 +30,7 @@ export interface IVoucherFormInitialValues {
   discount: number;
   discountTypes: "percentage" | "fixed";
   minimumOrderPrice: number;
+  maxReduce: number;
   voucherType: EVoucherType;
   status: EActiveStatus;
   startDate: Dayjs | null;
@@ -45,6 +46,15 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
     discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
     minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
+    maxReduce: yup.mixed().when("discountTypes", {
+      is: "percentage",
+      then: () =>
+        number()
+          .typeError("Giá trị giảm tối đa phải là số")
+          .positive("Giá trị giảm tối đa phải lớn hơn 0")
+          .required("Giá trị giảm tối đa là bắt buộc khi loại giảm giá là phần trăm"),
+      otherwise: () => number().notRequired().nullable().min(0, "Giá trị giảm tối đa phải lớn hơn hoặc bằng 0"),
+    }),
     startDate: date().required("Vui lòng chọn ngày bắt đầu và ngày kết thúc").min(dayjs().startOf("day"), "Ngày bắt đầu phải từ hôm nay trở đi"),
     endDate: date().min(yup.ref("startDate"), "Ngày kết thúc phải sau ngày bắt đầu"),
   });
@@ -55,6 +65,15 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
     discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
     minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
+    maxReduce: yup.mixed().when("discountTypes", {
+      is: "percentage",
+      then: () =>
+        number()
+          .typeError("Giá trị giảm tối đa phải là số")
+          .positive("Giá trị giảm tối đa phải lớn hơn 0")
+          .required("Giá trị giảm tối đa là bắt buộc khi loại giảm giá là phần trăm"),
+      otherwise: () => number().notRequired().nullable().min(0, "Giá trị giảm tối đa phải lớn hơn hoặc bằng 0"),
+    }),
     startDate: date().required("Vui lòng chọn ngày bắt đầu và ngày kết thúc"),
     endDate: date().min(yup.ref("startDate"), "Ngày kết thúc phải sau ngày bắt đầu"),
   });
@@ -62,6 +81,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
   const initialValues: IVoucherFormInitialValues = {
     name: voucher?.name || "",
     code: voucher?.code || "",
+    maxReduce: voucher?.maxReduce || 0,
     maxUsage: voucher?.maxUsage || 0,
     discount: voucher?.discount || 0,
     discountTypes: voucher?.discountTypes || "percentage",
@@ -89,6 +109,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
           name: data.name,
           code: data.code,
           discount: data.discount,
+          max_reduce: data.maxReduce,
         };
         if (type === "create") {
           dispatch(createVoucher({ body: lodash.omit(transformedData, ["status"]) }));
@@ -120,6 +141,29 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               onChange={(e) => setFieldValue("code", e)}
               onBlur={handleBlur}
             />
+            <FormSelect
+              isDisabled={type === "view"}
+              label="Loại giảm giá"
+              placeholder="Chọn loại giảm giá..."
+              options={[
+                { label: "Percentage", value: "percentage" },
+                { label: "Fixed", value: "fixed" },
+              ]}
+              value={values.discountTypes}
+              error={touched.discountTypes ? errors.discountTypes : ""}
+              onChange={(value) => setFieldValue("discountTypes", value)}
+            />
+            <FormInput
+              isDisabled={type === "view" || values.discountTypes === "fixed"}
+              label="Giá trị giảm tối đa"
+              placeholder="Nhập giá trị giảm tối đa..."
+              name="maxReduce"
+              value={values.maxReduce}
+              error={touched.maxReduce ? errors.maxReduce : ""}
+              onChange={(e) => setFieldValue("maxReduce", e)}
+              onBlur={handleBlur}
+              type="number"
+            />
             <FormInput
               isDisabled={type === "view"}
               label="Số lần sử dụng tối đa"
@@ -142,18 +186,7 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
               onBlur={handleBlur}
               type="number"
             />
-            <FormSelect
-              isDisabled={type === "view"}
-              label="Loại giảm giá"
-              placeholder="Chọn loại giảm giá..."
-              options={[
-                { label: "Percentage", value: "percentage" },
-                { label: "Fixed", value: "fixed" },
-              ]}
-              value={values.discountTypes}
-              error={touched.discountTypes ? errors.discountTypes : ""}
-              onChange={(value) => setFieldValue("discountTypes", value)}
-            />
+
             <FormInput
               isDisabled={type === "view"}
               label="Giá trị đơn hàng tối thiểu"

@@ -65,6 +65,10 @@ const Genders = () => {
       dataIndex: "path",
       title: "Đường dẫn chuyển hướng",
     },
+    {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
+    },
   ];
 
   const data: ITableData[] = useMemo(() => {
@@ -75,6 +79,7 @@ const Genders = () => {
         slug: gender.slug,
         imageUrl: gender.imageUrl,
         path: gender.path,
+        productCount: gender.productCount,
       }));
     }
     return [];

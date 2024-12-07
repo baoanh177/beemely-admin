@@ -3,4 +3,5 @@ export interface IProductType {
   name: string;
   imageUrl: string;
   slug: string;
+  productCount: number;
 }

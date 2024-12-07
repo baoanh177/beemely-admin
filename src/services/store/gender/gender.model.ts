@@ -4,6 +4,7 @@ export interface IGender {
   slug: string;
   imageUrl: string;
   path: string;
+  productCount: number;
 }
 
 export interface IGenderResponse {

@@ -24,8 +24,20 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
     <div className="flex items-center justify-center gap-3">
       {buttons.map((button, index) => {
         let canAccess = true;
+        let canDelete = true;
         if (button.permission) {
           canAccess = checkPermission(state.profile?.listNamePermission, button.permission);
+        }
+
+        if (record.productCount && record.productCount > 0) {
+          canDelete = false;
+        }
+        if (record.orderCount && record.orderCount > 0) {
+          canDelete = false;
+        }
+
+        if (record.enableDelete !== undefined && record.enableDelete !== null && record.enableDelete === false) {
+          canDelete = false;
         }
 
         const canDisplay = canAccess && !(hides[button.type] ?? false);
@@ -80,7 +92,8 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
             );
           case EButtonTypes.DELETE:
             return (
-              canDisplay && (
+              canDisplay &&
+              canDelete && (
                 <Tooltip title="Xóa" key={index}>
                   <IoTrashBinOutline
                     className="cursor-pointer text-xl text-red-500"

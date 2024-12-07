@@ -75,8 +75,8 @@ const categorySlice = createSlice({
         state.categories = state.categories.filter((category) => category.id !== payload);
       })
       .addCase(deleteCategory.rejected, (state, { payload }: PayloadAction<any>) => {
+        state.message = payload.errors.message || "Không xóa được giới tính";
         state.status = EFetchStatus.REJECTED;
-        state.message = payload.message;
       });
   },
 });

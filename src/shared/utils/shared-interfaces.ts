@@ -55,4 +55,5 @@ export interface IGridButton {
   onClick: (record: { key: string; [key: string]: any }) => unknown;
   permission?: EPermissions;
   isHidden?: boolean;
+  isDisable?: boolean;
 }

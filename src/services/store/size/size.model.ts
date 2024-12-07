@@ -4,4 +4,5 @@ export interface ISize {
   id: string;
   name: string;
   gender: ICategory;
+  productCount: number;
 }

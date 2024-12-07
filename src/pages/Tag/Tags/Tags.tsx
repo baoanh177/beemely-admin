@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
 import ImageTable from "@/components/table/ImageTable";
-import { ITag } from "@/services/store/tag/tag.model";
 import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { IoSearchOutline } from "react-icons/io5";
 import StatusBadge from "@/components/common/StatusBadge";
@@ -72,7 +71,7 @@ const Tags = () => {
     [JSON.stringify(state.filter)],
   );
 
-  const columns: ColumnsType<ITag> = [
+  const columns: ColumnsType = [
     {
       dataIndex: "name",
       title: "Tên",
@@ -86,6 +85,10 @@ const Tags = () => {
     {
       dataIndex: "description",
       title: "Mô tả",
+    },
+    {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
     },
     {
       render: (record) => (record.parent_id ? record.parent_id.name : ""),
@@ -111,6 +114,7 @@ const Tags = () => {
         name: tag.name,
         image: tag.image,
         status: tag.status,
+        productCount: tag.productCount,
         description: tag.description,
         parent_id: tag.parentId,
       }));
