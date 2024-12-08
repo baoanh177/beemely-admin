@@ -26,7 +26,7 @@ const Login = () => {
     reset: resetStatus,
     actions: {
       success: {
-        message: "Logged in successfully",
+        message: "Đăng nhập thành công",
         navigate: "/dashboard",
       },
       error: {
