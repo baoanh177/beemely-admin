@@ -12,6 +12,7 @@ import { TiDeleteOutline, TiPlusOutline } from "react-icons/ti";
 import ButtonGhost from "../../../components/common/Button";
 import { IProductFormInitialValues } from "../ProductForm";
 import { generateVariantCombinations } from "../utils/generateVariantCombinations";
+import FormInput from "@/components/form/FormInput";
 
 interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
   product: IProduct | undefined;
@@ -99,16 +100,23 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
             <div key={index} className="mb-4">
               <div className="flex flex-wrap gap-4 [&>*]:grow [&>*]:basis-64">
                 <div className="flex flex-col">
-                  <FormSelect
+                  {/* <FormSelect
                     options={variantType.name === "color" ? [{ value: "color", label: "Màu sắc" }] : [{ value: "size", label: "Cỡ" }]}
                     label={`Loại biến thể ${index + 1}`}
                     placeholder="Chọn loại biến thể"
-                    value={variantType.name || undefined}
+                    defaultValue={variantType.name || undefined}
                     onChange={(value) => {
                       const newVariantTypes = [...variantTypes];
                       newVariantTypes[index] = { name: value, options: [] };
                       setVariantTypes(newVariantTypes);
                     }}
+                  /> */}
+                  <FormInput
+                    isReadonly={true}
+                    label={`Loại biến thể ${index + 1}`}
+                    defaultValue={variantType.name === "color" ? "Màu sắc" : " Cỡ"}
+                    error={touched.name ? errors.name : ""}
+                    placeholder="Nhập tên sản phẩm..."
                   />
                   {/* <Button
                     className="mt-1 max-w-40"
