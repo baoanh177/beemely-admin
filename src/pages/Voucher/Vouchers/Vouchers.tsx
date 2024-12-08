@@ -4,7 +4,6 @@ import { ITableData } from "@/components/table/PrimaryTable";
 import { useArchive } from "@/hooks/useArchive";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useFetchStatus from "@/hooks/useFetchStatus";
-import { IVoucher } from "@/services/store/voucher/voucher.model";
 import { IVoucherInitialState, resetStatus, setFilter } from "@/services/store/voucher/voucher.slice";
 import { deleteVoucher, getAllVouchers, updateVoucher } from "@/services/store/voucher/voucher.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
@@ -12,7 +11,7 @@ import { EPermissions } from "@/shared/enums/permissions";
 import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
 import { ColumnsType } from "antd/es/table";
-import {  useMemo } from "react";
+import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
@@ -60,7 +59,7 @@ const Vouchers = () => {
     [JSON.stringify(state.filter)],
   );
 
-  const columns: ColumnsType<IVoucher> = [
+  const columns: ColumnsType = [
     {
       dataIndex: "name",
       title: "Tên",
@@ -88,6 +87,10 @@ const Vouchers = () => {
       render: (date) => (date ? dayjs(date).format("DD/MM/YYYY") : ""),
     },
     {
+      dataIndex: "orderCount",
+      title: "Lượt dùng",
+    },
+    {
       dataIndex: "status",
       title: "Trạng thái",
       render(_, record) {
@@ -105,6 +108,7 @@ const Vouchers = () => {
       return state.vouchers.map((voucher) => ({
         ...voucher,
         voucherTypeName: voucher.voucherType,
+        orderCount: voucher.orderCount,
         key: voucher.id,
       }));
     }

@@ -77,7 +77,6 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
       setIsRejectModalVisible(true);
       setRejectionReason("");
     } else {
-      // Existing logic for non-rejected statuses
       Modal.confirm({
         title: (
           <p>

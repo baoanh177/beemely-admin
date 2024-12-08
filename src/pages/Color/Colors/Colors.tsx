@@ -45,12 +45,14 @@ const Colors = () => {
     [JSON.stringify(state.filter)],
   );
 
-  const columns: ColumnsType<ITableData> = [
+  const columns: ColumnsType = [
     {
+      key: "name",
       dataIndex: "name",
       title: "Tên",
     },
     {
+      key: "value",
       dataIndex: "value",
       title: "Mã màu",
       render: (value) => (
@@ -60,6 +62,11 @@ const Colors = () => {
         </div>
       ),
     },
+    {
+      key: "productCount",
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
+    },
   ];
 
   const data: ITableData[] = useMemo(() => {
@@ -68,6 +75,7 @@ const Colors = () => {
         key: color.id,
         name: color.name,
         value: color.value,
+        productCount: color.productCount,
       }));
     }
     return [];
@@ -84,7 +92,7 @@ const Colors = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        dispatch(deleteColor({ param: record.key }));
+        if (record.productCount === 0) dispatch(deleteColor({ param: record.key }));
       },
       permission: EPermissions.DELETE_COLOR,
     },

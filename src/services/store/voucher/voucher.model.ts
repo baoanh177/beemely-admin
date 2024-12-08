@@ -7,11 +7,13 @@ export interface IVoucher {
   name: string;
   code: string;
   maxUsage: number;
+  maxReduce: number;
   duration: number;
   discount: number;
   discountTypes: "percentage" | "fixed";
   minimumOrderPrice: number;
   voucherType: EVoucherType;
+  orderCount: number;
   status: EActiveStatus;
   startDate: Dayjs;
   endDate: Dayjs;

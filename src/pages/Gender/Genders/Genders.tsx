@@ -47,14 +47,6 @@ const Genders = () => {
 
   const columns: ColumnsType = [
     {
-      dataIndex: "name",
-      title: "Tên",
-    },
-    {
-      dataIndex: "slug",
-      title: "Slug",
-    },
-    {
       title: "Ảnh",
       dataIndex: "imageUrl",
       render: (imageUrl) => {
@@ -62,8 +54,17 @@ const Genders = () => {
       },
     },
     {
-      dataIndex: "path",
-      title: "Đường dẫn chuyển hướng",
+      dataIndex: "name",
+      title: "Tên",
+    },
+    {
+      dataIndex: "slug",
+      title: "Slug",
+    },
+
+    {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
     },
   ];
 
@@ -74,7 +75,7 @@ const Genders = () => {
         name: gender.name,
         slug: gender.slug,
         imageUrl: gender.imageUrl,
-        path: gender.path,
+        productCount: gender.productCount,
       }));
     }
     return [];

@@ -8,4 +8,5 @@ export interface ITag {
   image: string;
   parentId: ITag;
   status: EActiveStatus;
+  productCount: number;
 }

@@ -47,7 +47,7 @@ const Brands = () => {
     [JSON.stringify(state.filter)],
   );
 
-  const columns: ColumnsType<ITableData> = [
+  const columns: ColumnsType = [
     {
       title: "Tên",
       render: (record) => <ImageTable title={record?.name} imageSrc={record?.image} />,
@@ -55,6 +55,10 @@ const Brands = () => {
     {
       dataIndex: "description",
       title: "Mô tả",
+    },
+    {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
     },
   ];
 
@@ -67,6 +71,7 @@ const Brands = () => {
           name: brand.name,
           image: brand.image,
           description: brand.description,
+          productCount: brand.productCount,
         }));
     }
     return [];
