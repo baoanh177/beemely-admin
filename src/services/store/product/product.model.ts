@@ -28,6 +28,7 @@ export interface IProduct {
   productType: IProductType;
   status: number;
   dimensions: IDimensions;
+  enableDelete: boolean;
 }
 
 export interface IDimensions {

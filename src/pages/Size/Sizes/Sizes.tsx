@@ -44,7 +44,7 @@ const Sizes = () => {
     [JSON.stringify(state.filter)],
   );
 
-  const columns: ColumnsType<ITableData> = [
+  const columns: ColumnsType = [
     {
       dataIndex: "name",
       title: "Tên",
@@ -52,6 +52,10 @@ const Sizes = () => {
     {
       dataIndex: "gender",
       title: "Danh mục",
+    },
+    {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
     },
   ];
 
@@ -61,6 +65,7 @@ const Sizes = () => {
         key: size.id,
         name: size.name,
         gender: size.gender?.name ?? "Không xác định",
+        productCount: size.productCount,
       }));
     }
 

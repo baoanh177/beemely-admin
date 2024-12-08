@@ -44,6 +44,10 @@ const ProductTypes = () => {
       title: "Tên",
     },
     {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
+    },
+    {
       dataIndex: "slug",
       title: "Slug",
     },
@@ -55,6 +59,7 @@ const ProductTypes = () => {
         name: productType.name,
         imageUrl: productType.imageUrl,
         slug: productType.slug,
+        productCount: productType.productCount,
       }));
     }
     return [];

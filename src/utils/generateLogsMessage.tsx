@@ -8,9 +8,12 @@ const CONVERT_STATUS: Record<EStatusOrder, string> = {
   delivered: "Giao thành công",
   success: "Đã nhận hàng",
   cancelled: "Đã hủy",
-  request_return: "Yêu cầu hoàn trả",
+  request_return: "Đang khiếu nại",
   returned: "Đã hoàn trả",
   returning: "Đang hoàn trả",
+  compensated: "Đã giao bù",
+  compensating: "Đang giao bù",
+  denied_return: "Từ chối khiếu nại",
 };
 
 export const generateLogsMessage = (log: IOrderLog) => {

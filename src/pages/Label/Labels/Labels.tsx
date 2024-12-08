@@ -68,6 +68,10 @@ const Labels = () => {
       title: "Mô tả",
     },
     {
+      dataIndex: "productCount",
+      title: "Số lượng sản phẩm",
+    },
+    {
       dataIndex: "status",
       title: "Trạng thái",
       render(_, record) {
@@ -86,6 +90,7 @@ const Labels = () => {
         id: label.id,
         name: label.name,
         description: label.description,
+        productCount: label.productCount,
         status: label.status,
       }));
     }

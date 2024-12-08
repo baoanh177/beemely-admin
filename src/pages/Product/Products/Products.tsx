@@ -73,6 +73,7 @@ const Products = () => {
           discountPrice: product.variants[0]?.discountPrice,
           variants: product.variants.length,
           productBody: product,
+          enableDelete: product.enableDelete,
           variantsBody: product.variants.map((v) => {
             minPrice = Math.min(v.discountPrice, minPrice);
             maxPrice = Math.max(v.discountPrice, maxPrice);
