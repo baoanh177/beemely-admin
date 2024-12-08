@@ -9,6 +9,7 @@ import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 import { checkPermission } from "@/utils/checkPermission";
 import { GoLock, GoUnlock } from "react-icons/go";
 import { EActiveStatus } from "@/shared/enums/status";
+import { IoWarningOutline } from "react-icons/io5";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
@@ -92,18 +93,21 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
             );
           case EButtonTypes.DELETE:
             return (
-              canDisplay &&
-              canDelete && (
+              canDisplay && (
                 <Tooltip title="Xóa" key={index}>
                   <IoTrashBinOutline
                     className="cursor-pointer text-xl text-red-500"
-                    onClick={() => {
+                    onClick={() =>
                       confirm({
-                        title: "Xóa bản ghi?",
-                        content: "Bạn có chắc chắn muốn xóa bản ghi này, sau khi xóa sẽ không thể khôi phục!",
-                        onOk: () => button.onClick(record),
-                      });
-                    }}
+                        title: canDelete ? "Xóa bản ghi?" : "Không thể xóa!",
+                        closable: true,
+                        icon: <IoWarningOutline className="mr-2 h-6 w-6 text-orange-400" />,
+                        content: canDelete
+                          ? "Bạn có chắc chắn muốn xóa bản ghi này, sau khi xóa sẽ không thể khôi phục!"
+                          : "Bản ghi này liên quan tới các bản ghi khác, bạn không thể xóa!",
+                        onOk: canDelete ? () => button.onClick(record) : () => {},
+                      })
+                    }
                   />
                 </Tooltip>
               )
