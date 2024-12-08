@@ -70,7 +70,7 @@ const Products = () => {
           status: product.status,
           stock: product.variants.reduce((acc, v) => acc + v.stock, 0),
           price: product.variants[0]?.price,
-          discountPrice: product.variants[0].discountPrice,
+          discountPrice: product.variants[0]?.discountPrice,
           variants: product.variants.length,
           productBody: product,
           enableDelete: product.enableDelete,
