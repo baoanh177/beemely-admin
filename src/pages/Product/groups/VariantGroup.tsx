@@ -1,5 +1,5 @@
 import FormGroup from "@/components/form/FormGroup";
-import FormSelect from "@/components/form/FormSelect";
+import FormInput from "@/components/form/FormInput";
 import UploadImage from "@/components/form/UploadImage";
 import ColorForm, { IColorFormInitialValues } from "@/pages/Color/ColorForm";
 import { IColor } from "@/services/store/color/color.model";
@@ -12,7 +12,6 @@ import { TiDeleteOutline, TiPlusOutline } from "react-icons/ti";
 import ButtonGhost from "../../../components/common/Button";
 import { IProductFormInitialValues } from "../ProductForm";
 import { generateVariantCombinations } from "../utils/generateVariantCombinations";
-import FormInput from "@/components/form/FormInput";
 
 interface IVariantGroupProps extends FormikProps<IProductFormInitialValues> {
   product: IProduct | undefined;
@@ -309,7 +308,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                   key: "action",
                   render: (_, record, index) => (
                     <Button
-                      disabled={values.variants[index]?.enableDelete}
+                      disabled={!values.variants[index]?.enableDelete}
                       icon={<TiDeleteOutline />}
                       onClick={() => {
                         const newVariants = values.variants.filter(
