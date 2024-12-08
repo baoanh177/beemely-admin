@@ -45,12 +45,11 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
     });
   }, [filterSize, stateColor]);
 
-  const [variantTypes, setVariantTypes] = useState<any>([]);
+  const [variantTypes, setVariantTypes] = useState<any>([
+    { name: "size", options: [] },
+    { name: "color", options: [] },
+  ]);
 
-  const variantTypesOptions = [
-    { value: "color", label: "Màu sắc" },
-    { value: "size", label: "Kích thước" },
-  ];
   type VariantOptionKey = keyof typeof variantOptions;
 
   let newDataVariants: any;
@@ -101,7 +100,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
               <div className="flex flex-wrap gap-4 [&>*]:grow [&>*]:basis-64">
                 <div className="flex flex-col">
                   <FormSelect
-                    options={variantTypesOptions}
+                    options={variantType.name === "color" ? [{ value: "color", label: "Màu sắc" }] : [{ value: "size", label: "Cỡ" }]}
                     label={`Loại biến thể ${index + 1}`}
                     placeholder="Chọn loại biến thể"
                     value={variantType.name || undefined}
@@ -111,7 +110,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                       setVariantTypes(newVariantTypes);
                     }}
                   />
-                  <Button
+                  {/* <Button
                     className="mt-1 max-w-40"
                     type="text"
                     icon={<TiDeleteOutline />}
@@ -122,7 +121,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                     }}
                   >
                     Xóa biến thể
-                  </Button>
+                  </Button> */}
                 </div>
                 {variantType.name === "color" ? (
                   <div>
@@ -190,6 +189,12 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                         <ColorForm formikRef={formikRef} type="create" />
                       </Modal>
                     </div>
+
+                    {touched.productColors && (
+                      <span className="m-auto text-sm text-red-500">
+                        {typeof errors.productColors === "string" ? errors.productColors : null}
+                      </span>
+                    )}
                   </div>
                 ) : (
                   <div>
@@ -226,7 +231,7 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
           />
         ) : null}
 
-        {(variantTypes.length > 0 || dataVariants) && (
+        {(variantTypes.length > 0 || dataVariants) && values.productColors.length > 0 && (
           <div className="mt-4">
             <h3 className="mb-2 font-medium">Bảng giá và số lượng cho biến thể</h3>
             <Table
@@ -294,8 +299,9 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
                 {
                   title: "Hành động",
                   key: "action",
-                  render: (_, record) => (
+                  render: (_, record, index) => (
                     <Button
+                      disabled={values.variants[index]?.enableDelete}
                       icon={<TiDeleteOutline />}
                       onClick={() => {
                         const newVariants = values.variants.filter(
@@ -316,11 +322,17 @@ const VariantGroup = ({ values, errors, touched, setFieldValue, product, type, s
             />
           </div>
         )}
-        {touched.variants?.length === 0 && (
+        {touched.variants?.length! > 0 ? (
           <span className="m-auto text-sm text-red-500">
-            {typeof errors.variants === "string" ? errors.variants : Array.isArray(errors.variants) ? errors.variants.join(", ") : "Variant"}
+            {typeof errors.variants === "string"
+              ? errors.variants
+              : Array.isArray(errors.variants) && typeof errors.variants[0] !== "string"
+                ? errors.variants[0]?.price
+                : Array.isArray(errors.variants)
+                  ? errors.variants.join(", ")
+                  : null}
           </span>
-        )}
+        ) : null}
       </FormGroup>
     );
 };

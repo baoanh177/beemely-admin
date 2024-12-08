@@ -8,4 +8,5 @@ export interface IVariant {
   price: number;
   discountPrice: number;
   size: ISize;
+  enableDelete: boolean;
 }

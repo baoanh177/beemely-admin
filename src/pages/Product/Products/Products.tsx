@@ -14,7 +14,6 @@ import { EPermissions } from "@/shared/enums/permissions";
 import { EActiveStatus, EStatusName } from "@/shared/enums/status";
 import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
-import { GoDownload } from "react-icons/go";
 import { IoSearchOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { getGridButtons } from "../utils/dataTable";
@@ -148,11 +147,11 @@ const Products = () => {
         title="Sản phẩm"
         hasBreadcrumb
         buttons={[
-          {
-            text: "Xuất",
-            type: "ghost",
-            icon: <GoDownload className="text-[18px]" />,
-          },
+          // {
+          //   text: "Xuất",
+          //   type: "ghost",
+          //   icon: <GoDownload className="text-[18px]" />,
+          // },
           {
             text: "Tạo mới Sản phẩm",
             icon: <FaPlus className="text-[18px]" />,

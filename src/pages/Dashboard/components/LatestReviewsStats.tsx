@@ -30,7 +30,7 @@ const LatestReviewsStats = () => {
           id: review._id,
           key: review._id,
           user: review.user,
-          product: review.order_item.product,
+          product: review.order_item?.product,
           rating: review.rates,
           review: review.content,
           createdAt: formattedDate,
@@ -47,8 +47,8 @@ const LatestReviewsStats = () => {
       title: "Sản phẩm",
       render: (product: any) => (
         <div className="flex flex-row gap-4">
-          <ImageTable imageSrc={product.thumbnail} />
-          {product.name}
+          <ImageTable imageSrc={product?.thumbnail} />
+          {product?.name}
         </div>
       ),
     },
