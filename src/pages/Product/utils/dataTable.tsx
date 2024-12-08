@@ -51,11 +51,6 @@ export const getGridButtons = (dispatch: AppDispatch): IGridButton[] => {
       permission: EPermissions.UPDATE_PRODUCT,
     },
     {
-      type: EButtonTypes.VIEW,
-      onClick() {},
-      permission: EPermissions.READ_PRODUCT,
-    },
-    {
       type: EButtonTypes.UPDATE,
       onClick(record) {
         navigate(`/products/update/${record?.key}`);

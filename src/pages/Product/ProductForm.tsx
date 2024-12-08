@@ -78,10 +78,11 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
       product_type: values.productType,
       product_sizes: values.productSizes,
       variants: values.variants.map((e: any) => {
-        const { discountPrice, ...rest } = e;
+        const { discountPrice, enableDelete, ...rest } = e;
         return {
           ...rest,
           discount_price: discountPrice,
+          enable_delete: enableDelete,
         };
       }),
       dimensions: {
@@ -102,14 +103,15 @@ const ProductForm: React.FC<IProductFormProps> = ({ FormikRefType, type, product
       transformedData.product_colors = formatProductColor;
       dispatch(createProduct({ body: transformedData }));
     } else if (type === "update" && product) {
-      const formatVariant: any[] = values.variants.map((v) => {
+      const formatVariant: any[] = values.variants.map((v: any) => {
         if (typeof v === "object") {
-          const { discountPrice, ...rest } = v;
+          const { discountPrice, enableDelete, ...rest } = v;
           return {
             ...rest,
             color: v.color!.id ? v.color!.id : v.color,
             size: v.size.id ? v.size.id : v.size,
             discount_price: discountPrice,
+            enable_delete: enableDelete,
             stock: v.stock || 50,
           };
         }
