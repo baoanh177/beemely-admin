@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { messageCreator } from "@/services/config/message-creator";
 import { IVoucher } from "./voucher.model";
 
-const dataKeys: { [key in keyof Omit<IVoucher, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<IVoucher, "id" | "orderCount" | "maxReduce">]: string } = {
   name: "Tên giới tính",
   maxUsage: "Số lần sử dụng tối đa",
   code: "Mã giảm giá",

@@ -10,7 +10,7 @@ const dataKeys: Omit<IAddress, "id" | "default" | "userId"> = {
   city: "Tỉnh/Thành phố",
   commune: "Phường/Xã",
   district: "Quận/Huyện",
-  detail_address: "Địa chỉ chi tiết",
+  detailAddress: "Địa chỉ chi tiết",
 };
 
 export const createAddress = createAsyncThunk("address/create-address", async (payload: IThunkPayload, { rejectWithValue }) => {

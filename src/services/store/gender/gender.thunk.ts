@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { messageCreator } from "@/services/config/message-creator";
 import { IGender } from "./gender.model";
 
-const dataKeys: { [key in keyof Omit<IGender, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<IGender, "id" | "productCount">]: string } = {
   name: "Tên giới tính",
   slug: "Slug",
   imageUrl: "Hình ảnh",

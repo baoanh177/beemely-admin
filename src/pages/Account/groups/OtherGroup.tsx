@@ -14,7 +14,7 @@ interface IOtherGroupProps extends FormikProps<IAccountFormInitialValues> {
   isCustomer?: boolean;
 }
 
-const OtherGroup = ({ values, errors, touched, setFieldValue, isFormLoading, type, isCustomer }: IOtherGroupProps) => {
+const OtherGroup = ({ values, errors, touched, setFieldValue, isFormLoading, type }: IOtherGroupProps) => {
   const { state: roleState, dispatch } = useArchive<IRoleInitialState>("role");
 
   const roleOptions = useMemo(() => getRoleOptions(roleState.roles), [roleState.roles]);
@@ -30,7 +30,7 @@ const OtherGroup = ({ values, errors, touched, setFieldValue, isFormLoading, typ
         placeholder="Chọn vai trò..."
         isMultiple
         isRequired
-        isDisabled={type == "view"}
+        isDisabled={type === "view"}
         options={roleOptions}
         value={values.roles}
         onChange={(value) => {

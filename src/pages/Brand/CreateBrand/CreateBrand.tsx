@@ -12,7 +12,7 @@ import { IBrand } from "@/services/store/brand/brand.model";
 
 const CreateBrand = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IBrand>>(null);
+  const formikRef = useRef<FormikProps<Omit<IBrand, "productCount">>>(null);
   const { state } = useArchive<IBrandInitialState>("brand");
 
   useFetchStatus({

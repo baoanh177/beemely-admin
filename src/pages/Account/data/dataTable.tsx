@@ -70,6 +70,10 @@ export const getColumnsData = (): ColumnsType => {
       title: "Vai trò",
     },
     {
+      dataIndex: "orderCount",
+      title: "Số đơn hàng",
+    },
+    {
       dataIndex: "status",
       title: "Trạng thái",
       align: "center",
@@ -93,6 +97,7 @@ export const getAccountsData = (accounts: IAccount[], currentUser: IUserProfile)
       info: <ImageTable title={acc.fullName} imageSrc={acc.avatarUrl} description={acc.gender ? acc.gender.name : ""} />,
       email: acc.email,
       phone: acc.phone,
+      orderCount: acc.orderCount,
       roles: acc.roles.map((role, index) => (
         <div key={index} className="text-nowrap">
           {role.name}

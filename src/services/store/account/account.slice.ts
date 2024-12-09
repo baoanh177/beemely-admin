@@ -21,7 +21,7 @@ const initialState: IAccountInitialState = {
   },
   totalRecords: 0,
   accounts: [],
-  activeAccount: undefined
+  activeAccount: undefined,
 };
 
 const accountSlice = createSlice({
@@ -37,10 +37,9 @@ const accountSlice = createSlice({
       state.totalRecords = payload.totalDocs ?? 0;
     });
     // ? Get account by ID
-    builder
-      .addCase(getAccountById.fulfilled, (state, { payload }: PayloadAction<IResponse<IAccount>>) => {
-        state.activeAccount = payload.metaData
-      })
+    builder.addCase(getAccountById.fulfilled, (state, { payload }: PayloadAction<IResponse<IAccount>>) => {
+      state.activeAccount = payload.metaData;
+    });
     // ? Create account
     builder
       .addCase(createAccount.pending, (state) => {
@@ -48,10 +47,10 @@ const accountSlice = createSlice({
       })
       .addCase(createAccount.fulfilled, (state) => {
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Tạo mới tài khoản thành công"
+        state.message = "Tạo mới tài khoản thành công";
       })
       .addCase(createAccount.rejected, (state, { payload }: PayloadAction<any>) => {
-        state.message = payload.message
+        state.message = payload.message;
         state.status = EFetchStatus.REJECTED;
       });
     // ? Update account
@@ -62,11 +61,11 @@ const accountSlice = createSlice({
       .addCase(updateAccount.fulfilled, (state, { payload }) => {
         state.accounts = state.accounts.map((acc) => (acc.id === payload.metaData.id ? payload.metaData : acc));
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Cập nhật tài khoản thành công"
+        state.message = "Cập nhật tài khoản thành công";
       })
       .addCase(updateAccount.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = payload.message
+        state.message = payload.message;
       });
     // ? Delete account
     builder
@@ -76,24 +75,24 @@ const accountSlice = createSlice({
       .addCase(deleteAccount.fulfilled, (state, { payload }) => {
         state.accounts = state.accounts.filter((acc) => acc.id !== payload);
         state.status = EFetchStatus.FULFILLED;
-        state.message = "Xóa tài khoản thành công"
+        state.message = "Xóa tài khoản thành công";
       })
       .addCase(deleteAccount.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = payload.message
+        state.message = payload.errors.message || "Không thể xóa người dùng lúc này!";
       });
     // ? Delete account
     builder
       .addCase(changePassword.pending, (state) => {
         state.status = EFetchStatus.PENDING;
       })
-      .addCase(changePassword.fulfilled, (state, { payload }) => {
+      .addCase(changePassword.fulfilled, (state) => {
         state.status = EFetchStatus.IDLE;
-        toast.success("Thay đổi mật khẩu thành công")
+        toast.success("Thay đổi mật khẩu thành công");
       })
       .addCase(changePassword.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = payload.message
+        state.message = payload.message;
       });
   },
 });

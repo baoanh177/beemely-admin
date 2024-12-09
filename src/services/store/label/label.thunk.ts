@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { ILabel } from "./label.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<ILabel, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<ILabel, "id" | "productCount">]: string } = {
   name: "Tên label",
   description: "Mô tả",
   status: "Trạng thái",

@@ -39,7 +39,8 @@ const UpdateProductType = () => {
     if (state.activeProductType) {
       if (formikRef.current) {
         formikRef.current.setValues({
-          name: state.activeProductType.name,
+          name: state.activeProductType.name || "",
+          imageUrl: state.activeProductType.imageUrl || "",
         });
       }
     }

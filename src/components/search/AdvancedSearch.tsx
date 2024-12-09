@@ -44,7 +44,7 @@ const AdvancedSearch = ({ advanced }: IAdvancedSearchProps) => {
             checkedText={field.checkedText}
             uncheckedText={field.uncheckedText}
             onChange={field.onChange}
-            idDisabled={field.idDisabled}
+            isDisabled={field.isDisabled}
             label={field.label}
           />
         );

@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { IColor } from "./color.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<IColor, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<IColor, "id" | "productCount">]: string } = {
   name: "Tên màu",
   value: "Giá trị màu",
 };
