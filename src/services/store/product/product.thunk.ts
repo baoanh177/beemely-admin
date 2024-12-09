@@ -4,7 +4,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IProduct } from "./product.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<IProduct, "id">]: string | number | any } = {
+const dataKeys: {
+  [key in keyof Omit<IProduct, "id" | "orderCount" | "sortDescription" | "dimensions" | "enableDelete">]: string | number | any;
+} = {
   name: "Tên sản phẩm",
   slug: "Đường dẫn",
   description: "Mô tả",

@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { ISize } from "./size.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<ISize, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<ISize, "id" | "productCount">]: string } = {
   name: "Tên kích cỡ",
   gender: "Danh mục",
 };

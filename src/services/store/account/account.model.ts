@@ -14,4 +14,5 @@ export interface IAccount {
   roles: IRole[];
   status: EActiveStatus;
   vouchers: unknown[];
+  orderCount: number;
 }

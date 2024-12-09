@@ -57,7 +57,7 @@ const AdvancedSearchSecondary = ({ advanced }: IAdvancedSearchSecondaryProps) =>
             checkedText={field.checkedText}
             uncheckedText={field.uncheckedText}
             onChange={(checked: boolean) => handleAdvancedChange(checked)}
-            idDisabled={field.idDisabled}
+            isDisabled={field.isDisabled}
             label={field.label}
           />
         );

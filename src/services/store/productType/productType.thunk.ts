@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { client } from "@/services/config/client";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<IProductType, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<IProductType, "id" | "productCount">]: string } = {
   name: "Tên productTypes",
   imageUrl: "Hình ảnh",
   slug: "Slug",

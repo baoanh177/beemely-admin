@@ -44,7 +44,7 @@ const FlagPages = () => {
     [JSON.stringify(state.filter)],
   );
 
-  const columns: ColumnsType<ITableData> = [
+  const columns: ColumnsType = [
     {
       dataIndex: "name",
       title: "Tên",

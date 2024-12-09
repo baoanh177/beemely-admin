@@ -13,7 +13,7 @@ import React from "react";
 import { object, string } from "yup";
 
 interface IBrandFormProps {
-  FormikRefType?: React.MutableRefObject<FormikProps<IBrand> | null>;
+  FormikRefType?: React.MutableRefObject<FormikProps<Omit<IBrand, "productCount">> | null>;
   type: "create" | "update";
   brand?: IBrand;
   isFormLoading?: boolean;
@@ -22,7 +22,7 @@ interface IBrandFormProps {
 const BrandForm: React.FC<IBrandFormProps> = ({ FormikRefType, type, brand, isFormLoading = false }) => {
   const { dispatch } = useArchive<IBrandInitialState>("brand");
 
-  const initialValues: IBrand = {
+  const initialValues: Omit<IBrand, "productCount"> = {
     name: brand?.name ?? "",
     image: brand?.image ?? "",
     description: brand?.description ?? "",

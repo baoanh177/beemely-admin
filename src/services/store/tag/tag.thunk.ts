@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { ITag } from "./tag.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<ITag, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<ITag, "id" | "productCount">]: string } = {
   name: "Tên tag",
   description: "Mô tả",
   image: "Hình ảnh",

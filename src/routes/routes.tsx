@@ -8,7 +8,6 @@ import Components from "@/pages/Components/Components";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import GoogleCallback from "@/pages/GoogleCallback/GoogleCallback";
 import Login from "@/pages/Login/Login";
-import Orders from "@/pages/Order/Orders/Orders";
 import { EPermissions } from "@/shared/enums/permissions";
 import { ReactNode } from "react";
 import { brandRoutes } from "./brand.route";
@@ -71,6 +70,7 @@ export const routes: IRoute[] = [
           },
           {
             path: "orders",
+            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ORDER]} />,
             pages: orderRoutes,
           },
           {

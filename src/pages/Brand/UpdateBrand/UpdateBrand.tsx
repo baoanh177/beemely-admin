@@ -14,7 +14,7 @@ import useAsyncEffect from "@/hooks/useAsyncEffect";
 
 const UpdateBrand = () => {
   const navigate = useNavigate();
-  const formikRef = useRef<FormikProps<IBrand>>(null);
+  const formikRef = useRef<FormikProps<Omit<IBrand, "productCount">>>(null);
   const { id } = useParams();
   const { state, dispatch } = useArchive<IBrandInitialState>("brand");
 

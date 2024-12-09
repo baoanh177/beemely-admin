@@ -4,7 +4,7 @@ import { IThunkPayload } from "@/shared/utils/shared-interfaces";
 import { IBrand } from "./brand.model";
 import { messageCreator } from "@/services/config/message-creator";
 
-const dataKeys: { [key in keyof Omit<IBrand, "id">]: string } = {
+const dataKeys: { [key in keyof Omit<IBrand, "id" | "productCount">]: string } = {
   name: "Tên brand",
   description: "Mô tả",
   image: "Hình ảnh",
