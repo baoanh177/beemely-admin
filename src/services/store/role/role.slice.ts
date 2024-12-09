@@ -27,6 +27,10 @@ const roleSlice = createSlice({
   initialState,
   reducers: {
     ...commonStaticReducers<IRoleInitialState>(),
+    clearActiveRole(state) {
+      state.activeRole = undefined
+    }
+    
   },
   extraReducers(builder) {
     // ? Get all roles
@@ -81,5 +85,5 @@ const roleSlice = createSlice({
   },
 });
 
-export const { resetStatus, setFilter } = roleSlice.actions;
+export const { resetStatus, setFilter, clearActiveRole } = roleSlice.actions;
 export { roleSlice };

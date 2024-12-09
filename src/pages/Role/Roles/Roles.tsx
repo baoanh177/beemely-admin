@@ -13,16 +13,8 @@ import { useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
-import { IDefaultSearchProps } from "@/components/search/DefaultSearch";
-import { IoSearchOutline } from "react-icons/io5";
-export const defaultSearch: IDefaultSearchProps = {
-  input: {
-    type: "text",
-    name: "123",
-    icon: IoSearchOutline,
-    placeholder: "Tim kiếm theo tên. . .",
-  },
-};
+import { CUSTOMER_NAME, SUPER_ADMIN_NAME } from "@/services/config/constants";
+
 const Roles = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
@@ -59,10 +51,19 @@ const Roles = () => {
 
   const data: ITableData[] = useMemo(() => {
     if (state.roles && state.roles.length > 0) {
-      return state.roles.map((role) => ({
-        key: role.id,
-        name: role.name,
-      }));
+      return state.roles.map((role) => {
+        const readOnlyRoles = [SUPER_ADMIN_NAME, CUSTOMER_NAME]
+        return {
+          key: role.id,
+          name: role.name,
+          actions: {
+            hides: {
+              [EButtonTypes.UPDATE]: readOnlyRoles.includes(role.name),
+              [EButtonTypes.DELETE]: readOnlyRoles.includes(role.name),
+            },
+          }
+        }
+      });
     }
     return [];
   }, [JSON.stringify(state.roles)]);
@@ -99,7 +100,6 @@ const Roles = () => {
         columns={columns}
         isTableLoading={getAllRolesLoading ?? true}
         data={data}
-        search={defaultSearch}
         buttons={buttons}
         pagination={{
           current: state.filter._page ?? 1,

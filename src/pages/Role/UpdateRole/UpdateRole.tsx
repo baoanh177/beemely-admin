@@ -11,6 +11,7 @@ import { FormikProps } from "formik";
 import useFetchStatus from "@/hooks/useFetchStatus";
 import { convertRolePermissions } from "../helpers/convertRolePermissions";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
+import { CUSTOMER_NAME, SUPER_ADMIN_NAME } from "@/services/config/constants";
 
 const UpdateRole = () => {
   const { id } = useParams();
@@ -35,6 +36,7 @@ const UpdateRole = () => {
   const { getRoleByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getRoleById({ param: id })), "getRoleByIdLoading"), [id]);
 
   useEffect(() => {
+    if([SUPER_ADMIN_NAME, CUSTOMER_NAME].includes(state.activeRole?.name!)) return navigate('/roles')
     if (state.activeRole && formikRef.current) {
       formikRef.current.setValues(convertRolePermissions(state.activeRole));
     }

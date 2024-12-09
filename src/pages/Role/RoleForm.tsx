@@ -16,6 +16,10 @@ import lodash from "lodash";
 import { Col, Row } from "antd";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import Label from "@/components/form/Label";
+import { useNavigate } from "react-router-dom";
+import { CUSTOMER_NAME, SUPER_ADMIN_NAME } from "@/services/config/constants";
+import useCleanup from "@/hooks/useCleanup";
+import { clearActiveRole } from "@/services/store/role/role.slice";
 
 interface IActiveRole extends Omit<IRole, "permissions"> {
   permissions: string[];
@@ -63,9 +67,18 @@ const RoleForm = ({ formikRef, type, role, isFormLoading = false }: IRoleFormPro
   useEffect(() => {
     setTreePermissions(getTreePermissions(state.permissions, state.modules));
   }, [state.permissions, state.modules]);
+  
+  useCleanup(() => {
+    dispatch(clearActiveRole())
+  })
+  
+  if (type === "update" && !isFormLoading && [SUPER_ADMIN_NAME, CUSTOMER_NAME].includes(role?.name ?? "")) {
+    return useNavigate()("/roles");
+  }
 
   return (
     <Formik
+      enableReinitialize
       innerRef={formikRef}
       initialValues={role ?? initialValues}
       validationSchema={validationSchema}
