@@ -15,18 +15,6 @@ const UserSettings = () => {
   const items: MenuProps["items"] = [
     {
       label: (
-        <Link to="/profile" className="flex items-center gap-1">
-          <AiOutlineUser className="text-xl" />
-          <span>Hồ sơ</span>
-        </Link>
-      ),
-      key: "0",
-    },
-    {
-      type: "divider",
-    },
-    {
-      label: (
         <div className="flex items-center gap-1 text-red-500">
           <IoLogOutOutline className="text-xl" />
           Đăng xuất

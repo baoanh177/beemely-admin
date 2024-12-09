@@ -13,7 +13,7 @@ const TopBar = () => {
     <div className="flex h-12 items-center justify-between gap-4 rounded-lg bg-white p-2 shadow-sm">
       {/* Search */}
       <div className="relative hidden w-full max-w-[658px] items-center gap-2 px-2 md:flex">
-        <div className="flex h-6 w-6 items-center justify-center py-2">
+        {/* <div className="flex h-6 w-6 items-center justify-center py-2">
           <IoSearchOutline className="text-[18px]" />
         </div>
         <input
@@ -21,7 +21,7 @@ const TopBar = () => {
           className="placeholder:text-m-medium text-m-medium peer h-full w-full bg-transparent py-2 placeholder-gray-400 outline-none"
           placeholder="Tìm kiếm..."
         />
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] w-0 bg-primary-400 transition-size duration-300 peer-focus:w-full"></div> */}
       </div>
 
       <HiOutlineBars3BottomLeft
@@ -31,9 +31,9 @@ const TopBar = () => {
 
       {/* Actions */}
       <div className="flex h-full shrink-0 items-center gap-4">
-        <IconHasBadge icon={<IoCalendarClearOutline className="text-[18px] text-gray-400" />} badge={0} />
+        {/* <IconHasBadge icon={<IoCalendarClearOutline className="text-[18px] text-gray-400" />} badge={0} />
         <IconHasBadge icon={<PiBell className="text-[18px] text-gray-400" />} badge={2} />
-        <IconHasBadge icon={<IoMailOutline className="text-[18px] text-gray-400" />} badge={2} />
+        <IconHasBadge icon={<IoMailOutline className="text-[18px] text-gray-400" />} badge={2} /> */}
         <div className="h-full border border-gray-50"></div>
         <UserSettings />
       </div>
