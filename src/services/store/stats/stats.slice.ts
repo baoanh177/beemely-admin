@@ -74,8 +74,8 @@ const statSlice = createSlice({
       state.users = payload.metaData;
     });
     // ? Delete review
-    builder.addCase(deleteReview.fulfilled, (state, { payload }: PayloadAction<IResponse<any>>) => {
-      state.reviews = state.reviews.filter((r) => r.id !== payload.metaData.docs.id);
+    builder.addCase(deleteReview.fulfilled, (state, { payload }) => {
+      state.reviews = state.reviews.filter((r) => r.id !== payload);
     });
     // ? Get total revenue
     builder.addCase(getTotalRevenue.fulfilled, (state, { payload }: PayloadAction<IResponse<IResponseTotalRevenue[]>>) => {

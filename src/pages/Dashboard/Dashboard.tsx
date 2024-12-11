@@ -13,8 +13,8 @@ const Dashboard: React.FC = () => {
     <>
       <Heading title="Bảng điều khiển" hasBreadcrumb />
       <OrderStatusCount />
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="col-span-1 lg:col-span-2">
           <RevenueChart />
         </div>
         <div className="flex flex-col gap-8">

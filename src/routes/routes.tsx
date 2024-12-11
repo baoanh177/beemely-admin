@@ -27,7 +27,7 @@ import { accountRoutes } from "./account.route";
 import { productRoutes } from "./product.route";
 import { productTypeRoutes } from "./productType.route";
 import { flagPageRoutes } from "./flagPage.route";
-import { categoryRoutes } from "./category.route";
+// import { categoryRoutes } from "./category.route";
 import { bannerRoutes } from "./banner.route";
 import { shippingMethodRoutes } from "./shippingMethod.route";
 import { genderRoutes } from "./gender.route";
@@ -82,11 +82,11 @@ export const routes: IRoute[] = [
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_ROLE]} />,
             pages: roleRoutes,
           },
-          {
-            path: "categories",
-            middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_CATEGORY]} />,
-            pages: categoryRoutes,
-          },
+          // {
+          //   path: "categories",
+          //   middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_CATEGORY]} />,
+          //   pages: categoryRoutes,
+          // },
           {
             path: "tags",
             middleware: () => <PermissionMiddleware requiredPermissions={[EPermissions.READ_PERMISSION]} />,

@@ -75,8 +75,8 @@ const Products = () => {
           productBody: product,
           enableDelete: product.enableDelete,
           variantsBody: product.variants.map((v) => {
-            minPrice = Math.min(v.discountPrice, minPrice);
-            maxPrice = Math.max(v.discountPrice, maxPrice);
+            minPrice = v.discountPrice && v.discountPrice !== 0 ? Math.min(v.discountPrice, minPrice) : Math.min(v.price, minPrice);
+            maxPrice = v.discountPrice && v.discountPrice !== 0 ? Math.max(v.discountPrice, maxPrice) : Math.max(v.price, maxPrice);
             if (minPrice === maxPrice) {
               return { minPrice: 0, maxPrice };
             }

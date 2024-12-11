@@ -80,6 +80,7 @@ const TopColor = () => {
           style={{ width: 120 }}
           onChange={handleChange}
           options={[
+            { value: "all_time", label: "Tất cả thời gian" },
             { value: "today", label: "Hôm nay" },
             { value: "yesterday", label: "Hôm qua" },
             { value: "this_week", label: "Tuần này" },
@@ -88,7 +89,6 @@ const TopColor = () => {
             { value: "last_month", label: "Tháng trước" },
             { value: "this_year", label: "Năm nay" },
             { value: "last_year", label: "Năm trước" },
-            { value: "all_time", label: "Tất cả thời gian" },
           ]}
         />
       </div>
