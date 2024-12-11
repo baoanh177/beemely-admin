@@ -59,7 +59,7 @@ export const getMostPurchasedUser = createAsyncThunk("stats/most-orders", async 
 export const deleteReview = createAsyncThunk("review/delete-reviews", async (payload: IThunkPayload, { rejectWithValue }) => {
   try {
     const { response, data } = await client.delete<any[]>("/api/client/reviews/admin", payload);
-    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : data;
+    return response.status >= 400 ? rejectWithValue(messageCreator(data, dataKeys)) : payload.param;
   } catch (error: any) {
     return rejectWithValue(messageCreator(error.response.data, dataKeys));
   }

@@ -83,12 +83,12 @@ export const menuItems: IMenuItem[] = [
         path: "labels",
         permissions: EPermissions.READ_LABEL,
       },
-      {
-        id: "3.5",
-        label: "Danh mục",
-        path: "categories",
-        permissions: EPermissions.READ_CATEGORY,
-      },
+      // {
+      //   id: "3.5",
+      //   label: "Danh mục",
+      //   path: "categories",
+      //   permissions: EPermissions.READ_CATEGORY,
+      // },
       {
         id: "3.6",
         label: "Màu sắc",
@@ -154,7 +154,7 @@ export const menuItems: IMenuItem[] = [
         id: "4.4",
         label: "Đơn hàng",
         path: "orders",
-        // permissions: EPermissions.READ_ORDER,
+        permissions: EPermissions.READ_ORDER,
       },
       {
         id: "4.5",

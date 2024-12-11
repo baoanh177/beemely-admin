@@ -57,12 +57,14 @@ const LatestReviewsStats = () => {
       title: " Người dùng",
       render: (user: any) => (
         <div className="flex flex-row items-center justify-start gap-2">
-          <Avatar src={user?.avatar_url} />
+          <div className="shrink-0">
+            <Avatar src={user?.avatar_url} />
+          </div>
           <span
             onClick={() => {
               navigate(`/accounts/detail/${user.id}`);
             }}
-            className="flex cursor-pointer items-center justify-center gap-1"
+            className="text-medium-sm flex cursor-pointer items-center justify-center gap-1 text-nowrap text-xs"
           >
             {user?.full_name}
           </span>

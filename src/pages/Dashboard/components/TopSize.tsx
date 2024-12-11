@@ -6,6 +6,7 @@ import { getMostPurchasedSize } from "@/services/store/stats/stats.thunk";
 import { Pie } from "@ant-design/plots";
 import { Card, Select } from "antd";
 import { useEffect, useState } from "react";
+
 type TDateTypeQuery = "today" | "yesterday" | "this_week" | "last_week" | "this_month" | "last_month" | "this_year" | "last_year" | "all_time";
 
 const TopSize = () => {
@@ -13,7 +14,8 @@ const TopSize = () => {
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
 
   useAsyncEffect(
-    (async) => async(dispatch(getMostPurchasedSize({ query: { _pagination: false, ...state.filter } })), "getMostPurchasedColor"),
+    (async) =>
+      async(dispatch(getMostPurchasedSize({ query: { _pagination: false, ...state.filter, period: dateType } })), "getMostPurchasedColor"),
     [JSON.stringify(state.filter), dateType],
   );
   const data = state.sizes
@@ -75,6 +77,7 @@ const TopSize = () => {
           style={{ width: 120 }}
           onChange={handleChange}
           options={[
+            { value: "all_time", label: "Tất cả thời gian" },
             { value: "today", label: "Hôm nay" },
             { value: "yesterday", label: "Hôm qua" },
             { value: "this_week", label: "Tuần này" },
@@ -83,7 +86,6 @@ const TopSize = () => {
             { value: "last_month", label: "Tháng trước" },
             { value: "this_year", label: "Năm nay" },
             { value: "last_year", label: "Năm trước" },
-            { value: "all_time", label: "Tất cả thời gian" },
           ]}
         />
       </div>
