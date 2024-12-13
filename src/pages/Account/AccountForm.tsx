@@ -45,10 +45,6 @@ const AccountForm = ({ formikRef, type, account, isFormLoading, isCustomer }: IA
       }}
     >
       {(formikData) => {
-        let showAddressGroup = true
-        if(type === "view" || isCustomer) {
-          showAddressGroup = formikData.values.addresses.length !== 0
-        }
         return (
           <Row gutter={[24, 24]}>
             <Col span={24}>
@@ -61,7 +57,7 @@ const AccountForm = ({ formikRef, type, account, isFormLoading, isCustomer }: IA
                     <AvatarGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
                   </Col>
                 </Row>
-                {showAddressGroup && (
+                {type !== "create" && (
                   <AddressGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />
                 )}
                 <OtherGroup {...{ ...formikData, isFormLoading, type, isCustomer }} />

@@ -14,10 +14,12 @@ import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { CUSTOMER_NAME, SUPER_ADMIN_NAME } from "@/services/config/constants";
+import { IAuthInitialState } from "@/services/store/auth/auth.slice";
 
 const Roles = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useArchive<IRoleInitialState>("role");
+  const { state: { profile}} = useArchive<IAuthInitialState>("auth")
   const buttons: IGridButton[] = [
     {
       type: EButtonTypes.VIEW,
@@ -52,7 +54,7 @@ const Roles = () => {
   const data: ITableData[] = useMemo(() => {
     if (state.roles && state.roles.length > 0) {
       return state.roles.map((role) => {
-        const readOnlyRoles = [SUPER_ADMIN_NAME, CUSTOMER_NAME]
+        const readOnlyRoles = [SUPER_ADMIN_NAME, CUSTOMER_NAME, ...profile!.listNameRole]
         return {
           key: role.id,
           name: role.name,
@@ -66,7 +68,7 @@ const Roles = () => {
       });
     }
     return [];
-  }, [JSON.stringify(state.roles)]);
+  }, [JSON.stringify(state.roles), profile]);
 
   useFetchStatus({
     module: "role",

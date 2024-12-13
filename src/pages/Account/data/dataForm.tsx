@@ -1,5 +1,4 @@
 import { IRole } from "@/services/store/role/role.model";
-import { provinces } from "@/data/provinces";
 import { EActiveStatus } from "@/shared/enums/status";
 import { ITag } from "@/services/store/tag/tag.model";
 import { handleConvertTags } from "@/pages/Tag/helpers/convertTags";
@@ -26,42 +25,18 @@ export const getRoleOptions = (roles: IRole[]) => {
   return roles.filter((role) => role.name !== SUPER_ADMIN_NAME).map((role) => ({ label: role.name, value: role.id }));
 };
 
-export const getProvinceOptions = () => {
-  return provinces.map((province) => ({ value: province.idProvince, label: province.name }));
-};
-
-export const getDistrictOptions = (idProvince: string) => {
-  const activeProvince = provinces.find((province) => province.idProvince === idProvince);
-  return activeProvince ? activeProvince?.districts?.map((district) => ({ value: district.idDistrict, label: district.name })) : [];
-};
-
-export const getCommuneOptions = (idProvince: string, idDistrict: string) => {
-  const activeProvince = provinces.find((province) => province.idProvince === idProvince);
-  const activeDistrict = activeProvince?.districts.find((district) => district.idDistrict === idDistrict);
-  return activeDistrict ? activeDistrict.communes.map((commune) => ({ value: commune.idCommune, label: commune.name })) : [];
-};
-
 export const getTreeTagOptions = (tags: ITag[]) => {
-  // const convertTreeOptions = (tags: ITreeTag[]) => {
-  //   return tags.map(tag => {
-  //     return {
-  //       title: tag.id,
-  //       value: tag.id,
-  //       children: convertTreeOptions(tag.children)
-  //     }
-  //   })
-  // }
   return handleConvertTags(tags);
 };
 
 export const getInitialValues = (account?: IAccount): IAccountFormInitialValues => {
   const { fullName, email, gender, phone, avatarUrl, addresses, roles, status } = account ?? {};
   return {
-    full_name: fullName ?? "Bao Anh Test",
-    email: email ?? "baoanhtest@gmail.com",
-    gender: gender?.id ?? "Nam",
-    password: "baoanh1234",
-    phone: phone ?? "0987654321",
+    full_name: fullName ?? "",
+    email: email ?? "",
+    gender: gender?.id ?? "",
+    password: "",
+    phone: phone ?? "",
     avatar_url: avatarUrl ?? "https://res.cloudinary.com/dbju2ugir/image/upload/v1725547393/Beemely/t7e8v775uhm4togelakg.png",
     addresses: addresses ?? [],
     roles: roles?.map((role) => role.id) ?? ["66a793dc9b68efd4c2a8e58e"],
