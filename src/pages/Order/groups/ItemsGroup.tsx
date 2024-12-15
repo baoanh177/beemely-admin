@@ -42,7 +42,7 @@ const ItemsGroup = ({ items, order }: any) => {
       </div>
       <div className="mr-4 inline-flex flex-col items-end gap-2 font-[ps-Bold] text-[14px] font-medium">
         <p>
-          Tổng phụ: <span className="text-[#677085]">{order.regularTotalPrice?.toLocaleString()} VND</span>
+          Giá sản phẩm: <span className="text-[#677085]">{order.regularTotalPrice?.toLocaleString()} VND</span>
         </p>
         <p>
           Phí vận chuyển: <span className="text-[#677085]">{order.shippingFee.toLocaleString()} VND</span>

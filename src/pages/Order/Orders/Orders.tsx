@@ -9,11 +9,14 @@ import { IOrderInitialState, resetStatus, setFilter } from "@/services/store/ord
 import { getAllOrder } from "@/services/store/order/order.thunk";
 import { EPermissions } from "@/shared/enums/permissions";
 import { format } from "date-fns";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { GoDownload } from "react-icons/go";
 import { IoSearchOutline } from "react-icons/io5";
 import { getTableColumns } from "../utils/dataTable";
+import * as ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
+import { IOrder } from "@/services/store/order/order.model";
 import "./index.css";
 
 const Orders = () => {
@@ -96,6 +99,91 @@ const Orders = () => {
   }, [state.orders]);
 
   const tableColumns = getTableColumns(dispatch);
+
+  const exportToExcel = useCallback(
+    async (data: IOrder[]) => {
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Danh sách đơn hàng");
+
+      const columns = [
+        { header: "Mã đơn hàng", key: "uniqueId", width: 20 },
+        { header: "Tên khách hàng", key: "userName", width: 25 },
+        { header: "Email", key: "userEmail", width: 30 },
+        { header: "Số điện thoại", key: "phoneNumber", width: 20 },
+        { header: "Địa chỉ nhận hàng", key: "shippingAddress", width: 20 },
+        { header: "Trạng thái đơn hàng", key: "orderStatus", width: 25 },
+        { header: "Trạng thái thanh toán", key: "paymentStatus", width: 25 },
+        { header: "Tổng tiền sản phẩm", key: "regularTotalPrice", width: 20 },
+        { header: "Giảm giá áp dụng voucher", key: "discountPrice", width: 25 },
+        { header: "Phí vận chuyển", key: "shippingFee", width: 20 },
+        { header: "Tổng tiền", key: "totalPrice", width: 15 },
+        { header: "Ngày đặt hàng", key: "createdAt", width: 20 },
+      ];
+
+      // Đặt cột cho worksheet
+      worksheet.columns = columns;
+
+      // Định dạng header
+      worksheet.getRow(1).eachCell((cell) => {
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "FF4472C4" }, // Màu xanh dương
+        };
+        cell.font = {
+          color: { argb: "FFFFFFFF" }, // Chữ màu trắng
+          bold: true,
+        };
+        cell.alignment = {
+          vertical: "middle",
+          horizontal: "center",
+        };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+
+      // Thêm dữ liệu
+      const formattedData = data.map((item) => ({
+        ...item,
+        createdAt: format(item.createdAt as string, "yyyy-MM-dd"),
+        totalPrice: Number(item.totalPrice).toLocaleString("vi-VN") + " đ",
+        regularTotalPrice: Number(item.regularTotalPrice).toLocaleString("vi-VN") + " đ",
+      }));
+
+      // Thêm các dòng dữ liệu
+      worksheet.addRows(formattedData);
+
+      // Định dạng các ô dữ liệu
+      worksheet.eachRow((row, rowNumber) => {
+        if (rowNumber > 1) {
+          row.eachCell((cell) => {
+            cell.alignment = {
+              vertical: "middle",
+              horizontal: "left",
+              wrapText: true,
+            };
+            cell.border = {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              bottom: { style: "thin" },
+              right: { style: "thin" },
+            };
+          });
+        }
+      });
+
+      // Lưu file
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      saveAs(blob, `Danh_sach_don_hang_${format(new Date(), "yyyyMMdd")}.xlsx`);
+    },
+    [state.orders],
+  );
+
   return (
     <>
       <Heading
@@ -107,6 +195,7 @@ const Orders = () => {
             type: "ghost",
             icon: <GoDownload className="text-[18px]" />,
             permission: EPermissions.READ_ORDER,
+            onClick: () => exportToExcel(state.orders),
           },
           {
             text: "Tạo mới Đơn hàng",
