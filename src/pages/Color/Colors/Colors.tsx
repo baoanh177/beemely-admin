@@ -92,7 +92,7 @@ const Colors = () => {
     {
       type: EButtonTypes.DELETE,
       onClick(record) {
-        if (record.productCount === 0) dispatch(deleteColor({ param: record.key }));
+        dispatch(deleteColor({ param: record.key }));
       },
       permission: EPermissions.DELETE_COLOR,
     },

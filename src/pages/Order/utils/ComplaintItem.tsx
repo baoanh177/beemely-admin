@@ -3,7 +3,6 @@ import { Carousel, Image, Modal, Input, Dropdown } from "antd";
 import ComplaintStatusBadge from "./ComplaintStatusBadge";
 import { DownOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { message } from "antd";
 import { useState } from "react";
 
 interface ComplaintItemProps {
@@ -39,7 +38,7 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
           },
           {
             key: EComplaintStatus.COMPENSATE,
-            label: "Gửi bù hàng cho khách",
+            label: "Đổi sản phẩm cho khách",
             disabled: true,
           },
         ];
@@ -58,7 +57,7 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
           },
           {
             key: EComplaintStatus.COMPENSATE,
-            label: "Gửi bù hàng cho khách",
+            label: "Đổi sản phẩm cho khách",
             disabled: false,
           },
         ];
@@ -87,7 +86,6 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
         okButtonProps: { style: { backgroundColor: "#662E9B", borderColor: "#662E9B" } },
         onOk: () => {
           onUpdateStatus(id, status);
-          message.success(`Đã cập nhật trạng thái khiếu nại sang ${getStatusLabel(status)}`);
         },
         okText: "Xác nhận",
         cancelText: "Hủy",
@@ -98,7 +96,6 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
   const handleRejectConfirm = () => {
     if (complaint && currentStatus && rejectionReason.trim()) {
       onUpdateStatus(complaint.id!, currentStatus, rejectionReason);
-      message.success(`Đã cập nhật trạng thái khiếu nại sang ${getStatusLabel(currentStatus)}`);
       setIsRejectModalVisible(false);
     }
   };
@@ -109,7 +106,7 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
       [EComplaintStatus.PROCESSING]: "Đang xử lý",
       [EComplaintStatus.RESOLVED]: "Trả hàng và hoàn tiền",
       [EComplaintStatus.REJECTED]: "Đã hủy",
-      [EComplaintStatus.COMPENSATE]: "Gửi bù hàng",
+      [EComplaintStatus.COMPENSATE]: "Đang đổi hàng mới cho khách",
     };
     //@ts-ignore
     return statusLabels[status] || status;

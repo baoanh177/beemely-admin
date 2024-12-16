@@ -6,7 +6,7 @@ export const COMPLAINT_STATUS_CONVERT: Record<EComplaintStatus, { text: string; 
   PROCESSING: { text: "Đang xử lý", colorClass: "bg-blue-400 text-blue-700" },
   RESOLVED: { text: "Đã xử lý", colorClass: "bg-green-400 text-green-700" },
   REJECTED: { text: "Bị từ chối", colorClass: "bg-red-400 text-red-600" },
-  WITHDRAWN: { text: "Người dùng thu hồi khiếu nại", colorClass: "bg-gray-400 text-gray-700" },
+  WITHDRAWN: { text: "Người dùng thu hồi", colorClass: "bg-gray-400 text-gray-700" },
   COMPENSATE: { text: "Đã xử lý", colorClass: "bg-green-400 text-green-700" },
 };
 

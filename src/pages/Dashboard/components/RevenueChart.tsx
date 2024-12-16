@@ -5,6 +5,7 @@ import useAsyncEffect from "@/hooks/useAsyncEffect";
 import { IStatsInitialState } from "@/services/store/stats/stats.slice";
 import { useArchive } from "@/hooks/useArchive";
 import { getTotalRevenue } from "@/services/store/stats/stats.thunk";
+import { formatPrice } from "@/utils/curency";
 
 type TDateTypeQuery = "day" | "month" | "year";
 
@@ -29,7 +30,10 @@ const RevenueChart: React.FC = () => {
     },
     meta: {
       date: { alias: dateType === "day" ? `Ngày` : dateType === "month" ? "Tháng" : "Năm" },
-      totalRevenue: { alias: "Tổng doanh thu" },
+      totalRevenue: {
+        alias: "Tổng doanh thu",
+        formatter: (value: number) => formatPrice(value),
+      },
     },
   };
 

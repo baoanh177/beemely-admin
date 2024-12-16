@@ -77,7 +77,7 @@ const productTypeSlice = createSlice({
       })
       .addCase(deleteProductType.rejected, (state, { payload }: PayloadAction<any>) => {
         state.status = EFetchStatus.REJECTED;
-        state.message = payload.message;
+        state.message = payload.errors.message || "Không thể xóa loại sản phẩm này";
       });
   },
 });
