@@ -54,6 +54,7 @@ const CreateRole = () => {
           },
         ]}
       />
+      {/* @ts-ignore */}
       <RoleForm formikRef={formikRef} type="create" />
     </>
   );

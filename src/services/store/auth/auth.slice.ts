@@ -53,8 +53,8 @@ const authSlice = createSlice({
         state.loginTime = new Date().getTime() / 1000;
         state.status = EFetchStatus.FULFILLED;
       })
-      .addCase(login.rejected, (state, { payload }: PayloadAction<any>) => {
-        state.message = 'Đăng nhập thất bại';
+      .addCase(login.rejected, (state) => {
+        state.message = "Đăng nhập thất bại";
         state.status = EFetchStatus.REJECTED;
       });
     // ? Logout

@@ -19,8 +19,8 @@ const CONVERT_STATUS: Record<EStatusOrder, string> = {
   returning: "Đang hoàn trả",
   returned: "Trả hàng hoàn tiền",
   denied_return: "Từ chối khiếu nại",
-  compensating: "Đang đổi hàng mới cho khách",
-  compensated: "Đã đổi hàng mới cho khách",
+  compensating: "Đang đổi hàng mới",
+  compensated: "Đã đổi hàng mới",
 };
 
 const OrderStatusBadge: React.FC<OrderStatusBadgeProps> = ({ status, color, disabled = false }) => {

@@ -106,7 +106,7 @@ const ComplaintItem = ({ complaint, onUpdateStatus }: ComplaintItemProps) => {
       [EComplaintStatus.PROCESSING]: "Đang xử lý",
       [EComplaintStatus.RESOLVED]: "Trả hàng và hoàn tiền",
       [EComplaintStatus.REJECTED]: "Đã hủy",
-      [EComplaintStatus.COMPENSATE]: "Đang đổi hàng mới cho khách",
+      [EComplaintStatus.COMPENSATE]: "Đang đổi hàng mới",
     };
     //@ts-ignore
     return statusLabels[status] || status;

@@ -55,5 +55,5 @@ export const COMPLAINT_STATUS_CONVERT: Record<EComplaintStatus, string> = {
   REJECTED: "Bị từ chối",
   WITHDRAWN: "Người dùng thu hồi",
   PROCESSING: "Đang chờ xử lý",
-  COMPENSATE: "Đang đổi hàng mới cho khách",
+  COMPENSATE: "Đang đổi hàng mới",
 };

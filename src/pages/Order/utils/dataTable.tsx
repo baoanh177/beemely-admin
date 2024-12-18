@@ -173,8 +173,8 @@ export const getTableColumns: any = (dispatch: any) => {
           delivered: "Đã giao hàng",
           returning: "Đang hoàn trả",
           returned: "Đã hoàn trả",
-          compensating: "Đang đổi hàng mới cho khách",
-          compensated: "Đã đổi hàng mới cho khách",
+          compensating: "Đang đổi hàng mới",
+          compensated: "Đã đổi hàng mới",
         };
 
         const generateMenuItems = () => {
