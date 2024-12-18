@@ -100,20 +100,20 @@ const Products = () => {
           <ImageTable imageSrc={record.thumbnail} />
           <div className="flex flex-col">
             <span className="truncate capitalize text-black-900"> {record.name}</span>
-            <span className="text-[10px] text-[#667085]"> {record.variants} Variants</span>
+            <span className="text-[10px] text-[#667085]"> {record.variants} biến thể</span>
           </div>
         </div>
       ),
     },
     { dataIndex: "brand", title: " Thương hiệu" },
     {
-      title: "Stock",
+      title: "Số Lượng",
       dataIndex: "stock",
       sorter: (a: any, b: any) => Number(a.stock) - Number(b.stock),
       render: (stock: number) => <span>{stock}</span>,
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "variantsBody",
       sorter: (a: any, b: any) =>
         Number(a.variantsBody[a.variantsBody.length - 1].maxPrice) - Number(b.variantsBody[b.variantsBody.length - 1].maxPrice),
@@ -128,7 +128,7 @@ const Products = () => {
       ),
     },
     {
-      title: "Status",
+      title: "Trạng Thái",
       dataIndex: "status",
       sorter: (a: any, b: any) => String(a.status).localeCompare(String(b.status)),
       render: (_: any, record: any) => {

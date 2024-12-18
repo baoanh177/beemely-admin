@@ -4,7 +4,6 @@ import { useArchive } from "@/hooks/useArchive";
 import { EFetchStatus } from "@/shared/enums/status";
 import { IAuthInitialState, resetStatus } from "@/services/store/auth/auth.slice";
 import { Formik } from "formik";
-import { Link } from "react-router-dom";
 import { object, string } from "yup";
 import { login } from "@/services/store/auth/auth.thunk";
 import useFetchStatus from "@/hooks/useFetchStatus";
@@ -88,12 +87,6 @@ const Login = () => {
                       placeholder="Nhập mật khẩu ở đây..."
                     />
                     <Button text="Đăng nhập" isLoading={state.status === EFetchStatus.PENDING} className="mt-3" />
-                    <Link
-                      to="/forgot-password"
-                      className="text-m-regular cursor-pointer text-end text-primary-700 transition-colors hover:text-primary-500"
-                    >
-                      Quên mật khẩu?
-                    </Link>
                   </form>
                 );
               }}

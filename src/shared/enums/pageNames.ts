@@ -21,5 +21,9 @@ export enum EPageNames {
   "order-statuses" = "Trạng thái đơn hàng",
   accounts = "Tài khoản",
   "flag-pages" = "Quản lý hiển thị",
+  "product-types" = "Loại sản phẩm",
   banners = "Quản lý mục hiển thị",
+  tags = "Thẻ",
+  labels = "Nhãn",
+  genders = "Giới tính sản phẩm",
 }
