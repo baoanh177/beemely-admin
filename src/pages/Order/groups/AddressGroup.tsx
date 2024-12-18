@@ -1,5 +1,6 @@
 import imgPayos from "@/assets/images/Payos Logo.svg";
 import imgVnPay from "@/assets/images/vnpay.webp";
+import codImage from "@/assets/images/cod-logo.svg";
 import StatusBadge from "@/components/common/StatusBadge";
 import FormGroup from "@/components/form/FormGroup";
 import { Image } from "antd";
@@ -24,11 +25,13 @@ const AddressGroup = ({ order }: any) => {
         <div className="flex flex-row items-center justify-start gap-2">
           {order.paymentType === "payos" ? (
             <Image width={100} height={40} preview={false} src={imgPayos} />
+          ) : order.paymentType === "cod" ? (
+            <Image width={50} height={50} preview={false} src={codImage} />
           ) : (
             <Image width={90} height={20} preview={false} src={imgVnPay} />
-          )}{" "}
+          )}
           {order.paymentStatus === "pending" ? (
-            <StatusBadge text={"Chờ xác nhận"} color="yellow" />
+            <StatusBadge text={"Chờ thanh toán"} color="yellow" />
           ) : order.paymentStatus === "completed" ? (
             <StatusBadge text={"Đã hoàn thành"} color="green-capital" />
           ) : (

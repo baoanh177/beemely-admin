@@ -10,6 +10,7 @@ import { checkPermission } from "@/utils/checkPermission";
 import { GoLock, GoUnlock } from "react-icons/go";
 import { EActiveStatus } from "@/shared/enums/status";
 import { IoWarningOutline } from "react-icons/io5";
+import clsx from "clsx";
 
 interface IGridButtonsProps {
   buttons: IGridButton[];
@@ -94,9 +95,9 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
           case EButtonTypes.DELETE:
             return (
               canDisplay && (
-                <Tooltip title="Xóa" key={index}>
+                <Tooltip title={canDelete ? "Xóa" : "Không thể xóa"} key={index}>
                   <IoTrashBinOutline
-                    className="cursor-pointer text-xl text-red-500"
+                    className={clsx("cursor-pointer text-xl", canDelete ? "text-red-500" : "text-gray-300")}
                     onClick={() =>
                       confirm({
                         title: canDelete ? "Xóa bản ghi?" : "Không thể xóa!",

@@ -31,7 +31,7 @@ const DetailRole = () => {
           },
         ]}
       />
-
+      {/* @ts-ignore */}
       {state.activeRole && <RoleForm type="view" isFormLoading={getRoleByIdLoading ?? true} role={convertRolePermissions(state.activeRole)} />}
     </>
   );

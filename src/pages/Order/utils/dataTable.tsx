@@ -5,7 +5,7 @@ import { getAllOrder, updateOrder } from "@/services/store/order/order.thunk";
 import { EButtonTypes } from "@/shared/enums/button";
 import { EPermissions } from "@/shared/enums/permissions";
 import { IGridButton } from "@/shared/utils/shared-interfaces";
-import { Avatar, Button, Dropdown, message, Modal } from "antd";
+import { Avatar, Button, Dropdown, Image, message, Modal } from "antd";
 import { IoEyeOutline } from "react-icons/io5";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import ComplaintItem from "./ComplaintItem";
@@ -18,6 +18,9 @@ import ComplaintStatusBadge from "./ComplaintStatusBadge";
 import OrderStatusBadge from "../groups/OrderStatusBadge";
 import { RiEditBoxLine } from "react-icons/ri";
 import { IOrderInitialState } from "@/services/store/order/order.slice";
+import imgPayos from "@/assets/images/Payos Logo.svg";
+import imgVnPay from "@/assets/images/vnpay.webp";
+import codImage from "@/assets/images/cod-logo.svg";
 
 const { confirm, destroyAll } = Modal;
 export const getTableColumns: any = (dispatch: any) => {
@@ -35,13 +38,15 @@ export const getTableColumns: any = (dispatch: any) => {
             reject_reason: reason,
           },
         }),
-      ).then(() => {
-        message.success("Cập nhật trạng thái khiếu nại thành công!");
-        destroyAll();
-      });
+      ).unwrap();
+      message.success("Cập nhật trạng thái khiếu nại thành công!");
       await orderDispatch(getAllOrder({}));
-    } catch (error) {
-      message.error("Cập nhật trạng thái khiếu nại thất bại!");
+      destroyAll();
+    } catch (error: any) {
+      const errorMessage = error.errors.message || "Cập nhật trạng thái khiếu nại thất bại!";
+      message.error(errorMessage);
+      await orderDispatch(getAllOrder({}));
+      destroyAll();
     }
   };
 
@@ -89,6 +94,21 @@ export const getTableColumns: any = (dispatch: any) => {
       render: (status: EPaymentStatus) => <PaymentStatusBadge status={status} text={status} />,
     },
     {
+      title: "Phương thức thanh toán",
+      dataIndex: "paymentType",
+      render: (paymentType: string) => (
+        <div className="flex justify-center">
+          {paymentType === "payos" ? (
+            <Image width={90} height={30} preview={false} src={imgPayos} />
+          ) : paymentType === "cod" ? (
+            <Image width={90} height={90} preview={false} src={codImage} />
+          ) : (
+            <Image width={60} height={16} preview={false} src={imgVnPay} />
+          )}
+        </div>
+      ),
+    },
+    {
       title: "Trạng thái đơn hàng",
       dataIndex: "orderStatus",
       render: (status: EStatusOrder) => <OrderStatusBadge status={status} color={status} />,
@@ -130,6 +150,7 @@ export const getTableColumns: any = (dispatch: any) => {
       render: (_: any, record: IOrder) => {
         const isDisabled = (status: EStatusOrder) => {
           const currentStatus = record.orderStatus;
+
           //@ts-ignore
           const allowedTransitions: Record<EStatusOrder, string[]> = {
             pending: ["processing"],
@@ -152,12 +173,12 @@ export const getTableColumns: any = (dispatch: any) => {
           delivered: "Đã giao hàng",
           returning: "Đang hoàn trả",
           returned: "Đã hoàn trả",
-          compensating: "Gửi bù hàng",
-          compensated: "Đã gửi bù hàng",
+          compensating: "Đang đổi hàng mới",
+          compensated: "Đã đổi hàng mới",
         };
 
         const generateMenuItems = () => {
-          if (record.paymentStatus !== "completed") {
+          if (record.paymentStatus !== "completed" && record.paymentType !== "cod") {
             return [
               {
                 key: record.orderStatus,

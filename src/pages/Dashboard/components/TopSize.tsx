@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 type TDateTypeQuery = "today" | "yesterday" | "this_week" | "last_week" | "this_month" | "last_month" | "this_year" | "last_year" | "all_time";
 
 const TopSize = () => {
-  const [dateType, setDateType] = useState<TDateTypeQuery>("this_week");
+  const [dateType, setDateType] = useState<TDateTypeQuery>("all_time");
   const { state, dispatch } = useArchive<IStatsInitialState>("stats");
 
   useAsyncEffect(

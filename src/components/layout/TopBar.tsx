@@ -1,7 +1,4 @@
-import { IoCalendarClearOutline, IoMailOutline, IoSearchOutline } from "react-icons/io5";
 import UserSettings from "./UserSettings";
-import IconHasBadge from "@/components/common/IconHasBadge";
-import { PiBell } from "react-icons/pi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/services/store";

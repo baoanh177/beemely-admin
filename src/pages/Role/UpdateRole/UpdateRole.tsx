@@ -36,7 +36,7 @@ const UpdateRole = () => {
   const { getRoleByIdLoading } = useAsyncEffect((async) => id && async(dispatch(getRoleById({ param: id })), "getRoleByIdLoading"), [id]);
 
   useEffect(() => {
-    if([SUPER_ADMIN_NAME, CUSTOMER_NAME].includes(state.activeRole?.name!)) return navigate('/roles')
+    if ([SUPER_ADMIN_NAME, CUSTOMER_NAME].includes(state.activeRole?.name!)) return navigate("/roles");
     if (state.activeRole && formikRef.current) {
       formikRef.current.setValues(convertRolePermissions(state.activeRole));
     }
@@ -67,6 +67,7 @@ const UpdateRole = () => {
         ]}
       />
       {state.activeRole && (
+        //@ts-ignore
         <RoleForm
           type="update"
           isFormLoading={getRoleByIdLoading ?? true}

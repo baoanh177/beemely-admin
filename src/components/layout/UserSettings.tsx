@@ -1,7 +1,5 @@
 import { FaCaretDown } from "react-icons/fa";
 import { Dropdown, MenuProps, Modal } from "antd";
-import { Link } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
 import { IoLogOutOutline, IoWarning } from "react-icons/io5";
 import { useArchive } from "@/hooks/useArchive";
 import { logout } from "@/services/store/auth/auth.thunk";
