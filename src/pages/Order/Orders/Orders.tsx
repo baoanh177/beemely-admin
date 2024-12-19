@@ -9,7 +9,7 @@ import { IOrderInitialState, resetStatus, setFilter } from "@/services/store/ord
 import { getAllOrder } from "@/services/store/order/order.thunk";
 import { EPermissions } from "@/shared/enums/permissions";
 import { format } from "date-fns";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { GoDownload } from "react-icons/go";
 import { IoSearchOutline } from "react-icons/io5";
@@ -184,6 +184,15 @@ const Orders = () => {
     [state.orders],
   );
 
+  useEffect(() => {
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible") {
+        await dispatch(getAllOrder({ query: { _pagination: false, ...state.filter } }));
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
   return (
     <>
       <Heading
