@@ -44,7 +44,11 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     name: string().required("Vui lòng nhập tên mã giảm giá"),
     code: string().required("Vui lòng nhập mã giảm giá"),
     maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
-    discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
+    discount: number().when("discountTypes", {
+      is: "percentage",
+      then: () => number().min(1, "Mức giảm giá phải lớn hơn 0").max(50, "Mức giảm giá không được vượt quá 50%"),
+      otherwise: () => number().min(1, "Mức giảm giá phải lớn hơn 0"),
+    }),
     minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
     maxReduce: yup.mixed().when("discountTypes", {
       is: "percentage",
@@ -63,7 +67,11 @@ const VoucherForm = ({ formikRef, type, voucher, isFormLoading = false }: IVouch
     name: string().required("Vui lòng nhập tên mã giảm giá"),
     code: string().required("Vui lòng nhập mã giảm giá"),
     maxUsage: number().min(1, "Số lần sử dụng tối đa phải lớn hơn 0"),
-    discount: number().min(1, "Mức giảm giá phải lớn hơn 0"),
+    discount: number().when("discountTypes", {
+      is: "percentage",
+      then: () => number().min(1, "Mức giảm giá phải lớn hơn 0").max(50, "Mức giảm giá không được vượt quá 50%"),
+      otherwise: () => number().min(1, "Mức giảm giá phải lớn hơn 0"),
+    }),
     minimumOrderPrice: number().min(1, "Giá trị đơn hàng tối thiểu phải lớn hơn 0"),
     maxReduce: yup.mixed().when("discountTypes", {
       is: "percentage",

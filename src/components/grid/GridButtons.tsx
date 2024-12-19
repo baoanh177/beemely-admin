@@ -27,6 +27,7 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
       {buttons.map((button, index) => {
         let canAccess = true;
         let canDelete = true;
+        let canUpdate = true;
         if (button.permission) {
           canAccess = checkPermission(state.profile?.listNamePermission, button.permission);
         }
@@ -36,6 +37,7 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
         }
         if (record.orderCount && record.orderCount > 0) {
           canDelete = false;
+          canUpdate = false;
         }
 
         if (record.enableDelete !== undefined && record.enableDelete !== null && record.enableDelete === false) {
@@ -86,7 +88,8 @@ const GridButtons = ({ buttons, record, hides }: IGridButtonsProps) => {
             );
           case EButtonTypes.UPDATE:
             return (
-              canDisplay && (
+              canDisplay &&
+              canUpdate && (
                 <Tooltip title="Cập nhật" key={index}>
                   <HiOutlinePencil className="cursor-pointer text-xl text-yellow-500" onClick={() => button.onClick(record)} />
                 </Tooltip>
